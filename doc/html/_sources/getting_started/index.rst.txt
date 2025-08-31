@@ -1,0 +1,31 @@
+.. _setup-guide:
+
+***************
+Getting started
+***************
+
+This section explains how to install the MFiX package on Linux, Windows,
+or MacOS, using the Miniforge package system. There are three steps overall
+to the MFiX installation process:
+
+  #. Create an account at https://mfix.netl.doe.gov
+  #. Download and install Miniforge
+  #. Install MFiX, using Miniforge's "conda" installer
+
+Step 3 requires registration and a login account. MFiX is an open-source
+multiphase flow solver and is free to download and use. A one-time no-cost
+registration is required prior to downloading the software. To register, go to
+https://mfix.netl.doe.gov/register and submit your account information. Your
+application will be manually reviewed and accepted, so please allow for 2-3
+business days for your registration to be processed. You will receive a
+confirmation email when you can login.
+
+
+For further details, see the install section for your platform.
+
+.. toctree::
+    :maxdepth: 1
+
+    Install Linux <install-linux>
+    Install MacOS <install-macos>
+    Install Windows <install-windows>

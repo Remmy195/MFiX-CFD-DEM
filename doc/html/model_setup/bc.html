@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.9. Boundary conditions &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.10. Point sources" href="point_sources.html" />
+    <link rel="prev" title="4.8. Initial conditions" href="ic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.9.  Boundary conditions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-boundary-condition-region">4.9.1. Creating a Boundary Condition Region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-fluid-phase-boundary-values">4.9.2. Setting Fluid Phase Boundary Values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.9. </span>Boundary conditions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/bc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="bc"></span><section id="boundary-conditions">
+<h1><span class="section-number">4.9. </span>Boundary conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading">¶</a></h1>
+<p>Boundary conditions (BCs) are specified in the Boundary conditions task pane.</p>
+<section id="creating-a-boundary-condition-region">
+<h2><span class="section-number">4.9.1. </span>Creating a Boundary Condition Region<a class="headerlink" href="#creating-a-boundary-condition-region" title="Link to this heading">¶</a></h2>
+<p>To define a boundary condition, there must be a region already defined in the
+<a class="reference internal" href="regions.html#regions"><span class="std std-ref">Regions Pane</span></a>.</p>
+<p>Boundary conditions are specified over rectangular regions.</p>
+<p><strong>Valid BC Regions</strong></p>
+<ul class="simple">
+<li><p>Box regions</p></li>
+<li><p>Planes (along the boundaries of the MFiX box, or along the boundaries of a Box region)</p></li>
+<li><p>STL regions</p></li>
+</ul>
+<p><strong>Invalid BC Regions</strong></p>
+<ul class="simple">
+<li><p>Any region already used by another BC</p></li>
+<li><p>Point regions</p></li>
+</ul>
+</section>
+<section id="setting-fluid-phase-boundary-values">
+<h2><span class="section-number">4.9.2. </span>Setting Fluid Phase Boundary Values<a class="headerlink" href="#setting-fluid-phase-boundary-values" title="Link to this heading">¶</a></h2>
+<p><strong>Volume Fraction</strong>
+The fluid phase volume fraction has a default value of one. If solids are
+defined and given volume fractions greater than zero, the fluid phase
+volume fraction is automatically calculated by subtracting the sum of the
+solids phase volume fractions from one.</p>
+<p><strong>Temperature</strong>
+The fluid phase temperature has a default value of 293.15K. Specification
+of the fluid temperature is required when the following models are used:</p>
+<ul class="simple">
+<li><p>Solving energy equations</p></li>
+<li><p>Fluid density mode is the Ideal Gas Law</p></li>
+<li><p>Fluid viscosity model is Sutherland’s Law</p></li>
+</ul>
+<p><strong>Pressure</strong>
+An initial pressure field may be specified. If none is provided, the fluid
+solver imposes a hydrostatic pressure drop across the domain if one or
+more pressure outflow boundary conditions is defined.</p>
+<p><strong>Velocity</strong>
+The fluid phase velocity field has a default value of zero.</p>
+<p><strong>Species Mass Fractions</strong>
+Species mass fractions must be defined for all components when solving
+the species transport equations. By default the species mass fraction
+of the last defined fluid species is set to one and all others are set
+to zero. The total of all species mass fractions must equal one.</p>
+<p><strong>Turbulence</strong>
+If solving the mixing length turbulence model, a mixing length scales must
+be defined for the whole domain.</p>
+<p>If solving the  k-ε turbulence model, initial values for the turbulent
+kinetic energy and turbulent dissipation must be provided.</p>
+<p><strong>Radiation Coefficient</strong>
+A radiation coefficient has a default value of zero, and can only be
+specified when solving the energy equations. The default value is
+strongly recommended.</p>
+<p><strong>Radiation Temperature</strong>
+The radiation temperature has a default value of 293.15K, and can only
+be specified when solving the energy equations. The default value is
+strongly recommended.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ic.html" class="btn btn-neutral float-left" title="4.8. Initial conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="point_sources.html" class="btn btn-neutral float-right" title="4.10. Point sources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

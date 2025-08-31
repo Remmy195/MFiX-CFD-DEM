@@ -1,0 +1,190 @@
+.. _keyframes:
+
+Keyframes
+=========
+
+A few simulation keywords can be controlled through keyframes. The current implementation (as of MFiX version 24.2) allows these select keywords to vary with time.
+
+The data is provided by the user in a csv file. The first column is the dependent variable (time), while the other columns represent the dependent variables (keywords). The first line of the csv file is the data header. This is a comma-separated list of short description (text) for each column. The lines below the header are the keyframe data. Each line represents a keyframe. It is a comma separated list of numerical data starting with the independent variable value, followed by eah dependent variable values. 
+
+Supported keywords
+__________________
+
+Current keywords that can be controlled by keyframe data are:
+
+
+-  **bc_u_g** : Inlet gas velocity in x-direction
+
+-  **bc_v_g** : Inlet gas velocity in y-direction
+
+-  **bc_w_g** : Inlet gas velocity in z-direction
+
+-  **bc_u_s** : Solids phase velocity in x-direction (TFM only)
+
+-  **bc_v_s** : Solids phase velocity in y-direction (TFM only)
+
+-  **bc_w_s** : Solids phase velocity in z-direction (TFM only)
+
+-  **bc_wall_vel** : Wall translationsl velocity in tangential direction (granular dem/sqp/gsp only)
+
+-  **bc_wall_omega** : Wall rotational velocity in tangential direction (granular dem/sqp/gsp only)
+
+-  **bc_wall_rot_center** : Wall rotation center coordinates (granular dem/sqp/gsp only) 
+
+-  **is_wall_vel** : Internal surface (moving STL) translationsl velocity in tangential direction (granular dem/sqp/gsp/pic only)
+
+-  **is_wall_omega** : Internal surface (moving STL) rotational velocity in tangential direction (granular dem/sqp/gsp/pic only)
+
+-  **is_wall_rot_center** : Internal surface (moving STL) rotation center coordinates (granular dem/sqp/gsp/pic only) 
+
+-  **des_rigid_motion_vel** : Particle translationsl velocity (dem/sqp/gsp only). Applies to solids phase m classified as ``des_rigid_motion(m) = .true.``
+
+-  **des_rigid_motion_omega** : Particle rotational velocity (dem/sqp/gsp only)
+
+-  **des_rigid_motion_rot_center** : Particle rotation center coordinates (dem/sqp/gsp only) 
+
+It is not necessary to know the names of the keywords when setting up the simulation in the GUI.  
+
+
+Setup the simulation without keyframes
+______________________________________
+
+Before using keyframe data, set up the simulation, including all solids phases, Boundary conditions, and Internal surfaces. When controlling the motion of a group of particles belonging to a solids phase, set ``des_rigid_motion(m) = .true.`` for that solids phase.
+
+
+Create the keyframe data file (csv file)
+________________________________________
+
+Create the file in any text editor (or in the GUI editor), making sure the header is defined and data is provided in each column. Separate each column by a comma.
+
+
+
+Add/Delete Keyframe data
+________________________
+
+To add a keyframe data file, navigate to the ``Keyframes`` pane from the Modeler View, and click the (+) button. A popup dialog will appear to select a csv data file. Navigate to the directory where the csv file is located and click 'Open'. This will copy the file into a subdirectory ``KF`` inside the project directory.
+
+
+Assign Keyframe data to keywords
+________________________________
+
+After loading the file, the list of columns will be displayed. The first column is the independent variable and is automatically assigned to the simulation time. This means the keyframe data is a function of time. Each additional column will be listed along with its header description. The settings depend on the type of control:
+
+
+- To control inlet velocity of a Mass Inlet BC:
+   - Select the dependent variable: 
+
+      - Fluid Velocity 
+      - Solids Velocity
+   - Select the Boundary from the list of defined BC regions
+   - Select the velocity component (x, y, or z)  
+
+- To control tangential velocity of a No-Slip-wall BC:
+   - Select the dependent variable: 
+
+      - Boundary wall velocity
+      - Boundary wall rotation center
+      - Boundary wall rotation speed
+   - Select the Boundary from the list of defined BC regions
+   - Select the component (x, y, or z)  
+  
+- To control the velocity of a movinf STL Internal Surface:
+   - Select the dependent variable: 
+
+      - Internal Surface wall velocity
+      - Internal Surface rotation center
+      - Internal Surface rotation speed
+   - Select the Internal Surface from the list of defined IS regions
+   - Select the component (x, y, or z)  
+
+- To control the motion of a group of particles:
+   - Select the dependent variable: 
+
+      - DES rigid motion velocity
+      - DES rigid motion rotation center
+      - DES rigid motion rotation speed
+   - Select the Solids phase particles belong to
+   - Select the component (x, y, or z)  
+
+
+The data can be plotted for each column by clicking the button ``Plot``.
+
+
+Interpolation
+_____________
+
+Data at a simulation time prior to the first keyframe will be assigned the value of the first keyframe. This is relevant is the first keyframe has a positive time value. 
+
+Data at a simulation tim epast the last keyframe will be assigned the value of the last keyframe.
+
+Data is interpolated between keyframes. Current supported interpolations are:
+
+   - Linear
+   - Step
+
+Global options
+______________
+
+When specifying rotational velocity, its unit can be set to the following values. This applies to all keyframe data:
+
+   - Rad/s (radians per second)
+   - Deg/s (Degrees per second)
+   - Rev/s (Revolutions per second)
+   - Rad/min (radians per minute)
+   - Deg/min (Degrees per minute)
+   - Rev/min (Revolutions per minute)
+
+
+Examples
+________
+
+Below is an example of a keyframe data file used in the pulsating fluidized bed (tfm) tutorial. The gas inlet velocity is alternatively turned on/off.
+
+.. code-block:: shell-session
+
+    "time (s)", "Inlet velocity (m/s)"
+    0.00, 2.00
+    0.25, 0.00
+    0.50, 2.00
+    0.75, 0.00
+    1.00, 2.00
+    1.25, 0.00
+    1.50, 2.00
+    2.00, 0.00
+
+
+.. figure:: /media/keyframe_pulsating_bed.png
+   :align: center
+   :alt: Pulsating inlet velocity
+
+   Plotting the pulsating inlet velocity keyframe data
+
+
+Users are encouraged to study the following examples to get more familiar with the keyframe data capability. The examples are ready-to-run simulations that can be loaded in the GUI from the Main menu > New Project.
+
+
+
+   - Pulsating fluidized bed
+      - Model: TFM
+      - Keyframe controls inlet gas velocity
+
+   - Rotating drum
+      - Model: DEM
+      - Keyframe controls wall tangential velocity (rotation around the z-axis)  
+      
+   - Conveyor
+      - Model: DEM
+      - Keyframe controls wall tangential velocity (translation)  
+
+   - Screwfeeder
+      - Model: DEM
+      - Keyframe controls rigid motion of a group of particles (rotation about x-axis)
+
+   - Mixer (DEM)
+      - Model: DEM
+      - Keyframe controls Internal Surface velocity (rotation about z-axis)
+
+   - Mixer (PIC)
+      - Model: PIC
+      - Keyframe controls Internal Surface velocity (rotation about z-axis)
+

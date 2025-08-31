@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.2. Geometry &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.3. Mesh" href="mesh.html" />
+    <link rel="prev" title="4.1. Model setup" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2.  Geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-geometry">4.2.1. Adding Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#procedural-shapes">4.2.2. Procedural shapes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cylinder">4.2.2.1. Cylinder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bend">4.2.2.2. Bend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cylinder-to-rectangle">4.2.2.3. Cylinder to rectangle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#body-of-revolution">4.2.2.4. Body of revolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#applying-filters">4.2.3. Applying Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wizards">4.2.4. Wizards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remove-copy">4.2.5. Remove &amp; Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boolean-operation">4.2.6. Boolean Operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.2. </span>Geometry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/geometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="geometry"></span><section id="id1">
+<h1><span class="section-number">4.2. </span>Geometry<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p>The Geometry pane is used to define the model geometry. This includes whether
+the model is 2D or 3D, and the overall domain extents (xmin, xmax, ymin, ymax,
+zmin, zmax). If there is complex geometry, the “Auto-size” button can
+automatically set the extents to surround the geometry.</p>
+<p>The geometry section provides tools for adding geometry objects (from STL files,
+or primitive elements), filters to transform geometry objects, and
+wizards to automate creating common complex geometries. Geometry objects can be
+copied, removed, or combined using Boolean operations. All the geometry
+operations are done using the <a class="reference external" href="https://vtk.org/">Visualization Toolkit (VTK)</a>’s library.</p>
+<p>Geometry toolbar icons:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a></p></td>
+<td><p>Add geometry to model</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/filter.svg"><img alt="Filter" src="../_images/filter.svg" style="width: 16px;" /></a></p></td>
+<td><p>Modify selected geometry with filter</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/wand.svg"><img alt="Wizard" src="../_images/wand.svg" style="width: 16px;" /></a></p></td>
+<td><p>Add geometry from wizard</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/remove.svg"><img alt="Remove" src="../_images/remove.svg" style="width: 16px;" /></a></p></td>
+<td><p>Remove the selected geometry</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/copy.svg"><img alt="Copy" src="../_images/copy.svg" style="width: 16px;" /></a></p></td>
+<td><p>Add duplicate of the selected geometry (copy/paste)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/union.svg"><img alt="Union" src="../_images/union.svg" style="width: 16px;" /></a></p></td>
+<td><p>Add union of two or more selected geometries</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/intersect.svg"><img alt="Intersect" src="../_images/intersect.svg" style="width: 16px;" /></a></p></td>
+<td><p>Add intersection of two or more selected geometries</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/difference.svg"><img alt="Difference" src="../_images/difference.svg" style="width: 16px;" /></a></p></td>
+<td><p>Add difference of two or more selected geometries</p></td>
+</tr>
+</tbody>
+</table>
+<p>In the geometry tree, the geometry object is displayed with the following icons:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Geometry Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/geometry.svg"><img alt="Geometry" src="../_images/geometry.svg" style="width: 16px;" /></a></p></td>
+<td><p>polydata</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/function.svg"><img alt="Function" src="../_images/function.svg" style="width: 16px;" /></a></p></td>
+<td><p>implicit</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/filter.svg"><img alt="Filter" src="../_images/filter.svg" style="width: 16px;" /></a></p></td>
+<td><p>filter</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/union.svg"><img alt="Union" src="../_images/union.svg" style="width: 16px;" /></a></p></td>
+<td><p>union</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/intersect.svg"><img alt="Intersect" src="../_images/intersect.svg" style="width: 16px;" /></a></p></td>
+<td><p>intersect</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/difference.svg"><img alt="Difference" src="../_images/difference.svg" style="width: 16px;" /></a></p></td>
+<td><p>difference</p></td>
+</tr>
+</tbody>
+</table>
+<section id="adding-geometry">
+<h2><span class="section-number">4.2.1. </span>Adding Geometry<a class="headerlink" href="#adding-geometry" title="Link to this heading">¶</a></h2>
+<p>To add a Geometry object, click on the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> (add) icon and select
+the geometry to add from the drop-down menu.</p>
+<p>There are two types of geometric objects supported in the GUI: implicit
+functions (quadrics), and objects defined by polydata (everything else: STL
+files, procedural shapes, primitives, parametrics, wizard geometry).</p>
+<p>The following geometric objects can be added:</p>
+<ul class="simple">
+<li><p>STL files (select a *.stl file from a file dialog)</p></li>
+<li><p>Procedural shapes (cylinder, bend, circle to rectangle, body of revolution)</p></li>
+<li><p>Implicit (Quadric) functions (sphere, box, cylinder, cone, quadric, superquadric)</p></li>
+<li><p>Primitives (sphere, box, cylinder, cone)</p></li>
+<li><p>Parametrics (torus, boy, conic spiral, etc.)</p></li>
+</ul>
+</section>
+<section id="procedural-shapes">
+<h2><span class="section-number">4.2.2. </span>Procedural shapes<a class="headerlink" href="#procedural-shapes" title="Link to this heading">¶</a></h2>
+<p>Procedural shapes were introduced in the 21.1 release. These are triangulated polydata objects
+that are defined by a series of parameters. They offer better control on the triangles quality
+than implicits or primitives.</p>
+<section id="cylinder">
+<h3><span class="section-number">4.2.2.1. </span>Cylinder<a class="headerlink" href="#cylinder" title="Link to this heading">¶</a></h3>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/cylinder_annotated.png"><img alt="Procedural cylinder" src="../_images/cylinder_annotated.png" style="width: 12cm;" />
+</a>
+</figure>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>Radius (R)</p></li>
+<li><p>Height (H)</p></li>
+<li><p>Number of divisions along the height</p></li>
+<li><p>Starting angle in the circumferential direction</p></li>
+<li><p>Ending angle in the circumferential direction</p></li>
+<li><p>Number of divisions along the circumferential direction</p></li>
+<li><p>Bottom cap</p></li>
+<li><p>Number of divisions in the bottom cap’s radial direction</p></li>
+<li><p>Top cap</p></li>
+<li><p>Number of divisions in the top cap’s radial direction</p></li>
+</ul>
+</dd>
+</dl>
+<p>The top and bottom caps are shaped like fans, i.e., they converge radially towards the center of the cap.
+Caps are not needed if the cylinder extends past the MFiX domain in the axial direction, when inlet/outlet
+boundary conditions are defined along the MFiX box (say at y=ymin and y=ymax for a vertical cylinder).</p>
+<p>It is recommended to include caps when combining shapes (union, intersection, difference) since the boolean
+operations are more robust with closed shapes.</p>
+</section>
+<section id="bend">
+<h3><span class="section-number">4.2.2.2. </span>Bend<a class="headerlink" href="#bend" title="Link to this heading">¶</a></h3>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/bend_annotated.png"><img alt="Procedural cylinder" src="../_images/bend_annotated.png" style="width: 12cm;" />
+</a>
+</figure>
+<dl class="simple">
+<dt>Front section:</dt><dd><ul class="simple">
+<li><p>Length (L <sub>f</sub>)</p></li>
+<li><p>Radius (R <sub>f</sub>)</p></li>
+<li><p>Number of divisions along the front section length</p></li>
+</ul>
+</dd>
+<dt>Back section:</dt><dd><ul class="simple">
+<li><p>Length (L <sub>b</sub>)</p></li>
+<li><p>Radius (R <sub>b</sub>)</p></li>
+<li><p>Number of divisions along the back section length</p></li>
+</ul>
+</dd>
+<dt>Bend section:</dt><dd><ul class="simple">
+<li><p>Major radius (R <sub>M</sub>)</p></li>
+<li><p>Minor radius (R <sub>m</sub>)</p></li>
+<li><p>Starting angle (<span class="math notranslate nohighlight">\({\theta}\)</span> <sub>f</sub>)</p></li>
+<li><p>Ending angle (<span class="math notranslate nohighlight">\({\theta}\)</span> <sub>b</sub>)</p></li>
+<li><p>Number of divisions in the angular direction</p></li>
+</ul>
+</dd>
+<dt>Circumference:</dt><dd><ul class="simple">
+<li><p>Starting angle in the circumferential direction</p></li>
+<li><p>Ending angle in the circumferential direction</p></li>
+<li><p>Number of divisions along the circumferential direction</p></li>
+</ul>
+</dd>
+<dt>Caps:</dt><dd><ul class="simple">
+<li><p>Bottom cap</p></li>
+<li><p>Number of divisions in the bottom cap’s radial direction</p></li>
+<li><p>Top cap</p></li>
+<li><p>Number of divisions in the top cap’s radial direction</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="cylinder-to-rectangle">
+<h3><span class="section-number">4.2.2.3. </span>Cylinder to rectangle<a class="headerlink" href="#cylinder-to-rectangle" title="Link to this heading">¶</a></h3>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/circle_to_rectangle.png"><img alt="Procedural circle to rectangle shape" src="../_images/circle_to_rectangle.png" style="width: 12cm;" />
+</a>
+</figure>
+<p>Distance: distance between circle and rectangle in z-direction (D)</p>
+<p>Resolution: number of divisions in the z-direction</p>
+<dl class="simple">
+<dt>Circle section:</dt><dd><ul class="simple">
+<li><p>Radius (R)</p></li>
+<li><p>Cap: option to fill the circle</p></li>
+<li><p>Resolution: Number of divisions along the cap radial direction</p></li>
+</ul>
+</dd>
+<dt>Rectangle section:</dt><dd><ul class="simple">
+<li><p>Width in x-direction (W)</p></li>
+<li><p>Resolution: number of divisions along the rectangle’s width</p></li>
+<li><p>Height in y-direction (H)</p></li>
+<li><p>Resolution: number of divisions along the rectangle’s height</p></li>
+<li><p>X Offset, Y Offset: location of the rectangle’s center (x0,y0)</p></li>
+<li><p>Cap: option to fill the rectangle</p></li>
+</ul>
+</dd>
+</dl>
+<p>Notes:</p>
+<ol class="arabic simple">
+<li><p>The cylinder’s center is located at (x=0,y=0,z=0).</p></li>
+<li><p>The number of divisions along the circle’s circumference is the sum of the number of divisions of the rectangle’s width and height.</p></li>
+</ol>
+</section>
+<section id="body-of-revolution">
+<h3><span class="section-number">4.2.2.4. </span>Body of revolution<a class="headerlink" href="#body-of-revolution" title="Link to this heading">¶</a></h3>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/body_of_revolution_3D.png"><img alt="Procedural body of revolution" src="../_images/body_of_revolution_3D.png" style="width: 12cm;" />
+</a>
+</figure>
+<p>The body of revolution shape revolves a profile (xy plane) around the z-axis.
+A series of line or arc segments is defined in a table. Click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> (plus sign) to add a segment and select either line or arc.</p>
+<p>Segments:</p>
+<dl class="simple">
+<dt>Line:</dt><dd><ul class="simple">
+<li><p>(X1, Y1): coordinates of the first point</p></li>
+<li><p>(X2, Y2): coordinates of the second point</p></li>
+<li><p>Div: Number of divisions along the segment</p></li>
+</ul>
+</dd>
+<dt>Arc</dt><dd><ul class="simple">
+<li><p>(X1, Y1): coordinates of the arc’s center</p></li>
+<li><p>R: radius</p></li>
+<li><p>Theta1: starting angle (degrees)</p></li>
+<li><p>Theta2: ending angle (degrees)</p></li>
+<li><p>Div: Number of divisions along the segment</p></li>
+</ul>
+</dd>
+</dl>
+<p>Revolution:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Starting angle (degrees)</p></li>
+<li><p>Ending angle (degrees)</p></li>
+<li><p>Resolution: Number of divisions along the circumferential direction</p></li>
+<li><p>Offset: offset in y-direction (per revolution)</p></li>
+</ul>
+</div></blockquote>
+<p>Notes:</p>
+<ol class="arabic simple">
+<li><p>See figure above for an example. The first and last segments are used to close the shape (bottom and top caps). Having a closed volume is preferred if the shape is used in boolean operation with another shape.</p></li>
+<li><p>For complex shapes, it may be useful to align the view in the xy plane, set the ending angle to a small value (say 5 degrees) and set the style to wire with a black color. This allows to get a better view of the profile (see figure below). Once the profile is properly defined, set the ending angle to 360 degrees to generate the full 3D shape.</p></li>
+</ol>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/body_of_revolution_profile.png"><img alt="Procedural body of revolution" src="../_images/body_of_revolution_profile.png" style="width: 12cm;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="applying-filters">
+<h2><span class="section-number">4.2.3. </span>Applying Filters<a class="headerlink" href="#applying-filters" title="Link to this heading">¶</a></h2>
+<p>To apply a filter to the selected geometry, select a filter from the Filter
+menu. The filter options can be edited in the parameter section. The following
+filters are included:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Filter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>vtk class</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>sample implicit</p></td>
+<td><p>converts an implicit function to polydata</p></td>
+<td><p>vtkSampleFunction</p></td>
+</tr>
+<tr class="row-odd"><td><p>transform</p></td>
+<td><p>rotate, scale, translate polydata</p></td>
+<td><p>vtkTransformPolyDataFilter</p></td>
+</tr>
+<tr class="row-even"><td><p>clean</p></td>
+<td><p>merge duplicate points and remove unused
+points and degenerate cells</p></td>
+<td><p>vtkCleanPolyData</p></td>
+</tr>
+<tr class="row-odd"><td><p>fill holes</p></td>
+<td><p>fill holes</p></td>
+<td><p>vtkFillHolesFilter</p></td>
+</tr>
+<tr class="row-even"><td><p>triangle</p></td>
+<td><p>make sure all polys are triangles</p></td>
+<td><p>vtkTriangleFilter</p></td>
+</tr>
+<tr class="row-odd"><td><p>decimate</p></td>
+<td><p>reduce the number of triangles</p></td>
+<td><p>vtkDecimatePro</p></td>
+</tr>
+<tr class="row-even"><td><p>quadric decimation</p></td>
+<td><p>reduce the number of triangles</p></td>
+<td><p>vtkQuadricDecimation</p></td>
+</tr>
+<tr class="row-odd"><td><p>quadric clustering</p></td>
+<td><p>reduce the number of triangles</p></td>
+<td><p>vtkQuadricClustering</p></td>
+</tr>
+<tr class="row-even"><td><p>linear subdivision</p></td>
+<td><p>subdivide based on a linear scheme</p></td>
+<td><p>vtkLinearSubdivisionFilter</p></td>
+</tr>
+<tr class="row-odd"><td><p>loop subdivision</p></td>
+<td><p>subdivide based on the Loop scheme</p></td>
+<td><p>vtkLoopSubdivisionFilter</p></td>
+</tr>
+<tr class="row-even"><td><p>butterfly subdivision</p></td>
+<td><p>subdivide based on 8-point butterfly scheme</p></td>
+<td><p>vtkButterflySubdivisionFilter</p></td>
+</tr>
+<tr class="row-odd"><td><p>smooth</p></td>
+<td><p>move points based on Laplacian smoothing</p></td>
+<td><p>vtkSmoothPolyDataFilter</p></td>
+</tr>
+<tr class="row-even"><td><p>windowed sinc</p></td>
+<td><p>move points based on a windowed sinc function
+interpolation kernel</p></td>
+<td><p>vtkWindowedSincPolyDataFilter</p></td>
+</tr>
+<tr class="row-odd"><td><p>reverse sense</p></td>
+<td><p>reverse order and/or normals of triangles</p></td>
+<td><p>vtkReverseSense</p></td>
+</tr>
+</tbody>
+</table>
+<p>Refer to the <a class="reference external" href="https://vtk.org/documentation">VTK website</a> for details.</p>
+</section>
+<section id="wizards">
+<h2><span class="section-number">4.2.4. </span>Wizards<a class="headerlink" href="#wizards" title="Link to this heading">¶</a></h2>
+<p>Three wizards are available to more easily create common multiphase flow
+geometries: cyclones, reactors, and hoppers. A special “distributed”
+wizard is used to distribute one geometry inside another geometry with random,
+cubic, or body centered cubic positions. Random rotations can also be applied
+with the wizard.</p>
+<p><a class="reference internal" href="../_images/cyclone_sketch.png"><img alt="Cyclone" src="../_images/cyclone_sketch.png" style="width: 16px;" /></a> <a class="reference internal" href="../_images/hopper_sketch.png"><img alt="Hopper" src="../_images/hopper_sketch.png" style="width: 16px;" /></a> <a class="reference internal" href="../_images/reactor_sketch.png"><img alt="Reactor" src="../_images/reactor_sketch.png" style="width: 16px;" /></a></p>
+</section>
+<section id="remove-copy">
+<h2><span class="section-number">4.2.5. </span>Remove &amp; Copy<a class="headerlink" href="#remove-copy" title="Link to this heading">¶</a></h2>
+<p>To remove a selected geometry, click the <a class="reference internal" href="../_images/remove.svg"><img alt="Remove" src="../_images/remove.svg" style="width: 16px;" /></a> (Remove) button. If a
+geometry is grouped as part of a <a class="reference internal" href="#boolean-operation"><span class="std std-ref">Boolean Operation</span></a>, removing it is
+disabled until that Boolean Operation is removed first.</p>
+<p>To duplicate the selected geometry, click the <a class="reference internal" href="../_images/copy.svg"><img alt="Copy" src="../_images/copy.svg" style="width: 16px;" /></a> (Duplicate) button. If
+multiple geometry objects are selected, duplication is disabled.</p>
+</section>
+<section id="boolean-operation">
+<span id="id2"></span><h2><span class="section-number">4.2.6. </span>Boolean Operation<a class="headerlink" href="#boolean-operation" title="Link to this heading">¶</a></h2>
+<p>There are two types of geometric objects supported in the GUI: implicit
+functions (quadrics) and objects defined by polydata (everything else: STL
+files, primitives, parametrics, wizard geometry). Boolean operations cannot be
+performed between polydata and implicit geometry objects; the implicit function
+needs to be converted to polydata by using the <code class="docutils literal notranslate"><span class="pre">sample</span> <span class="pre">implicit</span></code> filter.
+Converting the implicit function also needs to be done in order for the GUI to
+export a STL file that the mfixsolver can use.</p>
+<p>Boolean operations can only be performed with geometry objects of the same
+type (implicit, polydata). Boolean operations can not be performed
+between polydata and implicit geometry objects. If an implicit and a polydata
+must be managed together, the implicit object must be first converted to
+a polydata object using the sample implicit filter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Boolean operation between two polydata objects is supported by MFiX, but for
+complex objects the VTK library may crash.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="4.1. Model setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mesh.html" class="btn btn-neutral float-right" title="4.3. Mesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

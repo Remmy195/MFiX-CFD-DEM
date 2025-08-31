@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.1.19. Two-fluid model (TFM) &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.1.20. UDF control" href="udf_control.html" />
+    <link rel="prev" title="12.1.18. Thermochemical properties" href="thermochemical_properties.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">12. Keyword reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="keywords.html">12.1. Keywords</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="batch_queue_environment.html">12.1.1. Batch queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boundary_condition.html">12.1.2. Boundary conditions (BC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cartesian_grid.html">12.1.3. Cartesian grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemical_reactions.html">12.1.4. Chemical reactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="discrete_element.html">12.1.5. Discrete element model (DEM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gas_phase.html">12.1.6. Gas phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry_and_discretization.html">12.1.7. Geometry and discretization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initial_condition.html">12.1.8. Initial conditions (IC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="internal_surface.html">12.1.9. Internal surfaces (IS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numerical_parameters.html">12.1.10. Numerical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_control.html">12.1.11. Output control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parallelization_control.html">12.1.12. Parallelization control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="particle_in_cell.html">12.1.13. Particle-in-cell model (PIC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_parameters.html">12.1.14. Physical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_source.html">12.1.15. Point sources (PS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_control.html">12.1.16. Run control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solids_phase.html">12.1.17. Solids phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thermochemical_properties.html">12.1.18. Thermochemical properties</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">12.1.19. Two-fluid model (TFM)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#added-mass">12.1.19.1. <span class="kwname">ADDED_MASS</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#blending-function">12.1.19.2. <span class="kwname">BLENDING_FUNCTION</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-e">12.1.19.3. <span class="kwname">C_E</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-f">12.1.19.4. <span class="kwname">C_F</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#close-packed-phase">12.1.19.5. <span class="kwname">CLOSE_PACKED(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dif-s0-phase">12.1.19.6. <span class="kwname">DIF_S0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#e-w">12.1.19.7. <span class="kwname">E_W</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ep-s-max-phase">12.1.19.8. <span class="kwname">EP_S_MAX(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ep-star">12.1.19.9. <span class="kwname">EP_STAR</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eps-f-min">12.1.19.10. <span class="kwname">EPS_F_MIN</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fedors-landel">12.1.19.11. <span class="kwname">FEDORS_LANDEL</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#friction-model">12.1.19.12. <span class="kwname">FRICTION_MODEL</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jenkins">12.1.19.13. <span class="kwname">JENKINS</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kt-type">12.1.19.14. <span class="kwname">KT_TYPE</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#m-am">12.1.19.15. <span class="kwname">M_AM</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mu-s0-phase">12.1.19.16. <span class="kwname">MU_S0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phi">12.1.19.17. <span class="kwname">PHI</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phi-w">12.1.19.18. <span class="kwname">PHI_W</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phip">12.1.19.19. <span class="kwname">PHIP</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phip0">12.1.19.20. <span class="kwname">PHIP0</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#r-p-phase-phase">12.1.19.21. <span class="kwname">R_P(PHASE, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rdf-type">12.1.19.22. <span class="kwname">RDF_TYPE</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#segregation-slope-coefficient">12.1.19.23. <span class="kwname">SEGREGATION_SLOPE_COEFFICIENT</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v-ex">12.1.19.24. <span class="kwname">V_EX</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yu-standish">12.1.19.25. <span class="kwname">YU_STANDISH</span></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="udf_control.html">12.1.20. UDF control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">12. </span>Keyword reference</a></li>
+          <li class="breadcrumb-item"><a href="keywords.html"><span class="section-number">12.1. </span>Keywords</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1.19. </span>Two-fluid model (TFM)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/two_fluid_model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="two-fluid-model-tfm">
+<h1><span class="section-number">12.1.19. </span>Two-fluid model (TFM)<a class="headerlink" href="#two-fluid-model-tfm" title="Link to this heading">¶</a></h1>
+<p>This section contains keywords relating to the Two-fluid model (TFM).</p>
+<section id="added-mass">
+<span id="id1"></span><h2><span class="section-number">12.1.19.1. </span><span class="kwname">ADDED_MASS</span><a class="headerlink" href="#added-mass" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Flag to include the added (or virtual) mass force. This force
+acts to increase the inertia of the dispersed phase, which
+tends to stabilize simulations of bubbly gas-liquid flows.</p>
+</section>
+<section id="blending-function">
+<span id="id2"></span><h2><span class="section-number">12.1.19.2. </span><span class="kwname">BLENDING_FUNCTION</span><a class="headerlink" href="#blending-function" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Blend the Schaeffer stresses with the stresses resulting from
+algebraic kinetic theory around the value of EP_STAR. [NONE]</p>
+<table class="docutils align-default" id="id21">
+<caption><span class="caption-number">Table 12.93 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id21" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>No blending</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TANH_BLEND</span></code></p></td>
+<td></td>
+<td><p>Hyperbolic tangent function</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SIGM_BLEND</span></code></p></td>
+<td></td>
+<td><p>Scaled sigmodial function</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="c-e">
+<span id="id3"></span><h2><span class="section-number">12.1.19.3. </span><span class="kwname">C_E</span><a class="headerlink" href="#c-e" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Coefficient of restitution for particle-particle collisions.</p>
+</section>
+<section id="c-f">
+<span id="id4"></span><h2><span class="section-number">12.1.19.4. </span><span class="kwname">C_F</span><a class="headerlink" href="#c-f" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Coefficient of friction between the particles of two solids phases.</p>
+</section>
+<section id="close-packed-phase">
+<span id="close-packed"></span><h2><span class="section-number">12.1.19.5. </span><span class="kwname">CLOSE_PACKED(PHASE)</span><a class="headerlink" href="#close-packed-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Flag to enable/disable a phase from forming a packed bed.
+Effectively removes plastic pressure term from the solids phase
+momentum equation.</p>
+<table class="docutils align-default" id="id22">
+<caption><span class="caption-number">Table 12.94 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id22" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>The phase forms a packed bed with void fraction EP_STAR.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td></td>
+<td><p>The phase can exceed close pack conditions so that it maybe behave like a liquid.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dif-s0-phase">
+<span id="dif-s0"></span><h2><span class="section-number">12.1.19.6. </span><span class="kwname">DIF_S0(PHASE)</span><a class="headerlink" href="#dif-s0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Specified constant solids diffusivity [m^2/s in SI].</p>
+</section>
+<section id="e-w">
+<span id="id5"></span><h2><span class="section-number">12.1.19.7. </span><span class="kwname">E_W</span><a class="headerlink" href="#e-w" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Coefficient of restitution for particle-wall collisions when using
+Johnson and Jackson partial slip BC (BC_JJ_PS).</p>
+</section>
+<section id="ep-s-max-phase">
+<span id="ep-s-max"></span><h2><span class="section-number">12.1.19.8. </span><span class="kwname">EP_S_MAX(PHASE)</span><a class="headerlink" href="#ep-s-max-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Maximum solids volume fraction at packing for polydisperse
+systems (more than one solids phase used). The value of
+EP_STAR may change during the computation if solids phases
+with different particle diameters are specified and
+Yu_Standish or Fedors_Landel correlations are used.</p>
+</section>
+<section id="ep-star">
+<span id="id6"></span><h2><span class="section-number">12.1.19.9. </span><span class="kwname">EP_STAR</span><a class="headerlink" href="#ep-star" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Packed bed void fraction. Used to calculate plastic stresses (for
+contribution to viscosity) and when to implement plastic pressure,
+P_STAR. Specifically, if EP_G &lt; EP_STAR, then plastic pressure is
+employed in the momentum equations.</p>
+</section>
+<section id="eps-f-min">
+<span id="id7"></span><h2><span class="section-number">12.1.19.10. </span><span class="kwname">EPS_F_MIN</span><a class="headerlink" href="#eps-f-min" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Minimum solids fraction above which friction sets in. [0.5]</p>
+</section>
+<section id="fedors-landel">
+<span id="id8"></span><h2><span class="section-number">12.1.19.11. </span><span class="kwname">FEDORS_LANDEL</span><a class="headerlink" href="#fedors-landel" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Use Fedors-Landel correlation to compute maximum packing for binary (only) mixtures of powders.</p>
+<p>R.F. Fedors and R.F. Landel. Powder Tech, 23 (1979) 225-231</p>
+<table class="docutils align-default" id="id23">
+<caption><span class="caption-number">Table 12.95 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id23" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Use the Fedors-Landel correlation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Do not use the Fedors-Landel correlation.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="friction-model">
+<span id="id9"></span><h2><span class="section-number">12.1.19.12. </span><span class="kwname">FRICTION_MODEL</span><a class="headerlink" href="#friction-model" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Solids stress friction model selection.</p>
+<table class="docutils align-default" id="id24">
+<caption><span class="caption-number">Table 12.96 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id24" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+<td></td>
+<td><p>Only solids pressure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SCHAEFFER</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Schaeffer friction model. 1987, Journal of Differential Equations 66, 19–50.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SRIVASTAVA</span></code></p></td>
+<td></td>
+<td><p>Srivastava and Sundaresan friction model. 2003, Powder Technology 129(1-3):72-85</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GUO_BOYCE</span></code></p></td>
+<td></td>
+<td><p>Guo-Boyce friction model, 2021. Proceedings of the National Academy of Sciences, 118 (35).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="jenkins">
+<span id="id10"></span><h2><span class="section-number">12.1.19.13. </span><span class="kwname">JENKINS</span><a class="headerlink" href="#jenkins" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>This flag affects how the momentum and granular energy boundary
+conditions are implemented when using BC_JJ_PS BC.</p>
+<table class="docutils align-default" id="id25">
+<caption><span class="caption-number">Table 12.97 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id25" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Use standard boundary conditions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Use Jenkins small frictional boundary condition.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kt-type">
+<span id="id11"></span><h2><span class="section-number">12.1.19.14. </span><span class="kwname">KT_TYPE</span><a class="headerlink" href="#kt-type" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Solids phase viscous stress model [Algebraic].</p>
+<table class="docutils align-default" id="id26">
+<caption><span class="caption-number">Table 12.98 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id26" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ALGEBRAIC</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Granular energy algebraic formulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AHMADI</span></code></p></td>
+<td></td>
+<td><p>Cao and Ahmadi (1995). Int. J. Multiphase Flow 21(6), 1203.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GD_99</span></code></p></td>
+<td></td>
+<td><p>Garzo and Dufty (1999). Phys. Rev. E 59(5), 5895.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GHD</span></code></p></td>
+<td></td>
+<td><p>Garzo, Hrenya and Dufty (2007). Phys. Rev. E 76(3), 31304</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GTSH</span></code></p></td>
+<td></td>
+<td><p>Garzo, Tenneti, Subramaniam, Hrenya (2012). J.Fluid Mech. 712, 129.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IA_NONEP</span></code></p></td>
+<td></td>
+<td><p>Iddir &amp; Arastoopour (2005). AIChE J. 51(6), 1620</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LUN_1984</span></code></p></td>
+<td></td>
+<td><p>Lun et al (1984). J. Fluid Mech., 140, 223.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SIMONIN</span></code></p></td>
+<td></td>
+<td><p>Simonin (1996). VKI Lecture Series, 1996-2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="m-am">
+<span id="id12"></span><h2><span class="section-number">12.1.19.15. </span><span class="kwname">M_AM</span><a class="headerlink" href="#m-am" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>The disperse phase number to which the added mass is applied.</p>
+</section>
+<section id="mu-s0-phase">
+<span id="mu-s0"></span><h2><span class="section-number">12.1.19.16. </span><span class="kwname">MU_S0(PHASE)</span><a class="headerlink" href="#mu-s0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Specified constant viscosity. If any value is specified then:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>kinetic theory calculations (granular_energy) are off, which</dt><dd><p>means zero granular pressure contribution (P_S = 0)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>frictional/plastic calculations are off, which means zero</dt><dd><p>frictional viscosity contributions, however, a plastic pressure
+term is still invoked (P_STAR)</p>
+</dd>
+</dl>
+</li>
+<li><p>LAMBDA_S = -2/3 MU_S0</p></li>
+</ul>
+</section>
+<section id="phi">
+<span id="id13"></span><h2><span class="section-number">12.1.19.17. </span><span class="kwname">PHI</span><a class="headerlink" href="#phi" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Angle of internal friction (in degrees). Set this value
+to zero to turn off plastic regime stress calculations.</p>
+</section>
+<section id="phi-w">
+<span id="id14"></span><h2><span class="section-number">12.1.19.18. </span><span class="kwname">PHI_W</span><a class="headerlink" href="#phi-w" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Angle of internal friction (in degrees) at walls. Set this
+value to non-zero (PHI_W = 11.31 means TAN_PHI_W = MU = 0.2)
+when using Johnson and Jackson partial slip BC (BC_JJ_PS) with
+Friction model or Jenkins small frictional boundary condition.</p>
+</section>
+<section id="phip">
+<span id="id15"></span><h2><span class="section-number">12.1.19.19. </span><span class="kwname">PHIP</span><a class="headerlink" href="#phip" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Specularity coefficient associated with particle-wall collisions
+when using Johnson and Jackson partial slip BC (BC_JJ_PS). If
+Jenkins small frictional BC are invoked (JENKINS) then PHIP is
+not used.</p>
+</section>
+<section id="phip0">
+<span id="id16"></span><h2><span class="section-number">12.1.19.20. </span><span class="kwname">PHIP0</span><a class="headerlink" href="#phip0" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Specify the value of specularity coefficient when the normalized
+slip velocity goes to zero when BC_JJ_M is .TRUE.. This variable
+is calculated internally in MFiX. Do not modify unless an
+accurate number is known.</p>
+</section>
+<section id="r-p-phase-phase">
+<span id="r-p"></span><h2><span class="section-number">12.1.19.21. </span><span class="kwname">R_P(PHASE, PHASE)</span><a class="headerlink" href="#r-p-phase-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 2\)</span></p></li>
+</ul>
+<p>Coefficient of restitution for particle-particle collisions specific
+to GHD theory implementation.</p>
+</section>
+<section id="rdf-type">
+<span id="id17"></span><h2><span class="section-number">12.1.19.22. </span><span class="kwname">RDF_TYPE</span><a class="headerlink" href="#rdf-type" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Radial distribution function (RDF) at contact.</p>
+<table class="docutils align-default" id="id27">
+<caption><span class="caption-number">Table 12.99 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id27" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CARNAHAN_STARLING</span></code></p></td>
+<td></td>
+<td><p>Carnahan, N.F. and Starling K.E., (1969). The Journal of Chemical Physics, Vol. 51(2):635-636. Only applies to monodisperse cases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MA_AHMADI</span></code></p></td>
+<td></td>
+<td><p>Ma, D. and Ahmadi, G., (1986). The Journal of Chemical Physics, 84(6):3449. Only applies to monodisperse cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LEBOWITZ</span></code></p></td>
+<td></td>
+<td><p>Lebowitz, J.L. (1964) The Physical Review, A133, 895-899. Only applies to polydisperse cases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MODIFIED_LEBOWITZ</span></code></p></td>
+<td></td>
+<td><p>Iddir, H. Y., Modeling of the multiphase mixture of particles using the kinetic theory approach. Doctoral Dissertation, Illinois Institute of Technology, Chicago, Illinois, 2004, (chapter 2, equations 2-49 through 2-52.) Only applies to polydisperse cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MANSOORI</span></code></p></td>
+<td></td>
+<td><p>Mansoori, GA, Carnahan N.F., Starling, K.E. Leland, T.W. (1971). The Journal of Chemical Physics, Vol. 54:1523-1525. Only applies to polydisperse cases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MODIFIED_MANSOORI</span></code></p></td>
+<td></td>
+<td><p>van Wachem, B.G.M., Schouten, J.C., van den Bleek, C.M., Krishna, R. and Sinclair, J. L. (2001) AIChE Journal 47:1035–1051. Only applies to polydisperse cases.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="segregation-slope-coefficient">
+<span id="id18"></span><h2><span class="section-number">12.1.19.23. </span><span class="kwname">SEGREGATION_SLOPE_COEFFICIENT</span><a class="headerlink" href="#segregation-slope-coefficient" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Used in calculating the initial slope of segregation: see
+Gera et al. (2004) - recommended value 0.3. Increasing this
+coefficient results in decrease in segregation of particles
+in binary mixtures.</p>
+</section>
+<section id="v-ex">
+<span id="id19"></span><h2><span class="section-number">12.1.19.24. </span><span class="kwname">V_EX</span><a class="headerlink" href="#v-ex" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Excluded volume in Boyle-Massoudi stress.</p>
+<table class="docutils align-default" id="id28">
+<caption><span class="caption-number">Table 12.100 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id28" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td></td>
+<td><p>Boyle-Massoudi stress is turned off.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="yu-standish">
+<span id="id20"></span><h2><span class="section-number">12.1.19.25. </span><span class="kwname">YU_STANDISH</span><a class="headerlink" href="#yu-standish" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong></p>
+<p>Use Yu-Standish correlation to compute maximum packing for polydisperse systems.</p>
+<p>A.B. Yu and N. Standish. Powder Tech, 52 (1987) 233-241</p>
+<table class="docutils align-default" id="id29">
+<caption><span class="caption-number">Table 12.101 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id29" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Use the Yu-Standish correlation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Do not use the Yu-Standish correlation.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thermochemical_properties.html" class="btn btn-neutral float-left" title="12.1.18. Thermochemical properties" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="udf_control.html" class="btn btn-neutral float-right" title="12.1.20. UDF control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

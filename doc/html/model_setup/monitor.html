@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.11. Monitors &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.12. Internal surfaces" href="internal_surfaces.html" />
+    <link rel="prev" title="4.10. Point sources" href="point_sources.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.11.  Monitors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#region-selection">4.11.1. Region selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitor-output">4.11.2. Monitor Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#eulerian-monitors">4.11.3. Eulerian Monitors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#point-region">4.11.3.1. Point Region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#area-or-volume-region">4.11.3.2. Area or Volume Region</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#surface-integrals">4.11.3.3. Surface Integrals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#volume-integrals">4.11.3.4. Volume Integrals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#lagrangian-monitors">4.11.4. Lagrangian Monitors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-particle-properties">4.11.4.1. General particle properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#averaged-particle-properties">4.11.4.2. Averaged particle properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flow-rates">4.11.4.3. Flow rates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.11. </span>Monitors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/monitor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="monitors">
+<h1><span class="section-number">4.11. </span>Monitors<a class="headerlink" href="#monitors" title="Link to this heading">¶</a></h1>
+<p>A Monitor is a tool for capturing data from the solver about the model.</p>
+<p>Data (such as volume fraction, pressure, velocity, etc.) for a given
+<a class="reference internal" href="#monitor-region"><span class="std std-ref">Region selection</span></a> is written to a <a class="reference internal" href="#monitor-filename"><span class="std std-ref">CSV file</span></a>
+while the solver is running.</p>
+<p>The number of monitors that can be defined for a project is limited to a maximum
+of 100.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/monitors.png"><img alt="../_images/monitors.png" src="../_images/monitors.png" style="width: 534.75px; height: 651.75px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.10 </span><span class="caption-text">Monitor pane</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="region-selection">
+<span id="monitor-region"></span><h2><span class="section-number">4.11.1. </span>Region selection<a class="headerlink" href="#region-selection" title="Link to this heading">¶</a></h2>
+<p>To define a monitor, there must be a region already defined in the <a class="reference internal" href="regions.html#regions"><span class="std std-ref">Regions
+Pane</span></a>. Click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button at the top, which will open a popup
+window for selecting the region. A Monitor region is a single point, plane, or
+volume. Multiple regions cannot be combined for a monitor, and STL regions
+cannot be used for monitors.</p>
+</section>
+<section id="monitor-output">
+<span id="monitor-filename"></span><h2><span class="section-number">4.11.2. </span>Monitor Output<a class="headerlink" href="#monitor-output" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>Filename</dt><dd><p>The monitor output file will have a default name based on the name of the
+monitor’s region. You can edit the filename of a monitor by selecting the
+monitor from the list of monitors and changing “Filename base”. The monitor data
+will be output to the Filename base with the extension <code class="docutils literal notranslate"><span class="pre">.csv</span></code>.</p>
+<p>The monitor output file is in Comma Separated Value (CSV) format. The first line
+of the file provides header information. For example, running the Silane
+Pyrolysis tutorial (SP2D) will generate a file <code class="docutils literal notranslate"><span class="pre">PROBE_SPECIES.csv</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#
+# Run type: NEW
+# &quot;Time&quot;,&quot;x_g(1)&quot;,&quot;x_g(2)&quot;,&quot;x_g(3)&quot;,&quot;x_g(4)&quot;,&quot;x_g(5)&quot;,&quot;x_s(1,1)&quot;,&quot;x_s(1,2)&quot;
+    0.0000000    ,    0.0000000    ,    0.0000000    ,    0.0000000    ,    0.0000000    ,    1.0000000    ,    0.0000000    ,    1.0000000
+</pre></div>
+</div>
+</dd>
+<dt>Write Interval</dt><dd><p>The write interval defines how frequently the monitor data will be written to
+the output file. It has a default value of 0.05 seconds of simulation time.</p>
+</dd>
+</dl>
+<p>After creating a monitor, use the menus and check boxes to select one or more variables.</p>
+</section>
+<section id="eulerian-monitors">
+<h2><span class="section-number">4.11.3. </span>Eulerian Monitors<a class="headerlink" href="#eulerian-monitors" title="Link to this heading">¶</a></h2>
+<p>The monitor variables available for the fluid phase are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Volume fraction (of all fluid species)</p></li>
+<li><p>Fluid Pressure</p></li>
+<li><p>Fluid Velocity</p></li>
+<li><p>Fluid Temperature</p></li>
+<li><p>Turbulent Kinetic Energy</p></li>
+<li><p>Turbulent Dissipation</p></li>
+<li><p>Volume fraction of each individual fluid species</p></li>
+</ul>
+</div></blockquote>
+<p>The variables available for TFM solids include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Velocity of this solid phase</p></li>
+<li><p>Bulk Density of this solid phase</p></li>
+<li><p>Temperature of this solid phase</p></li>
+<li><p>Granular Temperature of this solid phase</p></li>
+<li><p>Pressure (total for all solid species for this solid phase)</p></li>
+<li><p>Mass fraction of each individual species of this solid phase</p></li>
+</ul>
+</div></blockquote>
+<p>There is a monitor variable available for each scalar defined on
+the <a class="reference internal" href="scalars.html#scalar-pane"><span class="std std-ref">Scalars</span></a> tab.</p>
+<p>There is a monitor variable available for each reaction defined on
+the <a class="reference internal" href="reactions/index.html#chemical-reactions"><span class="std std-ref">Chemical Reactions</span></a> tab.</p>
+<p>There are different types of monitors available. A monitor type applies an operator
+(for example a sum, an area integral or a volume integral) to the variable.
+The dimensionality of the region determines which operators can be applied.</p>
+<p>The table below summarizes the nomenclature used to describe the monitor operators:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\phi_{ijk}\)</span></p></td>
+<td><p>Variable value at indexed cell</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\varepsilon_{ijk}\)</span></p></td>
+<td><p>Phase <strong>volume fraction</strong> at indexed cell</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\rho_{jk}\)</span></p></td>
+<td><p>Phase <strong>density</strong> at indexed cell</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\vec{v}_{jk}\)</span></p></td>
+<td><p>Phase <strong>velocity</strong> at indexed cell</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(A_{ijk}\)</span></p></td>
+<td><p>Cross-sectional area of cell</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(V_{ijk}\)</span></p></td>
+<td><p>Volume of indexed cell</p></td>
+</tr>
+</tbody>
+</table>
+<section id="point-region">
+<h3><span class="section-number">4.11.3.1. </span>Point Region<a class="headerlink" href="#point-region" title="Link to this heading">¶</a></h3>
+<p>For a point region, the monitor data value is simply the value of the variable at that point:</p>
+<dl>
+<dt>Value</dt><dd><p>Returns the value of the field quantity in
+the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\phi_{ijk}\]</div>
+</dd>
+</dl>
+</section>
+<section id="area-or-volume-region">
+<h3><span class="section-number">4.11.3.2. </span>Area or Volume Region<a class="headerlink" href="#area-or-volume-region" title="Link to this heading">¶</a></h3>
+<p>The following  monitor types are valid for area and volume regions:</p>
+<dl>
+<dt>Sum</dt><dd><p>The sum is computed by summing all values of
+the field quantity in the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\sum_{ijk}\phi_{ijk}\]</div>
+</dd>
+<dt>Min</dt><dd><p>Minimum value of the field quantity in the
+selected region.</p>
+<div class="math notranslate nohighlight">
+\[\min_{ijk} \phi_{ijk}\]</div>
+</dd>
+<dt>Max</dt><dd><p>Maximum value of the field quantity in the
+selected region.</p>
+<div class="math notranslate nohighlight">
+\[\max_{ijk} \phi_{ijk}\]</div>
+</dd>
+<dt>Average</dt><dd><p>Average value of the field quantity in the selected
+region where <span class="math notranslate nohighlight">\(N\)</span> is the total number of observations (cells)
+in the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\phi_0 = \frac{\sum_{ijk} \phi_{ijk}}{N}\]</div>
+</dd>
+<dt>Standard Deviation</dt><dd><p>The standard deviation of the field quantity in the
+selected region where <span class="math notranslate nohighlight">\(\phi_0\)</span> is the average of the variable in
+the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\sigma_{\phi} = \sqrt{\frac{ \sum_{ijk} (\phi_{ijk}-\phi_{0})^2 }{N}}\]</div>
+</dd>
+</dl>
+</section>
+<section id="surface-integrals">
+<h3><span class="section-number">4.11.3.3. </span>Surface Integrals<a class="headerlink" href="#surface-integrals" title="Link to this heading">¶</a></h3>
+<p>The following types are only valid for area regions:</p>
+<dl>
+<dt>Area</dt><dd><p>Area of selected region is computed by summing the
+areas of the facets that define the surface.</p>
+<div class="math notranslate nohighlight">
+\[\int dA = \sum_{ijk} \lvert A_{ijk} \rvert\]</div>
+</dd>
+<dt>Area-Weighted Average</dt><dd><p>The area-weighted average is computed by dividing
+the summation of the product of the selected variable and facet
+area by the total area of the region.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\int\phi dA}{A} = \frac{\sum_{ijk}{\phi_{ijk} \lvert A_{ijk} \rvert}}{\sum_{ijk}{\lvert A_{ijk} \rvert}}\]</div>
+</dd>
+<dt>Flow Rate</dt><dd><p>The flow rate of a field variable through a surface
+is computed by summing the product of the phase volume fraction,
+density, the selected field variable, phase velocity normal to
+the facet <span class="math notranslate nohighlight">\(v_n\)</span>, and the facet area.</p>
+<div class="math notranslate nohighlight">
+\[\int\varepsilon\rho\phi{v_n}dA = \sum_{ijk}\varepsilon_{ijk}\rho_{ijk}\phi_{ijk} {v}_{n,ijk} \lvert A_{ijk} \rvert\]</div>
+</dd>
+<dt>Mass Flow Rate</dt><dd><p>The mass flow rate through a surface is computed
+by summing the product of the phase volume fraction, density,
+phase velocity normal to the facet <span class="math notranslate nohighlight">\(v_n\)</span>, and the facet
+area.</p>
+<div class="math notranslate nohighlight">
+\[\int\varepsilon\rho{v_n} dA = \sum_{ijk}\varepsilon_{ijk}\rho_{ijk}{v}_{n,ijk}  \lvert A_{ijk} \rvert\]</div>
+</dd>
+<dt>Mass-Weighted Average</dt><dd><p><strong>FIXME</strong> The mass flow rate through a surface is computed
+by summing the product of the phase volume fraction, density,
+phase velocity normal to the facet, and the facet area.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\int\varepsilon\rho\phi\lvert{v_n}dA\rvert}{\int\varepsilon\rho\lvert{v_n}dA\rvert} = \frac{\sum_{ijk}\varepsilon_{ijk}\rho_{ijk}\phi_{ijk}\lvert {v}_{n,ijk} A_{ijk} \rvert}{\sum_{ijk}\varepsilon_{ijk}\rho_{ijk} \lvert {v}_{n,ijk} A_{ijk} \rvert}\]</div>
+</dd>
+<dt>Volume Flow Rate</dt><dd><p>The volume flow rate through a surface is computed
+by summing the product of the phase volume fraction, phase velocity
+normal to the facet <span class="math notranslate nohighlight">\(v_n\)</span>, and the facet area.</p>
+<div class="math notranslate nohighlight">
+\[\int\varepsilon{v_n}dA = \sum_{ijk}\varepsilon_{ijk}{v}_{n,ijk} \lvert A_{ijk} \rvert\]</div>
+</dd>
+</dl>
+</section>
+<section id="volume-integrals">
+<h3><span class="section-number">4.11.3.4. </span>Volume Integrals<a class="headerlink" href="#volume-integrals" title="Link to this heading">¶</a></h3>
+<p>The following types are only valid for volume regions:</p>
+<dl>
+<dt>Volume</dt><dd><p>The volume is computed by summing all of the cell
+volumes in the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\int  dV = \sum_{ijk}{ \lvert V_{ijk}} \rvert\]</div>
+</dd>
+<dt>Volume Integral</dt><dd><p>The volume integral is computed by summing the product
+of the selected field variable and the cell volume.</p>
+<div class="math notranslate nohighlight">
+\[\int \phi dV = \sum_{ijk}{\phi_{ijk} \lvert V_{ijk}} \rvert\]</div>
+</dd>
+<dt>Volume-Weighted Average</dt><dd><p>The volume-weighted average is computed by dividing
+the summation of the product of the selected field variable and
+cell volume by the sum of the cell volumes.</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\frac{\int\phi dV}{V} = \frac{\sum_{ijk}{\phi_{ijk} \lvert V_{ijk} \rvert}}{\sum_{ijk}{\lvert V_{ijk} \rvert}}\]</div>
+</div></blockquote>
+</dd>
+<dt>Mass-Weighted Integral</dt><dd><p>The mass-weighted integral is computed by summing
+the product of phase volume fraction, density, selected field
+variable, and cell volume.</p>
+<div class="math notranslate nohighlight">
+\[\int \varepsilon\rho\phi dV = \sum_{ijk}\varepsilon_{ijk}\rho_{ijk}\phi_{ijk} \lvert V_{ijk}\rvert\]</div>
+</dd>
+<dt>Mass-Weighted Average</dt><dd><p>The mass-weighted average is computed by dividing the
+sum of the product of phase volume fraction, density, selected field
+variable, and cell volume by the summation of the product of the
+phase volume fraction, density, and cell volume.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\int\phi\rho\varepsilon dV}{\int\rho\varepsilon dV} = \frac{\sum_{ijk}\varepsilon_{ijk}\rho_{ijk}\phi_{ijk} \lvert V_{ijk}\rvert}{\sum_{ijk}\varepsilon_{ijk}\rho_{ijk} \lvert V_{ijk}\rvert}\]</div>
+</dd>
+</dl>
+</section>
+</section>
+<section id="lagrangian-monitors">
+<h2><span class="section-number">4.11.4. </span>Lagrangian Monitors<a class="headerlink" href="#lagrangian-monitors" title="Link to this heading">¶</a></h2>
+<p>The variables available for DEM and PIC solids are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Radius</p></li>
+<li><p>Mass</p></li>
+<li><p>Volume</p></li>
+<li><p>Density</p></li>
+<li><p>Translational velocity components</p></li>
+<li><p>Rotational velocity components (DEM only)</p></li>
+<li><p>Temperature</p></li>
+<li><p>Mass fraction of each individual species</p></li>
+<li><p>DES user variable (DES_USR_VAR)</p></li>
+</ul>
+</div></blockquote>
+<p>There are different types of monitors available. A monitor type applies an operator
+(for example a sum, an area integral or a volume integral) to the variable.
+The dimensionality of the region determines which operators can be applied.</p>
+<p>The table below summarizes the nomenclature used to describe the monitor operators:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\phi_p\)</span></p></td>
+<td><p>Variable value of the indexed particle</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(m_p\)</span></p></td>
+<td><p><strong>Mass</strong> of the indexed particle</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(V_p\)</span></p></td>
+<td><p><strong>Volume</strong> of the indexed particle</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\mathcal{w}_p\)</span></p></td>
+<td><p><strong>Statistical weight</strong> of the indexed particle <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><em>The statistical weight is one for DEM simulations.</em></p>
+</aside>
+</aside>
+<section id="general-particle-properties">
+<h3><span class="section-number">4.11.4.1. </span>General particle properties<a class="headerlink" href="#general-particle-properties" title="Link to this heading">¶</a></h3>
+<p>General particle properties can be obtained from area (plane) and volume regions. For
+area regions, all particles in Eulerian cells that intersect the plane are used
+in evaluating the average.</p>
+<dl>
+<dt>Sum</dt><dd><p>The sum of particle property, <span class="math notranslate nohighlight">\(\phi_p\)</span> in the selected region is
+calculated using the following expression.</p>
+<div class="math notranslate nohighlight">
+\[\sum_p w_p \phi_p\]</div>
+</dd>
+<dt>Min</dt><dd><p>The minimum value of particle property <span class="math notranslate nohighlight">\(phi_p\)</span> is the selected region
+is obtained using the following expression.</p>
+<div class="math notranslate nohighlight">
+\[\min_p \phi_p\]</div>
+</dd>
+<dt>Max</dt><dd><p>The maximum value of particle property <span class="math notranslate nohighlight">\(phi_p\)</span> is the selected region
+is obtained using the following expression.</p>
+<div class="math notranslate nohighlight">
+\[\max_p \phi_p\]</div>
+</dd>
+</dl>
+</section>
+<section id="averaged-particle-properties">
+<h3><span class="section-number">4.11.4.2. </span>Averaged particle properties<a class="headerlink" href="#averaged-particle-properties" title="Link to this heading">¶</a></h3>
+<p>Particle properties can be averaged over area (plane) and volume regions. For
+area regions, all particles in Eulerian cells that intersect the plane are used
+in evaluating the average.</p>
+<dl>
+<dt>Average</dt><dd><p>The average value of particle property, <span class="math notranslate nohighlight">\(\phi_p\)</span> in the
+selected region is calculated using the following expression. For
+DEM simulations, the statistical weight of a particle, <span class="math notranslate nohighlight">\(w_p\)</span>,
+is one such that the sum of the weights is the total number of
+observations in the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\bar{\phi} = \frac{\sum_p w_p \phi_p}{\sum_p w_p}\]</div>
+</dd>
+<dt>Standard Deviation</dt><dd><p>The standard deviation of particle property, <span class="math notranslate nohighlight">\(phi_p\)</span> in the
+selected region is calculated using the following expression.
+<span class="math notranslate nohighlight">\(\bar{\phi}\)</span> is the averaged variable in the selected region.</p>
+<div class="math notranslate nohighlight">
+\[\sigma_{\phi} = \sqrt{\frac{ \sum_p w_p (\phi_p-\bar{\phi})^2 }{\sum_p w_p}}\]</div>
+</dd>
+<dt>Mass-weighted average</dt><dd><p>Mass-weighted average value of particle property, <span class="math notranslate nohighlight">\(\phi_p\)</span> in the
+selected region is calculated using the following expression.</p>
+<div class="math notranslate nohighlight">
+\[\bar{\phi}_m = \frac{\sum_{p} w_p m_p \phi_p}{\sum_p w_p m_p }\]</div>
+</dd>
+<dt>Volume-weighted average</dt><dd><p>Volume-weighted average value of particle property, <span class="math notranslate nohighlight">\(\phi_p\)</span> in the
+selected region is calculated using the following expression.</p>
+<div class="math notranslate nohighlight">
+\[\bar{\phi}_v = \frac{\sum_{p} w_p V_p \phi_p}{\sum_p w_p V_p}\]</div>
+</dd>
+</dl>
+</section>
+<section id="flow-rates">
+<h3><span class="section-number">4.11.4.3. </span>Flow rates<a class="headerlink" href="#flow-rates" title="Link to this heading">¶</a></h3>
+<p>Flow rate monitors for Lagrangian particles (DEM/PIC) are only valid for area
+(plane) regions. The set of particles crossing the flow plane, <span class="math notranslate nohighlight">\(\Gamma\)</span>
+is approximated using the height of the plane, <span class="math notranslate nohighlight">\(h\)</span>, the position of the
+particle, <span class="math notranslate nohighlight">\(x_p\)</span>, and the particle velocity normal to the plane,
+<span class="math notranslate nohighlight">\(v_p\)</span> such that</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[(v_p)(\frac{x_p - h}{\Delta t}) &gt; 0\]</div>
+</div></blockquote>
+<p>and</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\left|v_p\right| \geq  \left| \frac{x_p - h}{\Delta t} \right|\]</div>
+</div></blockquote>
+<dl>
+<dt>Flow rate</dt><dd><p>The net flow rate of a general particle property <span class="math notranslate nohighlight">\(\phi_p\)</span> is computed by
+summing the properties of the set of particles projected to have crossed
+the flow plane, <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\sum_{p \in \Gamma} w_p \phi_p \frac{v_p}{\left| v_p \right|}\]</div>
+</dd>
+<dt>Mass-weighted flow rate</dt><dd><p>The net mass-weighted flow rate is the sum of the general particle property
+<span class="math notranslate nohighlight">\(\phi_p\)</span> multiplied by the particle mass, <span class="math notranslate nohighlight">\(m_p\)</span> of the set of
+particles projected to have crossed the flow plane, <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\sum_{p \in \Gamma} w_p m_p \phi_p \frac{v_p}{\left| v_p \right|}\]</div>
+</dd>
+<dt>Volume-weighted flow rate</dt><dd><p>The net volume-weighted flow rate is the sum of the general particle property
+<span class="math notranslate nohighlight">\(\phi_p\)</span> multiplied by the particle volume, <span class="math notranslate nohighlight">\(V_p\)</span> of the set of
+particles projected to have crossed the flow plane, <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\sum_{p \in \Gamma}\phi_p w_p V_p \frac{v_p}{\left| v_p \right|}\]</div>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="point_sources.html" class="btn btn-neutral float-left" title="4.10. Point sources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="internal_surfaces.html" class="btn btn-neutral float-right" title="4.12. Internal surfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.1. Model setup &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. Geometry" href="geometry.html" />
+    <link rel="prev" title="4. Model guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.1. </span>Model setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="model-setup"></span><section id="id1">
+<h1><span class="section-number">4.1. </span>Model setup<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p>The Model pane is used to specify global project settings. Depending on what
+is selected, other panes are enabled or disabled.</p>
+<ul class="simple">
+<li><p><strong>Description</strong> allows for a short model description to be provided. This is
+written in the .OUT file by the solver.</p></li>
+<li><p><strong>Solver</strong> specifies the model solver.</p>
+<ul>
+<li><p><em>Single-phase</em> is the MFiX fluid solver. This disables all solids
+model inputs.</p></li>
+<li><p><em>Two-Fluid Model (MFiX-TFM)</em> treats both the fluid and solids as
+interpenetrating continua.</p></li>
+<li><p><em>Discrete Element Model (MFiX-DEM)</em> treats the fluid as a continuum
+while modeling individual particles as spheres and collisions.</p></li>
+<li><p><em>Coarse-grained Particle Model (MFiX-CGP)</em> treats the fluid as a continuum
+while using single spheres and collisions to represent groups of real
+particles with similar physical characteristics.</p></li>
+<li><p><em>Superquadric Particle Model (MFiX-SQP)</em> treats the fluid as a continuum
+while modeling individual particles using superquadrics and collisions.
+Superquadrics allow for modeling non-spherical particles.</p></li>
+<li><p><em>Glued-sphere Particle Model (MFiX-GSP)</em> treats the fluid as a continuum
+while “gluing” DEM particles to each other to approximate the behavior of
+non-spherical particles.</p></li>
+<li><p><em>Particle in Cell Model (MFiX-PIC)</em> treats the fluid as a continuum
+while using “parcels” to represent groups of real particles with
+similar physical characteristics.</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Disable the fluid phase</strong> turns off the fluid solver for MFiX-TFM and
+MFiX-DEM simulations for pure granular flows. The fluid solver cannot
+be disabled for single-phase flows.</p></li>
+<li><p><strong>Enable thermal energy equations</strong> solves thermal transport equations
+for all phases.</p></li>
+<li><p><strong>Turbulence Model</strong> incorporates the selected turbulence model.</p>
+<ul>
+<li><p><em>None</em> - Do not include turbulence.</p></li>
+<li><p><em>L-Scale Mixing</em> - Algebraic (zero-equation) turbulence model.</p>
+<ul>
+<li><p>Requires a turbulent length scale definition for all
+initial condition regions.</p></li>
+</ul>
+</li>
+<li><p><em>K-Epsilon</em> - Two-equation turbulence model (turbulent kinetic energy and
+turbulent dissipation rate).</p>
+<ul>
+<li><p>Requires turbulent kinetic energy and turbulent dissipation
+definitions for all initial condition regions and all mass and
+pressure inflow boundary conditions.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Max turbulent viscosity</strong> has units of <span class="math notranslate nohighlight">\((Pa \cdot sec)\)</span> and
+is used to bound turbulent viscosity.</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Gravity</strong> has units of <span class="math notranslate nohighlight">\(({m}/{sec^2})\)</span> and defines gravitational
+acceleration in the x, y, and z directions.</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Drag model</strong> specifies the fluid-particle drag model. This option is only
+available with the MFiX-TFM and MFiX-DEM solvers.</p>
+<ul>
+<li><p><em>Syamlal-O’Brien</em> <a class="reference internal" href="#sb1988" id="id2"><span>[SB1988]</span></a></p>
+<ul>
+<li><p>Requires the specification of the C1 tuning parameter, 0.8 by default.</p></li>
+<li><p>Requires the specification of the D1 tuning parameter, 2.65 by default.</p></li>
+</ul>
+</li>
+<li><p><em>Beestra-van der Hoef-Kuipers</em> <a class="reference internal" href="#bvk2007" id="id3"><span>[BVK2007]</span></a></p></li>
+<li><p><em>Gidaspow</em> <a class="reference internal" href="#dg1990" id="id4"><span>[DG1990]</span></a></p></li>
+<li><p><em>Gidaspow Blend</em> <a class="reference internal" href="#lb2000" id="id5"><span>[LB2000]</span></a></p></li>
+<li><p><em>Holloway-Yin-Sundaresan</em> <a class="reference internal" href="#hys2010" id="id6"><span>[HYS2010]</span></a></p>
+<ul>
+<li><p>Requires the specification of the lubrication cutoff distance,
+1e-6 meters by default.</p></li>
+</ul>
+</li>
+<li><p><em>Koch-Hill</em> <a class="reference internal" href="#hkl2001" id="id7"><span>[HKL2001]</span></a></p></li>
+<li><p><em>Wen-Yu</em> <a class="reference internal" href="#wy1966" id="id8"><span>[WY1966]</span></a></p></li>
+<li><p><em>User-Defined Function (UDF)</em></p>
+<ul>
+<li><p>A custom drag model must be provided in the usr_drag.f file</p></li>
+<li><p>A custom solver must be built.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>polydisperse</em> tag following a specified drag model indicates
+that the polydisperse correction factor is available. For additional
+details see <a class="reference internal" href="#hbk2005" id="id9"><span>[HBK2005]</span></a>, <a class="reference internal" href="#bvk2007a" id="id10"><span>[BVK2007a]</span></a>, and <a class="reference internal" href="#bvk2007b" id="id11"><span>[BVK2007b]</span></a>.</p>
+</div>
+<hr class="docutils" />
+<p>Other advanced options that can be selected include:</p>
+<ul class="simple">
+<li><p>Momentum formulation (Model A, Model B, Jackson, or Ishii)</p>
+<ul>
+<li><p><em>Model A</em></p></li>
+<li><p><em>Model B</em></p></li>
+<li><p><em>Jackson</em></p></li>
+<li><p><em>Ishii</em></p></li>
+</ul>
+</li>
+<li><p>Select sub-grid model</p>
+<ul>
+<li><p><em>None</em></p></li>
+<li><p><em>Igci</em> <a class="reference internal" href="#ipbs2012" id="id12"><span>[IPBS2012]</span></a></p></li>
+<li><p><em>Milioli</em> <a class="reference internal" href="#mmhas2013" id="id13"><span>[MMHAS2013]</span></a></p></li>
+</ul>
+</li>
+<li><p>Sub-grid filter size</p></li>
+<li><p>Sub-grid wall correction</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are some restrictions to when using sub-grid models. They
+are only available with MFiX-TFM simulations using the Wen-Yu drag law,
+and without turbulence model. Additional restrictions apply.</p>
+</div>
+<div role="list" class="citation-list">
+<div class="citation" id="sb1988" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">SB1988</a><span class="fn-bracket">]</span></span>
+<p>Syamlal, M, and O’Brien, T.J. (1988). Simulation of granular layer
+inversion in liquid fluidized beds, <em>International Journal of Multiphase Flow</em>,
+Volume 14, Issue 4, Pages 473-481, <a class="reference external" href="https://doi.org/10.1016/0301-9322(88)90023-7">https://doi.org/10.1016/0301-9322(88)90023-7</a>.</p>
+</div>
+<div class="citation" id="hkl2001" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">HKL2001</a><span class="fn-bracket">]</span></span>
+<p>Hill, R., Koch, D., and Ladd, A. (2001). Moderate-Reynolds-number flows
+in ordered and random arrays of spheres. <em>Journal of Fluid Mechanics</em>,
+Volume 448, Pages 243-278. <a class="reference external" href="https://doi.org/10.1017/S0022112001005936">https://doi.org/10.1017/S0022112001005936</a></p>
+</div>
+<div class="citation" id="dg1990" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">DG1990</a><span class="fn-bracket">]</span></span>
+<p>Ding, J. and Gidaspow, D. (1990). A bubbling fluidization model using
+kinetic theory of granular flow, <em>AIChE Journal</em>, Volume 36, Issue 4, Pages
+523-538, <a class="reference external" href="https://doi.org/10.1002/aic.690360404">https://doi.org/10.1002/aic.690360404</a></p>
+</div>
+<div class="citation" id="lb2000" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">LB2000</a><span class="fn-bracket">]</span></span>
+<p>Lathouwers, D. and Bellan J. (2000). Modeling of dense gas-solid
+reactive mixtures applied to biomass pyrolysis in a fluidized bed, Proceedings
+of the 2000 U.S. DOE Hydrogen Program Review,
+<a class="reference external" href="https://www.nrel.gov/docs/fy01osti/28890.pdf">https://www.nrel.gov/docs/fy01osti/28890.pdf</a></p>
+</div>
+<div class="citation" id="wy1966" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">WY1966</a><span class="fn-bracket">]</span></span>
+<p>Wen C.Y., and Yu Y.H. (1966). Mechanics of fluidization, <em>The
+Chemical Engineering Progress Symposium Series</em>, Volume 62, Pages 100-111.</p>
+</div>
+<div class="citation" id="bvk2007" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">BVK2007</a><span class="fn-bracket">]</span></span>
+<p>Beetstra, R., van der Hoef, M.A., and Kuipers, J.A.M. (2007). Numerical
+study of segregation using a new drag force correlation for polydisperse systems
+derived from lattice-Boltzmann simulations, <em>Chemical Engineering Science</em>,
+Volume 62, Issues 1–2, Pages 246-255. <a class="reference external" href="https://doi.org/10.1016/j.ces.2006.08.054">https://doi.org/10.1016/j.ces.2006.08.054</a>.</p>
+</div>
+<div class="citation" id="hys2010" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">HYS2010</a><span class="fn-bracket">]</span></span>
+<p>Holloway, W., Yin, X., and Sundaresan, S. (2010). Fluid‐particle drag
+in inertial polydisperse gas–solid suspensions, <em>AIChE Journal</em>, Volume 56,
+Issue 8, Pages 1995-2004. <a class="reference external" href="https://doi.org/10.1002/aic.12127">https://doi.org/10.1002/aic.12127</a></p>
+</div>
+<div class="citation" id="hbk2005" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">HBK2005</a><span class="fn-bracket">]</span></span>
+<p>Hoef, M., Beetstra, R., and Kuipers, J. (2005). Lattice-Boltzmann
+simulations of low-Reynolds-number flow past mono- and bidisperse arrays of
+spheres: Results for the permeability and drag force. <em>Journal of Fluid
+Mechanics</em>, Volume 528, Pages 233-254. <a class="reference external" href="https://doi.org/10.1017/S0022112004003295">https://doi.org/10.1017/S0022112004003295</a></p>
+</div>
+<div class="citation" id="bvk2007a" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">BVK2007a</a><span class="fn-bracket">]</span></span>
+<p>Beetstra, R. , van der Hoef, M. A. and Kuipers, J. A. (2007), Drag
+force of intermediate Reynolds number flow past mono‐ and bidisperse arrays of
+spheres. AIChE J., 53: 489-501. <a class="reference external" href="https://doi.org/10.1002/aic.11065">https://doi.org/10.1002/aic.11065</a></p>
+</div>
+<div class="citation" id="bvk2007b" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">BVK2007b</a><span class="fn-bracket">]</span></span>
+<p>(2007), Erratum. AIChE J., 53: 3020-3020. <a class="reference external" href="https://doi.org/10.1002/aic.11330">https://doi.org/10.1002/aic.11330</a></p>
+</div>
+<div class="citation" id="ipbs2012" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">IPBS2012</a><span class="fn-bracket">]</span></span>
+<p>Igci, Y., Pannala, S., Benyahia, S., and Sundaresan, S. (2012). Validation
+studies on filtered model equations for gas-particle flows in risers, <em>Industrial
+&amp; Engineering Chemistry Research</em>, Volume 54, Issue 4, Pages 2094-2103.
+<a class="reference external" href="https://doi.org/10.1021/ie2007278">https://doi.org/10.1021/ie2007278</a></p>
+</div>
+<div class="citation" id="mmhas2013" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">MMHAS2013</a><span class="fn-bracket">]</span></span>
+<p>Milioli, C.C., Milioli, F.E., Holloway, W., Agrawal, K. and Sundaresan, S.
+(2013), Filtered two‐fluid models of fluidized gas‐particle flows: New constitutive
+relations. <em>AIChE J.</em>, Volume 59, Issue 9, Pages 3265-3275.
+<a class="reference external" href="https://doi.org/10.1002/aic.14130">https://doi.org/10.1002/aic.14130</a></p>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="4. Model guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="geometry.html" class="btn btn-neutral float-right" title="4.2. Geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

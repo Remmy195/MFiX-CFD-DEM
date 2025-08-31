@@ -1,0 +1,2479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>chemistry</class>
+ <widget class="QWidget" name="chemistry">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>894</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,1">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <item row="1" column="0" colspan="4">
+    <widget class="QWidget" name="tab_frame" native="true">
+     <property name="styleSheet">
+      <string notr="true">QPushButton:hover {
+    color:#64B5F6;;
+    background-color: transparent;
+}
+
+QPushButton:pressed {
+    color: #64B5F6;
+    background-color: transparent;
+}
+
+QPushButton:checked {
+    color:#64B5F6;
+    background-color: transparent;
+}
+
+</string>
+     </property>
+     <layout class="QGridLayout" name="gridlayout_chemistry_tab_btns">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="2" column="0" colspan="2">
+       <widget class="QStackedWidget" name="stackedwidget_chemistry">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="reactions">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QSplitter" name="splitter">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <widget class="QWidget" name="top_frame" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,1">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QWidget" name="frame_add_delete_reactions" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_16">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="horizontalSpacing">
+                  <number>6</number>
+                 </property>
+                 <property name="verticalSpacing">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,0,0,1">
+                   <property name="spacing">
+                    <number>6</number>
+                   </property>
+                   <item>
+                    <widget class="QToolButton" name="toolbutton_add_reaction">
+                     <property name="toolTip">
+                      <string>Define new chemical reaction</string>
+                     </property>
+                     <property name="text">
+                      <string>Add</string>
+                     </property>
+                     <property name="autoRaise">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QToolButton" name="toolbutton_delete_reaction">
+                     <property name="toolTip">
+                      <string>Delete chemical reaction</string>
+                     </property>
+                     <property name="text">
+                      <string>Delete</string>
+                     </property>
+                     <property name="autoRaise">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QToolButton" name="toolbutton_load_reactions">
+                     <property name="toolTip">
+                      <string>Load reaction definitions from text file</string>
+                     </property>
+                     <property name="text">
+                      <string>Load from file</string>
+                     </property>
+                     <property name="autoRaise">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_n_reactions">
+                     <property name="font">
+                      <font>
+                       <italic>true</italic>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>0 reactions defined</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tablewidget_reactions">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::ExtendedSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>10</number>
+                </attribute>
+                <attribute name="horizontalHeaderHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Name</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Chemical equation</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="bottom_frame" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_12">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <spacer name="horizontalSpacer_10">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_status">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolbutton_ok">
+                  <property name="text">
+                   <string>OK</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolbutton_cancel">
+                  <property name="text">
+                   <string>Cancel</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <widget class="QScrollArea" name="scrollarea_detail">
+                <property name="styleSheet">
+                 <string notr="true">QWidget#detail_pane {background-color: white}</string>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="detail_pane">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>385</width>
+                   <height>1217</height>
+                  </rect>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <layout class="QHBoxLayout" name="layout_reaction_name">
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_reaction_name">
+                      <property name="font">
+                       <font>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Reaction name</string>
+                      </property>
+                      <property name="margin">
+                       <number>0</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="LineEdit" name="lineedit_reaction_name"/>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_reactants">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="title">
+                     <string>Reactants</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_13">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QWidget" name="frame_add_delete_reactants" native="true">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_13">
+                        <property name="spacing">
+                         <number>6</number>
+                        </property>
+                        <property name="sizeConstraint">
+                         <enum>QLayout::SetMaximumSize</enum>
+                        </property>
+                        <property name="leftMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QToolButton" name="toolbutton_add_reactant">
+                          <property name="font">
+                           <font>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Add</string>
+                          </property>
+                          <property name="autoRaise">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QToolButton" name="toolbutton_delete_reactant">
+                          <property name="font">
+                           <font>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Delete</string>
+                          </property>
+                          <property name="autoRaise">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_11">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QTableWidget" name="tablewidget_reactants">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>100</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="selectionMode">
+                        <enum>QAbstractItemView::NoSelection</enum>
+                       </property>
+                       <property name="selectionBehavior">
+                        <enum>QAbstractItemView::SelectRows</enum>
+                       </property>
+                       <attribute name="horizontalHeaderHighlightSections">
+                        <bool>false</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderHighlightSections">
+                        <bool>false</bool>
+                       </attribute>
+                       <column>
+                        <property name="text">
+                         <string>Phase</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Species</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Coefficient</string>
+                        </property>
+                       </column>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_products">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="title">
+                     <string>Products</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_14">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QWidget" name="frame_add_delete_products" native="true">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_14">
+                        <property name="spacing">
+                         <number>6</number>
+                        </property>
+                        <property name="sizeConstraint">
+                         <enum>QLayout::SetMaximumSize</enum>
+                        </property>
+                        <property name="leftMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QToolButton" name="toolbutton_add_product">
+                          <property name="font">
+                           <font>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Add</string>
+                          </property>
+                          <property name="autoRaise">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QToolButton" name="toolbutton_delete_product">
+                          <property name="font">
+                           <font>
+                            <weight>50</weight>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Delete</string>
+                          </property>
+                          <property name="autoRaise">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_12">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QTableWidget" name="tablewidget_products">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>100</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="selectionMode">
+                        <enum>QAbstractItemView::NoSelection</enum>
+                       </property>
+                       <property name="selectionBehavior">
+                        <enum>QAbstractItemView::SelectRows</enum>
+                       </property>
+                       <attribute name="horizontalHeaderHighlightSections">
+                        <bool>false</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderHighlightSections">
+                        <bool>false</bool>
+                       </attribute>
+                       <column>
+                        <property name="text">
+                         <string>Phase</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Species</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Coefficient</string>
+                        </property>
+                       </column>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_dh">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Specify heat of reaction</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_dh">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_15">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="spacing">
+                      <number>5</number>
+                     </property>
+                     <item row="0" column="1">
+                      <widget class="LineEdit" name="lineedit_dh">
+                       <property name="enabled">
+                        <bool>false</bool>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QLabel" name="label_dh_units">
+                       <property name="enabled">
+                        <bool>false</bool>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>J/kmol</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_dh">
+                       <property name="enabled">
+                        <bool>false</bool>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>Heat of reaction</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_arrhenius">
+                    <property name="styleSheet">
+                     <string notr="true">QGroupBox{font-weight: bold;}</string>
+                    </property>
+                    <property name="title">
+                     <string>Arrhenius coefficients</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_15">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>5</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_arrhenius_A">
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Pre-factor in Arrhenius equation&lt;/html&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string>A</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="LineEdit" name="lineedit_arrhenius_A">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Pre-factor in Arrhenius equation&lt;/html&gt;</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_arrhenius_A_units">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Actual units depend on reaction order&lt;/html&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string>kmol-m-s-K</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_arrhenius_B">
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Temperature exponent in Arrhenius equation (dimensionless)&lt;/html&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string>  β</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="LineEdit" name="lineedit_arrhenius_B">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Temperature exponent in Arrhenius equation (dimensionless)&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_arrhenius_Ea">
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Activation energy in Arrhenius equation&lt;/html&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string>  Eₐ</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="LineEdit" name="lineedit_arrhenius_Ea">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Activation energy in Arrhenius equation&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_arrhenius_Ea_units">
+                       <property name="text">
+                        <string>J/kmol</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_reverse_reaction">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Reaction is reverse reaction</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="hlayout_reverse_reaction" stretch="0,1">
+                    <item>
+                     <widget class="QLabel" name="label_reverse_reaction">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string>Compute rate</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="combobox_reverse_reaction">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="sizeAdjustPolicy">
+                       <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>0</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>from forward rate constant</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>from Arrhenius coefficients</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_reaction_order">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;User-defined reaction orders of reactants differing from the stoichiometric coefficients&lt;/html&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Specify reaction orders</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_reaction_order">
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="verticalSpacing">
+                      <number>2</number>
+                     </property>
+                     <item row="0" column="1">
+                      <widget class="LineEdit" name="lineedit_tmp"/>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_tmp">
+                       <property name="text">
+                        <string>TextLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_third_body">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;Required for some reactions to proceed; this is often the case in dissociation or recombination reactions.&lt;/html&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Third-body reaction</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_third_body">
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,0">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="horizontalSpacing">
+                      <number>5</number>
+                     </property>
+                     <property name="verticalSpacing">
+                      <number>4</number>
+                     </property>
+                     <item row="0" column="1">
+                      <widget class="QComboBox" name="combobox_third_body_species">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="sizeAdjustPolicy">
+                        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>Species</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QComboBox" name="combobox_third_body">
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="sizeAdjustPolicy">
+                        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>All species contribute</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>One species contributes</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item row="1" column="0" colspan="2">
+                      <widget class="QGroupBox" name="groupbox_third_body_effcy">
+                       <property name="title">
+                        <string>Enhanced third-body efficiency</string>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_4">
+                        <property name="leftMargin">
+                         <number>5</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="verticalSpacing">
+                         <number>2</number>
+                        </property>
+                        <item row="0" column="2">
+                         <widget class="LineEdit" name="lineedit_third_body_effcy"/>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QComboBox" name="combobox_third_body_add_species">
+                          <item>
+                           <property name="text">
+                            <string>Species</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QToolButton" name="toolbutton_spacer">
+                          <property name="text">
+                           <string>...</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_pressure_dependent">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Pressure-dependent reaction</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_pressure_dependent">
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,1">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <item row="0" column="1">
+                      <widget class="QComboBox" name="combobox_pressure_model">
+                       <property name="sizeAdjustPolicy">
+                        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>Unimolecular/recombination fall-off</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Chemically activated bimolecular</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>PLOG</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item row="3" column="0" colspan="2">
+                      <widget class="QGroupBox" name="groupbox_pressure_coeff">
+                       <property name="title">
+                        <string>Pressure coefficients</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_2">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="QWidget" name="groupbox_pressure_troe" native="true">
+                          <layout class="QHBoxLayout" name="hlayout_pressure_troe">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QLabel" name="label_troe_alpha">
+                             <property name="text">
+                              <string>α</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_troe_alpha"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_troe_t3star">
+                             <property name="font">
+                              <font>
+                               <kerning>true</kerning>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>T ⃰  ⃰  ⃰</string>
+                             </property>
+                             <property name="margin">
+                              <number>5</number>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_troe_t3star"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_troe_tstar">
+                             <property name="font">
+                              <font>
+                               <kerning>false</kerning>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>T ⃰</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_troe_tstar"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_troe_t2star">
+                             <property name="font">
+                              <font>
+                               <kerning>true</kerning>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>T ⃰  ⃰</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_troe_t2star"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QWidget" name="groupbox_pressure_sri" native="true">
+                          <layout class="QHBoxLayout" name="hlayout_pressure_sri">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QLabel" name="label_sri_a">
+                             <property name="text">
+                              <string>a</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_sri_a"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_sri_b">
+                             <property name="text">
+                              <string>b</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_sri_b"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_sri_c">
+                             <property name="text">
+                              <string>c</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_sri_c"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_sri_d">
+                             <property name="text">
+                              <string>d</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_sri_d"/>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_sri_e">
+                             <property name="text">
+                              <string>e</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="LineEdit" name="lineedit_sri_e"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QComboBox" name="combobox_pressure_method">
+                       <item>
+                        <property name="text">
+                         <string>Lindemann</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Troe</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>SRI</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item row="5" column="0" colspan="2">
+                      <widget class="QTableWidget" name="tablewidget_plog">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="sizeAdjustPolicy">
+                        <enum>QAbstractScrollArea::AdjustToContents</enum>
+                       </property>
+                       <attribute name="horizontalHeaderCascadingSectionResizes">
+                        <bool>true</bool>
+                       </attribute>
+                       <attribute name="horizontalHeaderMinimumSectionSize">
+                        <number>33</number>
+                       </attribute>
+                       <attribute name="horizontalHeaderDefaultSectionSize">
+                        <number>100</number>
+                       </attribute>
+                       <attribute name="horizontalHeaderStretchLastSection">
+                        <bool>true</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                       </attribute>
+                       <row>
+                        <property name="text">
+                         <string>New Row</string>
+                        </property>
+                       </row>
+                       <column>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Pressure</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>A</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>β</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Eₐ</string>
+                        </property>
+                       </column>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_pressure_method">
+                       <property name="text">
+                        <string>Rate method</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_pressure_model">
+                       <property name="text">
+                        <string>Reaction type</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0" colspan="2">
+                      <widget class="QGroupBox" name="groupbox_pressure_arrhenius">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;Extra Arrhenius coefficients for unimolecular/recombination fall-off reactions and chemically activated bimolecular reactions. They are used for the lower-pressure limit for unimolecular/recombination fall-off reactions and the higher-pressure limit for chemically activated bimolecular reactions, with the coefficients for the other limit being given above.&lt;/html&gt;</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QGroupBox{font:bold;}</string>
+                       </property>
+                       <property name="title">
+                        <string>Arrhenius coefficients</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_6">
+                        <property name="leftMargin">
+                         <number>5</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>5</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>5</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>5</number>
+                        </property>
+                        <item row="0" column="3">
+                         <widget class="QLabel" name="label_pressure_arrhenius_B">
+                          <property name="font">
+                           <font>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="toolTip">
+                           <string>&lt;html&gt;Temperature exponent in Arrhenius equation (dimensionless)&lt;/html&gt;</string>
+                          </property>
+                          <property name="text">
+                           <string>  β</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="7">
+                         <widget class="QLabel" name="label_pressure_arrhenius_Ea_units">
+                          <property name="text">
+                           <string>J/kmol</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="2">
+                         <widget class="QLabel" name="label_pressure_arrhenius_A_units">
+                          <property name="toolTip">
+                           <string>Actual units depend on reaction order</string>
+                          </property>
+                          <property name="text">
+                           <string>kmol-m-s-K</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="4">
+                         <widget class="LineEdit" name="lineedit_pressure_arrhenius_B">
+                          <property name="toolTip">
+                           <string>&lt;html&gt;Temperature exponent in Arrhenius equation (dimensionless)&lt;/html&gt;</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="6">
+                         <widget class="LineEdit" name="lineedit_pressure_arrhenius_Ea">
+                          <property name="toolTip">
+                           <string>Activation energy in Arrhenius equation</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="5">
+                         <widget class="QLabel" name="label_pressure_arrhenius_Ea">
+                          <property name="font">
+                           <font>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="toolTip">
+                           <string>Activation energy in Arrhenius equation</string>
+                          </property>
+                          <property name="text">
+                           <string>  Eₐ</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="LineEdit" name="lineedit_pressure_arrhenius_A">
+                          <property name="toolTip">
+                           <string>Pre-factor in Arrhenius equation</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_pressure_arrhenius_A">
+                          <property name="font">
+                           <font>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="toolTip">
+                           <string>Pre-factor in Arrhenius equation.</string>
+                          </property>
+                          <property name="text">
+                           <string>A</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_landau_teller">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;Landau-Teller expressions for reactions such as vibrational energy transfer processes whose reaction rate cannot be calculated using the Arrhenius form. The standard Landau-Teller expression is obtained by setting β and Eₐ to zero above.  The Arrhenius expression will be used by setting B and C to 0.  All parameters can be used to give more flexibility in the reaction rate.&lt;/html&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Landau-Teller formulation</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_landau_teller">
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>5</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_landau_teller_B">
+                       <property name="text">
+                        <string>B</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="LineEdit" name="lineedit_landau_teller_B"/>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_landau_teller_C">
+                       <property name="text">
+                        <string>C</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="LineEdit" name="lineedit_landau_teller_C"/>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkbox_rate_fit">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;Additional rate-expression forms for plasma reactions&lt;/html&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Other rate constant fitting expressions</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupbox_rate_fit">
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QGridLayout" name="gridLayout_7" columnstretch="0,1">
+                     <property name="leftMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>5</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>5</number>
+                     </property>
+                     <item row="2" column="0" colspan="2">
+                      <widget class="QGroupBox" name="groupbox_rate_fit_coeff">
+                       <property name="title">
+                        <string>Fit coefficients</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_8">
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <item row="0" column="6">
+                         <widget class="QLabel" name="label_fit_b4">
+                          <property name="text">
+                           <string>b₄</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="9">
+                         <widget class="LineEdit" name="lineedit_fit_b5"/>
+                        </item>
+                        <item row="0" column="3">
+                         <widget class="LineEdit" name="lineedit_fit_b2"/>
+                        </item>
+                        <item row="0" column="7">
+                         <widget class="LineEdit" name="lineedit_fit_b4"/>
+                        </item>
+                        <item row="0" column="2">
+                         <widget class="QLabel" name="label_fit_b2">
+                          <property name="text">
+                           <string>b₂</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="8">
+                         <widget class="QLabel" name="label_fit_b5">
+                          <property name="text">
+                           <string>b₅</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="LineEdit" name="lineedit_fit_b1"/>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_fit_b1">
+                          <property name="text">
+                           <string>b₁</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="5">
+                         <widget class="LineEdit" name="lineedit_fit_b3"/>
+                        </item>
+                        <item row="0" column="4">
+                         <widget class="QLabel" name="label_fit_b3">
+                          <property name="text">
+                           <string>b₃</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="label_fit_b6">
+                          <property name="text">
+                           <string>b₆</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="2">
+                         <widget class="QLabel" name="label_fit_b7">
+                          <property name="text">
+                           <string>b₇</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="4">
+                         <widget class="QLabel" name="label_fit_b8">
+                          <property name="text">
+                           <string>b₈</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="6">
+                         <widget class="QLabel" name="label_fit_b9">
+                          <property name="text">
+                           <string>b₉</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="LineEdit" name="lineedit_fit_b6"/>
+                        </item>
+                        <item row="1" column="3">
+                         <widget class="LineEdit" name="lineedit_fit_b7"/>
+                        </item>
+                        <item row="1" column="5">
+                         <widget class="LineEdit" name="lineedit_fit_b8"/>
+                        </item>
+                        <item row="1" column="7">
+                         <widget class="LineEdit" name="lineedit_fit_b9"/>
+                        </item>
+                       </layout>
+                       <zorder>label_fit_b4</zorder>
+                       <zorder>lineedit_fit_b5</zorder>
+                       <zorder>lineedit_fit_b2</zorder>
+                       <zorder>lineedit_fit_b4</zorder>
+                       <zorder>label_fit_b2</zorder>
+                       <zorder>label_fit_b5</zorder>
+                       <zorder>label_fit_b1</zorder>
+                       <zorder>lineedit_fit_b3</zorder>
+                       <zorder>label_fit_b3</zorder>
+                       <zorder>label_fit_b6</zorder>
+                       <zorder>label_fit_b7</zorder>
+                       <zorder>label_fit_b8</zorder>
+                       <zorder>label_fit_b9</zorder>
+                       <zorder>lineedit_fit_b6</zorder>
+                       <zorder>lineedit_fit_b7</zorder>
+                       <zorder>lineedit_fit_b8</zorder>
+                       <zorder>lineedit_fit_b9</zorder>
+                       <zorder>lineedit_fit_b1</zorder>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_fit_coeff_method">
+                       <property name="text">
+                        <string>Method</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QComboBox" name="combobox_rate_fit_method">
+                       <item>
+                        <property name="text">
+                         <string>JAN</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>FIT1</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_X">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="options">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="CheckBox" name="checkbox_keyword_arrhenius_rrates_fluid">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Enable Arrhenius model for fluid phase reactions</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="CheckBox" name="checkbox_keyword_arrhenius_rrates_des">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Enable Arrhenius model for discrete particle reactions</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupbox_min_mass_fraction">
+            <property name="styleSheet">
+             <string notr="true">QGroupBox{font: bold;}</string>
+            </property>
+            <property name="title">
+             <string>Minimum mass fraction for reactions</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_chem_min_species_fluid">
+               <property name="text">
+                <string>Fluid reactions</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_chem_min_species_fluid"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_chem_min_species_solid">
+               <property name="text">
+                <string>Solids reactions</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_des_min_pmass_frac"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_chem_min_species_solid"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_des_min_pmass_frac">
+               <property name="text">
+                <string>Particle mass ratio</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkbox_stiff_chemistry">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Enable stiff chemistry solver</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupbox_stiff_chemistry">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string/>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_11">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_stiff_chem_abs_tol">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Absolute tolerance</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_stiff_chem_max_steps">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_stiff_chem_min_rate">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Minimum reaction rate</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_stiff_chem_rel_tol">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Relative tolerance</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_stiff_chem_min_rate_dpm">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Minimum DPM reaction rate</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_stiff_chem_min_rate">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_stiff_chem_abs_tol">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_stiff_chem_min_rate_dpm">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="LineEdit" name="lineedit_keyword_stiff_chem_rel_tol">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_stiff_chem_max_steps">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Maximum number of substeps</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushbutton_options">
+        <property name="text">
+         <string>Options</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushbutton_reactions">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Reactions</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="Line" name="line_chemistry">
+        <property name="styleSheet">
+         <string notr="true">QWidget{
+  background-color: #64B5F6;
+  border-color: #64B5F6;
+}</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mfixgui.widgets.base</header>
+  </customwidget>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>mfixgui.widgets.base</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>pushbutton_reactions</tabstop>
+  <tabstop>pushbutton_options</tabstop>
+  <tabstop>toolbutton_add_reaction</tabstop>
+  <tabstop>toolbutton_delete_reaction</tabstop>
+  <tabstop>toolbutton_load_reactions</tabstop>
+  <tabstop>tablewidget_reactions</tabstop>
+  <tabstop>scrollarea_detail</tabstop>
+  <tabstop>lineedit_reaction_name</tabstop>
+  <tabstop>toolbutton_add_reactant</tabstop>
+  <tabstop>toolbutton_delete_reactant</tabstop>
+  <tabstop>tablewidget_reactants</tabstop>
+  <tabstop>toolbutton_add_product</tabstop>
+  <tabstop>toolbutton_delete_product</tabstop>
+  <tabstop>tablewidget_products</tabstop>
+  <tabstop>checkbox_dh</tabstop>
+  <tabstop>lineedit_dh</tabstop>
+  <tabstop>lineedit_arrhenius_A</tabstop>
+  <tabstop>lineedit_arrhenius_B</tabstop>
+  <tabstop>lineedit_arrhenius_Ea</tabstop>
+  <tabstop>checkbox_reverse_reaction</tabstop>
+  <tabstop>combobox_reverse_reaction</tabstop>
+  <tabstop>checkbox_reaction_order</tabstop>
+  <tabstop>lineedit_tmp</tabstop>
+  <tabstop>checkbox_third_body</tabstop>
+  <tabstop>combobox_third_body</tabstop>
+  <tabstop>combobox_third_body_species</tabstop>
+  <tabstop>toolbutton_spacer</tabstop>
+  <tabstop>combobox_third_body_add_species</tabstop>
+  <tabstop>lineedit_third_body_effcy</tabstop>
+  <tabstop>checkbox_pressure_dependent</tabstop>
+  <tabstop>combobox_pressure_model</tabstop>
+  <tabstop>combobox_pressure_method</tabstop>
+  <tabstop>lineedit_pressure_arrhenius_A</tabstop>
+  <tabstop>lineedit_pressure_arrhenius_B</tabstop>
+  <tabstop>lineedit_pressure_arrhenius_Ea</tabstop>
+  <tabstop>lineedit_troe_alpha</tabstop>
+  <tabstop>lineedit_troe_t3star</tabstop>
+  <tabstop>lineedit_troe_tstar</tabstop>
+  <tabstop>lineedit_troe_t2star</tabstop>
+  <tabstop>lineedit_sri_a</tabstop>
+  <tabstop>lineedit_sri_b</tabstop>
+  <tabstop>lineedit_sri_c</tabstop>
+  <tabstop>lineedit_sri_d</tabstop>
+  <tabstop>lineedit_sri_e</tabstop>
+  <tabstop>tablewidget_plog</tabstop>
+  <tabstop>checkbox_landau_teller</tabstop>
+  <tabstop>lineedit_landau_teller_B</tabstop>
+  <tabstop>lineedit_landau_teller_C</tabstop>
+  <tabstop>checkbox_rate_fit</tabstop>
+  <tabstop>combobox_rate_fit_method</tabstop>
+  <tabstop>lineedit_fit_b1</tabstop>
+  <tabstop>lineedit_fit_b2</tabstop>
+  <tabstop>lineedit_fit_b3</tabstop>
+  <tabstop>lineedit_fit_b4</tabstop>
+  <tabstop>lineedit_fit_b5</tabstop>
+  <tabstop>lineedit_fit_b6</tabstop>
+  <tabstop>lineedit_fit_b7</tabstop>
+  <tabstop>lineedit_fit_b8</tabstop>
+  <tabstop>lineedit_fit_b9</tabstop>
+  <tabstop>toolbutton_ok</tabstop>
+  <tabstop>toolbutton_cancel</tabstop>
+  <tabstop>checkbox_keyword_arrhenius_rrates_fluid</tabstop>
+  <tabstop>checkbox_keyword_arrhenius_rrates_des</tabstop>
+  <tabstop>lineedit_keyword_chem_min_species_fluid</tabstop>
+  <tabstop>lineedit_keyword_chem_min_species_solid</tabstop>
+  <tabstop>lineedit_keyword_des_min_pmass_frac</tabstop>
+  <tabstop>checkbox_stiff_chemistry</tabstop>
+  <tabstop>lineedit_keyword_stiff_chem_max_steps</tabstop>
+  <tabstop>lineedit_keyword_stiff_chem_abs_tol</tabstop>
+  <tabstop>lineedit_keyword_stiff_chem_rel_tol</tabstop>
+  <tabstop>lineedit_keyword_stiff_chem_min_rate</tabstop>
+  <tabstop>lineedit_keyword_stiff_chem_min_rate_dpm</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

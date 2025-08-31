@@ -1,0 +1,12 @@
+=============
+Visualization
+=============
+
+This section explains how to visualize results in the GUI, with paraview, and
+with postmfix.
+
+.. toctree::
+    :maxdepth: 2
+
+    visualization
+    postprocessing

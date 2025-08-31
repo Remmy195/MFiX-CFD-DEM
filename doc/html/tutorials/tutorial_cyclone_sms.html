@@ -1,0 +1,567 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM) &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.9. DEM initial conditions" href="tutorial_dem_seeding.html" />
+    <link rel="prev" title="3.7. DEM granular flow chutes" href="tutorial_dem_chutes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="first_tutorial.html">3.1. Running first tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_sphere.html">3.4. Three-dimensional single-phase flow over a sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-project">3.8.1. Create a new project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-the-geometry">3.8.2. Import the geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-boundary-conditions-regions">3.8.3. Create boundary conditions regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-the-mesh">3.8.4. Setup the mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-settings">3.8.5. Model settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regions-settings">3.8.6. Regions settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fluid-settings">3.8.7. Fluid settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solids-settings">3.8.8. Solids settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-conditions-settings">3.8.9. Initial conditions settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boundary-conditions-settings">3.8.10. Boundary conditions settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#numerics-settings">3.8.11. Numerics settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-settings">3.8.12. Output settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-settings">3.8.13. Run settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-simulation">3.8.14. Run the simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-results">3.8.15. View results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_seeding.html">3.9. DEM initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_procedural_geometry.html">3.10. Procedural geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_transport.html">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.8. </span>SMS meshing workflow, cyclone, Discrete Element Model (DEM)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/tutorial_cyclone_sms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sms-meshing-workflow-cyclone-discrete-element-model-dem">
+<span id="tutorial-cyclone-sms"></span><h1><span class="section-number">3.8. </span>SMS meshing workflow, cyclone, Discrete Element Model (DEM)<a class="headerlink" href="#sms-meshing-workflow-cyclone-discrete-element-model-dem" title="Link to this heading">¶</a></h1>
+<p>This tutorial shows how to use the new meshing workflow, called SMS
+(Segregated Mesher/Solver). The SMS workflow breaks the CFD workflow
+into two major steps: Mesher and Solver modes. Each mode of operation
+is performed in a separate tab in the GUI.</p>
+<p>During the Meshing step, the user focuses on generating the mesh
+and verifies it is appropriate before moving on to the Solver setup.
+Only three panes are available during Meshing: Geometry, Regions, and
+Mesh. Once the mesh is generated it must be accepted (after inspection)
+to unlock the other panes, and move to the second step (Solver mode).
+The solver mode allows to set all other model settings, and run the
+MFiX solver to obtain and visualize the simulation results.</p>
+<p>The SMS workflow is currently available as a beta testing feature, and can
+be turned on from the settings menu (select SMS: Segregated Mesher/Solver (beta)
+from the Mesher workflow drop down list). The <code class="docutils literal notranslate"><span class="pre">blank</span></code> template will automatically
+prompt the user to use the SMS workflow and users are encouraged to try it and
+provide feedback to the development team.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Settings_SMS.png"><img alt="Selecting the SMS workflow" src="../_images/Settings_SMS.png" style="width: 8cm;" />
+</a>
+</figure>
+<section id="create-a-new-project">
+<h2><span class="section-number">3.8.1. </span>Create a new project<a class="headerlink" href="#create-a-new-project" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>On the main menu click on the <a class="reference internal" href="../_images/newfolder.svg"><img alt="New folder" src="../_images/newfolder.svg" style="width: 16px;" /></a> New button.</p></li>
+<li><p>Create a new project by double-clicking on “Blank” template.</p></li>
+<li><p>Enter a project name (say ‘cyclone_sms’ and browse to a location for the new project.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_New_project.png"><img alt="create project" src="../_images/Cyclone_sms_New_project.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>If you have not switched to SMS workflow, you will be prompted
+to switch. Accept SMS mode.</p></li>
+</ul>
+<p>We are now starting a new project in SMS workflow. There are two tabs in the GUI to setup
+and run the simulation. The Mesher tab is where the mesh is setup and generated.
+The Modeler tab is where the rest of the settings and the simulation are performed.
+The Modeler tab is initially locked until the mesh has been generated and accepted.
+Running the MFiX solver is  also not allowed until the mesh has been generated.
+At run time, the solver will read the mesh and proceed with the CFD solution.</p>
+</section>
+<section id="import-the-geometry">
+<h2><span class="section-number">3.8.2. </span>Import the geometry<a class="headerlink" href="#import-the-geometry" title="Link to this heading">¶</a></h2>
+<p>We will use an STL file as the geometry input. Download the file <a class="reference download internal" download="" href="../_downloads/31aace55879e30267f1693223d65a44c/cyclone.stl"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> pane:</p>
+<ul class="simple">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">STL</span> <span class="pre">file</span></code> as the geometry input.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Load_STL.png"><img alt="Load STL file" src="../_images/Cyclone_sms_Load_STL.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Navigate to where you downloaded <code class="docutils literal notranslate"><span class="pre">cyclone.stl</span></code>, select it and answer <code class="docutils literal notranslate"><span class="pre">Yes</span></code> when prompted to copy the file
+to the project directory.</p></li>
+<li><p>Verify the STL normals are pointing in the right direction. In the model window, show the Geometry, hide the
+Background mesh, hide the Regions (visibility is toggled by clicking on each icon). Set the Geometry style to <code class="docutils literal notranslate"><span class="pre">edges</span></code>,
+opacity to 1.0, check the <code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">normals</span></code> box, set the <code class="docutils literal notranslate"><span class="pre">Scale</span></code> to 0.05, set <code class="docutils literal notranslate"><span class="pre">count</span></code> to 10,000 (to show all normals).</p></li>
+</ul>
+<p>The normal vectors should point towards the fluid region (here towards the inside of the cyclone). For internal flows,
+the tips of the arrows are generally not visible, except through openings in the STL geometry. Openings in the STL geometry are allowed as long as they are outside of the domain extents.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Show_normals.png"><img alt="Show normals" src="../_images/Cyclone_sms_Show_normals.png" style="width: 8cm;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the normals are pointing in the wrong direction, they can be flipped in the Geometry parameters.
+Check the <code class="docutils literal notranslate"><span class="pre">Flip</span> <span class="pre">normals</span></code> box and notice the difference in the Model view. Uncheck the box since the original STL
+file was correctly oriented.</p>
+</div>
+<ul class="simple">
+<li><p>Toggle the Region visibility back on.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">Domain</span> <span class="pre">extent</span></code>, click on Autosize, and adjust the following:</p>
+<ul>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">0.0</span></code> for the Min Y value.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">0.9</span></code> for the Max Y value.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">0.25</span></code> for the Max Z value.</p></li>
+</ul>
+</li>
+</ul>
+<p>Note that the cyclone inlet and outlets extend beyond the domain extents. This is intentional,
+as it usually provides a cleaner intersection and easier way to define boundary conditions regions when
+they are aligned with the domain box (planes along x=xmin, x=xmax etc.).</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Geometry.png"><img alt="Geometry" src="../_images/Cyclone_sms_Geometry.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+</section>
+<section id="create-boundary-conditions-regions">
+<h2><span class="section-number">3.8.3. </span>Create boundary conditions regions<a class="headerlink" href="#create-boundary-conditions-regions" title="Link to this heading">¶</a></h2>
+<p>Here, we need to define the mesh boundaries. Boundaries include the cyclone wall (curved surface defined by the STL geometry), and the inlet and outlets, defined along the domain outer box (plane boundaries). A boundary condition type must be defined,
+but it will be possible to change it later (in Modeler Tab). The actual boundary conditions (like the inlet velocity, or
+outlet pressure) do not need to be set at this point.</p>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Regions</span></code> pane:</p>
+<ul class="simple">
+<li><p>There is already a <code class="docutils literal notranslate"><span class="pre">Background</span></code> that is predefined in the Blank template. We can ignore it for now.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/top_region.svg"><img alt="Top" src="../_images/top_region.svg" style="width: 16px;" /></a> (top) button to create a new region to be used by pressure outflow boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Pressure</span> <span class="pre">outflow</span></code> in the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> drop down menu.</p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“Top outlet”).</p></li>
+<li><p>Change the region color to blue.</p></li>
+<li><p>Adjust the From/To coordinates in the x-direction: From -0.07 to 0.07.</p></li>
+<li><p>Adjust the From/To coordinates in the z-direction: From -0.07 to 0.07.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/bottom_region.svg"><img alt="Bottom" src="../_images/bottom_region.svg" style="width: 16px;" /></a> (bottom) button to create a new region to be used by another pressure outflow boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Pressure</span> <span class="pre">outflow</span></code> in the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> drop down menu.</p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“Bottom outlet”).</p></li>
+<li><p>Change the region color to yellow.</p></li>
+<li><p>Adjust the From/To coordinates in the x-direction: From -0.07 to 0.07.</p></li>
+<li><p>Adjust the From/To coordinates in the z-direction: From -0.07 to 0.07.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/front_region.svg"><img alt="Front" src="../_images/front_region.svg" style="width: 16px;" /></a> (front) button to create a new region to be used by mass inflow boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Mass</span> <span class="pre">inflow</span></code> in the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> drop down menu.</p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“Front inlet”).</p></li>
+<li><p>Change the region color to red.</p></li>
+<li><p>Adjust the From/To coordinates in the x-direction: From xmin to -0.025.</p></li>
+<li><p>Adjust the From/To coordinates in the y-direction: From 0.55 to 0.80.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/all_region.svg"><img alt="All" src="../_images/all_region.svg" style="width: 16px;" /></a> (all) button to create a new region that covers the entire domain to be used for the wall boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">No-slip</span> <span class="pre">wall</span></code> in the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> drop down menu.</p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“Wall”).</p></li>
+<li><p>Change the region color to green.</p></li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">facets</span> <span class="pre">(STL)</span></code> and <code class="docutils literal notranslate"><span class="pre">cyclone.stl</span></code>, use <code class="docutils literal notranslate"><span class="pre">all</span></code> for the selection method.
+You should see that there are 7554 facets selected.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The pressure outlet and mass inflow boundaries are located along the domain box.
+They are defined as rectangular 2D regions and must overlap the actual boundary areas
+(intersection of the STL file with the box planes). The exact boundary area will
+be computed automatically when preprocessing is performed.
+Since there is only one boundary condition on the top, bottom and front planes,
+we could also have used the entire planes instead of adjusting the region coordinates.</p>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Regions.png"><img alt="Regions" src="../_images/Cyclone_sms_Regions.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+</section>
+<section id="setup-the-mesh">
+<h2><span class="section-number">3.8.4. </span>Setup the mesh<a class="headerlink" href="#setup-the-mesh" title="Link to this heading">¶</a></h2>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Background</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">25</span></code> for the x cell value.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">70</span></code> for the y cell value.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">33</span></code> for the z cell value.</p></li>
+</ul>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Mesher</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Keep all default settings and click <code class="docutils literal notranslate"><span class="pre">Generate</span></code>. Select the default solver, and click <code class="docutils literal notranslate"><span class="pre">Run</span></code></p></li>
+<li><p>Look at the console output to verify the mesh generation completed successfully.</p></li>
+<li><p>In the Model view
+- hide the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code>, <code class="docutils literal notranslate"><span class="pre">Background</span> <span class="pre">mesh</span></code> and <code class="docutils literal notranslate"><span class="pre">Regions</span></code>,
+- show the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">mesh</span></code>
+- set <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">by</span></code> to <code class="docutils literal notranslate"><span class="pre">bc_id</span></code>,
+- set <code class="docutils literal notranslate"><span class="pre">Style</span></code> to <code class="docutils literal notranslate"><span class="pre">edges</span></code> and opacity to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>The boundary mesh should look like a closed surface with colors matching the boundary conditions regions.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_BC_ID.png"><img alt="Mesh colored by bc_id" src="../_images/Cyclone_sms_BC_ID.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Color the boundary mesh by <code class="docutils literal notranslate"><span class="pre">small_cell</span></code>. This will show small cells, as defined by the small cell tolerance.
+The default value of 0.01 means a cut cell is considered small if its volume is below 0.01 times the volume of
+the corresponding standard, uncut cell. These small cells will be removed from the computation. Having a
+Small cell tolerance set to 0.0 will keep all small cells and this may lead to numerical stiffness and loss of
+convergence.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Small_cells_no_snapping.png"><img alt="Mesh colored by small cell, no snapping" src="../_images/Cyclone_sms_Small_cells_no_snapping.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Having a few small cells is usually acceptable. In some cases it is possible to reduce the number of small cells by
+adjusting some cut cell parameters. Increase the Snap tolerance to 0.1 in the x, y, and z-direction. Generate the mesh again, and visualize the small cells. The vertical column of small cells was eliminated.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Small_cells_with_snapping.png"><img alt="Mesh colored by small cell, with snapping" src="../_images/Cyclone_sms_Small_cells_with_snapping.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Mesh statistics (histogram) can be viewed in the Mesh stats viewport. Various quantities are available. For example
+the aspect ratio of cut cells is between 1 and 8, with most aspect ratios between 1 and 2. This is acceptable.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Mesh_stats.png"><img alt="Mesh colored by small cell, no snapping" src="../_images/Cyclone_sms_Mesh_stats.png" style="width: 8cm;" />
+</a>
+</figure>
+<p>After inspection, the mesh is deemed acceptable and we can move to the second step (Solver mode). Click <code class="docutils literal notranslate"><span class="pre">Accept</span></code>. This will unlock the Modeler tab.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optional but recommended: To see examples of unacceptable meshes, try the following:</p>
+</div>
+<ul class="simple">
+<li><p>Go back to the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> pane, and flip the normals. This will incorrectly orient the STL file.
+This is a common error when importing STL files. Generate the mesh and visualize the boundary mesh.
+Having an open surface and boundaries inside-out is an indication that the normals are not properly
+oriented. The mesh should not be accepted.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Wrong_normals.png"><img alt="Mesh with wrong STL orientation" src="../_images/Cyclone_sms_Wrong_normals.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Uncheck the <code class="docutils literal notranslate"><span class="pre">Flip</span> <span class="pre">normals</span></code> box in the Geometry pane to get correct orientation.
+Go to the Region pane, and select the Front inlet region in the region
+table and set the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code>. Save the project and generate the mesh.
+The boundary mesh will look like an open surface, this is an indication a boundary condition is missing.
+The mesh should not be accepted.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Missing_BC.png"><img alt="Mesh with missing boundary condition" src="../_images/Cyclone_sms_Missing_BC.png" style="width: 8cm;" />
+</a>
+</figure>
+<p>Remember to set the Front inlet region boundary type to <code class="docutils literal notranslate"><span class="pre">Mass</span> <span class="pre">inflow</span></code> again before continuing.
+Generate the mesh, inspect it and accept it before moving to the Modeler tab.</p>
+</section>
+<section id="model-settings">
+<h2><span class="section-number">3.8.5. </span>Model settings<a class="headerlink" href="#model-settings" title="Link to this heading">¶</a></h2>
+<p>Switch to the Modeler tab (second tab at the bottom left corner of the GUI).</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Model</span></code> pane, enter a descriptive text in the
+<code class="docutils literal notranslate"><span class="pre">Description</span></code> field.</p></li>
+<li><p>Select “Discrete Element Model (MFiX-DEM)” in the <code class="docutils literal notranslate"><span class="pre">Solver</span></code>
+drop-down menu.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Model.png"><img alt="Mesh with wrong STL orientation" src="../_images/Cyclone_sms_Model.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="regions-settings">
+<h2><span class="section-number">3.8.6. </span>Regions settings<a class="headerlink" href="#regions-settings" title="Link to this heading">¶</a></h2>
+<p>We already have the Background_IC region that is predefined. We will use it to initialize the flow field.
+We have defined all Boundary Condition regions during the meshing step. There are no other regions that need
+to be defined in this tutorial. We will reuse Background_IC region for the VTK output file.</p>
+</section>
+<section id="fluid-settings">
+<h2><span class="section-number">3.8.7. </span>Fluid settings<a class="headerlink" href="#fluid-settings" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Change Density to <code class="docutils literal notranslate"><span class="pre">Ideal</span> <span class="pre">gas</span> <span class="pre">law</span></code>.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Fluid.png"><img alt="Mesh with wrong STL orientation" src="../_images/Cyclone_sms_Fluid.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="solids-settings">
+<h2><span class="section-number">3.8.8. </span>Solids settings<a class="headerlink" href="#solids-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Solids</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Materials</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button to create a new solid.</p></li>
+<li><p>Enter a descriptive name in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“Glass beads”).</p></li>
+<li><p>Verify the solids model is already set to “Discrete Element Model (MFiX-DEM)”.</p></li>
+<li><p>Enter the particle diameter of <code class="docutils literal notranslate"><span class="pre">0.005</span></code> m in the <code class="docutils literal notranslate"><span class="pre">Diameter</span></code> field.</p></li>
+<li><p>Enter the particle density of <code class="docutils literal notranslate"><span class="pre">2500</span></code> kg/m<sup>3</sup> in the <code class="docutils literal notranslate"><span class="pre">Density</span></code> field.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Solids_Mat.png"><img alt="Solids material" src="../_images/Cyclone_sms_Solids_Mat.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Solids</span></code> pane, <code class="docutils literal notranslate"><span class="pre">DEM</span></code> sub-pane.</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">automatic</span> <span class="pre">particle</span> <span class="pre">generation</span></code> checkbox. Although we will start with an
+empty cyclone, this setting is necessary so we don’t attempt to read initial particle location
+from <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code>.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Solids_DEM.png"><img alt="DEM settings" src="../_images/Cyclone_sms_Solids_DEM.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="initial-conditions-settings">
+<h2><span class="section-number">3.8.9. </span>Initial conditions settings<a class="headerlink" href="#initial-conditions-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane:</p>
+<ul class="simple">
+<li><p>There is already a pre-defined  “Background” region.
+This will initialize the entire flow field with air at rest.</p></li>
+<li><p>Keep all settings at their default values.</p></li>
+</ul>
+</section>
+<section id="boundary-conditions-settings">
+<h2><span class="section-number">3.8.10. </span>Boundary conditions settings<a class="headerlink" href="#boundary-conditions-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">conditions</span></code> pane:</p>
+<ul class="simple">
+<li><p>The Top outlet and Bottom outlet Boundary conditions are already
+set to atmospheric pressure. No changes are needed.</p></li>
+<li><p>The Wall Boundary conditions is already set to No-slip wall.
+No changes are needed.</p></li>
+<li><p>Select the Front Inlet region from the list.</p>
+<ul>
+<li><p>In the Glass beads tab: set the Volume fraction to 0.01, and Z-axial velocity to -2.0.</p></li>
+<li><p>In the Fluid tab, verify the Gas volume fraction was automatically set to 0.99
+and set the Z-axial velocity to -2.0.</p></li>
+</ul>
+</li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_BC.png"><img alt="Boundary conditions" src="../_images/Cyclone_sms_BC.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="numerics-settings">
+<h2><span class="section-number">3.8.11. </span>Numerics settings<a class="headerlink" href="#numerics-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Numerics</span></code> pane:</p>
+<ul class="simple">
+<li><p>Set the Fluid normalization to 0.0.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Numerics.png"><img alt="Boundary conditions" src="../_images/Cyclone_sms_Numerics.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="output-settings">
+<h2><span class="section-number">3.8.12. </span>Output settings<a class="headerlink" href="#output-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Output</span></code> pane:</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Basic</span></code> sub-pane, check the
+<code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">VTK</span> <span class="pre">output</span> <span class="pre">files</span> <span class="pre">(VTU/VTP)</span></code> checkbox.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Output_basic.png"><img alt="Boundary conditions" src="../_images/Cyclone_sms_Output_basic.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> sub-pane.</p></li>
+<li><p>Create a new output by clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button.</p></li>
+<li><p>Select “Particle Data” from the ‘Output type’ drop-down menu.</p></li>
+<li><p>Select the “Background” region from the list to save all the
+particle data.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">OK</span></code> to create the output.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Particle_data.png"><img alt="VTK particle data" src="../_images/Cyclone_sms_Particle_data.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Enter a base name for the <code class="docutils literal notranslate"><span class="pre">*.vtu</span></code> files in the <code class="docutils literal notranslate"><span class="pre">Filename</span> <span class="pre">base</span></code>
+field (“Particles”).</p></li>
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">interval</span></code> to <code class="docutils literal notranslate"><span class="pre">0.01</span></code> seconds.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Diameter</span></code> and <code class="docutils literal notranslate"><span class="pre">Translational</span> <span class="pre">Velocity</span></code> checkboxes.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_VTK.png"><img alt="VTK file" src="../_images/Cyclone_sms_VTK.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="run-settings">
+<h2><span class="section-number">3.8.13. </span>Run settings<a class="headerlink" href="#run-settings" title="Link to this heading">¶</a></h2>
+<p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Run</span></code> pane:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">time</span></code> to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Maximum</span> <span class="pre">time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_Run.png"><img alt="VTK file" src="../_images/Cyclone_sms_Run.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="run-the-simulation">
+<h2><span class="section-number">3.8.14. </span>Run the simulation<a class="headerlink" href="#run-the-simulation" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Run the project by clicking the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> button.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Run</span></code> dialog, select the executable from the combo-box.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button to actually start the simulation.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_run_dialog.png"><img alt="new boundary condition" src="../_images/gui_run_dialog.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="view-results">
+<h2><span class="section-number">3.8.15. </span>View results<a class="headerlink" href="#view-results" title="Link to this heading">¶</a></h2>
+<p>Results can be viewed, and plotted, while the simulation is running.</p>
+<ul class="simple">
+<li><p>Create a new visualization tab by pressing the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> next to the <cite>Model</cite> tab.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">3D</span> <span class="pre">view</span></code> button to view the vtk output files.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> results tab, the visibility and representation of the
+<code class="docutils literal notranslate"><span class="pre">*.vtk</span></code> files can be controlled with the menu on the side.</p></li>
+<li><p>Change frames with the <a class="reference internal" href="../_images/first.svg"><img alt="First" src="../_images/first.svg" style="width: 16px;" /></a>, <a class="reference internal" href="../_images/back.svg"><img alt="Back" src="../_images/back.svg" style="width: 16px;" /></a>, <a class="reference internal" href="../_images/next.svg"><img alt="Next" src="../_images/next.svg" style="width: 16px;" /></a>, and <a class="reference internal" href="../_images/last.svg"><img alt="Last" src="../_images/last.svg" style="width: 16px;" /></a> buttons.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> button to play the available vtk files.</p></li>
+<li><p>Change the playback speed under the <a class="reference internal" href="../_images/speed.svg"><img alt="Speed" src="../_images/speed.svg" style="width: 16px;" /></a> section on the sidebar.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Cyclone_sms_VTK_view.png"><img alt="VTK file" src="../_images/Cyclone_sms_VTK_view.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_dem_chutes.html" class="btn btn-neutral float-left" title="3.7. DEM granular flow chutes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_dem_seeding.html" class="btn btn-neutral float-right" title="3.9. DEM initial conditions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. About &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="_static/mfix.css?v=31071079" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Getting started" href="getting_started/index.html" />
+    <link rel="prev" title="MFiX User Manual" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. About MFiX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mfix">1.1. MFiX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-state-of-mfix-models">1.2. Development state of MFiX models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mfix-tfm-two-fluid-model">1.2.1. MFiX-TFM (Two-fluid model)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mfix-dem-discrete-element-model">1.2.2. MFiX-DEM (Discrete element model)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mfix-cgp-coarse-grained-particle">1.2.3. MFiX-CGP (Coarse-grained particle)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mfix-sqp-superquadric-particle">1.2.4. MFiX-SQP (Superquadric particle)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mfix-gsp-glued-sphere-particle">1.2.5. MFiX-GSP (Glued-sphere particle)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mfix-pic-multiphase-particle-in-cell">1.2.6. MFiX-PIC (Multiphase particle-in-cell)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gui">1.3. GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-forum">1.4. Support forum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-contribution">1.5. User contribution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>About</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/about.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="about">
+<span id="id1"></span><h1><span class="section-number">1. </span>About<a class="headerlink" href="#about" title="Link to this heading">¶</a></h1>
+<section id="mfix">
+<h2><span class="section-number">1.1. </span>MFiX<a class="headerlink" href="#mfix" title="Link to this heading">¶</a></h2>
+<p>MFiX is an open-source multiphase flow solver and is free to download
+and use. A one-time, no-cost registration is required prior to
+downloading the source code. To register, go to
+<a class="reference external" href="https://mfix.netl.doe.gov/">https://mfix.netl.doe.gov/</a> and click on the “Register” button in the
+upper right corner. Once you have read the notice, you can submit your
+application by clicking on “REGISTER.” After your application has been
+reviewed and accepted, you will receive an email notification and
+instructions on how to download the code. Please allow for 2-3 business
+days for your registration to be processed.</p>
+</section>
+<section id="development-state-of-mfix-models">
+<h2><span class="section-number">1.2. </span>Development state of MFiX models<a class="headerlink" href="#development-state-of-mfix-models" title="Link to this heading">¶</a></h2>
+<p>MFiX provides a suite of models that treat the carrier phase (typically
+the gas phase) and disperse phase (typically the solids phase)
+differently. Their current state of development is summarized in the
+tables below.</p>
+<p>Symbol description for the following tables:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p>Implemented and fully tested</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td><p>Implemented with limited testing</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\square\)</span></p></td>
+<td><p>Not tested or status unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>†</p></td>
+<td><p>Models not extended to DMP-parallel are only
+available for serial runs</p></td>
+</tr>
+<tr class="row-even"><td><p>‡</p></td>
+<td><p>Models not extended to SMP-parallel are available
+for SMP runs but do not scale with thread count</p></td>
+</tr>
+</tbody>
+</table>
+<section id="mfix-tfm-two-fluid-model">
+<span id="dvlpt-tfm"></span><h3><span class="section-number">1.2.1. </span>MFiX-TFM (Two-fluid model)<a class="headerlink" href="#mfix-tfm-two-fluid-model" title="Link to this heading">¶</a></h3>
+<p><strong>MFiX-TFM (Two-fluid model)</strong> is an Eulerian-Eulerian model, which
+supports a broad range of capabilities for dense, reacting, multiphase
+flows by representing the fluid and solids as interpenetrating continua.
+This is the most mature MFiX model and is capable of modeling multiphase
+reactors ranging in size from benchtop to industry-scale. Approximation
+of the solid phase as a continuum typically allows for faster simulation
+time than Lagrangian techniques; however, it also introduces the need
+for accurate mathematical models to capture realistic solids phase
+behavior. This includes transport properties, heterogeneous reaction
+kinetics, and constitutive relations for interaction between fluid and
+solid phases, e.g., solids phase drag and interphase heat transfer.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>†DMP</p></th>
+<th class="head"><p>‡SMP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Energy Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Species Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Chemical Reactions</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Cartesian cut-cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><strong>□</strong></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mfix-dem-discrete-element-model">
+<span id="dvlpt-dem"></span><h3><span class="section-number">1.2.2. </span>MFiX-DEM (Discrete element model)<a class="headerlink" href="#mfix-dem-discrete-element-model" title="Link to this heading">¶</a></h3>
+<p><strong>MFiX-DEM (Discrete element model)</strong> is an Eulerian-Lagrangian model
+that treats the fluid phase as a continuum and models the individual
+particles of the solid phase. This is a relatively new variation on
+MFiX. While the treatment of individual particles can provide higher
+fidelity over a broad range of flow regimes (from dilute to packed), it
+becomes very challenging (in terms of computational resources)
+when dealing with very large numbers of particles
+for large-scale simulations. These large-scale applications will require
+high performance computing (HPC) resources and large amounts of computer
+time. Code optimization and speed up are critical research fronts to
+support industrial scale applications.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>†DMP</p></th>
+<th class="head"><p>‡SMP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Energy Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Species Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Chemical Reactions</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Cartesian cut-cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mfix-cgp-coarse-grained-particle">
+<span id="dvlpt-cgp"></span><h3><span class="section-number">1.2.3. </span>MFiX-CGP (Coarse-grained particle)<a class="headerlink" href="#mfix-cgp-coarse-grained-particle" title="Link to this heading">¶</a></h3>
+<p><strong>MFiX-CGP (Coarse-grained particle)</strong> is an Eulerian-Lagrangian model
+similar to DEM, where particles are grouped into larger coarse-grained
+particles (CGP). The collisions between CGPs are resolved the same way
+as in DEM. This modeling approach is more affordable than DEM since fewer
+CGPs need to be tracked. This modeling approach falls between DEM and PIC
+in terms of computational resources.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>†DMP</p></th>
+<th class="head"><p>‡SMP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Energy Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Species Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Chemical Reactions</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Cartesian cut-cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mfix-sqp-superquadric-particle">
+<span id="dvlpt-sqp"></span><h3><span class="section-number">1.2.4. </span>MFiX-SQP (Superquadric particle)<a class="headerlink" href="#mfix-sqp-superquadric-particle" title="Link to this heading">¶</a></h3>
+<p><strong>MFiX-SQP (Superquadric particle)</strong> is an Eulerian-Lagrangian model
+similar to DEM, where particles have non-spherical shapes. The particle
+shape is defined with a superquadric surface. This allows representing a
+wide variety of shapes with 5 parameters. This modeling approach is
+much more computationlly intensive than MFiX-DEM due to the complexity
+of contact detection for non-spherical shapes.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>†DMP</p></th>
+<th class="head"><p>‡SMP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Energy Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Species Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Chemical Reactions</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Cartesian cut-cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mfix-gsp-glued-sphere-particle">
+<span id="dvlpt-gsp"></span><h3><span class="section-number">1.2.5. </span>MFiX-GSP (Glued-sphere particle)<a class="headerlink" href="#mfix-gsp-glued-sphere-particle" title="Link to this heading">¶</a></h3>
+<p><strong>MFiX-GSP (Glued-sphere particle)</strong> is an Eulerian-Lagrangian model
+similar to DEM, where particles have non-spherical shapes. The particle
+is an assembly of smaller spheres that are glued together.
+This modeling approach is more computationlly intensive than MFiX-DEM due
+to the larger particle count, but faster that MFiX-SQP model because the
+contact detection is still based on sphere-sphere contact.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>†DMP</p></th>
+<th class="head"><p>‡SMP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Energy Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Species Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Chemical Reactions</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Cartesian cut-cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mfix-pic-multiphase-particle-in-cell">
+<span id="dvlpt-pic"></span><h3><span class="section-number">1.2.6. </span>MFiX-PIC (Multiphase particle-in-cell)<a class="headerlink" href="#mfix-pic-multiphase-particle-in-cell" title="Link to this heading">¶</a></h3>
+<p><strong>MFiX-PIC (Multiphase particle-in-cell)</strong> is another
+Eulerian-Lagrangian model that represents the fluid as a continuum while
+using “parcels” to represent groups of real particles with similar
+physical characteristics. The MFiX-PIC approach offers reduced
+computational cost over MFiX-DEM as there are typically fewer parcels to
+track and parcel collisions are not resolved. However, the added
+modeling approximations influence the overall accuracy of the method.
+Development, validation, and optimization of modeling approximations are
+critical research fronts.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Serial</p></th>
+<th class="head"><p>†DMP</p></th>
+<th class="head"><p>‡SMP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\circ\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Energy Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Species Equations</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Chemical Reactions</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Cartesian cut-cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bullet\)</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="gui">
+<h2><span class="section-number">1.3. </span>GUI<a class="headerlink" href="#gui" title="Link to this heading">¶</a></h2>
+<p>The MFiX GUI is a front-end tool that allows users to quickly set-up MFiX
+models, run the developed models, and provide post-processing tools
+with the goal of making MFiX easy to use.</p>
+<p>The GUI is written in Python using the cross-platform Qt framework. The Anaconda/
+Miniforge platform is used for MFiX dependencies, which allows us to support MFiX on
+Linux, Windows, and Mac. The <a class="reference external" href="https://vtk.org/">Visualization Toolkit (VTK)</a> is used to visualize and manipulate the input geometry.</p>
+</section>
+<section id="support-forum">
+<span id="id2"></span><h2><span class="section-number">1.4. </span>Support forum<a class="headerlink" href="#support-forum" title="Link to this heading">¶</a></h2>
+<p>When your subscription to MFiX is accepted, you are automatically added to the
+MFiX forum, where important announcements about MFiX are shared with
+the MFiX community. If you are already an MFiX member, use you current credentials
+to participate in the forum.</p>
+<p>The Forum is a discussion platform for MFiX, Nodeworks and Tracker software.
+Developers and users can post topics (discussion threads) to various categories
+for each software.</p>
+<p>Users are encouraged to participate in the discussion and share their work
+(input files, udf’s, images or small animations showing simulation results)
+to benefit the entire MFiX community.</p>
+<p>The support forum is located at <a class="reference external" href="https://mfix.netl.doe.gov/forum/c/mfix">https://mfix.netl.doe.gov/forum/c/mfix</a></p>
+<p>Support forum etiquette:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Do not post offensive or inappropriate material. Stay courteous and respectful at all times.</p></li>
+<li><p>Please allow sufficient time (say 2 to 3 business days) for MFiX developers and
+users to reply before posting unanswered questions again.</p></li>
+<li><p>Post questions in the appropriate forum category. Do not send requests or emails directly
+to MFiX developers or other users unless a prior arrangement has been made.
+This ensures questions and answers are archived, and it allows the entire MFiX community
+to engage. Additionally, follow-up questions should occur in the same thread.</p></li>
+<li><p>Do not ask for a copy of a reference, e.g., a journal article. Do not post copyrighted material.</p></li>
+<li><p>Prior to posting questions regarding MFiX installation or compilation issues,
+please search the forum to see if your question has already been answered.</p></li>
+<li><p>When posting a question to the forum, provide a complete description of the issue you encountered.
+Attach all files required to run your job, including .f, .stl, as well as log files.
+The “Submit bug report” menu item on the main MFiX menu will create a ZIP file including all of
+the required files as well as some additional diagnostic information.  This is the preferred method
+of attaching project files.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Common reasons you may not receive an answer to your request</p>
+<ol class="arabic simple">
+<li><p>Your question has already been answered and is available in the archive.</p></li>
+<li><p>You did not provide sufficient description of your problem
+(saying “It doesn’t work” is not useful).</p></li>
+<li><p>Your question is outside the scope of the MFiX forum.</p></li>
+</ol>
+</div>
+</section>
+<section id="user-contribution">
+<h2><span class="section-number">1.5. </span>User contribution<a class="headerlink" href="#user-contribution" title="Link to this heading">¶</a></h2>
+<p>If you wish to contribute to the development of MFiX, please contact the MFiX
+team at <a class="reference external" href="mailto:admin&#37;&#52;&#48;mfix&#46;netl&#46;doe&#46;gov">admin<span>&#64;</span>mfix<span>&#46;</span>netl<span>&#46;</span>doe<span>&#46;</span>gov</a>. We are looking for simulation results (figures,
+animations, input files, user-defined subroutines), and new models that could
+benefit the entire MFiX community. If you have written or know any publication
+that uses MFiX, please let us know and we will post the citation on the website
+(<a class="reference external" href="https://mfix.netl.doe.gov/publications">https://mfix.netl.doe.gov/publications</a>). Proper credit
+will be given to all contributors.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="MFiX User Manual" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting_started/index.html" class="btn btn-neutral float-right" title="2. Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

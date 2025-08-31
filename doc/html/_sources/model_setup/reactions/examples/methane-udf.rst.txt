@@ -1,0 +1,61 @@
+Example: Methane Combustion with UDF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  \text{CH}_4 (g) + 2\text{O}_2 → \text{CO}_2 (g) + 2\text{H}_2 \text{O}(g)
+
+Notes:
+
+• Global field variables are referenced (RO_g, X_g, T_g, and EP_g )
+• The fluid cell index (``IJK``) is passed as an argument.
+• Species aliases (O2 and CH4) are used instead of the species indices.
+• Reaction identifier (CH4_Combustion) is used in the rates array.
+• Reaction rate is stored for post processing (see below).
+
+**mfix.dat**:
+
+.. code-block:: none
+
+    NMAX_g = 4
+    Species_g(1) = "CH4 ANHARMONIC"
+    Species_g(2) = "O2"
+    Species_g(3) = "CO2"
+    Species_g(4) = "H2O"
+
+    Species_Alias_g(1) = "CH4"
+    Species_Alias_g(2) = "O2"
+    Species_Alias_g(3) = "CO2"
+    Species_Alias_g(4) = "H2O"
+
+    @(RXNS)
+    CH4_Combustion { chem_eq = "CH4 + 2O2 --> CO2 + 2H2O" }
+    @(END)
+
+**usr_rates.f**:
+
+.. code-block:: fortran
+
+    SUBROUTINE USR_RATES(IJK, RATES)
+
+    INTEGER, INTENT(IN) :: IJK
+    DOUBLE PRECISION, DIMENSION(NO_OF_RXNS), INTENT(OUT) :: RATES
+    DOUBLE PRECISION c_O2 ! Oxygen concentration (mol/cm^3)
+    DOUBLE PRECISION c_CH4 ! Methane concentration (mol/cm^3)
+
+    INCLUDE 'species.inc'
+
+    ! Calculate species concentrations:
+    c_O2 = (RO_g(IJK) * X_g(IJK,O2))/MW_g(O2)
+    c_CH4 = (RO_g(IJK) * X_g(IJK,CH4))/MW_g(CH4)
+
+    ! Methane Combustion
+    !-----------------------------------------------------------------//
+    RATES(CH4_Combustion) = 6.7d12 * exp(-2.4358d4/T_g(IJK)) * &
+    EP_g(IJK) * (c_O2**1.3) * (c_CH4**0.2)
+
+    ! Store the reaction rate for output/post processing.
+    IF(CH4_Combustion <= NRR) &
+    ReactionRates(IJK, CH4_Combustion) = RATES(CH4_Combustion)
+
+    END SUBROUTINE USR_RATES

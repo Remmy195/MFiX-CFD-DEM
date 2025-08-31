@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.12. Internal surfaces &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.13. Keyframes" href="keyframes.html" />
+    <link rel="prev" title="4.11. Monitors" href="monitor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.12.  Internal surfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-delete-internal-surfaces">4.12.1. Add/Delete Internal surfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#internal-surface-type">4.12.2. Internal Surface Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fluid-permeability">4.12.3. Fluid permeability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#internal-resistance-coefficient">4.12.4. Internal resistance coefficient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#internal-surface-velocities">4.12.5. Internal Surface Velocities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.12. </span>Internal surfaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/internal_surfaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="internal-surfaces">
+<span id="id1"></span><h1><span class="section-number">4.12. </span>Internal surfaces<a class="headerlink" href="#internal-surfaces" title="Link to this heading">¶</a></h1>
+<p>Internal surfaces are surfaces defined within the overall boundaries of the
+model.</p>
+<p>To define an internal surface, there must be a region already defined in the
+<a class="reference internal" href="regions.html#regions"><span class="std std-ref">Regions Pane</span></a>.</p>
+<section id="add-delete-internal-surfaces">
+<h2><span class="section-number">4.12.1. </span>Add/Delete Internal surfaces<a class="headerlink" href="#add-delete-internal-surfaces" title="Link to this heading">¶</a></h2>
+<p>To add an internal surface, navigate to the <code class="docutils literal notranslate"><span class="pre">ISs</span></code> pane from the Modeler View,
+and click the (+) button. A popup dialog will appear to select
+<a class="reference internal" href="regions.html#regions"><span class="std std-ref">region(s)</span></a> that will define the internal surface. Each region can only be used in a single internal surface.</p>
+<p>All regions defined in the <a class="reference internal" href="regions.html#regions"><span class="std std-ref">regions Pane</span></a> are listed in the popup, but only
+the regions of the selected Surface Type are selectable.</p>
+<ul class="simple">
+<li><p>Plane Regions can be Impermeable internal surfaces.</p></li>
+<li><p>Box Regions can be X-Axis, Y-Axis, or Z-Axis Impermeable internal surfaces.</p></li>
+<li><p>Plane Regions can be Semi-permeable internal surfaces.</p></li>
+<li><p>Box Regions can be X-Axis, Y-Axis, or Z-Axis Semi-permeable internal surfaces.</p></li>
+</ul>
+<p>To remove an internal surface, navigate to the <code class="docutils literal notranslate"><span class="pre">ISs</span></code> pane from the Modeler View, select
+the internal surface to remove, and click the (-) button.</p>
+</section>
+<section id="internal-surface-type">
+<h2><span class="section-number">4.12.2. </span>Internal Surface Type<a class="headerlink" href="#internal-surface-type" title="Link to this heading">¶</a></h2>
+<p>Planar internal surfaces can be of type:</p>
+<ul class="simple">
+<li><p>Impermeable</p></li>
+<li><p>Semi-Impermeable</p></li>
+</ul>
+<p>Volumetric internal surfaces can be of type:</p>
+<ul class="simple">
+<li><p>X-Axis Impermeable</p></li>
+<li><p>Y-Axis Impermeable</p></li>
+<li><p>Z-Axis Impermeable</p></li>
+<li><p>X-Axis semi-permeable</p></li>
+<li><p>Y-Axis semi-permeable</p></li>
+<li><p>Z-Axis semi-permeable</p></li>
+</ul>
+</section>
+<section id="fluid-permeability">
+<h2><span class="section-number">4.12.3. </span>Fluid permeability<a class="headerlink" href="#fluid-permeability" title="Link to this heading">¶</a></h2>
+<p>The permeability is only definable for semipermeable regions. The default value
+is 1.0d32 m².</p>
+</section>
+<section id="internal-resistance-coefficient">
+<h2><span class="section-number">4.12.4. </span>Internal resistance coefficient<a class="headerlink" href="#internal-resistance-coefficient" title="Link to this heading">¶</a></h2>
+<p>The internal resistance is only definable for semipermeable regions. The default
+value is 0.0 m⁻¹.</p>
+</section>
+<section id="internal-surface-velocities">
+<h2><span class="section-number">4.12.5. </span>Internal Surface Velocities<a class="headerlink" href="#internal-surface-velocities" title="Link to this heading">¶</a></h2>
+<p>For each <a class="reference internal" href="solids.html#solids"><span class="std std-ref">solid phase</span></a>, specify the velocity of that solid through
+the surface (in meters/second).</p>
+<p>Disabled for Impermeable surface (since by definition the velocity would be zero).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="monitor.html" class="btn btn-neutral float-left" title="4.11. Monitors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keyframes.html" class="btn btn-neutral float-right" title="4.13. Keyframes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

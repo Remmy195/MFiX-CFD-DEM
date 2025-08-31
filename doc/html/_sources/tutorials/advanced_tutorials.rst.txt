@@ -1,0 +1,23 @@
+Advanced Tutorials
+------------------
+
+The following tutorials demonstrate advanced features that can be implemented
+with user defined files (UDFs). They require editing Fortran source files
+(``usr_*.f`` or other ``*.f`` files) and building the custom solver.
+
+- Reacting flows
+
+  - Silane Pyrolysis (2D TFM): Setup TFM reaction rates.
+  - Silane Pyrolysis (3D PIC): Setup PIC/DEM reaction rates.
+  - Absorption column (2D TFM): Setup TFM reaction rates and user-defined properties.
+
+- Transient keyframe data
+
+  - Pulsating fluidized bed (TFM): Impose fluctuating inlet velocity.
+  - Rotating drum (Granular DEM): Impose tangential velocity to wall.
+  - Conveyor belts (Granular DEM): Impose tangential velocity to wall.
+  - Screwfeeder (Granular DEM): Control a group of particles to represent moving geometry.
+  - Mixer (Granular DEM): Control velocity of an Internal surface.
+  - Mixer (Granular PIC): Control velocity of an Internal surface.
+
+

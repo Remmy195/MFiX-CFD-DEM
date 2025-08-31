@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.8. Initial conditions &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.9. Boundary conditions" href="bc.html" />
+    <link rel="prev" title="4.7. Scalars" href="scalars.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.8.  Initial conditions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-an-initial-condition-region">4.8.1. Creating an Initial Condition Region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-fluid-phase-initial-values">4.8.2. Setting Fluid Phase Initial Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-solids-phase-initial-values">4.8.3. Setting Solids Phase Initial Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-user-defined-scalar-initial-values">4.8.4. Setting User-Defined Scalar Initial Values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.8. </span>Initial conditions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/ic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="ic"></span><section id="initial-conditions">
+<h1><span class="section-number">4.8. </span>Initial conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading">¶</a></h1>
+<p>Initial conditions (ICs) are specified in the Initial conditions task pane.
+ICs summarized in the <em>IC summary table</em> illustrated in <a class="reference internal" href="#ic-table"><span class="std std-numref">Figure 4.5</span></a>.
+The MFiX solver will apply ICs in the order that they are defined in this pane.
+As a result, if two or more regions overlap, the IC with the larger index (ID)
+is used in the intersecting region. IC IDs are shown in the table, and can be
+changed using the up and down arrows.</p>
+<figure class="align-center" id="id1">
+<span id="ic-table"></span><img alt="../_images/ic_table.png" src="../_images/ic_table.png" />
+<figcaption>
+<p><span class="caption-number">Figure 4.5 </span><span class="caption-text">Initial condition (IC) summary table.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="creating-an-initial-condition-region">
+<h2><span class="section-number">4.8.1. </span>Creating an Initial Condition Region<a class="headerlink" href="#creating-an-initial-condition-region" title="Link to this heading">¶</a></h2>
+<p>To define an initial condition, there must be a region already defined in the
+<a class="reference internal" href="regions.html#regions"><span class="std std-ref">Regions Pane</span></a>.</p>
+<p>Initial conditions are specified over rectangular regions corresponding
+to the scalar grid. A new IC region is created by clicking the add
+button, <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a>, at the top of the IC region table, and selecting one or
+more valid regions (see <a class="reference internal" href="#ic-region-select"><span class="std std-numref">Figure 4.6</span></a>).</p>
+<figure class="align-center" id="id2">
+<span id="ic-region-select"></span><img alt="../_images/ic_region_select.png" src="../_images/ic_region_select.png" />
+<figcaption>
+<p><span class="caption-number">Figure 4.6 </span><span class="caption-text">Initial condition region selection popup window.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Valid IC Regions</strong></p>
+<ul class="simple">
+<li><p>Box regions</p></li>
+<li><p>XY-planes (2D simulations only)</p></li>
+</ul>
+<p><strong>Invalid IC Regions</strong></p>
+<ul class="simple">
+<li><p>Any region already used by another IC</p></li>
+<li><p>XZ- and YZ-planes</p></li>
+<li><p>Point regions</p></li>
+<li><p>STL regions</p></li>
+</ul>
+</section>
+<section id="setting-fluid-phase-initial-values">
+<h2><span class="section-number">4.8.2. </span>Setting Fluid Phase Initial Values<a class="headerlink" href="#setting-fluid-phase-initial-values" title="Link to this heading">¶</a></h2>
+<p>When the fluid phase is enabled, initial values for fluid field variables
+must be specified for the entire computational domain. The models being
+solved dictate which variables require an initial value.</p>
+<p><strong>Volume Fraction</strong>
+The fluid phase volume fraction has a default value of one. If solids are
+defined and given volume fractions greater than zero, the fluid phase
+volume fraction is automatically calculated by subtracting the sum of the
+solids phase volume fractions from one.</p>
+<p><strong>Temperature</strong>
+The fluid phase temperature has a default value of 293.15K. Specification
+of the fluid temperature is required when the following settings are used:</p>
+<ul class="simple">
+<li><p>The energy equation is solved</p></li>
+<li><p>Fluid density is computed by the Ideal Gas Law</p></li>
+<li><p>Fluid viscosity is computed by the Sutherland’s Law</p></li>
+</ul>
+<p><strong>Pressure</strong>
+An initial pressure field may be specified. If none is provided, the fluid
+solver will attempt to impose a hydrostatic pressure drop across the domain.</p>
+<p><strong>Velocity</strong>
+The fluid phase velocity field has a default value of zero.</p>
+<p><strong>Species Mass Fractions</strong>
+Species mass fractions must be defined for all species when solving
+the species transport equations. By default the species mass fraction
+of the last defined fluid species is set to one and all others are set
+to zero. The total of all species mass fractions must equal one.</p>
+<p><strong>Turbulence</strong>
+If using the mixing length turbulence model, a mixing length scale must
+be defined for the whole domain.</p>
+<p>If solving the  k-ε turbulence model, initial values for turbulent
+kinetic energy and turbulent dissipation must be provided.</p>
+<p><strong>Radiation Coefficient</strong>
+A radiation coefficient has a default value of zero, and can only be
+specified when solving the energy equations. The default value is
+strongly recommended.</p>
+<p><strong>Radiation Temperature</strong>
+The radiation temperature has a default value of 293.15K, and can only
+be specified when solving the energy equations. The default value is
+strongly recommended.</p>
+</section>
+<section id="setting-solids-phase-initial-values">
+<h2><span class="section-number">4.8.3. </span>Setting Solids Phase Initial Values<a class="headerlink" href="#setting-solids-phase-initial-values" title="Link to this heading">¶</a></h2>
+<p>When one or more solids phases are enabled, initial values for solids field
+variables must be specified for the entire computational domain. The models
+being solved dictate which variables require an initial value.</p>
+<p><strong>Volume Fraction</strong>
+The solids phase volume fraction has a default value of zero. The sum
+of all solids phase volume fractions are used to calculate the volume
+(void) fraction of the fluid phase. If solids are defined and given volume
+fractions greater than zero, the fluid phase volume fraction is automatically
+calculated by subtracting the sum of the solids volume fractions from one.</p>
+<p><strong>Inventory</strong> <em>(DEM solids only)</em>
+Amount of solids (by mass) in the initial condition region.</p>
+<p><strong>Particle count</strong> <em>(DEM solids only)</em>
+Number of particles in the initial condition region.</p>
+<p><strong>Particle size distribution</strong> <em>(DEM solids only)</em>
+Particle size distribution in the initial condition region. This can be left as “Uniform” (default) and the
+particle diameter (d_p0) defined in the Solids&gt;Material pane will be used. If a PSD was defined
+in the Solids&gt;DEM pane, it can be chosen here to initialize particles in this region with a PSD.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/PSD_IC.png"><img alt="PSD used in initial condition region" src="../_images/PSD_IC.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.7 </span><span class="caption-text">PSD used in initial condition region.</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Temperature</strong>
+The solids phase temperature has a default value of 293.15K. Specification
+of solids temperature is required when solving energy equations.</p>
+<p><strong>Pressure</strong> <em>(TFM solids only)</em>
+Solids pressure is an optional input for TFM solids models. There is only
+one value for all solids phases.</p>
+<p><strong>Granular Temperature</strong>
+The initial granular temperature has a default value of zero.</p>
+<ul class="simple">
+<li><p>For TFM solids, granular temperature can only be specified when solving
+one of the non-algebraic viscous stress models.</p></li>
+<li><p>For DEM solids models, a value may be specified when using the automatic
+particle generator to modify the initial particle velocity distribution.</p></li>
+</ul>
+<p><strong>Species Mass Fractions</strong>
+Species mass fractions must be defined for all species when solving
+the species transport equations. By default the species mass fraction
+of the last defined fluid species is set to one and all others are set
+to zero. The total of all species mass fractions must equal one.</p>
+<p>DEM seeding options</p>
+<p><strong>Initial lattice distribution</strong> <em>(DEM solids only)</em>
+Particles are initially seeding on a lattice, which can be cubic or hexagonal arrangement. Hexagonal
+arrangement can typically achieve higher packing density than cubic arrangement.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/IC_lattice.png"><img alt="Examples of cubic and hexagonal lattice" src="../_images/IC_lattice.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.8 </span><span class="caption-text">Examples of cubic and hexagonal lattice</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Spacing between particle</strong> <em>(DEM solids only)</em>
+Spacing (expressed as a fraction of the largest diameter, must be between zero and 1)
+between particles in the lattice. Default value is
+0.05 (5% of the particle diameter). This spacing applies equally in all directions unless one of the
+spacing factors (x,y, or z direction) is less than one.</p>
+<p><strong>Spacing factor in x-direction</strong> <em>(DEM solids only)</em>
+Factor used to reduce the spacing in the x-direction (between zero and one).
+This factor is a multiplier to the overall spacing (if the spacing is 0.05 and the factor
+in x-direction is 0.5, then the effective spacing in the x-direction
+is 0.025 times the diameter).</p>
+<p><strong>Spacing factor in y-direction</strong> <em>(DEM solids only)</em>
+Factor used to reduce the spacing in the y-direction (between zero and one).
+This factor is a multiplier to the overall spacing (if the spacing is 0.05 and the factor
+in y-direction is 0.5, then the effective spacing in the x-direction
+is 0.025 times the diameter).</p>
+<p><strong>Spacing factor in z-direction</strong> <em>(DEM solids only)</em>
+Factor used to reduce the spacing in the z-direction (between zero and one).
+This factor is a multiplier to the overall spacing (if the spacing is 0.05 and the factor
+in z-direction is 0.5, then the effective spacing in the x-direction
+is 0.025 times the diameter).</p>
+<p><strong>Random factor applied to particle positions</strong> <em>(DEM solids only)</em>
+Factor to randomize the particle position around the baseline lattice position (between zero and one).
+The same factor applies in all directions unless a random factor less than one is specified
+in the x,y or z-direction.</p>
+<p><strong>Random factor in x-direction</strong> <em>(DEM solids only)</em>
+Factor used to reduce the randomness in the x-direction (between zero and one).</p>
+<p><strong>Random factor in y-direction</strong> <em>(DEM solids only)</em>
+Factor used to reduce the randomness in the y-direction (between zero and one).</p>
+<p><strong>Random factor in z-direction</strong> <em>(DEM solids only)</em>
+Factor used to reduce the randomness in the z-direction (between zero and one).</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/IC_spacing_cubic.png"><img alt="Examples of spacing options with cubic lattice" src="../_images/IC_spacing_cubic.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.9 </span><span class="caption-text">Examples of spacing options with cubic lattice</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Radiation Coefficient</strong>
+The radiation coefficient has a default value of zero, and can only be
+specified when solving the energy equations. The default value is
+strongly recommended.</p>
+<p><strong>Radiation Temperature</strong>
+The radiation temperature has a default value of 293.15K, and can only
+be specified when solving the energy equations. The default value is
+strongly recommended.</p>
+</section>
+<section id="setting-user-defined-scalar-initial-values">
+<h2><span class="section-number">4.8.4. </span>Setting User-Defined Scalar Initial Values<a class="headerlink" href="#setting-user-defined-scalar-initial-values" title="Link to this heading">¶</a></h2>
+<p>When one or more user-defined scalars are enabled, initial values for the
+scalars must be specified for the entire computational domain.</p>
+<p><strong>Scalar Value</strong>
+For each user-defined scalar, an initial field value must be provided. By
+default, all scalars are set to zero.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scalars.html" class="btn btn-neutral float-left" title="4.7. Scalars" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bc.html" class="btn btn-neutral float-right" title="4.9. Boundary conditions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

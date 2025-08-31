@@ -1,0 +1,4 @@
+Run control
+===========
+
+.. include:: /reference/run_control_gen.rst

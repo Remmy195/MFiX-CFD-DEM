@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.14.1. Chemical reactions setup &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.14.2. Setting up chemical reaction cases" href="rates.html" />
+    <link rel="prev" title="4.14. Chemical Reactions" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">4.14.  Chemistry</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.14.1. Reaction Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-reaction">4.14.1.1. Add reaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-reaction">4.14.1.2. Delete reaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-enable-reaction">4.14.1.3. Disable/enable reaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stiff-chemistry-solver">4.14.1.4. Stiff chemistry solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reaction-name">4.14.1.5. Reaction name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reactants">4.14.1.6. Reactants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#products">4.14.1.7. Products</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coefficients">4.14.1.8. Coefficients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#species">4.14.1.9. Species</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phase">4.14.1.10. Phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specify-heat-of-reaction">4.14.1.11. Specify heat of reaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reaction-restrictions">4.14.1.12. Reaction restrictions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rates.html">4.14.2. Reaction Rates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/index.html">4.14.3. Reaction Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemkin.html">4.14.4. Chemkin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><span class="section-number">4. </span>Model guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4.14. </span>Chemical Reactions</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.14.1. </span>Chemical reactions setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/model_setup/reactions/setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="chemical-reactions-setup">
+<span id="reactions-setup"></span><h1><span class="section-number">4.14.1. </span>Chemical reactions setup<a class="headerlink" href="#chemical-reactions-setup" title="Link to this heading">¶</a></h1>
+<section id="add-reaction">
+<h2><span class="section-number">4.14.1.1. </span>Add reaction<a class="headerlink" href="#add-reaction" title="Link to this heading">¶</a></h2>
+<p>To add a reaction, click on the <a class="reference internal" href="../../_images/add.svg"><img alt="Add" src="../../_images/add.svg" style="width: 16px;" /></a> button. <strong>Initially the new reaction will
+be invalid, and disabled</strong>. This is because it is empty, with no species
+defined. Add species for reactants and products; make sure the
+reaction is balanced, and then the Ok button will be enabled. Click Ok in the
+bottom right to finish adding the reaction.</p>
+<p>To cancel adding an unfinished reaction, either click the <a class="reference internal" href="../../_images/remove.svg"><img alt="Remove" src="../../_images/remove.svg" style="width: 16px;" /></a> button in the
+upper left, or the Cancel button in the lower right.</p>
+</section>
+<section id="delete-reaction">
+<h2><span class="section-number">4.14.1.2. </span>Delete reaction<a class="headerlink" href="#delete-reaction" title="Link to this heading">¶</a></h2>
+<p>To remove an existing reaction, select the row in the table corresponding to that reaction, and click on the <a class="reference internal" href="../../_images/remove.svg"><img alt="Remove" src="../../_images/remove.svg" style="width: 16px;" /></a> button.</p>
+</section>
+<section id="disable-enable-reaction">
+<h2><span class="section-number">4.14.1.3. </span>Disable/enable reaction<a class="headerlink" href="#disable-enable-reaction" title="Link to this heading">¶</a></h2>
+<p>To disable an existing reaction (without deleting it), uncheck the checkbox in
+first column of the reaction table.</p>
+<p>To re-enable a disabled reaction, re-check the checkbox.</p>
+</section>
+<section id="stiff-chemistry-solver">
+<h2><span class="section-number">4.14.1.4. </span>Stiff chemistry solver<a class="headerlink" href="#stiff-chemistry-solver" title="Link to this heading">¶</a></h2>
+<p>This checkbox enables the stiff chemistry solver. This selection is always
+available.</p>
+<p>Chemical reaction input is handled different from keyword pair inputs.
+All homogeneous gas phase chemical reactions and all heterogeneous
+gas-TFM solids reactions are specified between &#64;(RXNS) and &#64;(END)
+in the reaction block. All heterogeneous gas-DEM and gas-PIC reactions are
+specified between &#64;(DES_RXNS) and &#64;(END) in the reaction block.</p>
+<p>Users use the globally unique species aliases to specify the chemical
+reaction equation. Each reaction is specified with a unique reaction
+identify.</p>
+</section>
+<section id="reaction-name">
+<h2><span class="section-number">4.14.1.5. </span>Reaction name<a class="headerlink" href="#reaction-name" title="Link to this heading">¶</a></h2>
+<p>This is the name of the currently selected reaction in the reaction table. The
+reaction name is used by the solver to identify the reaction. The name of a
+reaction must start with a letter, contain alphanumeric characters or
+underscores, contain no spaces, and is limited to 32 characters.</p>
+</section>
+<section id="reactants">
+<h2><span class="section-number">4.14.1.6. </span>Reactants<a class="headerlink" href="#reactants" title="Link to this heading">¶</a></h2>
+<p>Lists the reactant species for the currently selected reaction. Use
+the <a class="reference internal" href="../../_images/add.svg"><img alt="Add" src="../../_images/add.svg" style="width: 16px;" /></a> and <a class="reference internal" href="../../_images/remove.svg"><img alt="Remove" src="../../_images/remove.svg" style="width: 16px;" /></a> buttons to add and remove species.</p>
+</section>
+<section id="products">
+<h2><span class="section-number">4.14.1.7. </span>Products<a class="headerlink" href="#products" title="Link to this heading">¶</a></h2>
+<p>Lists the product species for the currently selected reaction. Use
+the <a class="reference internal" href="../../_images/add.svg"><img alt="Add" src="../../_images/add.svg" style="width: 16px;" /></a> and <a class="reference internal" href="../../_images/remove.svg"><img alt="Remove" src="../../_images/remove.svg" style="width: 16px;" /></a> buttons to add and remove species.</p>
+</section>
+<section id="coefficients">
+<h2><span class="section-number">4.14.1.8. </span>Coefficients<a class="headerlink" href="#coefficients" title="Link to this heading">¶</a></h2>
+<p>The values in the coefficients column for reactants and products must be set so
+that the reaction balances stoichiometrically, otherwise the Ok button to save
+changes is disabled.</p>
+<p>The coefficient must be a positive integer or floating point number.</p>
+</section>
+<section id="species">
+<h2><span class="section-number">4.14.1.9. </span>Species<a class="headerlink" href="#species" title="Link to this heading">¶</a></h2>
+<p>Use the drop-down menu to select which species to use for the reactant or product. Each
+species can only be used once.</p>
+</section>
+<section id="phase">
+<h2><span class="section-number">4.14.1.10. </span>Phase<a class="headerlink" href="#phase" title="Link to this heading">¶</a></h2>
+<p>Each species for reactants and products can belong to any of the phases for the
+model, <a class="reference internal" href="../fluid.html#fluid"><span class="std std-ref">Fluid</span></a> or <a class="reference internal" href="../solids.html#solids"><span class="std std-ref">Solid</span></a>.</p>
+</section>
+<section id="specify-heat-of-reaction">
+<h2><span class="section-number">4.14.1.11. </span>Specify heat of reaction<a class="headerlink" href="#specify-heat-of-reaction" title="Link to this heading">¶</a></h2>
+<p>Check this checkbox to optionally specify the user-defined heat of reaction for
+the currently selected reaction (Joules/kmol).</p>
+<p>The “Fraction assigned to (Fluid, Solid 1, …)” is fraction of that heat of the
+reaction assigned to each phase. Editing the fraction for a phase will
+automatically adjust the fraction(s) of the other phase(s) to add up to one.</p>
+</section>
+<section id="reaction-restrictions">
+<h2><span class="section-number">4.14.1.12. </span>Reaction restrictions<a class="headerlink" href="#reaction-restrictions" title="Link to this heading">¶</a></h2>
+<p>For heterogeneous reactions referencing three or more phases, either only one
+phase has a net mass loss or one phase has a net mass gain. Specifically, two or
+more phases cannot have a net mass loss while two or more phases have a net mass
+gain.</p>
+<p>The following examples illustrate valid and invalid reactions. For
+these examples, FC1, FC2, and sSoot, represent solid carbon in
+solids phases 1, 2 and 3, respectively. All other species belong
+to the gas.</p>
+<ul>
+<li><p>Example 1: <strong>VALID</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>2*FC1 + O2 –&gt; 2CO</p></li>
+<li><p>One phase has a net mass loss,
+one phase has a net mass gain</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Example 2: <strong>VALID</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>FC1 + FC2 + O2 –&gt; 2CO</p></li>
+<li><p>Two phases have a net mass loss,
+one phase has a net mass gain</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Example 3: <strong>VALID</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>2.2*FC1 + O2 –&gt; 2CO + 0.2*sSoot</p></li>
+<li><p>One phase has a net mass loss,
+two phases have a net mass gain</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Example 4: <strong>INVALID</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>1.1*FC1 + 1.1*FC2 + O2 –&gt; 2CO + 0.2*sSoot</p></li>
+<li><p>Two phases have a net mass loss,
+two phases have a net mass gain</p></li>
+<li><p>The heat of reaction, DH, and how it is distributed between phases,
+fracDH, must be specified if there are two or more solids phases
+listed as either reactants or products.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Example 5: DH and fracDH <strong>NOT REQUIRED</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>2.2*FC1 + O2 –&gt; 2CO + 0.2*sSoot</p></li>
+<li><p>Two solids phases referenced</p></li>
+<li><p>Solid phase 1, FC1, is a reactant</p></li>
+<li><p>Solid phase 3, sSoot, is a product</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Example 6: DH and fracDH <strong>REQUIRED</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>FC1 + FC2 + 2O2 –&gt; 2CO2</p></li>
+<li><p>Two solids phases referenced as reactants</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Example 6: DH and fracDH <strong>REQUIRED</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sSoot –&gt; FC1 + FC2</p></li>
+<li><p>Two solids phases referenced as products</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="4.14. Chemical Reactions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rates.html" class="btn btn-neutral float-right" title="4.14.2. Setting up chemical reaction cases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

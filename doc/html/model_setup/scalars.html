@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.7. Scalars &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.8. Initial conditions" href="ic.html" />
+    <link rel="prev" title="4.6. Solids" href="solids.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.7.  Scalars</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-delete-scalars">4.7.1. Add/Delete Scalars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-name-gui-only-description">4.7.2. Scalar Name: GUI-only description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-phase-fluid-or-tfm-solid">4.7.3. Scalar Phase: Fluid or TFM Solid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-id-index">4.7.4. Scalar ID (Index)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#deleting-scalars-and-contiguous-indices">4.7.4.1. Deleting Scalars and Contiguous indices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.7. </span>Scalars</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/scalars.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scalars">
+<span id="scalar-pane"></span><h1><span class="section-number">4.7. </span>Scalars<a class="headerlink" href="#scalars" title="Link to this heading">¶</a></h1>
+<p>The MFiX GUI supports adding user-defined scalars.</p>
+<p>This section defines how scalars are implemented into MFIX GUI. An example
+layout of the Scalar pane is shown below. The layout
+is similar to the <a class="reference internal" href="solids.html#solids"><span class="std std-ref">Solids model</span></a> pane: a table summarizes previously defined scalars
+and add/delete buttons allow scalars to be added and removed.
+Select a row of the table to edit the corresponding Scalar’s Name and Phase.</p>
+<p>A table lists the user-defined scalar name, the convecting phase, and the scalar index.</p>
+<figure class="align-center" id="scalars-pane">
+<a class="reference internal image-reference" href="../_images/scalars.png"><img alt="../_images/scalars.png" src="../_images/scalars.png" style="width: 457.5px; height: 161.25px;" />
+</a>
+</figure>
+<section id="add-delete-scalars">
+<h2><span class="section-number">4.7.1. </span>Add/Delete Scalars<a class="headerlink" href="#add-delete-scalars" title="Link to this heading">¶</a></h2>
+<p>To add a Scalar, navigate to the Scalars pane from the Modeler View, and click
+the (+) button.</p>
+<p>To remove a Scalar, navigate to the Scalars pane from the Modeler View, select
+the scalar to remove, and click the (-) button.</p>
+</section>
+<section id="scalar-name-gui-only-description">
+<h2><span class="section-number">4.7.2. </span>Scalar Name: GUI-only description<a class="headerlink" href="#scalar-name-gui-only-description" title="Link to this heading">¶</a></h2>
+<p>By default, scalars are named “Scalar ID” where ID is the index of the scalar.
+It is recommended to edit the Name to something more descriptive. However, the
+scalar name is local to the GUI and not provided to the solver; in the solver
+and UDFs the Scalar is only referred to by Index.</p>
+</section>
+<section id="scalar-phase-fluid-or-tfm-solid">
+<h2><span class="section-number">4.7.3. </span>Scalar Phase: Fluid or TFM Solid<a class="headerlink" href="#scalar-phase-fluid-or-tfm-solid" title="Link to this heading">¶</a></h2>
+<p>There is a drop-down box to select the convecting phase from the phases defined
+in <a class="reference internal" href="fluid.html#fluid"><span class="std std-ref">Fluids</span></a> or <a class="reference internal" href="solids.html#solids"><span class="std std-ref">Solids</span></a> panes.</p>
+<p>Selecting a phase with index <code class="docutils literal notranslate"><span class="pre">PHASE</span></code> sets keyword <code class="docutils literal notranslate"><span class="pre">PHASE4SCALAR(ID)</span> <span class="pre">=</span>
+<span class="pre">PHASE</span></code> where <code class="docutils literal notranslate"><span class="pre">ID</span></code> is the scalar index for the current scalar. <code class="docutils literal notranslate"><span class="pre">PHASE</span></code>
+is <code class="docutils literal notranslate"><span class="pre">0</span></code> for the fluid phase, or a positive integer for TFM solids.</p>
+<p>The fluid phase is only an option when the fluid solver is enabled (Disable
+Fluid Solver is unchecked on <a class="reference internal" href="setup.html#model-setup"><span class="std std-ref">Model Pane</span></a>). Any defined TFM
+solids phases are listed as options for <code class="docutils literal notranslate"><span class="pre">PHASE</span></code>, but DEM and PIC solids
+phases are not listed as options.</p>
+</section>
+<section id="scalar-id-index">
+<h2><span class="section-number">4.7.4. </span>Scalar ID (Index)<a class="headerlink" href="#scalar-id-index" title="Link to this heading">¶</a></h2>
+<p>Each Scalar has an ID, indexed starting at zero.</p>
+<section id="deleting-scalars-and-contiguous-indices">
+<h3><span class="section-number">4.7.4.1. </span>Deleting Scalars and Contiguous indices<a class="headerlink" href="#deleting-scalars-and-contiguous-indices" title="Link to this heading">¶</a></h3>
+<p>The MFiX solver assumes scalar array inputs are contiguous. As a result, if
+one or more scalar equations is removed or the order of the scalars is
+changed, then all scalar input arrays must be updated. For example, consider
+three scalars that are convected with a different phase.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">NScalar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">Phase4Scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">Phase4Scalar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">Phase4Scalar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>If a user deletes the second scalar, then array values assigned to the
+third scalar must be shifted down.  This is done automatically in the GUI.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">NScalar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="n">Phase4Scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">Phase4Scalar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Array inputs for scalars include the following:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Phase4Scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+
+<span class="n">IC_Scalar</span><span class="p">(:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+
+<span class="n">BC_HW_Scalar</span><span class="p">(:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+<span class="n">BC_ScalarW</span><span class="p">(:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+<span class="n">BC_C_Scalar</span><span class="p">(:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+<span class="n">BC_Scalar</span><span class="p">(:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+
+<span class="n">VTK_Scalar</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+<span class="n">MONITOR_Scalar</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">NScalar</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="solids.html" class="btn btn-neutral float-left" title="4.6. Solids" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ic.html" class="btn btn-neutral float-right" title="4.8. Initial conditions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

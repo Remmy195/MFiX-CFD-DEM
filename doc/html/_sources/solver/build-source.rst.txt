@@ -1,0 +1,222 @@
+.. _developers:
+
+==================================
+Build from source (for developers)
+==================================
+
+.. _building:
+
+---------------------
+Obtaining MFiX source
+---------------------
+
+This section describes how developers build MFiX packages for
+distribution. Most users will not need to do this.
+
+Building from source requires the MFiX source tarball, which can be obtained on
+the `MFiX download page <https://mfix.netl.doe.gov/mfix/download-mfix>`__.
+Extract the tarball and go into the top level source directory:
+
+.. substitution-code-block::
+
+    (bash)$ tar xf mfix-|version|.tar.gz
+    (bash)$ cd mfix-|version|
+    (bash)$ pwd
+    /home/user/mfix-|version|
+
+
+
+----------------------------------
+Content of the MFiX source tarball
+----------------------------------
+
+
++------------------+-----------------------------------------------------+
+|  Folder          | Description                                         |
++==================+=====================================================+
+| model            | Source code for the MFiX solver                     |
++------------------+-----------------------------------------------------+
+| postmfix         | Source code for the post-processing tool postmfix   |
++------------------+-----------------------------------------------------+
+| queue_templates  | Templates to submit jobs on HPC systems             |
++------------------+-----------------------------------------------------+
+| tutorials        | Examples of simulations ready to run from the GUI   |
++------------------+-----------------------------------------------------+
+| tests            | Simple simulations used for regression tests        |
++------------------+-----------------------------------------------------+
+| legacy_tutorials | Old examples of simulations, meant to be run from   |
+|                  | command line                                        |
++------------------+-----------------------------------------------------+
+| legacy_tests     | Old tets cases meant to be run from command line    |
++------------------+-----------------------------------------------------+
+
+.. note::
+
+   1. The source code is also available from the GUI, from the "Editor" tab.
+      Files are located in the "MFiX source" file explorer. Selecting a file will
+      open it in the editor. Users wishing to modify the source code should copy
+      a file to the project directory. This is accomplished automatically by clicking
+      "Copy" when prompted "Copy to project directory for editing?"
+   2. It is recommended to study the simulations files in the "tutorials" folder.
+      These simulations can be loaded in the GUI from Main menu>New project.
+      Interested users can study files located in the legacy_tutorials and
+      legacy_tests folders. However, these are provided as examples that are
+      compatible with older versions of MFiX (2016-1 and prior).
+
+---------------------------
+Building solver from source
+---------------------------
+
+You can build the :ref:`Batch solver <build-batch>` from source, without the MFiX Conda
+package installed. This is how MFiX was built in version 2016 and earlier.
+
+You will need a Fortran compiler, GNU Make and CMake version 3.16 or newer.  Note that the
+MFiX Conda package provides all of these, so if you do not use Conda, you have to use your
+system package manager to install these prerequisites.  The MFiX team does not provide
+support for this option.
+
+Run ``cmake`` to configure MFiX and generate a Makefile, then run ``make`` to build the MFiX solver.
+
+Running ``cmake`` will generate a ``CMakeCache.txt`` file in the directory it is
+invoked from. Please include ``CMakeCache.txt`` when posting a question about
+build issues to the forum.
+
+^^^^^^^^^^^
+Configuring
+^^^^^^^^^^^
+
+The default configuration for MFiX is serial with optimizations and debug symbols (standard optimization; for GFortran use flags ``-g -O2``):
+
+.. substitution-code-block: shell-session
+
+  $ pwd
+  /home/user/mfix-|release|   # actual working directory will vary
+  $ mkdir release-build
+  $ cd release-build
+  $ cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo   # .. is the relative path to the top-level MFiX source directory
+  $ cmake .. # same thing (RelWithDebInfo is the default CMAKE_BUILD_TYPE)
+
+.. note::
+   Using an "out of source" build is recommended. Create a new directory, ``cd``
+   to that directory, and run ``cmake <path>`` where ``<path>`` is the top-level
+   MFiX source directory (containing ``CMakeLists.txt``). Out of source builds
+   are convenient for having different solvers built with different
+   configurations. The build directory can be whatever you want;
+   ``release-build`` and ``debug-build`` used here are just examples.
+
+To configure the MFiX solver in serial with debug mode (no optimization; for GFortran use flags ``-g -O0``):
+
+.. code-block:: shell-session
+
+   $ mkdir debug-build
+   $ cd debug-build
+   $ cmake .. -DCMAKE_BUILD_TYPE=Debug
+
+If ``mpifort`` is your MPI compiler wrapper command, then to configure the MFiX solver with DMP with optimizations and debug symbols:
+
+.. code-block:: shell-session
+
+   $ mkdir release-build
+   $ cd release-build
+   $ cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_MPI=1
+   $ cmake .. # same thing (RelWithDebInfo is the default CMAKE_BUILD_TYPE)
+
+If ``mpifort`` is your MPI compiler wrapper command, then to configure the MFiX solver with DMP with debug mode:
+
+.. code-block:: shell-session
+
+   $ mkdir debug-build
+   $ cd debug-build
+   $ cmake .. -DCMAKE_BUILD_TYPE=Debug -DENABLE_MPI=1
+
+To specify the Fortran compiler, define CMAKE_Fortran_COMPILER:
+
+.. code-block:: shell-session
+
+   $ cmake .. -DCMAKE_Fortran_COMPILER=ifort  # for example
+
+To add specific Fortran compiler flags, define CMAKE_Fortran_FLAGS:
+
+.. code-block:: shell-session
+
+   $ cmake .. -DCMAKE_Fortran_FLAGS="-O0 -g -Wall -fcheck=all"  # for example
+
+To configure with SMP support:
+
+.. code-block:: shell-session
+
+   $ cmake .. -ENABLE_OpenMP=ON
+
+Options can be combined in a single command:
+
+.. code-block:: shell-session
+
+   $ cmake .. -ENABLE_OpenMP=ON -DCMAKE_Fortran_COMPILER=ifort -DCMAKE_Fortran_FLAGS="-O0 -g -Wall -fcheck=all"
+
+**Example with gfortran, serial optimized solver configuration:**
+
+.. code-block:: shell-session
+
+   $ cmake .. -DENABLE_MPI=0 -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O2 -g"
+
+**Example with gfortran, serial optimized solver for current CPU configuration :**
+
+.. code-block:: shell-session
+
+   $ cmake .. -DENABLE_MPI=0 -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-march=native -O3"
+
+**Example with gfortran, DMP optimized solver configuration:**
+
+.. code-block:: shell-session
+
+   $ cmake .. -DENABLE_MPI=1 -DMPI_Fortran_COMPILER=mpifort -DCMAKE_Fortran_FLAGS="-O2 -g"
+
+**Example with gfortran, serial debug mode solver configuration:**
+
+.. code-block:: shell-session
+
+   $ cmake .. -DENABLE_MPI=0 -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O0 -fcheck=all -g"
+
+**Example with gfortran, DMP debug mode solver configuration:**
+
+.. code-block:: shell-session
+
+   $ cmake .. -DENABLE_MPI=1 -DMPI_Fortran_COMPILER=mpifort -DCMAKE_Fortran_FLAGS="-O0 -fcheck=all -g"
+
+.. note::
+   For DMP support, defining ``-DENABLE_MPI=1`` is required. Defining
+   ``CMAKE_Fortran_COMPILER`` as your MPI wrapper (``mpifort``) is recommended,
+   but not strictly required. CMake should automatically detect MPI include
+   files and libraries for your default compiler, but specifying
+   ``CMAKE_Fortran_COMPILER`` is better to ensure you are using the exact
+   compiler you intend to use.
+
+.. note::
+
+   CMake uses configurations values from both ``CMakeCache.txt`` and from
+   command line arguments. Command line arguments take precedence over
+   ``CMakeCache.txt``, but ``CMakeCache.txt`` is used if nothing is specified on
+   the command line. For instance, if you run ``cmake ..
+   -DCMAKE_Fortran_FLAGS="-fcheck=all"``, and then run ``cmake ..`` again (in
+   the same build directory), ``-fcheck=all`` will still be used (because it is
+   still in ``CMakeCache.txt``). If this is not what you want, either edit
+   ``CMakeCache.txt``, or just delete ``CMakeCache.txt`` and run ``cmake`` again
+   with different options.  The ``build_mfixsolver`` script removes ``CMakeCache.txt``
+   each time it runs so old options are not reapplied.
+
+^^^^^^^^
+Building
+^^^^^^^^
+
+After configuring, build with make. For further details about the make utility,
+type ``man make`` at the prompt.
+
+.. code-block:: shell-session
+
+   $ make
+   $ make -j        # for parallel build jobs
+   $ make VERBOSE=1 # to view the full command lines used for compiling and linking
+
+
+At the end of a successful build, the MFiX solver will be located in the current directory.
+The solver is called ``mfixsolver`` on Linux.

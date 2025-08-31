@@ -1,0 +1,35 @@
+.. _running_mfix_on_joule:
+
+
+=====================
+Running MFiX on Joule
+=====================
+
+This section is for MFiX users on NETL's HPC system Joule. MFiX is installed as
+an environment module, so installing it yourself is not necessary. MFiX comes with prebuilt solvers for both DMP and SMP so building a custom solver is not needed unless you have modified Fortran code.  The MFiX module depends on the gnu and openmpi modules, so when you load the MFiX module via ``module load mfix`` you will automatically get the correct versions of these dependencies (currently, ``gnu/13.2.0`` and ``openmpi/4.1.5/gnu/13.2.0``.
+
+.. _launch_gui_on_joule:
+
+---------------
+Running the GUI
+---------------
+
+1.  Load the MFiX |version| module:
+
+    .. substitution-code-block:: shell-session
+
+       $ module load mfix/|release|
+
+2)  Run the GUI:
+
+    .. code-block:: shell-session
+
+       $ vglrun mfix
+
+3)  To build from the GUI, see: :ref:`build-custom`.
+
+4)  To build from the command line, run:
+
+    .. code-block:: shell-session
+
+       $ build_mfixsolver

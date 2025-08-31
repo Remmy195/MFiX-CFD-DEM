@@ -1,0 +1,23 @@
+.. _chemical-reaction-examples:
+
+==========================
+Chemical Reaction Examples
+==========================
+
+.. toctree::
+    :maxdepth: 2
+    :caption:  Examples
+
+    Methane Combustion <methane>
+    Athermal Gas <athermal>
+    Char Combustion <char>
+    Compound DEM Reaction <compound-dem>
+
+.. toctree::
+    :maxdepth: 2
+    :caption: UDF Examples
+
+    Methane Combustion UDF <methane-udf>
+    Athermal Gas with UDF <athermal-udf>
+    Char Combustion with UDF <char-udf>
+    DES Droplet Evaporation with UDF <des-droplet-udf>

@@ -1,0 +1,286 @@
+#! File written Wed Jun 26 15:56:55 2024
+#! MFiX version 24.2 by cgw on x280
+
+### Run controls
+  description                      = 'DEM screwfeeder with keyframe files'
+  run_name                         = 'screwfeeder'
+  units                            = 'SI'
+  run_type                         = 'new'
+  time                             = 0.0
+  tstop                            = 5.0
+  dt                               = 1.0000e-03
+  dt_min                           = 1.0000e-07
+  dt_max                           = 1.0000e-04
+  res_dt                           = 0.1
+  batch_wallclock                  = 9000.0
+  chk_batchq_end                   = .True.
+  drag_c1                          = 0.8
+  drag_d1                          = 2.65
+  drag_type                        = 'SYAM_OBRIEN'
+  turbulence_model                 = 'NONE'
+  energy_eq                        = .False.
+  nodesi                           = 1
+  nodesj                           = 1
+  nodesk                           = 1
+  term_buffer                      = 180.0
+  write_dashboard                  = .False.
+  des_rigid_motion(2)              = .True.
+  des_rigid_motion_rot_center(2,2) = 0.0875
+  keyframe(1)                      = .True.
+  kf_keyword(1,1)                  = 'des_rigid_motion_omega(2,1)'
+  momentum_x_eq(0)                 = .False.
+  momentum_y_eq(0)                 = .False.
+  momentum_z_eq(0)                 = .False.
+  omega_unit                       = 'rev/s'
+  project_version                  = '1'
+  species_eq(0)                    = .False.
+  species_eq(1)                    = .False.
+  species_eq(2)                    = .False.
+
+### Physical parameters
+  gravity_x = 0.0
+  gravity_y = -9.80665
+  gravity_z = 0.0
+
+### Cartesian grid
+  cartesian_grid = .True.
+  use_stl        = .True.
+
+### Numeric
+  detect_stall = .True.
+  max_nit      = 50
+
+### Geometry
+  coordinates = 'CARTESIAN'
+  imax        = 25
+  jmax        = 30
+  kmax        = 10
+  x_max       = 0.055
+  x_min       = -0.205
+  y_max       = 0.3
+  y_min       = -0.0
+  z_max       = 0.055
+  z_min       = -0.055
+
+#### Fluid
+  mu_g0      = 1.8000e-05
+  mw_avg     = 29.0
+  mu_g_model = 'CONSTANT'
+  ro_g0      = 0
+
+#### Solids
+  mmax = 2
+  # Solid 1
+    solids_model(1) = 'DEM'
+    d_p0(1)         = 0.005
+    ro_s0(1)        = 1000.0
+    nmax_s(1)       = 0
+    k_s0(1)         = 1.0
+    ks_model(1)     = 'MUSSER'
+
+  # Solid 2: screw
+    solids_model(2) = 'DEM'
+    d_p0(2)         = 0.005
+    ro_s0(2)        = 1000.0
+    nmax_s(2)       = 0
+    k_s0(2)         = 1.0
+    ks_model(2)     = 'MUSSER'
+
+
+### Initial conditions
+  # Initial condition 1: Background
+    ic_x_e(1)       = 0.055 #!MFIX-GUI eq{float(xmax)}
+    ic_x_w(1)       = -0.205 #!MFIX-GUI eq{float(xmin)}
+    ic_y_s(1)       = -0.0 #!MFIX-GUI eq{float(ymin)}
+    ic_y_n(1)       = 0.3 #!MFIX-GUI eq{float(ymax)}
+    ic_z_b(1)       = -0.055 #!MFIX-GUI eq{float(zmin)}
+    ic_z_t(1)       = 0.055 #!MFIX-GUI eq{float(zmax)}
+    ic_ep_g(1)      = 1.0
+    ic_t_g(1)       = 293.15
+    ic_u_g(1)       = 0.0
+    ic_v_g(1)       = 0.0
+    ic_w_g(1)       = 0.0
+    ic_ep_s(1,1)    = 0.0
+    ic_t_s(1,1)     = 293.15
+    ic_theta_m(1,1) = 0.0
+    ic_u_s(1,1)     = 0.0
+    ic_v_s(1,1)     = 0.0
+    ic_w_s(1,1)     = 0.0
+    ic_ep_s(1,2)    = 0.0
+    ic_t_s(1,2)     = 293.15
+    ic_theta_m(1,2) = 0.0
+    ic_u_s(1,2)     = 0.0
+    ic_v_s(1,2)     = 0.0
+    ic_w_s(1,2)     = 0.0
+
+
+# Boundary conditions
+  # Boundary condition 1: wall
+    bc_type(1)  = 'CG_NSW'
+    bc_jj_ps(1) = 0
+    bc_uw_g(1)  = 0.0
+    bc_vw_g(1)  = 0.0
+    bc_ww_g(1)  = 0.0
+
+  # Boundary condition 2: bottom
+    bc_type(2)  = 'NSW'
+    bc_x_e(2)   = 0.055 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(2)   = -0.205 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(2)   = -0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(2)   = -0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_z_b(2)   = -0.055 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(2)   = 0.055 #!MFIX-GUI eq{float(zmax)}
+    bc_jj_ps(2) = 0
+    bc_uw_g(2)  = 0.0
+    bc_vw_g(2)  = 0.0
+    bc_ww_g(2)  = 0.0
+
+  # Boundary condition 3: top
+    bc_type(3) = 'PO'
+    bc_x_e(3)  = 0.055 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(3)  = -0.205 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(3)  = 0.3 #!MFIX-GUI eq{float(ymax)}
+    bc_y_n(3)  = 0.3 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(3)  = -0.055 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(3)  = 0.055 #!MFIX-GUI eq{float(zmax)}
+    bc_p_g(3)  = 101325.0
+
+
+# VTK outputs
+  write_vtk_files         = .True.
+  time_dependent_filename = .True.
+  # VTK output 1: Background
+    vtk_filebase(1)      = 'PARTICLES'
+    vtk_x_e(1)           = 0.055 #!MFIX-GUI eq{float(xmax)}
+    vtk_x_w(1)           = -0.205 #!MFIX-GUI eq{float(xmin)}
+    vtk_y_s(1)           = -0.0 #!MFIX-GUI eq{float(ymin)}
+    vtk_y_n(1)           = 0.3 #!MFIX-GUI eq{float(ymax)}
+    vtk_z_b(1)           = -0.055 #!MFIX-GUI eq{float(zmin)}
+    vtk_z_t(1)           = 0.055 #!MFIX-GUI eq{float(zmax)}
+    vtk_data(1)          = 'P'
+    vtk_dt(1)            = 0.01
+    vtk_nxs(1)           = 0
+    vtk_nys(1)           = 0
+    vtk_nzs(1)           = 0
+    vtk_part_diameter(1) = .True.
+    vtk_part_phase_id(1) = .True.
+    vtk_part_vel(1)      = .True.
+
+
+# SPx outputs
+  spx_dt(1) = 0.1
+  spx_dt(2) = 0.1
+  spx_dt(3) = 0.1
+  spx_dt(4) = 0.1
+  spx_dt(5) = 0.1
+  spx_dt(6) = 0.1
+  spx_dt(7) = 0.1
+  spx_dt(8) = 0.1
+  spx_dt(9) = 0.1
+
+### Residuals
+  resid_string(1) = 'P0'
+  resid_string(2) = 'P1'
+  resid_string(3) = 'U0'
+  resid_string(4) = 'V0'
+  resid_string(5) = 'U1'
+  resid_string(6) = 'V1'
+
+### Discrete element model
+  des_en_input(1)      = 0.5
+  des_en_input(2)      = 0.9
+  des_en_input(3)      = 0.9
+  des_en_wall_input(1) = 0.5
+  des_en_wall_input(2) = 0.9
+  des_epg_clip         = 0.42
+  des_etat_fac         = 0.5
+  des_etat_w_fac       = 0.5
+  des_interp_scheme    = 'NONE'
+  gener_part_config    = .False.
+  kn                   = 200.0
+  kn_w                 = 200.0
+  kt_fac               = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  kt_w_fac             = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  mew                  = 0.1
+  mew_w                = 0.1
+  particles            = 3964
+
+### Two-fluid model
+  c_e            = 0.95
+  c_f            = 0.1
+  friction_model = 'SCHAEFFER'
+  kt_type        = 'ALGEBRAIC'
+  phi            = 30.0
+  phi_w          = 11.3
+
+### Output control
+vtk_part_usr_var(1,1) = .True.
+
+
+# MFIX-GUI section
+#!MFIX-GUI keyframes = {"1": {"filename": "rotation.csv"}}
+#!MFIX-GUI regions_dict = {"order": ["Background", "bottom", "top", "hopper",
+#!MFIX-GUI   "wall"], "regions": {"Background": {"to": [{"__type__":
+#!MFIX-GUI   "equation", "eq": "float(xmax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(ymax)"}, {"__type__": "equation", "eq": "float(zmax)"}],
+#!MFIX-GUI   "from": [{"__type__": "equation", "eq": "float(xmin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(ymin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(zmin)"}], "color": "#ffffff",
+#!MFIX-GUI   "geometry_pool": ["screwfeeder.stl"]}, "bottom": {"to":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymin)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "color": "#ca6a97",
+#!MFIX-GUI   "geometry_pool": ["screwfeeder.stl"], "type": "XZ-plane"}, "top":
+#!MFIX-GUI   {"to": [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymax)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "color": "#826498",
+#!MFIX-GUI   "geometry_pool": ["screwfeeder.stl"], "type": "XZ-plane"},
+#!MFIX-GUI   "hopper": {"to": [0.05, 0.25, 0.05], "from": [-0.05, 0.1, -0.05],
+#!MFIX-GUI   "color": "#d971e0", "geometry_pool": ["screwfeeder.stl"]}, "wall":
+#!MFIX-GUI   {"facet_count": 9602, "to": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmax)"}, {"__type__": "equation", "eq": "float(ymax)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmax)"}], "from":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymin)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmin)"}], "color": "#00ff00", "geometry_pool":
+#!MFIX-GUI   ["screwfeeder.stl"], "type": "STL"}}}
+#!MFIX-GUI author = tutorial
+#!MFIX-GUI created_date = 2019-10-25 16:38
+#!MFIX-GUI modified_time = 2024-06-26 15:56
+#!MFIX-GUI gui_version = 24.2
+#!MFIX-GUI project_notes = ""
+#!MFIX-GUI modified_by = dietikej|sanjeevs|cgw
+#!MFIX-GUI geometry = {"geometry_dict": {"screwfeeder.stl": {"geo_type": "stl",
+#!MFIX-GUI   "filename": "screwfeeder.stl", "centerx": -0.07651828764850271,
+#!MFIX-GUI   "centery": 0.1472817688351676, "centerz": 3.057037373700121e-06,
+#!MFIX-GUI   "extentxmin": -0.2, "extentxmax": 0.050124, "extentymin": -0.05,
+#!MFIX-GUI   "extentymax": 0.35, "extentzmin": -0.05, "extentzmax": 0.05}},
+#!MFIX-GUI   "tree": {"screwfeeder.stl": []}}
+#!MFIX-GUI bc_regions = [[[1], ["wall"]], [[2], ["bottom"]], [[3], ["top"]]]
+#!MFIX-GUI ic_regions = [[[1], ["Background"]]]
+#!MFIX-GUI vtk_regions = [[[1], ["Background"]]]
+#!MFIX-GUI log_files = {"dt": [true, "dt_log", "overwrite"], "solver_output":
+#!MFIX-GUI   [true, "solver_log", "overwrite"]}
+#!MFIX-GUI parameters = {"order": ["min", "max", "xmin", "xmax", "ymin", "ymax",
+#!MFIX-GUI   "zmin", "zmax", "km", "m", "cm", "mm", "um", "mile", "yard", "ft",
+#!MFIX-GUI   "ins"], "parameters": {"min": 0.0, "max": 0.0, "xmin": -0.205,
+#!MFIX-GUI   "xmax": 0.055, "ymin": -0.0, "ymax": 0.3, "zmin": -0.055, "zmax":
+#!MFIX-GUI   0.055, "km": 1000.0, "m": 1.0, "cm": 0.01, "mm": 0.001, "um":
+#!MFIX-GUI   1e-06, "mile": 1609.34, "yard": 0.9144, "ft": 0.3048, "ins":
+#!MFIX-GUI   0.0254}}
+#!MFIX-GUI queue_template = {"JOB_NAME": "${PROJECT_NAME}", "CORES": 8, "QUEUE":
+#!MFIX-GUI   "general", "LONG": "", "MODULES": [], "template": "Joule"}
+#!MFIX-GUI OMP_NUM_THREADS = 1
+#!MFIX-GUI submit_to_queue = 0
+#!MFIX-GUI BUILD_DMP = 0
+#!MFIX-GUI BUILD_FC_FLAGS =
+#!MFIX-GUI BUILD_INTERACTIVE = PYMFIX
+#!MFIX-GUI BUILD_PARALLEL = 1
+#!MFIX-GUI BUILD_SMP = 0
+#!MFIX-GUI BUILD_TYPE = RELWITHDEBINFO
+#!MFIX-GUI project_version = 1
+#!MFIX-GUI solids_phase_name(2) = screw

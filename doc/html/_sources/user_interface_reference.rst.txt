@@ -1,0 +1,755 @@
+.. _user-interface-reference:
+
+*************
+GUI reference
+*************
+
+Main toolbar
+============
+
+The Main toolbar is located at the top of the GUI window.
+The following table illustrates the icons in the toolbar.
+
++-----------------------+--------------------------------------------+
+| Icon                  | Description                                |
++=======================+============================================+
+| |Menu|                | :ref:`menu`                                |
++-----------------------+--------------------------------------------+
+| |save|                |  Saves the current project file            |
++-----------------------+--------------------------------------------+
+| |start|               |  Start/resume MFIX simulation              |
++-----------------------+--------------------------------------------+
+| |pause|               |  Pause simulation                          |
++-----------------------+--------------------------------------------+
+| |stop|                |  Stop simulation                           |
++-----------------------+--------------------------------------------+
+| |reset|               |  Reset - clear output files                |
++-----------------------+--------------------------------------------+
+| |Build button|        | :ref:`build-dialog`                        |
++-----------------------+--------------------------------------------+
+| |Parameters button|   | :ref:`parameters`                          |
++-----------------------+--------------------------------------------+
+| |Settings button|     | General MFiX settings                      |
++-----------------------+--------------------------------------------+
+| |Help button|         | MFiX help (documentation)                  |
++-----------------------+--------------------------------------------+
+| |Search button|       | Search for MFIX keywords                   |
++-----------------------+--------------------------------------------+
+
+The interactive solver sends its status during the simulation, and the
+solver controls will be enabled or disabled, depending on the solver
+state.
+
+Solver controls:
+
++-----------------+-------------------------------------------------------+
+|                 |          Solver state is....                          |
+|                 +---------------------------+---------------------------+
+|                 | ...Running and....        | ...Stopped with...        |
+|                 +-------------+-------------+-------------+-------------+
+|                 | ...Unpaused.| ...Paused.  | no RES.     |    RES.     |
++=================+=============+=============+=============+=============+
+| |start|  Start  |   Disabled  |  Unpause    | Start       | Resume      |
++-----------------+-------------+-------------+-------------+-------------+
+| |pause|  Pause  |   Pause     |                      Disabled           |
++-----------------+-------------+-------------+-------------+-------------+
+| |stop|   Stop   |         Stops the solver  |        Disabled           |
++-----------------+-------------+-------------+-------------+-------------+
+| |reset|  Reset  |        Disabled                         | Clear RES   |
++-----------------+-------------+-------------+-------------+-------------+
+
+
+If no MFiX job is currently running, the Start button will open the run
+dialog where settings for a job can be changed. The simulation can be
+started from this dialog. If an MFiX job is running, you can pause it
+with the pause button and un-pause it with the start button. You can
+stop a running MFiX job with the stop button. A stopped job leaves
+restart (\*.RES) and output files to resume the simulation. Starting a
+job by pressing the Start button with \*.RES files present will resume
+the job where it stopped. The Reset button will allow the option to
+delete the \*.RES files and output files from the project directory.
+This will allow the simulation to start from the beginning the next time the
+Start button is pressed.
+
+.. _run-dialog:
+
+Run dialog
+~~~~~~~~~~
+
+The run dialog is used for entering options on starting the solver.
+
+Different solvers can be selected.
+
+If a custom solver is compiled with SMP or DMP support, the following options may be available:
+
+-  Threads (number of threads used for OpenMP)
+-  NODESI (number divisions in X direction)
+-  NODESJ (number divisions in Y direction)
+-  NODESK (number divisions in Z direction)
+
+:math:`NODESI \times NODESJ \times NODESK = n` where :math:`n` is the
+number of MPI processes running. If not using MPI,
+:math:`NODESI=NODESJ=NODESK=1`.
+
+The GUI supports running both locally as well as submitting to a queue.
+
+.. note::
+   SMP and DMP options are disabled for the default solver.
+   You will need to build a custom solver with DMP or SMP flags
+   to enable these options.
+
+Run locally
+^^^^^^^^^^^
+
+To run locally, select a solver
+from the drop-down list or click the browse button to specify a solver that
+is not in the list. Usually the default installed solver should be sufficient.
+If running a case with UDFs, you need to first build a case-specific MFiX as
+described in the :ref:`setup-guide`. You may want to build your own solver for
+other reasons, such as specifying various compiler flags to optimize the
+executable for your specific hardware.
+
+Make sure the "Submit to queue" checkbox is unchecked, and
+click "Run" in the Run dialog to start the solver.
+
+Submit to queue
+^^^^^^^^^^^^^^^
+
+To submit a job to a queue (submit to queuing system, e.g. Grid Engine,
+PBS, SLURM), select the "Submit to Queue" tab. Select an executable from
+the drop-down list or click the browse button to specify an executable
+that is not in the list. Next, select a template from the drop-down list
+or click the browse button to choose a template that is not in the
+drop-down list. Based on the selected template, the widgets in the
+"queue options" section will update automatically. Once the options are
+specified, click "submit" in the run dialog to submit the job to the
+queue.
+
+Custom queue scripts are supported. The format for this script is
+described in the `Queue Templates <#queue-templates>`__ section.
+
+.. _build-dialog:
+
+Build dialog
+~~~~~~~~~~~~
+
+The build dialog is used for building custom solvers in project run directories.
+This is used to build :ref:`build-custom`.
+
+There is a combo box to select the Fortran compiler command. It will be
+populated with any :ref:`known Fortran compilers <compiler-list>` in ``PATH``.
+Alternatively, type in the command for the compiler.
+
+There is a field to type in the flags for the Fortran compiler. See your
+compiler manual for details, such as the `GNU Fortran Manual
+<https://gcc.gnu.org/onlinedocs/gfortran/Option-Summary.html>`_.
+
+There are checkboxes for building with SMP or DMP support. Note that DMP support
+requires both checking the DMP box, and selecting an MPI compiler (such as
+`mpifort`). The "Build solver in parallel" checkbox will run ``make`` with
+multiple jobs. DMP and SMP are not available on Windows.
+
+If "Enable developer mode" is checked in :ref:`settings`, then there will be a
+checkbox for building either the interactive solver or the batch solver.
+
+"Build command" displays the command line used for building the solver with
+the selected options.
+
+Reset dialog
+~~~~~~~~~~~~
+
+The Reset dialog allows for optional deleting of output files from the
+run directory. These files include:
+
++-------------+---------------------------------------------------------------------+
+| File type   | Wild-card match                                                     |
++=============+=====================================================================+
+| Restart     | \*.RES                                                              |
++-------------+---------------------------------------------------------------------+
+| SPx         | \*.SP?                                                              |
++-------------+---------------------------------------------------------------------+
+| VTK         | \*.vtp, \*.vtu, \*.pid                                              |
++-------------+---------------------------------------------------------------------+
+| Other       | \*.OUT, \*.pid, \*.error, \*.e[0-9]\*, \*.pe[0-9]\*, \*.po[0-9]\*   |
++-------------+---------------------------------------------------------------------+
+
+\*.RES and \*.SPx files have to be removed from the run directory before
+a simulation can be played from the beginning. It is recommended to
+remove VTK files from the run directory as well because they will be
+over-written.
+
+.. note::
+    If there are restart files present in the run directory, some widgets will
+    be disabled because certain model parameters can not be edited during a
+    resume, or restart state.
+
+.. _parameters:
+
+Parameter dialog
+~~~~~~~~~~~~~~~~
+
+The parameter dialog allows users to create parameters, or variables,
+that can then be referenced in widgets that support the use of these
+parameters. This functionality allows user to create relationships among
+various inputs and change the values of multiple items by changing the
+value of a single parameter. In many respects, this is similar to features
+present in most commercial CAD packages.
+
+There are six special parameters; ``xmin``, ``xmax``, ``ymin``, ``ymax``,
+``zmin``, and ``zmax`` that reference the simulation domain extents, entered on
+the geometry pane. These parameters make it easy to setup regions that
+automatically adjust to the simulation domain if the extents change.
+
+.. _menu:
+
+Menu
+=========
+
+The main menu allows for opening, creating, copying, and exporting
+projects as well as viewing project meta data, changing settings, and
+viewing available help documentation, including this document.
+
+Project Info
+~~~~~~~~~~~~
+
+Selecting File > Project Info displays metadata about the current project file.
+The following table details the content of the metadata.
+
++-----------------------------+----------------------------------------------------------+
+| Label                       | Description                                              |
++=============================+==========================================================+
+| File name                   | full path to MFiX project file                           |
++-----------------------------+----------------------------------------------------------+
+| Project version             | version number, incremented each time project is saved   |
++-----------------------------+----------------------------------------------------------+
+| Created with MFiX version   | version of MFiX that project was created with            |
++-----------------------------+----------------------------------------------------------+
+| Author                      | user name who created the project                        |
++-----------------------------+----------------------------------------------------------+
+| Modified By                 | list of user names that edited the project               |
++-----------------------------+----------------------------------------------------------+
+| Last modified               | date and time the project was last modified              |
++-----------------------------+----------------------------------------------------------+
+| Created                     | date and time the project was created                    |
++-----------------------------+----------------------------------------------------------+
+| Notes                       | area where the user can record notes about the project   |
++-----------------------------+----------------------------------------------------------+
+
+.. _new-project:
+
+New
+~~~
+
+Selecting File > New creates a new project file from a template file. When a template is
+selected, the GUI will ask for a project name and parent directory to
+save the project to. A new directory with the project name will be
+created in the parent directory. A .mfx file will be created in that
+directory by copying the contents of the selected template file. Any
+other files, such as \*.stl files, will also be copied if present. The
+list of templates can be filtered by selecting one or more of the
+following model types:
+
+.. include:: /template_icons.rst
+
+Open
+~~~~
+
+Selecting File > Open accesses a file dialog where the user can navigate
+to and select an existing project file both in .mfx format of the
+older mfix.dat format. Note that mfix.dat files used with older released
+versions of MFiX will be saved in the current .mfx format.
+The GUI also performs a number of updates, including keyword amendments
+and CGS to SI unit conversion. Any user files are not converted. It is strongly
+suggested that the project be checked after this update.
+
+Save
+~~~~
+
+Selecting File > Save saves the current project files in the current project directory.
+
+Export project
+~~~~~~~~~~~~~~
+
+Export the current project to a new directory and/or as a new filename,
+but keeps the original project opened.
+
+
+Submit bug report
+~~~~~~~~~~~~~~~~~
+
+When reporting issues, errors, or questions to the :ref:`support-forum`, it is
+helpful to include your project file, UDFs, and any other files associated with
+your project, along with the current versions of MFiX and its dependencies, so
+that we may reproduce the reported issue.
+
+We offer a convenient way of sending this information in a single file.
+
+Clicking on 'Submit bug report' will create a .ZIP file the current directory,
+containing the relevant project files, and some version information about your
+system.
+
+**The bug report is not automatically transmitted to the MFiX developers.** You are
+encouraged to open the zipfile and examine the files, if you have any concern
+about what information is being shared. Then post the zipfile as an attachment
+to https://mfix.netl.doe.gov/forum/c/mfix
+
+The bug report dialog will also pop up automatically if an exception occurs
+while using MFiX. This kind of report is especially helpful to MFiX
+developers, because it includes the stack trace.
+
+
+.. _settings:
+
+Settings
+~~~~~~~~
+
+Choosing File > Settings opens a dialog where the user can change settings
+that affect how the GUI behaves. Available options are listed in the
+following table.
+
++----------------------+-----------------------------------------------------+
+| Option               | Description                                         |
++======================+=====================================================+
+| Style                | change the application style                        |
++----------------------+-----------------------------------------------------+
+| Enable animations    | enable or disable animated widgets                  |
++----------------------+-----------------------------------------------------+
+| Animation Speed      | set the speed at which animations occur             |
++----------------------+-----------------------------------------------------+
+| Enable Developer     | hide/show widgets that are mainly for developers of |
+| Tools                | the GUI                                             |
++----------------------+-----------------------------------------------------+
+
+Help
+~~~~
+
+Selecting File > Help opens a dialog linking the user to available documentation
+(including this document) and tutorials, both text
+based and videos (if connected to the Internet) demonstrating features of the
+GUI.
+
+About
+~~~~~
+
+Choosing File > About displays the version of MFiX and the versions of the various
+dependencies that the GUI is using. If issues are discovered while using the
+GUI, it is recommended that any reports include this version information which
+can be easily copied by pressing the "copy version info" button.
+
+Quit
+~~~~
+
+Selecting File > Quit exits MFiX. The GUI will ask for confirmation if project is unsaved or if a job
+is running.
+
+Model panes
+===========
+
+Each pane in the main window allows editing of different options for an MFiX
+project. The Panes are ordered in a logical progression for traditional CFD problem setups:
+Model defines the overall solver type (TFM, DEM, PIC).
+Geometry and Mesh define the overall domain space of the solver.
+Regions are geometrical surfaces and volumes within the overall domain.
+Fluid and Solids specify details on the phases the solver deals with.
+Initial conditions (ICs), Boundary conditions (BCs), Point sources (PSs),
+and Internal surfaces (ISs) depend on Regions, Fluid, and Solids, so they come next.
+Chemistry provides options for reacting cases, and Numerics specifies
+details on the Eulerian solver.
+Output specifies how output data is written.
+Monitors provides options to probe the flow field at select locations and compute basic
+quantities of interest.
+Run specifies how long to run the solver for.
+(Post is not yet implemented).
+
+.. note::
+    Selections on panes may enable or disable widgets based on what input
+    parameters are required or available.
+
+Model setup
+~~~~~~~~~~~
+
+The Model pane is used to specify overall options for the project.
+Depending on what is selected, other panes may be enabled or disabled.
+Options that are specified on this pane include:
+
+-  Solver (Single-phase, Two-Fluid Model, DEM, PIC, Hybrid)
+-  Option to disable the fluid phase
+-  Option to enable thermal energy equations
+-  Option to enable turbulence, if the fluid phase is enabled
+-  Gravity in the x, y, and z directions
+-  Drag Model including parameters for the selected drag model
+
+Other advanced options that can be selected include:
+
+-  Momentum formulation (Model a, Model B, Jackson, or Ishii)
+-  Sub-grid model (only available with TFM, Wen-Yu drag model, etc...)
+-  Sub-grid filter size
+-  Sub-grid wall correction
+
+Geometry
+~~~~~~~~
+
+
+Mesh
+~~~~
+
+
+Regions
+~~~~~~~
+
+
+Fluid
+~~~~~
+
+The fluid pane is used to define the physical properties of the fluid phase.
+This includes adding fluid phase species which can either be imported from the
+BURCAT_ thermodynamic database or created by the user. The GUI will generate the correct
+data format to use thermodynamic data in MFiX.
+
+.. _BURCAT: http://garfield.chem.elte.hu/Burcat/burcat.html
+
+Solids
+~~~~~~
+
+The solids pane is used to define the physical properties of each solid(s)
+phase. Names can be given to each solid. This name will be used throughout the
+GUI to reference that solid phase (i.e. when defining initial conditions,
+boundary conditions, etc.). The solid phase model (TFM, DEM, or PIC) can also be
+specified here, however the selectable solid phase model depends on the solver
+selected on the model pane.
+
+The selected solver will also enable/disable the TFM, DEM, and PIC sub-panes
+where various options for those solids models can be accessed.
+
+.. _initial-conditions:
+
+Initial conditions (ICs)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The initial conditions pane is used to define initial conditions for
+a selected Region (defined on each Region pane) for each phase (defined on
+Fluid or Solids panes). Initial conditions are required to cover the entire
+domain and provide an initial value for certain quantities that the solver will use to
+start the simulation. Experienced CFD users realize that providing reasonable
+initial values for volume fraction, temperature,
+pressure, and velocity allow simulations to reach/meet convergence criteria more quickly.
+
+To create a new initial condition, press the |add| button which will bring up
+the Region selection dialog. Select a region to associate with the new initial
+condition and press OK. Regions that are not volumes or are already used by
+another initial condition will not be selectable.
+
+Once the region has been created, values can be edited. Sub-panes will be
+created dynamically based on model parameters as well as the number of solid
+phases.
+
+.. note::
+    Initial condition regions may overlap. When an overlap occurs, the
+    initial condition with the higher IC number will be used at that location.
+
+.. _boundary-conditions:
+
+Boundary conditions (BCs)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The boundary conditions pane is used to define boundary conditions for
+a selected Region (defined on each Region pane) for each phase (defined on
+Fluid or Solids panes). This is where inflow, outflow, pressure, walls, and
+cyclic boundary conditions are created.
+
+To create a new boundary condition, press the |add| button which will bring up
+the Region selection dialog. Next, select a boundary type from the combo box.
+Regions will be enabled/disabled based on the selected boundary type and whether
+or not the region is already used by a boundary condition. Boundary conditions
+must be surfaces, either planes or collections of facets (STL). Pressing OK will
+create the boundary condition.
+
+The sub-panes are created dynamically for each boundary condition based on the
+boundary condition type as well as other model parameters including the number
+of solid species.
+
+.. note::
+    Two boundary surfaces must not intersect.
+
+.. _point-sources:
+
+Point sources (PSs)
+~~~~~~~~~~~~~~~~~~~
+
+Point sources (PSs) are used in place of mass inlets where either the geometry
+and/or grid resolution prohibit traditional boundary condition specification. For
+example, a point source may be used to model an injector with dimensions smaller
+than the grid. Point sources may be defined within a single computational cell,
+along a plane, or as a volume of computational cells.
+
+Point sources introduce mass directly into a computational cell unlike a
+boundary condition which specifies flow along a cell face. One consequence of
+this implementation is that point sources are subjected to convection/diffusion
+forces and may not travel parallel to the specified directional preference.
+Directional preference is specified with a velocity vector (i.e., PS_U_g,
+PS_V_g, etc.), however, it is not required.
+
+To create a new point source, press the |add| button which will bring up
+the Region selection dialog. Select a region to associate with the new point
+source and press OK.
+
+The sub-panes are created dynamically for each point source based on the model
+parameters including the number of solid species.
+
+.. _internal-surfaces:
+
+Internal surfaces (ISs)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Internal surfaces allow the user to create a zero-thickness walls that are normal to one
+of the coordinate directions and coincide with one of the faces of the scalar control volume.
+
+Two types of internal surfaces are available: Impermeable, which acts as a free-slip wall for
+both gas and solids phases, and Semi-Impermeable, which allows only the gas phase to pass through
+the internal surface.
+
+To create a new internal surface, press the |add| button which will bring up
+the Region selection dialog. Select a region to associate with the new Internal Surface.
+Select the type of Internal surface and press OK. For Semi-Impermeable surfaces, the fluid permeability
+and Internal Resistance Coefficient must be provided as well.
+
+Typically, the region associated with an Internal Surface will be a plane. To specify a large number of
+internal surfaces in a region, a 3D region may be selected. In this case, a prefix (X\_, Y\_, or Z\_) is added to the
+Internal Surface type to indicate the direction of the internal surfaces; e.g., X_IMPERMEABLE specifies
+impermeable internal surfaces parallel to the X coordinate.
+
+Internal surfaces act as free-slip walls in stress computations. This default condition
+cannot be changed.
+
+Chemistry
+~~~~~~~~~
+
+Setting up a project with chemical reactions is a multi-step process that requires coding the reactions
+rates in ``usr_rates.f`` for TFM or ``usr_rates_des.f`` for DEM. The solver needs to be built to take the reaction rates
+into account. A brief overview is outlined below. The Silane pyrolysis tutorial is an good way for the user to familiarize
+him/herself with setting up chemical reactions in MFiX.
+
+-  Check the "Enable user-defined subroutine" checkbox in the "Model" pane.
+
+-  Check the "Enable Species equations" checkbox  and define species in the "Fluid" and "Solids" panes.
+
+-  In the "Chemistry" pane, define chemical equations by pressing the |add| button.
+   Define the reaction equation name, and add reactants and products with the |add| button.
+   Select the phase and species from the dropdown list, and enter the stoichiometric coefficient.
+   Repeat until all products and reactants are defined, and press OK to validate. Specific heats of reactions are
+   computed automatically, but this setting can be manually overwritten if needed by checking the "Specify Heat of Reaction" checkbox,
+   entering the heat of reaction and assigning the gas and solids phases fractions.
+
+-  (Optional) turn on the stiff chemistry solver in the "Chemistry" pane by checking the "Enable stiff chemistry solver" checkbox.
+
+-  Edit and save the ``usr_rates.f`` or ``usr_rates_des.f`` UDF, and any other UDF needed for the reaction rates calculation.
+
+-  Build the custom solver by pressing the |Build button| button.
+
+Numerics
+~~~~~~~~
+The Numerics panes defines various numerical parameters, which are grouped in several sub panes:
+
+-  Residuals: Defines convergence criteria for each type of equation, as well as the maximum number of iterations and residual normalization options.
+
+-  Discretization: Defines temporal, spatial discretization schemes and relaxation factors for each equation.
+
+-  Linear Solver: Defines the Linear Equation solver, tolerance and maximum number of iterations for each equation.
+
+-  Preconditioner: Defines the preconditioner options for each equation.
+
+-  Advanced: Defines less common parameters, such as the maximum inlet velocity factor, drag and IA theory underrelaxation factors and fourth order interpolation scheme.
+
+Outputs
+~~~~~~~
+
+A variety of output formats can be written by the solver including
+restart files (``*.RES``), VTK files (``*.pvd``, ``*.vtp``, ``*.vtu``),
+and legacy Single Precision files (``*.SP?``). The VTK files
+can be read by and displayed in the GUI. Most of these files can be viewed with
+the post-processing programs ParaView_ and VisIt_.
+
+The Basic sub-pane is where the restart file write frequency as well as the
+VTK and SPx outputs can be enabled. Once these are enabled, the
+associated sub-pane will be enabled, allowing for specific control over these
+outputs.
+
+The VTK output has the most flexibility. Selected particle data or cell data
+variables can be exported at a specific region and write frequency. To create a
+new VTK output, press the |add| button which will bring up the Region selection
+dialog. Next, select an output type (particle or cell), select a region, and
+press OK. The file pattern name, write frequency, and variables can be selected
+for the newly created VTK output.
+
+
+The following table lists the files typically associated with an MFiX run. In addition, their
+associated file type, data content and readability by ParaView and VisIt is indicated.
+
+.. include:: /output_format_table.rst
+
+Monitors
+~~~~~~~~
+
+.. _run-pane:
+
+Run
+~~~
+
+The Run pane is used to define parameters related to how long the solver
+runs, time-step controls, as well as options to cleanly terminate a
+solver after a certain amount of time. These options are particularly useful
+when running in a queue environment because they allow the solver to cleanly
+exit before the job gets killed by the queuing system. This minimizes the
+chance of corrupting output files if the process is killed while writing a file.
+
+Visualization window
+====================
+
+The visualization window provides a collection of 3D views and 2D plots for
+visualizing the model setup and model outputs. New windows, or tabs, can
+be created by pressing the |add| button. Once the tab has been added,
+the type of view can be selected. A Tab can be closed by pressing the
+|close| button located in its upper right hand corner.
+
+Model
+~~~~~
+
+The Model tab is always present and cannot be closed. This 3D view shows
+the setup of the project including the background mesh, geometry, and
+regions.
+
+The scene can be manipulated with the mouse and the toolbar buttons defined in the
+following table:
+
++-----------------+-------------------------------------------------------+
+| Icon            | Description                                           |
++=================+=======================================================+
+| |overscan|      | Reset view, make all items visible                    |
++-----------------+-------------------------------------------------------+
+| |xy|            | Change to XY view                                     |
++-----------------+-------------------------------------------------------+
+| |xz|            | Change to XZ view                                     |
++-----------------+-------------------------------------------------------+
+| |yz|            | Change to YZ View                                     |
++-----------------+-------------------------------------------------------+
+| |perspective|   | Toggle between perspective and parallel projections   |
++-----------------+-------------------------------------------------------+
+| |camera|        | Save an image of the current view                     |
++-----------------+-------------------------------------------------------+
+| |visibility|    | Change the visibility and properties of actors        |
++-----------------+-------------------------------------------------------+
+
+The visibility menu allows the user to manipulate objects in the scene by:
+
+-  changing the visibility with the |visibility| button
+-  changing the representation (wire, solids, edges, and points)
+-  changing the color
+-  changing the transparency of the objects
+
+Plot Tab(s)
+~~~~~~~~~~~
+
+The plot tab(s) can be used to graph live statistics from the
+solver while it is running. Values such as the time step (dt), number
+of iterations (nit), and the simulated time (time) can be plotted. The
+plot can be manipulated with the mouse, and a ``right-click`` menu
+provides access to options that can be changed. In addition, export options
+for saving an image of the plot or exporting the data to a text file are
+available in this menu.
+
+.. note::
+    Plotting only available when solver is running
+
+.. _vtk-tabs:
+
+VTK Tab(s)
+~~~~~~~~~~
+
+The VTK tab provides a way to quickly view results from the solver. For more
+complex visualization of solver data, ParaView_ or VisIt_ is recommended.
+
+.. _Paraview: https://www.paraview.org/
+.. _Visit: https://wci.llnl.gov/simulation/computer-codes/visit/
+
+The tab automatically sets-up VTK pipelines for reading and displaying the
+content of \*.vtu and \*.vtp files.
+
+.. note::
+    The directory is automatically searched every second for
+    \*.pvd files. If a \*.pvd file is found, the GUI will read and show
+    the new VTK file if the |play| button is pressed.
+
+Results display can be "played" as well as manipulated using the
+following toolbar:
+
++-----------------+----------------------------------------------------------------------+
+| Icon            | Description                                                          |
++=================+======================================================================+
+| |overscan|      | Reset view, make all items visible                                   |
++-----------------+----------------------------------------------------------------------+
+| |xy|            | Change to XY view                                                    |
++-----------------+----------------------------------------------------------------------+
+| |xz|            | Change to XZ view                                                    |
++-----------------+----------------------------------------------------------------------+
+| |yz|            | Change to YZ View                                                    |
++-----------------+----------------------------------------------------------------------+
+| |perspective|   | Toggle between perspective and parallel projections                  |
++-----------------+----------------------------------------------------------------------+
+| |camera|        | Save an image of the current view                                    |
++-----------------+----------------------------------------------------------------------+
+| |visibility|    | Change the visibility and properties of actors                       |
++-----------------+----------------------------------------------------------------------+
+| |first|         | Go to the first frame                                                |
++-----------------+----------------------------------------------------------------------+
+| |back|          | Go back one frame                                                    |
++-----------------+----------------------------------------------------------------------+
+| |play|          | Play available frames, starting at the current frame                 |
++-----------------+----------------------------------------------------------------------+
+| |next|          | Go to the next frame                                                 |
++-----------------+----------------------------------------------------------------------+
+| |last|          | Go to the last frame                                                 |
++-----------------+----------------------------------------------------------------------+
+| |speed|         | Change the playback speed, or the amount of time in between frames   |
++-----------------+----------------------------------------------------------------------+
+
+The visibility menu allows for the manipulation of how the objects in
+the scene represented including:
+
+-  visibility
+-  the data array used to color
+-  color bars
+-  transparency
+
+Further options for the points can be adjusted by clicking the |more|
+button next to the label including:
+
+-  Maximum number of particles to be displayed
+-  The mapper (sprites requires VTK version 7.0+)
+-  The glyph object
+
+.. _terminal-window:
+
+Terminal window
+===============
+
+The terminal window displays the output of the solver job that would
+be displayed when running the solver on the command line. Error messages
+and warnings, from both the GUI and a running solver, are displayed
+and colored in red.
+
+Informational messages from the GUI unrelated to the solver are colored
+in blue.
+
+Mode bar
+========
+
+The Mode bar allows switching the GUI between various modes including:
+
+-  Mesher, used to set up a mesh when in SMS mode
+-  Modeler, used to set up and run simulations
+-  Nodeworks, feature to support creation, management, post
+   processing, and optimization of projects.
+
+A status bar is also present, showing the current status of the GUI or a
+running solver, including a progress bar showing the current
+progress of the solver and elapsed time.

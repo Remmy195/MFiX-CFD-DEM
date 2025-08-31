@@ -1,0 +1,62 @@
+Example: DES droplet evaporation with UDF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  \text{H}_2 \text{O}(l) → \text{H}_2 \text{O}(g)
+
+Notes:
+
+ * Various algebraic expressions in the sample UDF are omitted for brevity.
+ * The global particle index (``NP``), phase index (``pM``), and fluid cell index (``IJK``)
+   are passed as arguments.
+
+**mfix.dat**
+
+.. code-block:: none
+
+    NMAX_g = 2                          ! No. of gas phase species
+    Species_g(1) = "Air" "H2O"          ! Database names
+    Species_Alias_g(1) = "Air" "Vapor"  ! Species Aliases
+
+    NMAX_s(1) = 1                    ! No. of solids phase species
+    Species_s(1,1) = "H2O(L)"        ! Database names
+    Species_Alias_s(1,1) = "Liquid"  ! Species Aliases
+
+    @(DES_RXNS)
+    Evap { Liquid --> Vapor }
+    @(DES_END)
+
+**usr_rates_des.f**:
+
+.. code-block:: fortran
+
+    SUBROUTINE USR_RATES_DES(NP, pM, IJK, DES_RATES)
+    DOUBLE PRECISION, INTENT(IN) :: NP  ! Global particle index
+    DOUBLE PRECISION, INTENT(IN) :: pM  ! Particle solid phase
+    DOUBLE PRECISION, INTENT(IN) :: IJK ! Fluid Cell Index
+    DOUBLE PRECISION, INTENT(OUT) :: DES_RATES(NO_OF_DES_RXNS) ! Reaction Rates
+
+    INCLUDE 'species.inc'
+
+    !-------------------------------------------------------//
+    ! Calculate the concentration gradient (mole/cm^3)
+    Cmg_H2O = < expression for calculating gradient >
+
+    IF(Cmg_H2O > ZERO) THEN
+      ! Calculate mass transfer coefficient (cm/sec)
+      H2O_xfr = < mass transfer coeff calculation >
+      ! Calculate droplet surface area (cm^3)
+      Sa = Pi * 4.0d0 * (DES_RADIUS(NP)**2)
+      ! Calculate the mass transfer rate (mol/sec)
+      DES_RATES(Evap) = Sa * H2O_xfr * Cmg_H2O
+    ENDIF
+
+    ! Store the reaction rate for post processing.
+    IF(Evap <= NRR) ReactionRates(Evap) = &
+      ReactionRates(IJK, Evap) + DES_RATES(Evap)
+
+    END SUBROUTINE USR_RATES_DES
+
+See legacy_tests/dem-tests/evaporation for additional details.
+Legacy tests can be found by downloading the source tarball. They are meant to provide representative setups for older versions of MFiX (before the launch of the GUI), and are not guaranteed to run with the latest version of MFiX.

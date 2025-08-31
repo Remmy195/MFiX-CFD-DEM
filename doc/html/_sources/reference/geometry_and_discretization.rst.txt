@@ -1,0 +1,4 @@
+Geometry and discretization
+===========================
+
+.. include:: /reference/geometry_and_discretization_gen.rst

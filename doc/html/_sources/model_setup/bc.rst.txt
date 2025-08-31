@@ -1,0 +1,79 @@
+.. _bc:
+
+.. include:: /icons.rst
+
+===================
+Boundary conditions
+===================
+
+Boundary conditions (BCs) are specified in the Boundary conditions task pane.
+
+
+Creating a Boundary Condition Region
+------------------------------------
+
+To define a boundary condition, there must be a region already defined in the
+:ref:`Regions Pane <regions>`.
+
+Boundary conditions are specified over rectangular regions.
+
+**Valid BC Regions**
+
+-  Box regions
+-  Planes (along the boundaries of the MFiX box, or along the boundaries of a Box region)
+-  STL regions
+
+
+**Invalid BC Regions**
+
+-  Any region already used by another BC
+-  Point regions
+
+
+Setting Fluid Phase Boundary Values
+-----------------------------------
+
+**Volume Fraction**
+The fluid phase volume fraction has a default value of one. If solids are
+defined and given volume fractions greater than zero, the fluid phase
+volume fraction is automatically calculated by subtracting the sum of the
+solids phase volume fractions from one.
+
+**Temperature**
+The fluid phase temperature has a default value of 293.15K. Specification
+of the fluid temperature is required when the following models are used:
+
+-  Solving energy equations
+-  Fluid density mode is the Ideal Gas Law
+-  Fluid viscosity model is Sutherland's Law
+
+**Pressure**
+An initial pressure field may be specified. If none is provided, the fluid
+solver imposes a hydrostatic pressure drop across the domain if one or
+more pressure outflow boundary conditions is defined.
+
+**Velocity**
+The fluid phase velocity field has a default value of zero.
+
+**Species Mass Fractions**
+Species mass fractions must be defined for all components when solving
+the species transport equations. By default the species mass fraction
+of the last defined fluid species is set to one and all others are set
+to zero. The total of all species mass fractions must equal one.
+
+**Turbulence**
+If solving the mixing length turbulence model, a mixing length scales must
+be defined for the whole domain.
+
+If solving the  k-ε turbulence model, initial values for the turbulent
+kinetic energy and turbulent dissipation must be provided.
+
+**Radiation Coefficient**
+A radiation coefficient has a default value of zero, and can only be
+specified when solving the energy equations. The default value is
+strongly recommended.
+
+**Radiation Temperature**
+The radiation temperature has a default value of 293.15K, and can only
+be specified when solving the energy equations. The default value is
+strongly recommended.

@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.4. Three-dimensional single-phase flow over a sphere &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.5. Three-dimensional fluidized bed" href="tutorial_3d_fluidbed.html" />
+    <link rel="prev" title="3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)" href="tutorial_dem.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="first_tutorial.html">3.1. Running first tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.4. Three-dimensional single-phase flow over a sphere</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-project">3.4.1. Create a new project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-model-parameters">3.4.2. Select model parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enter-the-geometry">3.4.3. Enter the geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enter-the-mesh">3.4.4. Enter the mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-regions-for-initial-and-boundary-condition-specification">3.4.5. Create regions for initial and boundary condition specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-initial-conditions">3.4.6. Create Initial conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-boundary-conditions">3.4.7. Create Boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-output-options">3.4.8. Select output options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-run-parameters">3.4.9. Change run parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-project">3.4.10. Run the project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-results">3.4.11. View results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_cyclone_sms.html">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_seeding.html">3.9. DEM initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_procedural_geometry.html">3.10. Procedural geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_transport.html">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.4. </span>Three-dimensional single-phase flow over a sphere</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/tutorial_sphere.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="three-dimensional-single-phase-flow-over-a-sphere">
+<h1><span class="section-number">3.4. </span>Three-dimensional single-phase flow over a sphere<a class="headerlink" href="#three-dimensional-single-phase-flow-over-a-sphere" title="Link to this heading">¶</a></h1>
+<p>This tutorial shows how to create a three dimensional single-phase flow over a
+sphere.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>geometry</p></td>
+<td><p>60 cm 20 cm x 20 cm</p></td>
+</tr>
+<tr class="row-odd"><td><p>mesh</p></td>
+<td><p>30 x 10 x 10</p></td>
+</tr>
+<tr class="row-even"><td><p>gas velocity</p></td>
+<td><p>1 m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>temperature</p></td>
+<td><p>298 K</p></td>
+</tr>
+<tr class="row-even"><td><p>pressure</p></td>
+<td><p>101325 Pa</p></td>
+</tr>
+</tbody>
+</table>
+<section id="create-a-new-project">
+<h2><span class="section-number">3.4.1. </span>Create a new project<a class="headerlink" href="#create-a-new-project" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>On the main menu, select <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">project</span></code></p></li>
+<li><p>Create a new project by double-clicking on “Blank” template.</p></li>
+<li><p>Enter a project name and browse to a location for the new project.</p></li>
+<li><p>When prompted to enable SMS workflow, answer <cite>No</cite>, we will use the standard workflow for this tutorial.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A new project directory will be created in the location
+directory, with the name being the project name.</p>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_new_project.png"><img alt="create project" src="../_images/gui_new_project.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="select-model-parameters">
+<h2><span class="section-number">3.4.2. </span>Select model parameters<a class="headerlink" href="#select-model-parameters" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Model</span></code> pane:</p>
+<ul class="simple">
+<li><p>Enter a descriptive text in the
+<code class="docutils literal notranslate"><span class="pre">Description</span></code> field</p></li>
+<li><p>Select “Single-phase” in the <code class="docutils literal notranslate"><span class="pre">Solver</span></code> drop-down menu.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_model.png"><img alt="select model parameters" src="../_images/gui_sphere_model.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="enter-the-geometry">
+<h2><span class="section-number">3.4.3. </span>Enter the geometry<a class="headerlink" href="#enter-the-geometry" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> pane enter the domain extents:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">60/100</span></code> meters for the maximum x value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">20/100</span></code> meters for the maximum y value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">20/100</span></code> meters for the maximum z value</p></li>
+</ul>
+<p>Next, add a sphere by clicking the <a class="reference internal" href="../_images/geometry.svg"><img alt="Geometry" src="../_images/geometry.svg" style="width: 16px;" /></a> button -&gt; primitives -&gt; sphere.
+This adds a sphere constructed of triangles (STL) to the project.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_add_geometry.png"><img alt="enter geometry" src="../_images/gui_sphere_add_geometry.png" style="width: 8cm;" />
+</a>
+</figure>
+<p>Change the center position and radius of the sphere so that it is located in the domain
+by entering the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">10/100</span></code> for the center X position</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">10/100</span></code> for the center Y position</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">10/100</span></code> for the center Z position</p></li>
+</ul>
+<p>Change the radius of the sphere by entering:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">5/100</span></code> for the radius.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_geometry.png"><img alt="enter geometry" src="../_images/gui_sphere_geometry.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="enter-the-mesh">
+<h2><span class="section-number">3.4.4. </span>Enter the mesh<a class="headerlink" href="#enter-the-mesh" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Background</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">30</span></code> for the x cell value</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">10</span></code> for the y cell value</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">10</span></code> for the z cell value</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_mesh.png"><img alt="enter mesh" src="../_images/gui_sphere_mesh.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="create-regions-for-initial-and-boundary-condition-specification">
+<h2><span class="section-number">3.4.5. </span>Create regions for initial and boundary condition specification<a class="headerlink" href="#create-regions-for-initial-and-boundary-condition-specification" title="Link to this heading">¶</a></h2>
+<p>Select the <code class="docutils literal notranslate"><span class="pre">Regions</span></code> pane. By default, a region that covers the
+entire domain is already defined.</p>
+<p>A region for the sphere is needed to apply a wall boundary condition to:</p>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/all_region.svg"><img alt="All" src="../_images/all_region.svg" style="width: 16px;" /></a> (all) button to create a region that encompasses the entire
+domain</p></li>
+<li><p>change the name of the region to a descriptive <code class="docutils literal notranslate"><span class="pre">name</span></code> such as “sphere”</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">facets</span> <span class="pre">(STL)</span></code> checkbox to turn the region into a STL
+region. The facets of the sphere should now be selected.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_region1.png"><img alt="create region 1" src="../_images/gui_sphere_region1.png" style="width: 8cm;" />
+</a>
+</figure>
+<p>Create a region to apply a mass inflow boundary condition to:</p>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/left_region.svg"><img alt="Left" src="../_images/left_region.svg" style="width: 16px;" /></a></p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“inlet”)</p></li>
+</ul>
+<p>Create a region to apply a pressure outlet boundary condition to:</p>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/right_region.svg"><img alt="Right" src="../_images/right_region.svg" style="width: 16px;" /></a></p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“outlet”)</p></li>
+</ul>
+<p>Finally, create a slice through the center to use as a vtk output region:</p>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/front_region.svg"><img alt="Front" src="../_images/front_region.svg" style="width: 16px;" /></a></p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“slice”)</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">zmax/2</span></code> in both the <code class="docutils literal notranslate"><span class="pre">From</span> <span class="pre">Z</span></code> and <code class="docutils literal notranslate"><span class="pre">To</span> <span class="pre">Z</span></code> fields to move the region
+to the center of the domain</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_region2.png"><img alt="create region 2" src="../_images/gui_sphere_region2.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="create-initial-conditions">
+<h2><span class="section-number">3.4.6. </span>Create Initial conditions<a class="headerlink" href="#create-initial-conditions" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane</p></li>
+<li><p>Select the already populated “Background” from the region list.
+This will initialize the entire flow field with air.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">101325</span></code> Pa in the <code class="docutils literal notranslate"><span class="pre">Pressure</span> <span class="pre">(optional)</span></code> field</p></li>
+</ul>
+</section>
+<section id="create-boundary-conditions">
+<h2><span class="section-number">3.4.7. </span>Create Boundary conditions<a class="headerlink" href="#create-boundary-conditions" title="Link to this heading">¶</a></h2>
+<p>Select the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">conditions</span></code> pane and create a wall boundary condition for
+the sphere by:</p>
+<ul class="simple">
+<li><p>clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">region</span></code> dialog, select “No Slip Wall” from the
+<code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> combo-box</p></li>
+<li><p>Select the “sphere” region and click <code class="docutils literal notranslate"><span class="pre">OK</span></code></p></li>
+</ul>
+<p>Add a mass inflow boundary condition by:</p>
+<ul class="simple">
+<li><p>clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">region</span></code> dialog, select “Mass Inflow” from the
+<code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> combo-box</p></li>
+<li><p>Select the “inlet” region and click <code class="docutils literal notranslate"><span class="pre">OK</span></code></p></li>
+<li><p>On the “Fluid” sub-pane, enter a velocity in the <code class="docutils literal notranslate"><span class="pre">X-axial</span> <span class="pre">velocity</span></code>
+field of <code class="docutils literal notranslate"><span class="pre">1.0</span></code> m/s</p></li>
+</ul>
+<p>Finally, create a pressure outlet boundary condition by:</p>
+<ul class="simple">
+<li><p>clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">region</span></code> dialog, select “Pressure outflow” from the
+<code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> combo-box</p></li>
+<li><p>Select the “outlet” region and click <code class="docutils literal notranslate"><span class="pre">OK</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default pressure is already set to 101325 Pa, no changes
+need to be made to the outlet boundary condition.</p>
+</div>
+</section>
+<section id="select-output-options">
+<h2><span class="section-number">3.4.8. </span>Select output options<a class="headerlink" href="#select-output-options" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Output</span></code> pane:</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Basic</span></code> sub-pane, check the
+<code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">VTK</span> <span class="pre">output</span> <span class="pre">files</span> <span class="pre">(VTU/VTP)</span></code> checkbox</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_tfm_2d_output.png"><img alt="new boundary condition" src="../_images/gui_tfm_2d_output.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> sub-pane</p></li>
+<li><p>Create a new output by clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>Select the “slice” region from the list to save cell data at a slice through
+the domain</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">OK</span></code> to create the output</p></li>
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">interval</span></code> to “0.01” seconds</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Pressure</span></code>, <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">vector</span></code>, <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">x-component</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">y-component</span></code>, and <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">z-component</span></code>
+checkboxes on the <code class="docutils literal notranslate"><span class="pre">Fluid</span></code> sub-sub-pane</p></li>
+</ul>
+</section>
+<section id="change-run-parameters">
+<h2><span class="section-number">3.4.9. </span>Change run parameters<a class="headerlink" href="#change-run-parameters" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Run</span></code> pane:</p>
+<ul class="simple">
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code> seconds</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">Time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">1e-2</span></code> seconds</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">Maximum</span> <span class="pre">time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">1e-2</span></code> seconds</p></li>
+</ul>
+</section>
+<section id="run-the-project">
+<h2><span class="section-number">3.4.10. </span>Run the project<a class="headerlink" href="#run-the-project" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Save project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>Run the project by clicking the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Solver</span></code> dialog, select the executable</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button to actually start the simulation</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_run_dialog.png"><img alt="new boundary condition" src="../_images/gui_run_dialog.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="view-results">
+<h2><span class="section-number">3.4.11. </span>View results<a class="headerlink" href="#view-results" title="Link to this heading">¶</a></h2>
+<p>Results can be viewed, and plotted, while the simulation is running.</p>
+<ul class="simple">
+<li><p>Create a new visualization tab by pressing the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> next to the <cite>Model</cite> tab</p></li>
+<li><p>Select an item to view, such as plotting the time step (dt) or click
+the <code class="docutils literal notranslate"><span class="pre">3D</span> <span class="pre">view</span></code> button to view the vtk output files.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> results tab, the visibility and representation of the
+<code class="docutils literal notranslate"><span class="pre">*.vtk</span></code> files can be controlled with the menu on the side.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/gui_sphere_results.png"><img alt="results" src="../_images/gui_sphere_results.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_dem.html" class="btn btn-neutral float-left" title="3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_3d_fluidbed.html" class="btn btn-neutral float-right" title="3.5. Three-dimensional fluidized bed" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

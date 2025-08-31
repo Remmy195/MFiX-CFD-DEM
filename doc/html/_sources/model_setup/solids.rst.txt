@@ -1,0 +1,858 @@
+.. _solids:
+
+.. include:: /icons.rst
+
+======
+Solids
+======
+
+The Solids pane allows you to configure per-phase material properties for MFiX solids.
+
+In the Materials tab, you can set general material properties that apply to most
+models including
+
+-  Two-Fluid Model (TFM)
+-  Discrete Element Method (DEM)
+-  Coarse Grain Particle (CGP)
+-  Super Quadric Particle (SQP)
+-  Glued-sphere Particle (GSP)
+-  Particle-In-Cell (PIC)
+
+Model-specific settings are available in their respective tabs.
+
+.. note:: to change the particle model, you need to return to the
+   :ref:`Model setup <model_setup>` pane.
+
+
+Creating a solids phase
+-----------------------
+
+A new solids phase is created by clicking the add button, |add|,
+at the top of the solids table. This will create a new entry
+in the table. The table summarizes all defined solids phases
+by listing the name, model, particle diameter and density.
+A blank entry in the density means the particle density is
+variable (it depends on its chemical composition).
+
+
+Name
+   The name used to refer to the solids phase in the GUI. By default,
+   the solids phase is called "Solid" followed by its assigned phase number.
+   The phase number is incremented every time the |add| button is pressed.
+   The solids phase name may be renamed for convenience (optional).
+   This name will appear in other panes or tabs when referring to the
+   solids phase (say while setting initial or boundary conditions).
+
+Model (read only)
+
+   The modeling approach used to represent the solids phase. Available options
+   include TFM (Two-Fluid Model), DEM (Discrete Element Model) and PIC
+   (Particle in Cell). The setting is currently locked (the same solid model
+   must be used for all solids phases), and mirrors the solver
+   selection in the Model setup pane.
+
+Deleting a solids phase
+-----------------------
+
+A solids phase can be deleted by selecting it (click on its name in the
+solids table) and clicking the remove button, |remove|,
+at the top of the solids table. If the solids phase is used in the
+model with a non-zero solids fraction (say in an initial or
+boundary condition), the deletion will need to be confirmed by the user.
+If confirmed, the deleted solids volume fraction will be assigned
+back to the fluid phase.
+
+
+General solid model options
+---------------------------
+
+Solve momentum equation (TFM only)
+   By default, all momentum equations are solved. Individual momentum
+   equations may be disabled by toggling the check box.
+
+Solve species equations
+   By default, species transport equations are not solved for the solids
+   phase. If species equations are enabled, species will need to be
+   added to the solids phase using the solids species tool. ADD REF
+
+Solids phase material properties
+--------------------------------
+Some material properties are only needed for a specific solid
+model or when the energy or species equation is solved.
+Spherical particles (TFM, DEM, CGP, PIC) only need the Diameter
+to describe the particle shape. SQP particles require five
+parameters to define the shape, and a quaternion (4 components)
+to define the initial orientation.
+
+Diameter :math:`(m)` (TFM, DEM, CGP, PIC)
+   The initial particle diameter. It will remain constant for
+   non-reactive flows, and for reactive flows with a variable density.
+   If the density is constant, and chemical reactions take place, the
+   particle diameter will vary to reflect particle mass gain/loss.
+
+
+**SQP parameters**
+
+The shape of non-spherical particles is defined with five parameters,
+:math:`a, b, c, m, n`. The surface of the particle is defined with
+the following superquadric equation:
+
+.. math::
+
+    \biggl[ \left(\frac{x}{a}\right)^m + \left(\frac{y}{b}\right)^m \biggr] ^ {\frac{n}{m}} + \left(\frac{z}{c}\right)^n - 1 = 0
+
+Examples:
+
+.. |sphere| image:: ../media/sqp_sphere.png
+   :height: 100
+   :width: 100
+   :align: middle
+
+.. |ellipsoid| image:: ../media/sqp_ellipsoid.png
+   :height: 100
+   :width: 100
+   :align: middle
+
+.. |cuboid| image:: ../media/sqp_cuboid.png
+   :height: 100
+   :width: 100
+   :align: middle
+
+.. |cylinder| image:: ../media/sqp_cylinder.png
+   :height: 100
+   :width: 100
+   :align: middle
+
++----------+----------+----------+----------+----------+----------+-------------------+
+| a        | b        | c        | m        |  n       | shape    | view              |
++==========+==========+==========+==========+==========+==========+===================+
+| 0.003    | 0.003    | 0.003    | 2.0      | 2.0      | sphere   |   |sphere|        |
++----------+----------+----------+----------+----------+----------+-------------------+
+| 0.003    | 0.001    | 0.006    | 2.0      | 2.0      | ellipsoid|   |ellipsoid|     |
++----------+----------+----------+----------+----------+----------+-------------------+
+| 0.003    | 0.001    | 0.006    | 8.0      | 8.0      | cuboid   |   |cuboid|        |
++----------+----------+----------+----------+----------+----------+-------------------+
+| 0.003    | 0.003    | 0.006    | 2.0      | 8.0      | cylinder |   |cylinder|      |
++----------+----------+----------+----------+----------+----------+-------------------+
+
+
+
+X-semiaxis :math:`(m)` (SQP only)
+   The semi axis length in the x-direction ( :math:`a` in superquadric equation).
+
+Y-semiaxis :math:`(m)` (SQP only)
+   The semi axis length in the x-direction ( :math:`b` in superquadric equation).
+
+Z-semiaxis :math:`(m)` (SQP only)
+   The semi axis length in the x-direction ( :math:`c` in superquadric equation).
+
+Shape exponent m :math:`(-)` (SQP only)
+   Exponent :math:`m` in superquadric equation.
+
+Shape exponent n :math:`(-)` (SQP only)
+   Exponent :math:`n` in superquadric equation.
+
+Orientation (SQP only)
+   Four components of the quaternion :math:`q_1, q_2, q_3, q_4` used for the
+   initial orientation of particles in initial and mass inlet boundary conditions.
+
+Bounding diameter :math:`(m)` (SQP only)
+   Particle bounding sphere diameter. It is recommended to use the sqp designer which
+   will automatically compute the bounding sphere diameter. If left blank, the solver
+   will automatically compute the bounding sphere diameter at run time.
+
+Density :math:`(kg/m^3)`
+   The particle density can be set as:
+
+   - *Constant:*
+
+      -  A positive (non-zero) number must be provided.
+      -  The diameter may change due to chemical reactions.
+
+   - *Variable:*
+
+      -  The density is computed from particle's mass and volume.
+      -  The particle mass is function of the particle's chemical composition.
+      -  A variable density can only be used if species equations are solved.
+
+Viscosity :math:`(Pa\cdot{s})` TFM only
+   It may be specified
+   using one of the following approaches:
+
+
+   -  *Constant:*
+
+      -  A positive (non-zero) number must be provided.
+
+   -  *Continuum Solids stress Theory*
+
+   -  *User-Defined Function (UDF)*
+
+      -  A custom equation of state must be provided in the usrproperties.f
+      -  A custom solver must be built.
+
+Molecular weight :math:`({kg}/{kmol})`
+   It may only be specified using the following approach, and is only used
+   when Energy and solids species equations are solved:
+
+   -  *Mixture*
+
+      -  Requires species be used to defined the solid.
+      -  Requires species mass fractions be specified for the whole domain and
+         all flow boundary conditions
+
+
+Specific heat :math:`({J}/{kg\cdot{K}})`
+   It may be specified using one of the following approaches
+   (only used when Energy and species equations are solved):
+
+   -  *Constant:*
+
+      -  A positive (non-zero) number must be provided.
+
+   -  *Mixture*
+
+      -  Requires species be used to defined the fluid.
+      -  Requires species mass fractions be specified for the whole domain and
+         all flow boundary conditions
+
+   -  *User-Defined Function (UDF)*
+
+      -  A custom equation of state must be provided in the usrproperties.f
+      -  A custom solver must be built.
+
+
+Thermal conductivity :math:`({W}/{m\cdot{K}})`
+   It may be specified using one of the following approaches:
+
+   -  *Constant:*
+
+      -  A non-negative number must be provided.
+
+   -  *Temperature-Dependent*
+
+      -  Option available for TFM only.
+      -  Requires solids phase temperature be specified for the whole domain and
+         all flow boundary conditions.
+
+   -  *User-Defined Function (UDF)*
+
+      -  Option available for TFM only.
+      -  A custom equation of state must be provided in the usrproperties.f
+      -  A custom solver must be built.
+
+Emissivity  DEM only
+   The emissivity of the DEM solids phase.
+   Leaving it blank or setting a zero value turns radiation off.
+
+Parcel weight  PIC only
+   A default parcel weight (number of particles per parcel) may be specified for
+   convenience (default value of one).
+   it is used to define a default statistical weight for parcels in initial conditions
+   regions and mass inflows. Instead of defining the same parcel weight in every
+   initial condition and mass inflow, this default value is automatically applied.
+   The default value can be overwritten where needed.
+
+Solids Model Species
+--------------------
+
+Specie that comprise the solid phase are summarized in the species overview
+table. New species are added by clicking the add button, |add|, at the top
+of the species table.
+
+Advanced settings
+-----------------
+
+Disable close pack (TFM only)
+   Options to enable/disable a TFM phase from forming a packed bed.
+   This is typically used to make the solids phase behave as a liquid phase.
+
+Enable added mass force (TFM only)
+   Options to enable/disable the added (or virtual) mass force in a TFM phase.
+   This tends to stabilize bubbly gas/liquid flows.
+
+TFM Settings
+------------
+
+Specific Two-Fluid Model settings are accessed from the TFM tab.
+
+
+Packed bed void fraction
+  The void fraction at close pack.
+
+Viscous stress model
+   The solids phase stress model. Options include the algebraic formulation or various kinetic theories
+   requiring solving a partial differential equation for the granular energy:
+
+   -  *Algebraic Formulation [DEFAULT]*
+
+   -  *Lun et al, 1984*
+
+   -  *Iddir & Arastoopour, 2005*
+
+   -  *Simonin, 1996*  (requires k-ε turbulence enabled)
+
+   -  *Cao & Ahmadi, 1995*  (requires k-ε turbulence enabled)
+
+   -  *Garzo and Dufty, 1999*  (monodisperse system only)
+
+   -  *Garzo, Tenneti, Subramaniam, Hrenya, 2012* (monodisperse system only)
+
+   -  *Garzo, Hrenya and Dufty, 2007*
+      -  Requires at most two solids phases
+      -  Requires Wen-Yu or HYS drag model
+      -  Selection not available with added mass force
+
+
+
+Frictional stress model
+   -  *Schaeffer model* [DEFAULT]
+
+   -  *Srivastava and Sundaresan*
+
+   -  *Only solids pressure*
+
+Solids volume fraction at onset of friction
+   The minimum solids fraction above which the Srivastava
+   and Sundaresan model sets in.
+
+Particle-particle restitution coefficient
+   The coefficient of restitution for particle-particle collision.
+
+Interphase friction coefficient
+   The coefficient of friction between particles of two solids phases.
+
+Angle of internal friction :math:`(\deg)` :
+   The angle of internal friction. The plastic regime stress can be turned off by setting this value to zero.
+
+Radial distribution function
+   -  *Carnahan-Startling* (only option for monodisperse systems)
+
+   -  *Lebowitz* (default for polydisperse system)
+
+   -  *Mansoori* (polydisperse system)
+
+   -  *Modified Lebowitz* (polydisperse system)
+
+   -  *Modified Mansoori* (polydisperse system)
+
+
+Stress blending
+   The blending function used to smooth transition around the packed
+   bed volume fraction. It requires the Schaeffer frictional stress model.
+
+   -  *None* [DEFAULT]
+
+   -  *Hyperbolic Tangent*
+
+   -  *Sigmodial*
+
+
+Segregation slope coefficient
+   Coefficient used in calculating the initial slope
+   in segregation for polydisperse systems.
+
+Max packing correlation
+   The correlation used to compute the maximum packing
+   for polydisperse systems:
+
+   -  *Constant* [DEFAULT]
+
+   -  *Yu & Standish*
+
+   -  *Fedors & Landel* (only with two solids phases)
+
+
+Excluded volume in Boyle-Massoudi stress
+   The excluded volume in Boyle-Massoudi stress. It is only used
+   with the algebraic formulation of viscous stress model (optional).
+
+
+DEM Settings
+------------
+
+Specific Discrete Element Model settings are accessed from the DEM tab.
+
+Enable automatic particle generation
+   Initialize particle location and velocity based on information from
+   Initial Condition regions. If this option is disabled and any
+   initial condition uses a non-zero solids volume fraction, the user
+   will be prompted to turn on this option.
+   Disabling this option will read initial particle location and velocity
+   from a user generated text file (particle_input.csv) that must be
+   saved in the project directory.
+
+Data file particle count
+   The number of particles read from
+   particle_input.csv file when the automatic particle generation is turned
+   off. This number must be smaller or equal to the number of lines in the
+   file.
+
+Particle Size Distribution (PSD)
+   A series of PSDs can be defined to be used in an initial condition region or a
+   mass inlet boundary condition. A PSD represents the number of particles having a given size.
+   It is currently a number-based (not volume-based) distribution. A new PSD is created by
+   clicking the add button, |add|, and entering the PSD parameters. The PSD can follow
+   a Normal or Log-normal distribution. There is an option to load a text file containing a custom PSD.
+
+.. figure:: /media/PSD_table.png
+            :align: center
+            :width: 16cm
+            :alt: PSD table
+
+            Particle Size Distribution table.
+
+Initially, the table will be empty. Double click on one row to edit a PSD, Click on |remove| to remove a PSD
+from the table.
+
+First, enter a descriptive name for the PSD and choose the PSD type.
+
+Parameters for the Normal and Log-normal distribution are:
+
+   - *Mean particle diameter*
+
+   - *Standard deviation*
+
+   - *Minimum diameter* , used to clip the distribution and avoid extremely small particles
+
+   - *Maximum diameter* , used to clip the distribution and avoid extremely large particles
+
+
+.. figure:: /media/Hopper_dem_normal_psd_definition.png
+            :align: center
+            :width: 16cm
+            :alt: PSD definition
+
+            Example of a Normal Particle Size Distribution definition.
+
+Custom PSDs will read the distribution from a text file. It can be edited through any text editor including
+the GUI built-in editor.
+The PSD custom file is organized as follows:
+
+| 1st line: Number of points, number of distribution (this must be set to one currently).
+| 2nd line: PDF (probability density function) of CDF (Cumulative distribution function).
+| 3rd line: Header.
+| 4th line and below: The data itself. First column is the diameter, second column is either the PDF or CDF value.
+
+The figure below shows an example of a custom PSD file. Only the first few lines are shown.
+
+
+.. figure:: /media/PSD_custom_file.png
+            :align: center
+            :width: 16cm
+            :alt: PSD custom file
+
+            Example of a Custom file used to define a Particle Size Distribution.
+
+Once the parameters are defined, the PSD can be plotted by clicking the 'Plot distribution' button.
+
+
+.. figure:: /media/Hopper_dem_normal_psd_plot.png
+            :align: center
+            :width: 16cm
+            :alt: PSD plot
+
+            Plotting a Particle Size Distribution.
+
+Integration method
+   The DEM time stepping scheme when
+   integrating the particle trajectories (acceleration to velocity
+   and velocity to position):
+
+   -  *Euler* [DEFAULT]
+
+   -  *Adams-Bashforth*
+
+
+Collision model
+   The soft-sphere collision model:
+
+   -  *Linear Spring Dashpot* (LSD)
+
+   -  *Hertzian*
+
+Coupling method
+   The level of coupling between the gas phase
+   and the solids phase:
+
+   -  *One-way coupled*
+
+   -  *Fully coupled*
+
+Interpolation
+   The direction of interpolation between field and particle data:
+
+   -  *No interpolation*
+
+   -  *field-to-particle and particle-to-field*
+
+   -  *field-to-particle only*
+
+   -  *particle-to-field only*
+
+
+Scheme
+   The interpolation scheme:
+
+   -  *None* (centroid method)
+
+   -  *Garg, 2012* (interpolation width is dictated by grid spacing)
+
+   - *Square DPVM* (Divided Particle Volume Method), requires an interpolation width.
+
+   - *DPVM_satellite* (SQP model only).
+Width :math:`(m)`
+   The square DPVM interpolation width.
+
+.. figure:: /media/des_interpolation_scheme.png
+            :width: 16cm
+            :alt: des interpolation scheme
+
+Enable mean field diffusion
+   Smooths the disperse phase average
+   fields by solving a diffusion equation.
+
+Width :math:`(m)`
+   The diffusion length scale.
+
+Enable explicit coupling of interphase quantities
+   Option to explicitly couple the fluid and solids hydrodynamics.
+
+Friction coefficient
+   The particle-particle and particle-wall Coulomb
+   friction coefficient. This is required for both the LSD and Hertzian collision models.
+
+Normal spring constant :math:`({N}/{m})`
+   The particle-particle and particle-wall normal
+   spring constant (LSD collision model).
+
+Spring tan/norm ratio
+   The ratio of normal to tangential spring constants
+   for particle-particle and particle-wall (LSD collision model).
+
+Damping tan/norm ratio
+   The ratio of normal to tangential damping factors
+   for particle-particle and particle-wall (LSD collision model).
+
+Young's modulus :math:`(Pa)`
+   The wall and particles (one entry per phase) Young's
+   modulus (Hertzian collision model).
+
+Poisson's ratio
+   The wall and particles (one entry per phase) Poisson's
+   ratio (Hertzian collision model).
+
+Restitution coefficients (normal)
+   The list of normal restitution coefficients
+   for particle-wall and particle-particle interaction. The particle-particle entries
+   are arranged into a symmetrical matrix. The diagonal terms and the upper side of the matrix
+   need to be filled. There is one entry per phase for the particle-wall coefficient. This
+   settings is required for both the LSD and Hertzian collision models.
+
+Restitution coefficients (tangential)
+   The list of tangential restitution coefficients
+   for particle-wall and particle-particle interaction. The particle-particle entries
+   are arranged into a symmetrical matrix. The diagonal terms and the upper side of the matrix
+   need to be filled. There is one entry per phase for the particle-wall coefficient. This
+   settings is only required for the Hertzian collision model.
+
+Cohesion model
+   Toggles the van der Waals cohesion model. When turned on, additional
+   parameters need to be set (see below):
+
+Hamaker constant :math:`(J)`
+   The particle-particle and particle-wall Hamaker constant
+   used in the van der Waals cohesion model.
+
+Outer cutoff :math:`(m)`
+   The particle-particle and particle-wall maximum separation distances
+   above which the van der Waals cohesion forces are set to zero.
+
+Inner cutoff
+   The particle-particle and particle-wall minimum separation distances
+   below which the van der Waals cohesion forces are computed using a surface adhesion model.
+
+Asperities
+   The mean radius of surface asperities used in the cohesive force model.
+
+Minimum fluid volume fraction
+   Threshold used to clip the fluid phase volume fraction (to avoid non-physical
+   values, typically when a particle size is near a small cut cell).
+
+Neighbor search method
+   The neighbor search algorithm:
+
+   -  *Grid-based*
+
+   -  *N-Square*
+
+Max steps between neighbor search
+   The maximum number of DEM iterations between two neighbor searches.
+   The neighbor search may be called earlier if the particle moves
+   a distance greater than a defined quantity (see below).
+
+Factor defining particle neighborhood
+   A multiplying factor applied to the particle's
+   radius to define the region where particle neighbors are searched from.
+
+Distance/diameter triggering search
+   The distance a particle can travel before
+   triggering an automatic neighbor search.
+
+Search grid partition
+   The number of DEM grid cells in each direction used for the
+   neighbor search. This is an optional setting.
+   If left undefined, the number of cells is computed so that
+   the DEM grid size is three times the maximum particle diameter.
+
+Enable user scalar tracking
+   Turns on the tracking of user-defined scalars attached
+   to each particle. When the tracking is enables, the number of scalars (positive integer)
+   needs to be set.
+
+Minimum conduction distance :math:`(m)`
+   The minimum separation distance between particles
+   (used in the particle-fluid-particle conduction model to remove singularity).
+
+Fluid lens proportionality constant
+   Constant used to calculate the fluid lens radius that surrounds
+   the particle (used in the particle-fluid-particle conduction model).
+
+Young's modulus used to correct DEM conduction :math:`(Pa)`
+   The wall and particles (one entry per phase) Young's
+   modulus used to correct the DEM conduction. These optional
+   input are used with both LSD and Hertzian collision models.
+   Particles are typically made softer to increase the DEM time
+   step. This may lead to inaccurate conduction. If defined, this
+   Young's modulus will be used to correct the DEM conduction model.
+
+Poisson's ratio used to correct DEM conduction
+   The wall and particles (one entry per phase) Poisson's
+   ratio used to correct the DEM conduction. These optional
+   input are used with both LSD and Hertzian collision models.
+
+
+PIC Settings
+------------
+
+Specific Particle in Cell settings are accessed from the PIC tab.
+
+
+Several of the PIC settings refer to the PIC solids stress model, which influences parcel motion:
+
+:math:`\tau_p={P_p \epsilon_p^\gamma}/{\max[\epsilon_{cp} - \epsilon_p , \delta(1-\epsilon_p)]}`
+
+Void fraction at close pack
+   The void fraction :math:`(\epsilon_{cp})` at maximum packing.
+
+Volume fraction exponential scale factor
+   The empirical exponent :math:`(\gamma)` on solids fraction in the solids stress model.
+   Typical values are between 2.0 to 5.0.
+
+Pressure linear scale factor :math:`(Pa)`
+   The empirical pressure :math:`(P_p)` constant in the solids stress model.
+   Typical values are 10 to 1000 Pa.
+
+Empirical dampening factor
+   A factor in a restitution coefficient for comparing solids stress with slip velocity.
+   Typical value is 0.85.
+
+Non-singularity constant
+   The constant :math:`(\delta)` to prevent division by zero in solids stress model.
+   Typical value is 1.0E-8.
+
+Wall normal restitution coefficient
+   The parcel-wall restitution coefficient for
+   normal velocity component after wall collision.
+
+Wall tangential restitution coefficient
+   The parcel-wall restitution coefficient for
+   tangential velocity component after wall collision.
+
+Solids slip velocity scale factor
+   A damping coefficient on slip velocity. Typical value is 1.0.
+
+
+Particle data files
+-------------------
+
+A new and unified version of particle data files is employed in MFiX as of version 24.3.
+Instead of using plain text files, the new version utilizes the CSV (comma-separated values) format.
+It supports the discrete element model (DEM) and its variant models: Superquadric DEM (SQP),
+Glued-sphere DEM (GSP), and Coarse-grained DEM (CGP).
+
+The main reason for switching from a plain text format to a CSV format is to provide
+greater convenience for the user to edit particle data files and set up their own simulations. Moreover,
+the unified version facilitates the management of particle data files.
+
+Overview of particle_input.csv
+
+   To use the CSV file as input, go to the Solids pane and select the solids model tab (DEM, CGP, SQP, or GSP).
+   Uncheck "Enable automatic particle generation" and enter a positive integer for the "Data file particle count".
+   This number must be smaller or equal to the number of particles in the CSV file.
+
+   A ``particle_input.csv`` file consists of a header line and values for each particle variable.
+   The number of columns represents the number of particle variables, and
+   the number of rows represents the number of particles (excluding the first header line).
+   A template of ``particle_input.csv`` will be provided in this user manual.
+
+Major components of the csv file
+
+   1. `must have variables`: the first 3 columns (2 columns in 2D) represent particle locations. The particle position information
+   is required in this data file, and it must be in the first three columns, or the first two columns if it is 2D.
+
+   2. `extra variables`: the input files can also have phase IDs, diameters, densities, and velocities.
+   When energy or species are solved, or when using user scalar variables,
+   the input files can include temperatures, species compositions, or user scalar variables.
+
+   3. `model specific variables`: For DEM sub-solvers (SQP, GSP, CGP), the input file can also
+   provide model-specific variables such as superquadric parameters (SQP), particle orientations (SQP and GSP),
+   or statistical weights (CGP).
+
+Format of header
+   The header names have specific restrictions, and the user is expected to follow the naming conventions
+   provided in the template. Note that all header names are case-insensitive. A brief explanation of each header name can be found below:
+
+   - ``X, Y, Z``: particle locations
+
+   - ``phase_id``: phase ids, which phase the current particle belongs to.
+
+   - ``diameter``: particle diameters, for specific sub dem model, the definition is different and it will be explained in the template section.
+
+   - ``density``: particle densities.
+
+   - ``U, V, W``: particle velocities in X, Y, Z directions.
+
+   - ``t_s``: particle temperatures.
+
+   - ``species1, species2, ...``: species fractions, header names for species columns are formatted as "species" followed by a number, where the number represents the species count.
+
+   - ``usr_var1, usr_var2, ...``: user scalar variables, similar as species, header names for user scalar columns are formatted as "usr_var" followed by a number, where the number represents the user scalar variables count.
+
+   header names for model specific variables are listed below:
+
+   - ``sqp_a, sqp_b, sqp_c, sqp_m, sqp_n, sqp_q1, sqp_q2, sqp_q3, sqp_q4``: Superquadric particles semi-axis, roundness and particle orientations.
+
+   - ``gsp_q1, gsp_q2, gsp_q3, gsp_q4``: Glued-sphere particles orientations.
+
+   - ``cgp_stat_wt``: Coarse-grained particles statistical weight.
+
+Format of values
+   Generally, the user can use float format for all values. If the user prefers scientific notation,
+   for example, 10000.0 can be written as 1.0e+04, and 0.001 can be written as 1.0e-03.
+   Although variables such as ``phase_id`` and ``cgp_stat_wt`` are integers,
+   the format does not really matter in this file. Maintaining the correct format is highly recommended for clarity.
+
+Data file particle count
+   The user is required to provide the number of particles when automatic particle generation is turned off.
+   This number must be less than or equal to the number of lines in the file (excluding the header line).
+   Note: For the GSP model, this value represents the number of glued sphere particles (not the number of component spheres!).
+
+Particle data output
+   In the MFiX as of version 24.3, all DEM models support saving particle data into a CSV file for future use.
+
+Particle data file templates
+----------------------------
+
+As of MFiX version 24.3.1, apart from the ``X, Y, Z`` columns (``X, Y`` columns in 2D), all other variable columns
+are optional. When these columns are not present in the CSV file, the particle variables will either be automatically populated
+with the values set in the GUI or assigned default values directly.
+
+Discrete element model (DEM)
+   .. csv-table:: Template for DEM model :download:`here <particle_input_dem.csv>`
+      :file: particle_input_dem.csv
+      :header-rows: 1
+      :class: longtable
+
+   If the energy equation is not solved, the ``t_s`` column is not needed in the file. Similarly,
+   ``species`` and ``usr_var`` columns can be removed from the data file if not using species equations and user scalar variables.
+
+Superquadric DEM (SQP)
+   For SQP, the diameter is actually the bounding diameter. ``sqp_a``, ``sqp_b``, ``sqp_c`` are semi-axis,
+   ``sqp_m``, ``sqp_n`` are roundness, ``sqp_q1``, ``sqp_q2``, ``sqp_q3`` and ``sqp_q4`` are orientations, respectively.
+   If they are not present in the file, those particle variables are read from GUI directly. The user can explicitly provide
+   all the particle variables for greater flexibility and control.
+
+   .. csv-table:: Template for SQP model :download:`here <particle_input_sqp.csv>`
+      :file: particle_input_sqp.csv
+      :header-rows: 1
+      :class: longtable
+
+Glued-sphere DEM (GSP)
+   For GSP, the diameter is actually the bounding diameter.
+   Once the user generates a gsp configuration through MFIX GUI,
+   the bounding diameter is automatically calculated for the user to use
+   in this file. However, the user has the freedom to adjust the
+   bounding diameter to adjust the particle size while maintaining the particle shape.
+
+   .. csv-table:: Template for GSP model :download:`here <particle_input_gsp.csv>`
+      :file: particle_input_gsp.csv
+      :header-rows: 1
+      :class: longtable
+
+   Since a GSP is a collection of smaller component spheres, so in ``particle_input.csv``, values of temperature,
+   species and user scalar variables will apply to all component spheres within the same gsp, in other words,
+   a GSP has a uniform intra-particle distribution of temperature, species and user scalar variables.
+   However, user can provide an extra file to achieve a non-uniform intra-particle distribution,
+   the density distribution can be non-uniformly as well. Note that the ID here is for component sphere ids,
+   when solver detects this file, it will override the component sphere variables using the values
+   from this extra file. This extra file is named as ``intra_distribution.csv`` (Only 3 component spheres are shown as an illustration):
+
+   .. csv-table:: Template for GSP intra-particle distribution :download:`here <intra_distribution.csv>`
+      :file: intra_distribution.csv
+      :header-rows: 1
+      :class: longtable
+
+   The number of particles given in GUI will be the number of glued sphere particles.
+   For example, if a GSP is a collection of 8 component spheres and there are total 20 gsps,
+   the total number of component spheres in the system will be 160, and this value will be automatically calculated by the solver.
+   Moreover, each glued sphere particle and each component sphere will be assigned a unique id.
+
+Coarse-grained discrete element model (CGDEM)
+   For CGP, diameter is coarse-grained particle diameter, users can provide ``cgp_stat_wt``
+   (coarse-grained statistical weight).
+
+   .. csv-table:: Template for CGDEM model :download:`here <particle_input_cgdem.csv>`
+      :file: particle_input_cgdem.csv
+      :header-rows: 1
+      :class: longtable
+
+
+Particle data file editor
+-------------------------
+The particle input file must be created in or copied to the project directory. It can be edited from the GUI.
+Select the Editor Tab at the bottom and select `particle_input.csv` from the Project files listing. The file will
+open in a new editor tab, and will be displayed as a spreadsheet. Each line corresponds to a particle. Data can be
+modified by selecting a cell and entering the new value. Operations on an entire column (say to set a constant value to
+the entire column) can be performed by right-clicking on the column header. Please note that the column name, content and order
+are specific to a given model and settings (energy equation, species, and user-defined variables). See the description above
+and examples for more details.
+
+
+.. figure:: ./media/particle_input_file_editor.png
+            :width: 10cm
+            :alt: particle input file editor
+
+
+Particle data file viewer
+-------------------------
+The initial particle positions can be previewed before running the simulation. Select the Model pane in the viewport on the right,
+scroll down to the bottom and select |dem| to toggle the visibility of the particles. Changes made to the particle input file are
+updated in the viewport when the file is saved.
+
+
+
+.. figure:: ./media/particle_input_file_viewer.png
+            :width: 16cm
+            :alt: particle input file viewer
+
+
+
+Particle data output file
+-------------------------
+The particle data can be saved into a csv file at the end of the simulation. Go to the Output pane and check "Save particle positions at end of run".
+This will save a file named `particle_output.csv`. This file has the same format as the `particle_input.csv` file. It provides a convenient way
+to generate a csv file, with appropriate columns content. Run a first simulation by setting automatic particle generation through the Initial Condition pane,
+(make sure "Enable automatic particle generation" is checked in the Solids>DEM, Solids>CGP, Solids>SQP, or Solids>GSP tab),
+check "Save particle positions at end of run", and run the simulation for a short duration. Rename `particle_output.csv` to `particle_input.csv` and use it
+for another project.

@@ -1,0 +1,16 @@
+.. _chemical_reactions:
+
+==================
+Chemical Reactions
+==================
+
+This section describes how to setup reacting cases.
+
+
+.. toctree::
+    :maxdepth: 2
+
+    Reaction Setup <setup.rst>
+    Reaction Rates <rates.rst>
+    Reaction Examples <examples/index.rst>
+    Chemkin <chemkin.rst>

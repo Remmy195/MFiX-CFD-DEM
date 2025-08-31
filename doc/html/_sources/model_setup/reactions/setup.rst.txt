@@ -1,0 +1,158 @@
+.. include:: /icons.rst
+
+.. _reactions_setup:
+
+========================
+Chemical reactions setup
+========================
+
+
+Add reaction
+------------
+
+To add a reaction, click on the |add| button. **Initially the new reaction will
+be invalid, and disabled**. This is because it is empty, with no species
+defined. Add species for reactants and products; make sure the
+reaction is balanced, and then the Ok button will be enabled. Click Ok in the
+bottom right to finish adding the reaction.
+
+To cancel adding an unfinished reaction, either click the |remove| button in the
+upper left, or the Cancel button in the lower right.
+
+Delete reaction
+---------------
+
+To remove an existing reaction, select the row in the table corresponding to that reaction, and click on the |remove| button.
+
+Disable/enable reaction
+-----------------------
+
+To disable an existing reaction (without deleting it), uncheck the checkbox in
+first column of the reaction table.
+
+To re-enable a disabled reaction, re-check the checkbox.
+
+Stiff chemistry solver
+----------------------
+
+This checkbox enables the stiff chemistry solver. This selection is always
+available.
+
+Chemical reaction input is handled different from keyword pair inputs.
+All homogeneous gas phase chemical reactions and all heterogeneous
+gas-TFM solids reactions are specified between @(RXNS) and @(END)
+in the reaction block. All heterogeneous gas-DEM and gas-PIC reactions are
+specified between @(DES_RXNS) and @(END) in the reaction block.
+
+Users use the globally unique species aliases to specify the chemical
+reaction equation. Each reaction is specified with a unique reaction
+identify.
+
+Reaction name
+-------------
+
+This is the name of the currently selected reaction in the reaction table. The
+reaction name is used by the solver to identify the reaction. The name of a
+reaction must start with a letter, contain alphanumeric characters or
+underscores, contain no spaces, and is limited to 32 characters.
+
+Reactants
+---------
+
+Lists the reactant species for the currently selected reaction. Use
+the |add| and |remove| buttons to add and remove species.
+
+Products
+--------
+
+Lists the product species for the currently selected reaction. Use
+the |add| and |remove| buttons to add and remove species.
+
+Coefficients
+------------
+
+The values in the coefficients column for reactants and products must be set so
+that the reaction balances stoichiometrically, otherwise the Ok button to save
+changes is disabled.
+
+The coefficient must be a positive integer or floating point number.
+
+Species
+-------
+
+Use the drop-down menu to select which species to use for the reactant or product. Each
+species can only be used once.
+
+Phase
+-----
+
+Each species for reactants and products can belong to any of the phases for the
+model, :ref:`Fluid <fluid>` or :ref:`Solid <solids>`.
+
+Specify heat of reaction
+------------------------
+
+Check this checkbox to optionally specify the user-defined heat of reaction for
+the currently selected reaction (Joules/kmol).
+
+The "Fraction assigned to (Fluid, Solid 1, ...)" is fraction of that heat of the
+reaction assigned to each phase. Editing the fraction for a phase will
+automatically adjust the fraction(s) of the other phase(s) to add up to one.
+
+
+Reaction restrictions
+---------------------
+
+For heterogeneous reactions referencing three or more phases, either only one
+phase has a net mass loss or one phase has a net mass gain. Specifically, two or
+more phases cannot have a net mass loss while two or more phases have a net mass
+gain.
+
+The following examples illustrate valid and invalid reactions. For
+these examples, FC1, FC2, and sSoot, represent solid carbon in
+solids phases 1, 2 and 3, respectively. All other species belong
+to the gas.
+
+-  Example 1: **VALID**
+
+    -  2*FC1 + O2 --> 2CO
+    -  One phase has a net mass loss,
+       one phase has a net mass gain
+
+-  Example 2: **VALID**
+
+    -  FC1 + FC2 + O2 --> 2CO
+    -  Two phases have a net mass loss,
+       one phase has a net mass gain
+
+-  Example 3: **VALID**
+
+    -  2.2*FC1 + O2 --> 2CO + 0.2*sSoot
+    -  One phase has a net mass loss,
+       two phases have a net mass gain
+
+-  Example 4: **INVALID**
+
+    -  1.1*FC1 + 1.1*FC2 + O2 --> 2CO + 0.2*sSoot
+    -  Two phases have a net mass loss,
+       two phases have a net mass gain
+    -  The heat of reaction, DH, and how it is distributed between phases,
+       fracDH, must be specified if there are two or more solids phases
+       listed as either reactants or products.
+
+-  Example 5: DH and fracDH **NOT REQUIRED**
+
+    -  2.2*FC1 + O2 --> 2CO + 0.2*sSoot
+    -  Two solids phases referenced
+    -  Solid phase 1, FC1, is a reactant
+    -  Solid phase 3, sSoot, is a product
+
+-  Example 6: DH and fracDH **REQUIRED**
+
+    -  FC1 + FC2 + 2O2 --> 2CO2
+    -  Two solids phases referenced as reactants
+
+-  Example 6: DH and fracDH **REQUIRED**
+
+    -  sSoot --> FC1 + FC2
+    -  Two solids phases referenced as products

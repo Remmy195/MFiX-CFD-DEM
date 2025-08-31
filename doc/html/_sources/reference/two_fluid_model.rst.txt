@@ -1,0 +1,6 @@
+Two-fluid model (TFM)
+=====================
+
+This section contains keywords relating to the Two-fluid model (TFM).
+
+.. include:: /reference/two-fluid_model_gen.rst

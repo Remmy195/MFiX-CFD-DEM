@@ -1,0 +1,69 @@
+Example: Char combustion with UDF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  \text{C}(s) + 0.5\text{O}_2 (g) → \text{CO}(g)
+
+Notes:
+
+ * The fluid cell index (``IJK``) is passed as an argument.
+ * Algebraic expressions for the rate limiting steps are omitted for brevity.
+
+**mfix.dat**: see char combustion example
+
+
+**usr_rates.f**:
+
+.. code-block:: fortran
+
+    SUBROUTINE USR_RATES(IJK, RATES)
+    INTEGER, INTENT(IN) :: IJK
+    DOUBLE PRECISION, DIMENSION(NO_OF_RXNS), INTENT(OUT) :: RATES
+
+    INCLUDE 'species.inc'
+    INCLUDE 'usrnlst.inc'
+
+    ! Fluid Cell Index
+    DOUBLE PRECISION, INTENT(OUT) :: RATES(:) ! Reaction Rates
+
+    ! Rate limiting steps:
+    DOUBLE PRECISION k_f ! film diffusion (cm/sec)
+    DOUBLE PRECISION k_a ! ash layer diffusions (cm/sec)
+    DOUBLE PRECISION k_s ! chemical kinetics (cm/sec)
+    DOUBLE PRECISION k_eff ! effective rate (cm/sec)
+
+    ! Total surface area of solids phase 1 in IJK
+    DOUBLE PRECISION Sa ! (cm^2/cm^3)
+
+    ! C + 0.5O2 --> CO (reacted moles/sec.cm^3)
+    !-------------------------------------------------------//
+    ! Verify that solids are present
+    IF(.NOT.COMPARE(EP_g(IJK),ONE)) THEN
+      ! Calculate film diffusion rate
+      k_f = < film diffusion rate expression >
+      ! (cm/sec)
+      ! Calculate ash diffusion rate
+      k_a = < ash diffusion rate expression >
+      ! (cm/sec)
+      ! Calculate kinetic rate
+      k_s = < kinetic rate expression >
+      ! (cm/sec)
+      ! Effective rate (cm/sec)
+      k_eff = ONE/(ONE/k_a + ONE/k_f + ONE/k_s)
+      ! Calculate total surface area of solids phase 1
+      Sa = 6.0 * EP_s(IJK,1) / D_p0(1)
+      ! Calculate the reaction rate.
+      RATES(Char_Combustion) = 2.0 *(Sa * k_eff * Conc(O2))
+    ELSE
+      ! No solids --> No reaction
+      RATES(Char_Combustion) = ZERO
+    ENDIF
+
+    IF(nRR >= Char_Combustion) ReactionRates(IJK,Char_Combustion) = RATES(Char_Combustion)
+
+
+    END SUBROUTINE USR_RATES
+
+See legacy_tutorials/SpoutedBedCombustor for details on a similar simulation setup.
+Legacy tutorials can be found by downloading the source tarball. They are meant to provide representative setups for older versions of MFiX (before the launch of the GUI), and are not guaranteed to run with the latest version of MFiX.

@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.1.17. Solids phase &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.1.18. Thermochemical properties" href="thermochemical_properties.html" />
+    <link rel="prev" title="12.1.16. Run control" href="run_control.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">12. Keyword reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="keywords.html">12.1. Keywords</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="batch_queue_environment.html">12.1.1. Batch queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boundary_condition.html">12.1.2. Boundary conditions (BC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cartesian_grid.html">12.1.3. Cartesian grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemical_reactions.html">12.1.4. Chemical reactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="discrete_element.html">12.1.5. Discrete element model (DEM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gas_phase.html">12.1.6. Gas phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry_and_discretization.html">12.1.7. Geometry and discretization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initial_condition.html">12.1.8. Initial conditions (IC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="internal_surface.html">12.1.9. Internal surfaces (IS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numerical_parameters.html">12.1.10. Numerical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_control.html">12.1.11. Output control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parallelization_control.html">12.1.12. Parallelization control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="particle_in_cell.html">12.1.13. Particle-in-cell model (PIC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_parameters.html">12.1.14. Physical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_source.html">12.1.15. Point sources (PS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_control.html">12.1.16. Run control</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">12.1.17. Solids phase</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#c-ps0-phase">12.1.17.1. <span class="kwname">C_PS0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cgp-d-p0-phase">12.1.17.2. <span class="kwname">CGP_D_P0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cgp-stat-wt-phase">12.1.17.3. <span class="kwname">CGP_STAT_WT(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#d-p0-phase">12.1.17.4. <span class="kwname">D_P0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dil-factor-vsd">12.1.17.5. <span class="kwname">DIL_FACTOR_VSD</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dil-inert-x-vsd-phase">12.1.17.6. <span class="kwname">DIL_INERT_X_VSD(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gsp-model">12.1.17.7. <span class="kwname">GSP_MODEL</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gsp-q1-phase">12.1.17.8. <span class="kwname">GSP_Q1(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gsp-q2-phase">12.1.17.9. <span class="kwname">GSP_Q2(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gsp-q3-phase">12.1.17.10. <span class="kwname">GSP_Q3(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gsp-q4-phase">12.1.17.11. <span class="kwname">GSP_Q4(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inert-species-phase">12.1.17.12. <span class="kwname">INERT_SPECIES(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#k-s0-phase">12.1.17.13. <span class="kwname">K_S0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ks-model-phase">12.1.17.14. <span class="kwname">KS_MODEL(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mmax">12.1.17.15. <span class="kwname">MMAX</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mw-s-phase-species">12.1.17.16. <span class="kwname">MW_S(PHASE, SPECIES)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ngluedparticles">12.1.17.17. <span class="kwname">NGLUEDPARTICLES</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nmax-s-phase">12.1.17.18. <span class="kwname">NMAX_S(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ro-s0-phase">12.1.17.19. <span class="kwname">RO_S0(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ro-xs0-phase-species">12.1.17.20. <span class="kwname">RO_XS0(PHASE, SPECIES)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#solids-model-phase">12.1.17.21. <span class="kwname">SOLIDS_MODEL(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#species-alias-s-phase-species">12.1.17.22. <span class="kwname">SPECIES_ALIAS_S(PHASE, SPECIES)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#species-s-phase-species">12.1.17.23. <span class="kwname">SPECIES_S(PHASE, SPECIES)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-a-phase">12.1.17.24. <span class="kwname">SQP_A(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-b-phase">12.1.17.25. <span class="kwname">SQP_B(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-c-phase">12.1.17.26. <span class="kwname">SQP_C(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-contact-evolution">12.1.17.27. <span class="kwname">SQP_CONTACT_EVOLUTION</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-init-contact-evolution">12.1.17.28. <span class="kwname">SQP_INIT_CONTACT_EVOLUTION</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-m-phase">12.1.17.29. <span class="kwname">SQP_M(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-n-phase">12.1.17.30. <span class="kwname">SQP_N(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-q1-phase">12.1.17.31. <span class="kwname">SQP_Q1(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-q2-phase">12.1.17.32. <span class="kwname">SQP_Q2(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-q3-phase">12.1.17.33. <span class="kwname">SQP_Q3(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqp-q4-phase">12.1.17.34. <span class="kwname">SQP_Q4(PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#x-s0-phase-species">12.1.17.35. <span class="kwname">X_S0(PHASE, SPECIES)</span></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thermochemical_properties.html">12.1.18. Thermochemical properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="two_fluid_model.html">12.1.19. Two-fluid model (TFM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="udf_control.html">12.1.20. UDF control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">12. </span>Keyword reference</a></li>
+          <li class="breadcrumb-item"><a href="keywords.html"><span class="section-number">12.1. </span>Keywords</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1.17. </span>Solids phase</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/solids_phase.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="solids-phase">
+<h1><span class="section-number">12.1.17. </span>Solids phase<a class="headerlink" href="#solids-phase" title="Link to this heading">¶</a></h1>
+<section id="c-ps0-phase">
+<span id="c-ps0"></span><h2><span class="section-number">12.1.17.1. </span><span class="kwname">C_PS0(PHASE)</span><a class="headerlink" href="#c-ps0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Specified constant solids specific heat [J/(kg.K) in SI].</p>
+</section>
+<section id="cgp-d-p0-phase">
+<span id="cgp-d-p0"></span><h2><span class="section-number">12.1.17.2. </span><span class="kwname">CGP_D_P0(PHASE)</span><a class="headerlink" href="#cgp-d-p0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Coarse-grain particle size.
+The coarse graining is achieved by specifying either the statistical
+weight, or the coarse-grain particle size (it is not allowed to specify
+both the statistical weight and coarse-grain particle size at the same
+time).</p>
+</section>
+<section id="cgp-stat-wt-phase">
+<span id="cgp-stat-wt"></span><h2><span class="section-number">12.1.17.3. </span><span class="kwname">CGP_STAT_WT(PHASE)</span><a class="headerlink" href="#cgp-stat-wt-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Coarse-grain particle statistical weight.
+The coarse graining is achieved by specifying either the statistical
+weight, or the coarse-grain particle size. It is not allowed to specify
+both the statistical weight and Coarse Grain particle size at the same
+time.</p>
+</section>
+<section id="d-p0-phase">
+<span id="d-p0"></span><h2><span class="section-number">12.1.17.4. </span><span class="kwname">D_P0(PHASE)</span><a class="headerlink" href="#d-p0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Initial particle diameters [m in SI].</p>
+</section>
+<section id="dil-factor-vsd">
+<span id="id1"></span><h2><span class="section-number">12.1.17.5. </span><span class="kwname">DIL_FACTOR_VSD</span><a class="headerlink" href="#dil-factor-vsd" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Factor to define the dilute region where the solids density is set using DIL_INERT_X_VSD.
+Cells where the solids volume fraction is between DIL_EP_S and DIL_EP_S x DIL_FACTOR_VSD
+will automatically set the solids density using DIL_INERT_X_VSD instead of the current
+inerts species mass fraction. Set this factor to zero to always use the current inert
+species mass fraction.</p>
+</section>
+<section id="dil-inert-x-vsd-phase">
+<span id="dil-inert-x-vsd"></span><h2><span class="section-number">12.1.17.6. </span><span class="kwname">DIL_INERT_X_VSD(PHASE)</span><a class="headerlink" href="#dil-inert-x-vsd-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Mass fraction of inert solids phase species in the dilute region.
+In dilute region (see DIL_FACTOR_VSD), the solids density is computed based
+on this inert species mass fraction, rather than the current inert species mass fraction.
+This may help convergence when the Variable Solids Density model is invoked.</p>
+</section>
+<section id="gsp-model">
+<span id="id2"></span><h2><span class="section-number">12.1.17.7. </span><span class="kwname">GSP_MODEL</span><a class="headerlink" href="#gsp-model" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Method used for modeling glued-sphere particles</p>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-number">Table 12.89 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EXPLICIT</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Model each component sphere separately, so properties such as temperature can vary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IMPLICIT</span></code></p></td>
+<td></td>
+<td><p>Model the whole GSP, and component spheres share all properties.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gsp-q1-phase">
+<span id="gsp-q1"></span><h2><span class="section-number">12.1.17.8. </span><span class="kwname">GSP_Q1(PHASE)</span><a class="headerlink" href="#gsp-q1-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Glued sphere particle quaternion q1.</p>
+</section>
+<section id="gsp-q2-phase">
+<span id="gsp-q2"></span><h2><span class="section-number">12.1.17.9. </span><span class="kwname">GSP_Q2(PHASE)</span><a class="headerlink" href="#gsp-q2-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Glued sphere particle quaternion q2.</p>
+</section>
+<section id="gsp-q3-phase">
+<span id="gsp-q3"></span><h2><span class="section-number">12.1.17.10. </span><span class="kwname">GSP_Q3(PHASE)</span><a class="headerlink" href="#gsp-q3-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Glued sphere particle quaternion q3.</p>
+</section>
+<section id="gsp-q4-phase">
+<span id="gsp-q4"></span><h2><span class="section-number">12.1.17.11. </span><span class="kwname">GSP_Q4(PHASE)</span><a class="headerlink" href="#gsp-q4-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Glued sphere particle quaternion q4.</p>
+</section>
+<section id="inert-species-phase">
+<span id="inert-species"></span><h2><span class="section-number">12.1.17.12. </span><span class="kwname">INERT_SPECIES(PHASE)</span><a class="headerlink" href="#inert-species-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Index of inert solids phase species. This species should not be a
+product or reactant of any chemical reaction.</p>
+</section>
+<section id="k-s0-phase">
+<span id="k-s0"></span><h2><span class="section-number">12.1.17.13. </span><span class="kwname">K_S0(PHASE)</span><a class="headerlink" href="#k-s0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Specified solids or material conductivity [J/(s.m.K) in SI].</p>
+</section>
+<section id="ks-model-phase">
+<span id="ks-model"></span><h2><span class="section-number">12.1.17.14. </span><span class="kwname">KS_MODEL(PHASE)</span><a class="headerlink" href="#ks-model-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Solids (TFM) or particle (DEM) thermal conductivity model for each phase.</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">Table 12.90 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+<td></td>
+<td><p>(TFM or DEM). K_s0 is set to 0 (no conduction). In DEM, calculations are skipped.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONST_EFF</span></code></p></td>
+<td></td>
+<td><p>(TFM only). K_s0 specifies a constant effective solids phase conductivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">USR</span></code></p></td>
+<td></td>
+<td><p>(TFM only). K_s0 is set based on user defined function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Bauer</span></code></p></td>
+<td></td>
+<td><p>(TFM only). K_s0 specifies the material conductivity. See Bauer, R. and Schlünder, E.U. (1978). Int. Chem. Eng. 18(2), 181.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Musser</span></code></p></td>
+<td></td>
+<td><p>(DEM only). K_s0 specifies the material conductivity. See Musser, J. (2011), PhD Dissertation, WVU. Chapter 3 (3.6).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mmax">
+<span id="id3"></span><h2><span class="section-number">12.1.17.15. </span><span class="kwname">MMAX</span><a class="headerlink" href="#mmax" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Number of solids phases.</p>
+</section>
+<section id="mw-s-phase-species">
+<span id="mw-s"></span><h2><span class="section-number">12.1.17.16. </span><span class="kwname">MW_S(PHASE, SPECIES)</span><a class="headerlink" href="#mw-s-phase-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le DIM{\_}N{\_}s\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Molecular weight of solids phase species [kg/kmol in SI].</p>
+</section>
+<section id="ngluedparticles">
+<span id="id4"></span><h2><span class="section-number">12.1.17.17. </span><span class="kwname">NGLUEDPARTICLES</span><a class="headerlink" href="#ngluedparticles" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Number of glued sphere particles</p>
+</section>
+<section id="nmax-s-phase">
+<span id="nmax-s"></span><h2><span class="section-number">12.1.17.18. </span><span class="kwname">NMAX_S(PHASE)</span><a class="headerlink" href="#nmax-s-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Number of species comprising the solids phase.</p>
+</section>
+<section id="ro-s0-phase">
+<span id="ro-s0"></span><h2><span class="section-number">12.1.17.19. </span><span class="kwname">RO_S0(PHASE)</span><a class="headerlink" href="#ro-s0-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Specified constant solids density [kg/m^3 in SI]. Reacting flows
+may use variable solids density by leaving this parameter
+undefined and specifying X_S0 and RO_XS0 as well as the index
+of the inert species.</p>
+</section>
+<section id="ro-xs0-phase-species">
+<span id="ro-xs0"></span><h2><span class="section-number">12.1.17.20. </span><span class="kwname">RO_XS0(PHASE, SPECIES)</span><a class="headerlink" href="#ro-xs0-phase-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le DIM{\_}N{\_}s\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Specified constant solids species density [kg/m^3 in SI].</p>
+</section>
+<section id="solids-model-phase">
+<span id="solids-model"></span><h2><span class="section-number">12.1.17.21. </span><span class="kwname">SOLIDS_MODEL(PHASE)</span><a class="headerlink" href="#solids-model-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Defines the model used for the solids phase.</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">Table 12.91 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id9" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TFM</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Two-fluid model (continuum)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DEM</span></code></p></td>
+<td></td>
+<td><p>Discrete element model</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CGP</span></code></p></td>
+<td></td>
+<td><p>Coarse-grained particle DEM</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SQP</span></code></p></td>
+<td></td>
+<td><p>Superquadric particle DEM</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GSP</span></code></p></td>
+<td></td>
+<td><p>Glued sphere particle DEM</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PIC</span></code></p></td>
+<td></td>
+<td><p>Multiphase particle-in-cell</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="species-alias-s-phase-species">
+<span id="species-alias-s"></span><h2><span class="section-number">12.1.17.22. </span><span class="kwname">SPECIES_ALIAS_S(PHASE, SPECIES)</span><a class="headerlink" href="#species-alias-s-phase-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le DIM{\_}N{\_}s\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>User defined name for solids phase species. Aliases are used in
+specifying chemical equations and must be unique.</p>
+</section>
+<section id="species-s-phase-species">
+<span id="species-s"></span><h2><span class="section-number">12.1.17.23. </span><span class="kwname">SPECIES_S(PHASE, SPECIES)</span><a class="headerlink" href="#species-s-phase-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le DIM{\_}N{\_}s\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Name of solids phase M, species N as it appears in the materials
+database.</p>
+</section>
+<section id="sqp-a-phase">
+<span id="sqp-a"></span><h2><span class="section-number">12.1.17.24. </span><span class="kwname">SQP_A(PHASE)</span><a class="headerlink" href="#sqp-a-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle semiaxis in x-direction.</p>
+</section>
+<section id="sqp-b-phase">
+<span id="sqp-b"></span><h2><span class="section-number">12.1.17.25. </span><span class="kwname">SQP_B(PHASE)</span><a class="headerlink" href="#sqp-b-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle semiaxis in y-direction.</p>
+</section>
+<section id="sqp-c-phase">
+<span id="sqp-c"></span><h2><span class="section-number">12.1.17.26. </span><span class="kwname">SQP_C(PHASE)</span><a class="headerlink" href="#sqp-c-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle semiaxis in z-direction.</p>
+</section>
+<section id="sqp-contact-evolution">
+<span id="id5"></span><h2><span class="section-number">12.1.17.27. </span><span class="kwname">SQP_CONTACT_EVOLUTION</span><a class="headerlink" href="#sqp-contact-evolution" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Flag to turn on/off superquadric evolution contact method for the entire
+simulation.</p>
+</section>
+<section id="sqp-init-contact-evolution">
+<span id="id6"></span><h2><span class="section-number">12.1.17.28. </span><span class="kwname">SQP_INIT_CONTACT_EVOLUTION</span><a class="headerlink" href="#sqp-init-contact-evolution" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Flag to turn on/off superquadric evolution contact method only at time=0.
+This can help convergence for particles with sharp corners such as
+cylinders or cubes.</p>
+</section>
+<section id="sqp-m-phase">
+<span id="sqp-m"></span><h2><span class="section-number">12.1.17.29. </span><span class="kwname">SQP_M(PHASE)</span><a class="headerlink" href="#sqp-m-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle roundness exponent M.</p>
+</section>
+<section id="sqp-n-phase">
+<span id="sqp-n"></span><h2><span class="section-number">12.1.17.30. </span><span class="kwname">SQP_N(PHASE)</span><a class="headerlink" href="#sqp-n-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle roundness exponent N.</p>
+</section>
+<section id="sqp-q1-phase">
+<span id="sqp-q1"></span><h2><span class="section-number">12.1.17.31. </span><span class="kwname">SQP_Q1(PHASE)</span><a class="headerlink" href="#sqp-q1-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle quaternion q1.</p>
+</section>
+<section id="sqp-q2-phase">
+<span id="sqp-q2"></span><h2><span class="section-number">12.1.17.32. </span><span class="kwname">SQP_Q2(PHASE)</span><a class="headerlink" href="#sqp-q2-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle quaternion q2.</p>
+</section>
+<section id="sqp-q3-phase">
+<span id="sqp-q3"></span><h2><span class="section-number">12.1.17.33. </span><span class="kwname">SQP_Q3(PHASE)</span><a class="headerlink" href="#sqp-q3-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle quaternion q3.</p>
+</section>
+<section id="sqp-q4-phase">
+<span id="sqp-q4"></span><h2><span class="section-number">12.1.17.34. </span><span class="kwname">SQP_Q4(PHASE)</span><a class="headerlink" href="#sqp-q4-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Superquadric particle quaternion q4.</p>
+</section>
+<section id="x-s0-phase-species">
+<span id="x-s0"></span><h2><span class="section-number">12.1.17.35. </span><span class="kwname">X_S0(PHASE, SPECIES)</span><a class="headerlink" href="#x-s0-phase-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le DIM{\_}N{\_}s\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>TFM</strong>, <strong>DEM</strong></p>
+<p>Baseline species mass fraction. Specifically, the mass fraction
+of an unreacted sample (e.g., proximate analysis).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="run_control.html" class="btn btn-neutral float-left" title="12.1.16. Run control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thermochemical_properties.html" class="btn btn-neutral float-right" title="12.1.18. Thermochemical properties" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

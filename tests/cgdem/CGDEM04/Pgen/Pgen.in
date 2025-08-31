@@ -1,0 +1,8 @@
+0			! 0 = classic, else exa
+0.001709976d0		! dp
+2.0d+3			! rho_s
+0.01d0			! T_0
+24446			! Np (serial)
+2.0d-2			! Lx (serial)
+0.8d0			! Ly
+2.0d-2			! Lz 

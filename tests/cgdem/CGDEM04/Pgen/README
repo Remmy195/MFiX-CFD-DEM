@@ -1,0 +1,16 @@
+Use Pgen.x to generate particle_input.dat
+Use N (number of particles) as follows:
+	Stat. wt. = 5
+	ep_s0 = 0.10,	N = 12223
+	ep_S0 = 0.15,	N = 18335
+	ep_S0 = 0.20,	N = 24446
+
+Note: 	Dp in Pgen.x is the diameter of coarse-grained particle.
+	Dp-CGP = Dp*(Stat wt. ^ (1/3))
+
+particle_input.dat contains locations (x,y,z values) of particles
+
+---------------------------------------------------------------------
+Avinash Vaidheeswaran
+01/27/2022
+ 

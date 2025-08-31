@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.1.9. Internal surfaces (IS) &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.1.10. Numerical parameters" href="numerical_parameters.html" />
+    <link rel="prev" title="12.1.8. Initial conditions (IC)" href="initial_condition.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">12. Keyword reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="keywords.html">12.1. Keywords</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="batch_queue_environment.html">12.1.1. Batch queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boundary_condition.html">12.1.2. Boundary conditions (BC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cartesian_grid.html">12.1.3. Cartesian grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemical_reactions.html">12.1.4. Chemical reactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="discrete_element.html">12.1.5. Discrete element model (DEM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gas_phase.html">12.1.6. Gas phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry_and_discretization.html">12.1.7. Geometry and discretization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initial_condition.html">12.1.8. Initial conditions (IC)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">12.1.9. Internal surfaces (IS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#is-i-e-is">12.1.9.1. <span class="kwname">IS_I_E(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-i-w-is">12.1.9.2. <span class="kwname">IS_I_W(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-j-n-is">12.1.9.3. <span class="kwname">IS_J_N(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-j-s-is">12.1.9.4. <span class="kwname">IS_J_S(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-k-b-is">12.1.9.5. <span class="kwname">IS_K_B(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-k-t-is">12.1.9.6. <span class="kwname">IS_K_T(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-pc-is-idx">12.1.9.7. <span class="kwname">IS_PC(IS, IDX)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-rebin-n">12.1.9.8. <span class="kwname">IS_REBIN_N</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-type-is">12.1.9.9. <span class="kwname">IS_TYPE(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-vel-s-is-phase">12.1.9.10. <span class="kwname">IS_VEL_S(IS, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-wall-omega-is-component">12.1.9.11. <span class="kwname">IS_WALL_OMEGA(IS, COMPONENT)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-wall-rot-center-is-component">12.1.9.12. <span class="kwname">IS_WALL_ROT_CENTER(IS, COMPONENT)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-wall-vel-is-component">12.1.9.13. <span class="kwname">IS_WALL_VEL(IS, COMPONENT)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-x-e-is">12.1.9.14. <span class="kwname">IS_X_E(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-x-w-is">12.1.9.15. <span class="kwname">IS_X_W(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-y-n-is">12.1.9.16. <span class="kwname">IS_Y_N(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-y-s-is">12.1.9.17. <span class="kwname">IS_Y_S(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-z-b-is">12.1.9.18. <span class="kwname">IS_Z_B(IS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-z-t-is">12.1.9.19. <span class="kwname">IS_Z_T(IS)</span></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="numerical_parameters.html">12.1.10. Numerical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_control.html">12.1.11. Output control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parallelization_control.html">12.1.12. Parallelization control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="particle_in_cell.html">12.1.13. Particle-in-cell model (PIC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_parameters.html">12.1.14. Physical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_source.html">12.1.15. Point sources (PS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_control.html">12.1.16. Run control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solids_phase.html">12.1.17. Solids phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thermochemical_properties.html">12.1.18. Thermochemical properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="two_fluid_model.html">12.1.19. Two-fluid model (TFM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="udf_control.html">12.1.20. UDF control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">12. </span>Keyword reference</a></li>
+          <li class="breadcrumb-item"><a href="keywords.html"><span class="section-number">12.1. </span>Keywords</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1.9. </span>Internal surfaces (IS)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/internal_surface.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="internal-surfaces-is">
+<h1><span class="section-number">12.1.9. </span>Internal surfaces (IS)<a class="headerlink" href="#internal-surfaces-is" title="Link to this heading">¶</a></h1>
+<section id="is-i-e-is">
+<span id="is-i-e"></span><h2><span class="section-number">12.1.9.1. </span><span class="kwname">IS_I_E(IS)</span><a class="headerlink" href="#is-i-e-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>I index of the east-most cell</p>
+</section>
+<section id="is-i-w-is">
+<span id="is-i-w"></span><h2><span class="section-number">12.1.9.2. </span><span class="kwname">IS_I_W(IS)</span><a class="headerlink" href="#is-i-w-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>I index of the west-most cell.</p>
+</section>
+<section id="is-j-n-is">
+<span id="is-j-n"></span><h2><span class="section-number">12.1.9.3. </span><span class="kwname">IS_J_N(IS)</span><a class="headerlink" href="#is-j-n-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>J index of the north-most cell</p>
+</section>
+<section id="is-j-s-is">
+<span id="is-j-s"></span><h2><span class="section-number">12.1.9.4. </span><span class="kwname">IS_J_S(IS)</span><a class="headerlink" href="#is-j-s-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>J index of the south-most cell</p>
+</section>
+<section id="is-k-b-is">
+<span id="is-k-b"></span><h2><span class="section-number">12.1.9.5. </span><span class="kwname">IS_K_B(IS)</span><a class="headerlink" href="#is-k-b-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>K index of the bottom-most cell</p>
+</section>
+<section id="is-k-t-is">
+<span id="is-k-t"></span><h2><span class="section-number">12.1.9.6. </span><span class="kwname">IS_K_T(IS)</span><a class="headerlink" href="#is-k-t-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>K index of the top-most cell</p>
+</section>
+<section id="is-pc-is-idx">
+<span id="is-pc"></span><h2><span class="section-number">12.1.9.7. </span><span class="kwname">IS_PC(IS, IDX)</span><a class="headerlink" href="#is-pc-is-idx" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le IDX \le 2\)</span></p></li>
+</ul>
+<p>Parameters defining the internal surface. These values need to be
+specified for semipermeable surfaces only. The thickness used for
+pressure drop computation is that of the momentum cell (DX_e,
+DY_n, or DZ_t). To turn off the resistance, use a large value
+for permeability.</p>
+<ul class="simple">
+<li><p>IDX=1: Permeability [1.0E32]</p></li>
+<li><p>IDX=2: Inertial resistance coefficient [0.0]</p></li>
+</ul>
+</section>
+<section id="is-rebin-n">
+<span id="id1"></span><h2><span class="section-number">12.1.9.8. </span><span class="kwname">IS_REBIN_N</span><a class="headerlink" href="#is-rebin-n" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Frequency of STL facets binning to the DES grid. This is only meant to be used
+for granular DEM, CGP, SQP or GSP models to move internal surfaces defined by STL files.</p>
+</section>
+<section id="is-type-is">
+<span id="is-type"></span><h2><span class="section-number">12.1.9.9. </span><span class="kwname">IS_TYPE(IS)</span><a class="headerlink" href="#is-type-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>Type of internal surface</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-number">Table 12.51 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMPERMEABLE</span> <span class="pre">(IP)</span></code></p></td>
+<td></td>
+<td><p>No gas or solids flow through the surface.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SEMIPERMEABLE</span> <span class="pre">(SP)</span></code></p></td>
+<td></td>
+<td><p>Gas flows through the surface with an additional resistance. Solids velocity through the surface is set to zero or to a user-specified fixed value (i.e., solids momentum equation for this direction is not solved).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">X_IMPERMEABLE</span> <span class="pre">(IP)</span></code></p></td>
+<td></td>
+<td><p>No gas or solids flow in the X direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">X_SEMIPERMEABLE</span> <span class="pre">(SP)</span></code></p></td>
+<td></td>
+<td><p>Gas flows in the Z direction with additional resistance. Solids velocity in the Z direction is set to zero or to a user-specified fixed value (i.e., solids momentum equation for this direction is not solved).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y_IMPERMEABLE</span> <span class="pre">(IP)</span></code></p></td>
+<td></td>
+<td><p>No gas or solids flow in the Y direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y_SEMIPERMEABLE</span> <span class="pre">(SP)</span></code></p></td>
+<td></td>
+<td><p>Gas flows in the Y direction with additional resistance. Solids velocity in the Y direction is set to zero or to a user-specified fixed value (i.e., solids momentum equation for this direction is not solved).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Z_IMPERMEABLE</span> <span class="pre">(IP)</span></code></p></td>
+<td></td>
+<td><p>No gas or solids flow in the Z direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">STL</span> <span class="pre">(IP)</span></code></p></td>
+<td></td>
+<td><p>Arbitrary shaped internal surface defined by an STL file. Only visible to DEM particles or PIC parcels. The fluid phase doesn’t feel this stl internal surface.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="is-vel-s-is-phase">
+<span id="is-vel-s"></span><h2><span class="section-number">12.1.9.10. </span><span class="kwname">IS_VEL_S(IS, PHASE)</span><a class="headerlink" href="#is-vel-s-is-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Value of fixed solids velocity through semipermeable surfaces.</p>
+</section>
+<section id="is-wall-omega-is-component">
+<span id="is-wall-omega"></span><h2><span class="section-number">12.1.9.11. </span><span class="kwname">IS_WALL_OMEGA(IS, COMPONENT)</span><a class="headerlink" href="#is-wall-omega-is-component" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Component \le 3\)</span></p></li>
+</ul>
+<p>Internal surface angular velocity. This is only meant to be used
+for granular DEM, CGP, SQP or GSP models to move internal surfaces defined by STL files.
+The rotation occurs around the center point defined with IS_WALL_ROT_CENTER.
+Example: a smooth rotating drum.
+The first index is the IS ID, the second index is the component (1=x, 2=y, 3=z)</p>
+</section>
+<section id="is-wall-rot-center-is-component">
+<span id="is-wall-rot-center"></span><h2><span class="section-number">12.1.9.12. </span><span class="kwname">IS_WALL_ROT_CENTER(IS, COMPONENT)</span><a class="headerlink" href="#is-wall-rot-center-is-component" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Component \le 3\)</span></p></li>
+</ul>
+<p>Internal surface center of rotation. This is only meant to be used
+for granular DEM, CGP, SQP or GSP models to move internal surfaces defined by STL files.
+This keywords is used in conjunction with IS_WALL_OMEGA.
+Example: a mixer with rotating paddles.
+The first index is the IS ID, the second index is the component (1=x, 2=y, 3=z)</p>
+</section>
+<section id="is-wall-vel-is-component">
+<span id="is-wall-vel"></span><h2><span class="section-number">12.1.9.13. </span><span class="kwname">IS_WALL_VEL(IS, COMPONENT)</span><a class="headerlink" href="#is-wall-vel-is-component" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Component \le 3\)</span></p></li>
+</ul>
+<p>Internal surface translational velocity. This is only meant to be used
+for granular DEM, CGP, SQP or GSP models to move internal surfaces defined by STL files.
+Example: a valve moving up and down.
+The first index is the IS ID, the second index is the component (1=x, 2=y, 3=z)</p>
+</section>
+<section id="is-x-e-is">
+<span id="is-x-e"></span><h2><span class="section-number">12.1.9.14. </span><span class="kwname">IS_X_E(IS)</span><a class="headerlink" href="#is-x-e-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>X coordinate of the east face or edge.</p>
+</section>
+<section id="is-x-w-is">
+<span id="is-x-w"></span><h2><span class="section-number">12.1.9.15. </span><span class="kwname">IS_X_W(IS)</span><a class="headerlink" href="#is-x-w-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>X coordinate of the west face or edge.</p>
+</section>
+<section id="is-y-n-is">
+<span id="is-y-n"></span><h2><span class="section-number">12.1.9.16. </span><span class="kwname">IS_Y_N(IS)</span><a class="headerlink" href="#is-y-n-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>Y coordinate of the north face or edge.</p>
+</section>
+<section id="is-y-s-is">
+<span id="is-y-s"></span><h2><span class="section-number">12.1.9.17. </span><span class="kwname">IS_Y_S(IS)</span><a class="headerlink" href="#is-y-s-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>Y coordinate of the south face or edge.</p>
+</section>
+<section id="is-z-b-is">
+<span id="is-z-b"></span><h2><span class="section-number">12.1.9.18. </span><span class="kwname">IS_Z_B(IS)</span><a class="headerlink" href="#is-z-b-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>Z coordinate of the bottom face or edge.</p>
+</section>
+<section id="is-z-t-is">
+<span id="is-z-t"></span><h2><span class="section-number">12.1.9.19. </span><span class="kwname">IS_Z_T(IS)</span><a class="headerlink" href="#is-z-t-is" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le IS \le 500\)</span></p></li>
+</ul>
+<p>Z coordinate of the top face or edge.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="initial_condition.html" class="btn btn-neutral float-left" title="12.1.8. Initial conditions (IC)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="numerical_parameters.html" class="btn btn-neutral float-right" title="12.1.10. Numerical parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

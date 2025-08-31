@@ -1,0 +1,213 @@
+.. |Build button| image:: /../../mfixgui/images/build.svg
+          :width: 16
+          :alt: Build
+.. |Menu| image:: /../../mfixgui/images/menu.svg
+          :width: 16
+          :alt: Menu
+.. |Parameters button| image:: /../../mfixgui/images/sliders.svg
+         :width: 16
+         :alt: Parameters
+.. |Help button| image:: /../../mfixgui/images/help.svg
+         :width: 16
+         :alt: Help
+.. |Search button| image:: /../../mfixgui/images/search.svg
+         :width: 16
+         :alt: Search
+.. |Settings button| image:: /../../mfixgui/images/settings.svg
+         :width: 16
+         :alt: Settings
+.. |Pause button| image:: /../../mfixgui/images/pause.svg
+         :width: 16
+         :alt: Pause
+.. |Reset button| image:: /../../mfixgui/images/restore_delete.svg
+         :width: 16
+         :alt: Reset
+.. |Save button| image:: /../../mfixgui/images/save.svg
+         :width: 16
+         :alt: Save
+.. |Start button| image:: /../../mfixgui/images/play.svg
+         :width: 16
+         :alt: Start
+.. |Stop button| image:: /../../mfixgui/images/stop.svg
+         :width: 16
+         :alt: Stop
+.. |add| image:: /../../mfixgui/images/add.svg
+         :width: 16
+         :alt: Add
+.. |all_region| image:: /../../mfixgui/images/all_region.svg
+         :width: 16
+         :alt: All
+.. |all region| image:: /../../mfixgui/images/all_region.svg
+         :width: 16
+         :alt: All
+.. |back_region| image:: /../../mfixgui/images/back_region.svg
+         :width: 16
+         :alt: Back
+.. |back region| image:: /../../mfixgui/images/back_region.svg
+         :width: 16
+         :alt: Back
+.. |back| image:: /../../mfixgui/images/back.svg
+         :width: 16
+         :alt: Back
+.. |bottom_region| image:: /../../mfixgui/images/bottom_region.svg
+         :width: 16
+         :alt: Bottom
+.. |bottom region| image:: /../../mfixgui/images/bottom_region.svg
+         :width: 16
+         :alt: Bottom
+.. |build| image:: /../../mfixgui/images/build.svg
+         :width: 16
+         :alt: Build
+.. |camera| image:: /../../mfixgui/images/camera.svg
+         :width: 16
+         :alt: Camera
+.. |chemistry| image:: /../../mfixgui/images/chemistry.svg
+         :width: 16
+         :alt: Chemistry
+.. |close| image:: /../../mfixgui/images/close.svg
+         :width: 16
+         :alt: Close
+.. |copy| image:: /../../mfixgui/images/copy.svg
+         :width: 16
+         :alt: Copy
+.. |cyclone wizard| image:: /../../mfixgui/images/cyclone_sketch.png
+         :width: 16
+         :alt: Cyclone
+.. |dem| image:: /../../mfixgui/images/dem.svg
+         :width: 16
+         :alt: DEM
+.. |difference| image:: /../../mfixgui/images/difference.svg
+         :width: 16
+         :alt: Difference
+.. |edit| image:: /../../mfixgui/images/edit.svg
+         :width: 16
+         :alt: Edit
+.. |filter| image:: /../../mfixgui/images/filter.svg
+         :width: 16
+         :alt: Filter
+.. |first| image:: /../../mfixgui/images/first.svg
+         :width: 16
+         :alt: First
+.. |front_region| image:: /../../mfixgui/images/front_region.svg
+         :width: 16
+         :alt: Front
+.. |front region| image:: /../../mfixgui/images/front_region.svg
+         :width: 16
+         :alt: Front
+.. |function| image:: /../../mfixgui/images/function.svg
+         :width: 16
+         :alt: Function
+.. |geometry| image:: /../../mfixgui/images/geometry.svg
+         :width: 16
+         :alt: Geometry
+.. |hopper wizard| image:: /../../mfixgui/images/hopper_sketch.png
+         :width: 16
+         :alt: Hopper
+.. |hybrid| image:: /../../mfixgui/images/hybrid.svg
+         :width: 16
+         :alt: Hybrid
+.. |intersect| image:: /../../mfixgui/images/intersect.svg
+         :width: 16
+         :alt: Intersect
+.. |last| image:: /../../mfixgui/images/last.svg
+         :width: 16
+         :alt: Last
+.. |left_region| image:: /../../mfixgui/images/left_region.svg
+         :width: 16
+         :alt: Left
+.. |left region| image:: /../../mfixgui/images/left_region.svg
+         :width: 16
+         :alt: Left
+.. |load| image:: /../../mfixgui/images/load.svg
+          :width: 16
+          :alt: Load
+.. |more| image:: /../../mfixgui/images/right.svg
+         :width: 16
+         :alt: More
+.. |newfolder| image:: /../../mfixgui/images/newfolder.svg
+         :width: 16
+         :alt: New folder
+.. |new| image:: /../../mfixgui/images/newfolder.svg
+         :width: 16
+         :alt: New folder
+.. |next| image:: /../../mfixgui/images/next.svg
+         :width: 16
+         :alt: Next
+.. |overscan| image:: /../../mfixgui/images/overscan.svg
+         :width: 16
+         :alt: Overscan
+.. |pause| image:: /../../mfixgui/images/pause.svg
+         :width: 16
+         :alt: Pause
+.. |perspective| image:: /../../mfixgui/images/perspective.svg
+         :width: 16
+         :alt: Perspective
+.. |pic| image:: /../../mfixgui/images/pic.svg
+         :width: 16
+         :alt: PIC
+.. |play| image:: /../../mfixgui/images/play.svg
+         :width: 16
+         :alt: Play
+.. |reactor wizard| image:: /../../mfixgui/images/reactor_sketch.png
+         :width: 16
+         :alt: Reactor
+.. |remove| image:: /../../mfixgui/images/remove.svg
+         :width: 16
+         :alt: Remove
+.. |reset| image:: /../../mfixgui/images/restore_delete.svg
+         :width: 16
+         :alt: Reset
+.. |right_region| image:: /../../mfixgui/images/right_region.svg
+         :width: 16
+         :alt: Right
+.. |right region| image:: /../../mfixgui/images/right_region.svg
+         :width: 16
+         :alt: Right
+.. |save| image:: /../../mfixgui/images/save.svg
+         :width: 16
+         :alt: Save
+.. |single| image:: /../../mfixgui/images/single.svg
+         :width: 16
+         :alt: Single
+.. |speed| image:: /../../mfixgui/images/speed.svg
+         :width: 16
+         :alt: Speed
+.. |start| image:: /../../mfixgui/images/play.svg
+         :width: 16
+         :alt: Start
+.. |stop| image:: /../../mfixgui/images/stop.svg
+         :width: 16
+         :alt: Stop
+.. |tfm| image:: /../../mfixgui/images/tfm.svg
+         :width: 16
+         :alt: TFM
+.. |top_region| image:: /../../mfixgui/images/top_region.svg
+         :width: 16
+         :alt: Top
+.. |top region| image:: /../../mfixgui/images/top_region.svg
+         :width: 16
+         :alt: Top
+.. |union| image:: /../../mfixgui/images/union.svg
+         :width: 16
+         :alt: Union
+.. |visibility| image:: /../../mfixgui/images/visibility.svg
+         :width: 16
+         :alt: Visibility
+.. |wand| image:: /../../mfixgui/images/wand.svg
+         :width: 16
+         :alt: Wand
+.. |wizard| image:: /../../mfixgui/images/wand.svg
+         :width: 16
+         :alt: Wizard
+.. |xy| image:: /../../mfixgui/images/xy.svg
+         :width: 16
+         :alt: XY
+.. |xz| image:: /../../mfixgui/images/xz.svg
+         :width: 16
+         :alt: XZ
+.. |yz| image:: /../../mfixgui/images/yz.svg
+         :width: 16
+         :alt: YZ
+.. |mfix| image:: /../../mfixgui/images/mfix.png
+          :width: 32
+          :alt: MFiX logo

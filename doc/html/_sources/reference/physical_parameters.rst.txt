@@ -1,0 +1,4 @@
+Physical parameters
+===================
+
+.. include:: /reference/physical_parameters_gen.rst

@@ -1,0 +1,292 @@
+#! File written Fri May  2 11:36:48 2025
+#! MFiX version 25.2pre by cgw on ryzen
+
+### Run controls
+  description      = '3D granular flow hopper with superquadric particles'
+  run_name         = 'hopper'
+  units            = 'SI'
+  run_type         = 'new'
+  tstop            = 3.0
+  dt               = 0.001
+  dt_min           = 1.000000e-06
+  dt_max           = 0.01
+  res_dt           = 0.1
+  batch_wallclock  = 900000.0
+  chk_batchq_end   = .True.
+  drag_c1          = 0.8
+  drag_d1          = 2.65
+  drag_type        = 'SQP_DIFELICE_GANSER'
+  turbulence_model = 'NONE'
+  energy_eq        = .False.
+  term_buffer      = 180.0
+  momentum_x_eq(0) = .False.
+  momentum_y_eq(0) = .False.
+  momentum_z_eq(0) = .False.
+  project_version  = '3'
+  species_eq(0)    = .False.
+  species_eq(1)    = .False.
+
+### Physical parameters
+  gravity_x = 0.0
+  gravity_y = -9.81
+  gravity_z = 0.0
+
+### Cartesian grid
+  cartesian_grid       = .True.
+  dim_facets_per_cell  = 20
+  fac_dim_max_cut_cell = 0.5
+  stl_nb_angle         = 90.0
+  stl_small_angle      = 0.0
+  tol_small_cell       = 0.01
+  tol_snap(1)          = 0.0
+  tol_stl              = 1.000000e-12
+  tol_stl_dp           = 1.000000e-08
+  use_stl              = .True.
+  write_dashboard      = .False.
+
+### Numeric
+  detect_stall = .True.
+  max_nit      = 50
+  norm_g       = 0.0
+  norm_s       = 0.0
+
+### Geometry
+  coordinates = 'CARTESIAN'
+  imax        = 8
+  jmax        = 24
+  kmax        = 8
+  x_max       = 0.5
+  x_min       = -0.5
+  y_max       = 2.0
+  y_min       = -0.05
+  z_max       = 0.5
+  z_min       = -0.5
+
+#### Fluid
+  mu_g0  = 1.800000e-05
+  mw_avg = 29.0
+  ro_g0  = 0
+
+#### Solids
+  mmax = 1
+  # Solid 1
+    solids_model(1) = 'SQP'
+    d_p0(1)         = 0.07896444077714954
+    ro_s0(1)        = 2500.0
+    nmax_s(1)       = 0
+    e_young(1)      = 1e+06
+    k_s0(1)         = 1.0
+    ks_model(1)     = 'MUSSER'
+    sqp_a(1)        = 0.03
+    sqp_b(1)        = 0.03
+    sqp_c(1)        = 0.03
+    sqp_m(1)        = 4
+    sqp_n(1)        = 4
+    sqp_q1(1)       = 0.707
+    sqp_q2(1)       = 0.0
+    sqp_q3(1)       = 0.0
+    sqp_q4(1)       = 0.707
+    v_poisson(1)    = 0.3
+
+
+### Initial conditions
+  # Initial condition 1: Background
+    ic_x_e(1)       = 0.5 #!MFIX-GUI eq{float(xmax)}
+    ic_x_w(1)       = -0.5 #!MFIX-GUI eq{float(xmin)}
+    ic_y_s(1)       = -0.05 #!MFIX-GUI eq{float(ymin)}
+    ic_y_n(1)       = 2.0 #!MFIX-GUI eq{float(ymax)}
+    ic_z_b(1)       = -0.5 #!MFIX-GUI eq{float(zmin)}
+    ic_z_t(1)       = 0.5 #!MFIX-GUI eq{float(zmax)}
+    ic_ep_g(1)      = 1.0
+    ic_t_g(1)       = 293.15
+    ic_u_g(1)       = 0.0
+    ic_v_g(1)       = 0.0
+    ic_w_g(1)       = 0.0
+    ic_p_g(1)       = 101325.0
+    ic_ep_s(1,1)    = 0.0
+    ic_t_s(1,1)     = 293.15
+    ic_theta_m(1,1) = 0.0
+    ic_u_s(1,1)     = 0.0
+    ic_v_s(1,1)     = 0.0
+    ic_w_s(1,1)     = 0.0
+
+  # Initial condition 2: Initial solids
+    ic_x_e(2)       = 0.5 #!MFIX-GUI eq{float(xmax)}
+    ic_x_w(2)       = -0.5 #!MFIX-GUI eq{float(xmin)}
+    ic_y_s(2)       = 1.0
+    ic_y_n(2)       = 1.5
+    ic_z_b(2)       = -0.5 #!MFIX-GUI eq{float(zmin)}
+    ic_z_t(2)       = 0.5 #!MFIX-GUI eq{float(zmax)}
+    ic_ep_g(2)      = 0.8
+    ic_t_g(2)       = 293.15
+    ic_u_g(2)       = 0.0
+    ic_v_g(2)       = 0.0
+    ic_w_g(2)       = 0.0
+    ic_p_star(2)    = 0.0
+    ic_ep_s(2,1)    = 0.2
+    ic_t_s(2,1)     = 293.15
+    ic_theta_m(2,1) = 0.0
+    ic_u_s(2,1)     = 0.0
+    ic_v_s(2,1)     = 0.0
+    ic_w_s(2,1)     = 0.0
+
+
+# Boundary conditions
+  # Boundary condition 1: top outlet
+    bc_type(1) = 'PO'
+    bc_x_e(1)  = 0.5 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(1)  = -0.5 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(1)  = 2.0 #!MFIX-GUI eq{float(ymax)}
+    bc_y_n(1)  = 2.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(1)  = -0.5 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(1)  = 0.5 #!MFIX-GUI eq{float(zmax)}
+    bc_p_g(1)  = 101320
+
+  # Boundary condition 2: Wall
+    bc_type(2)  = 'CG_NSW'
+    bc_x_e(2)   = 0.5 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(2)   = -0.5 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(2)   = -0.05 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(2)   = 2.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(2)   = -0.5 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(2)   = 0.5 #!MFIX-GUI eq{float(zmax)}
+    bc_jj_ps(2) = 0
+    bc_uw_g(2)  = 0.0
+    bc_vw_g(2)  = 0.0
+    bc_ww_g(2)  = 0.0
+
+
+# VTK outputs
+  write_vtk_files         = .True.
+  time_dependent_filename = .True.
+  # VTK output 1: Background
+    vtk_filebase(1)      = 'HOPPER_P'
+    vtk_x_e(1)           = 0.5 #!MFIX-GUI eq{float(xmax)}
+    vtk_x_w(1)           = -0.5 #!MFIX-GUI eq{float(xmin)}
+    vtk_y_s(1)           = -0.05 #!MFIX-GUI eq{float(ymin)}
+    vtk_y_n(1)           = 2.0 #!MFIX-GUI eq{float(ymax)}
+    vtk_z_b(1)           = -0.5 #!MFIX-GUI eq{float(zmin)}
+    vtk_z_t(1)           = 0.5 #!MFIX-GUI eq{float(zmax)}
+    vtk_data(1)          = 'P'
+    vtk_dt(1)            = 0.01
+    vtk_nxs(1)           = 0
+    vtk_nys(1)           = 0
+    vtk_nzs(1)           = 0
+    vtk_part_diameter(1) = .True.
+    vtk_part_vel(1)      = .True.
+
+
+# SPx outputs
+  spx_dt(1) = 10.0
+  spx_dt(2) = 10.0
+  spx_dt(3) = 10.0
+  spx_dt(4) = 10.0
+  spx_dt(5) = 10.0
+  spx_dt(6) = 10.0
+  spx_dt(7) = 10.0
+  spx_dt(8) = 10.0
+  spx_dt(9) = 10.0
+
+### Residuals
+  resid_string(1) = 'P0'
+  resid_string(2) = 'U0'
+  resid_string(3) = 'V0'
+
+### Discrete element model
+  des_coll_model         = 'HERTZIAN'
+  des_en_input(1)        = 0.5
+  des_en_wall_input(1)   = 0.5
+  des_epg_clip           = 0.42
+  des_et_input(1)        = 0.5
+  des_et_wall_input(1)   = 0.5
+  des_etat_fac           = 0.5
+  des_etat_w_fac         = 0.5
+  des_interp_mean_fields = .True.
+  des_interp_on          = .True.
+  des_interp_scheme      = 'DPVM_SATELLITE'
+  desgridsearch_imax     = 8
+  desgridsearch_jmax     = 24
+  desgridsearch_kmax     = 8
+  ew_young               = 1e+06
+  factor_rlm             = 1.0
+  gener_part_config      = .True.
+  kn                     = 1e+08
+  kn_w                   = 1e+08
+  kt_fac                 = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  kt_w_fac               = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  mew                    = 0.1
+  mew_w                  = 0.1
+  neighbor_search_n      = 5
+  vw_poisson             = 0.3
+
+### Two-fluid model
+  c_e            = 0.95
+  c_f            = 0.1
+  e_w            = 1.0
+  friction_model = 'SCHAEFFER'
+  kt_type        = 'ALGEBRAIC'
+  phi            = 30.0
+  phi_w          = 11.3
+  phip           = 0.6
+
+
+# MFIX-GUI section
+#!MFIX-GUI regions_dict = {"order": ["Background", "top outlet", "Initial
+#!MFIX-GUI   solids", "Wall"], "regions": {"Background": {"to": [{"__type__":
+#!MFIX-GUI   "equation", "eq": "float(xmax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(ymax)"}, {"__type__": "equation", "eq": "float(zmax)"}],
+#!MFIX-GUI   "from": [{"__type__": "equation", "eq": "float(xmin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(ymin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(zmin)"}], "color": "#ffffff",
+#!MFIX-GUI   "geometry_pool": ["hopper.stl"]}, "top outlet": {"to":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymax)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "color": "#957dda",
+#!MFIX-GUI   "geometry_pool": ["hopper.stl"], "type": "XZ-plane"}, "Initial
+#!MFIX-GUI   solids": {"to": [{"__type__": "equation", "eq": "float(xmax)"},
+#!MFIX-GUI   1.5, {"__type__": "equation", "eq": "float(zmax)"}], "from":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmin)"}, 1.0, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(zmin)"}], "color": "#ff0000",
+#!MFIX-GUI   "geometry_pool": ["hopper.stl"]}, "Wall": {"facet_count": 2464,
+#!MFIX-GUI   "to": [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "color": "#00ff00",
+#!MFIX-GUI   "geometry_pool": ["hopper.stl"], "type": "STL"}}}
+#!MFIX-GUI gui_version = 25.2pre
+#!MFIX-GUI project_notes = ""
+#!MFIX-GUI author = tutorial
+#!MFIX-GUI geometry = {"geometry_dict": {"hopper.stl": {"geo_type": "stl",
+#!MFIX-GUI   "filename": "hopper.stl", "centerx": 0.008288043499085473,
+#!MFIX-GUI   "centery": 0.8954580760422098, "centerz": -9.508127737462483e-20,
+#!MFIX-GUI   "extentxmin": -0.5, "extentxmax": 0.5, "extentymax": 2.1,
+#!MFIX-GUI   "extentzmin": -0.5, "extentzmax": 0.5, "flipnormals": true}},
+#!MFIX-GUI   "tree": {"hopper.stl": []}}
+#!MFIX-GUI bc_regions = [[[1], ["top outlet"]], [[2], ["Wall"]]]
+#!MFIX-GUI ic_regions = [[[1], ["Background"]], [[2], ["Initial solids"]]]
+#!MFIX-GUI vtk_regions = [[[1], ["Background"]]]
+#!MFIX-GUI parameters = {"order": ["min", "max", "xmin", "xmax", "ymin", "ymax",
+#!MFIX-GUI   "zmin", "zmax", "km", "m", "cm", "mm", "um", "mile", "yard",
+#!MFIX-GUI   "foot", "inch", "degree", "ft", "ins"], "parameters": {"min": 0.0,
+#!MFIX-GUI   "max": 0.0, "xmin": -0.5, "xmax": 0.5, "ymin": -0.05, "ymax": 2.0,
+#!MFIX-GUI   "zmin": -0.5, "zmax": 0.5, "km": 1000.0, "m": 1.0, "cm": 0.01,
+#!MFIX-GUI   "mm": 0.001, "um": 1e-06, "mile": 1609.34, "yard": 0.9144, "foot":
+#!MFIX-GUI   0.3048, "inch": 0.0254, "degree": 0.017453292519943295, "ft":
+#!MFIX-GUI   0.3048, "ins": 0.0254}}
+#!MFIX-GUI OMP_NUM_THREADS = 1
+#!MFIX-GUI submit_to_queue = 0
+#!MFIX-GUI created_date = 2019-11-24 13:19
+#!MFIX-GUI modified_time = 2025-05-02 11:35
+#!MFIX-GUI modified_by = dietikej|jweber|cgw
+#!MFIX-GUI queue_template = {"JOB_NAME": "hopper", "CORES": 1, "QUEUE":
+#!MFIX-GUI   "general", "LONG": "", "template": "Joule 3"}
+#!MFIX-GUI BUILD_DMP = 0
+#!MFIX-GUI BUILD_INTERACTIVE = PYMFIX
+#!MFIX-GUI BUILD_PARALLEL = 1
+#!MFIX-GUI BUILD_SMP = 0
+#!MFIX-GUI BUILD_TYPE = RELWITHDEBINFO
+#!MFIX-GUI project_version = 3
+#!MFIX-GUI mpirun_flags =

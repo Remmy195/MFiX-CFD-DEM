@@ -1,0 +1,46 @@
+Example: Char combustion
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  \text{C}(s) + 0.5 \text{O}_2 (g) → \text{CO}(g)
+
+Notes:
+
+ * Species database names and aliases are defined on single lines.
+ * The heat of reaction is defined.
+ * The gas phase receives 20% of the heat of reaction.
+ * Solids phase 1 receives 80% of the heat of reaction.
+
+.. code-block:: none
+
+    NMAX_g = 2
+
+    ! No. gas phase species
+
+    Species_g(1) = "O2" "CO"
+    Species_Alias_g(1) = "O2" "CO"
+
+    ! Database names
+    ! Species aliases
+
+    NMAX_s(1) = 2
+    Species_s(1,1) = "C(GR) REF ELEMENT"
+    Species_s(1,2) = "Coal Ash"
+
+    ! No. solids phase species
+    ! Fixed Carbon (graphite)
+    ! Coal Ash
+
+    Species_Alias_s(1,1) = "C" "Ash"
+
+    ! Fixed Carbon and Coal Ash
+
+    @(RXNS)                       ! Begin reaction block
+    Char_Combustion {             ! Reaction 1 construct
+    chem_eq = "C + 0.5O2 --> CO"  ! Chemical Reaction Eq
+    DH = -52834.0                 ! (cal/moles-reacted)
+    fracDH(0) = 0.2               ! HoR assigned to gas phase
+    fracDH(1) = 0.8               ! HoR assigned to s. phase 1
+    }                             ! End reaction 1 construct
+    @(END)                        ! End reaction block

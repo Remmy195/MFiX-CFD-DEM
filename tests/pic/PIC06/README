@@ -1,0 +1,3 @@
+The Atwood numbers tested for PIC06 are 0.1667, 0.2857 and 0.4737 (sub-folders are named accordingly). This is reflected in the set-up by changing particle density.
+
+Area averaged void fraction is extracted using postmfix (./postmfix < read.postmfix). Height_stat_postmfix_final.py is used to find the location of mixing layerfront.

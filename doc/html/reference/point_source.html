@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.1.15. Point sources (PS) &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.1.16. Run control" href="run_control.html" />
+    <link rel="prev" title="12.1.14. Physical parameters" href="physical_parameters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">12. Keyword reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="keywords.html">12.1. Keywords</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="batch_queue_environment.html">12.1.1. Batch queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boundary_condition.html">12.1.2. Boundary conditions (BC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cartesian_grid.html">12.1.3. Cartesian grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemical_reactions.html">12.1.4. Chemical reactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="discrete_element.html">12.1.5. Discrete element model (DEM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gas_phase.html">12.1.6. Gas phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry_and_discretization.html">12.1.7. Geometry and discretization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initial_condition.html">12.1.8. Initial conditions (IC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="internal_surface.html">12.1.9. Internal surfaces (IS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numerical_parameters.html">12.1.10. Numerical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_control.html">12.1.11. Output control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parallelization_control.html">12.1.12. Parallelization control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="particle_in_cell.html">12.1.13. Particle-in-cell model (PIC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_parameters.html">12.1.14. Physical parameters</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">12.1.15. Point sources (PS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ps-i-e-ps">12.1.15.1. <span class="kwname">PS_I_E(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-i-w-ps">12.1.15.2. <span class="kwname">PS_I_W(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-j-n-ps">12.1.15.3. <span class="kwname">PS_J_N(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-j-s-ps">12.1.15.4. <span class="kwname">PS_J_S(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-k-b-ps">12.1.15.5. <span class="kwname">PS_K_B(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-k-t-ps">12.1.15.6. <span class="kwname">PS_K_T(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-massflow-g-ps">12.1.15.7. <span class="kwname">PS_MASSFLOW_G(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-massflow-s-ps-phase">12.1.15.8. <span class="kwname">PS_MASSFLOW_S(PS, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-t-g-ps">12.1.15.9. <span class="kwname">PS_T_G(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-t-s-ps-phase">12.1.15.10. <span class="kwname">PS_T_S(PS, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-u-g-ps">12.1.15.11. <span class="kwname">PS_U_G(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-u-s-ps-phase">12.1.15.12. <span class="kwname">PS_U_S(PS, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-v-g-ps">12.1.15.13. <span class="kwname">PS_V_G(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-v-s-ps-phase">12.1.15.14. <span class="kwname">PS_V_S(PS, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-w-g-ps">12.1.15.15. <span class="kwname">PS_W_G(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-w-s-ps-phase">12.1.15.16. <span class="kwname">PS_W_S(PS, PHASE)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-x-e-ps">12.1.15.17. <span class="kwname">PS_X_E(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-x-g-ps-species">12.1.15.18. <span class="kwname">PS_X_G(PS, SPECIES)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-x-s-ps-phase-species">12.1.15.19. <span class="kwname">PS_X_S(PS, PHASE, SPECIES)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-x-w-ps">12.1.15.20. <span class="kwname">PS_X_W(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-y-n-ps">12.1.15.21. <span class="kwname">PS_Y_N(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-y-s-ps">12.1.15.22. <span class="kwname">PS_Y_S(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-z-b-ps">12.1.15.23. <span class="kwname">PS_Z_B(PS)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ps-z-t-ps">12.1.15.24. <span class="kwname">PS_Z_T(PS)</span></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="run_control.html">12.1.16. Run control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solids_phase.html">12.1.17. Solids phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thermochemical_properties.html">12.1.18. Thermochemical properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="two_fluid_model.html">12.1.19. Two-fluid model (TFM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="udf_control.html">12.1.20. UDF control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">12. </span>Keyword reference</a></li>
+          <li class="breadcrumb-item"><a href="keywords.html"><span class="section-number">12.1. </span>Keywords</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1.15. </span>Point sources (PS)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/point_source.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="point-sources-ps">
+<h1><span class="section-number">12.1.15. </span>Point sources (PS)<a class="headerlink" href="#point-sources-ps" title="Link to this heading">¶</a></h1>
+<p>Point sources are used in place of mass inlets where either the geometry
+and/or grid resolution prohibit proper boundary condition specification. For
+example, a point source may be used to model an injector with dimensions smaller
+than the grid. Point sources may be defined within a single computational cell,
+along a plane, or as a volume of computational cells.</p>
+<p>Point sources introduce mass directly into a computational cell unlike a
+boundary condition which specifies flow along a cell face. One consequence of
+this implementation is that point sources are subjected to convection/diffusion
+forces and may not travel parallel to the specified directional preference.
+Directional preference is specified with a velocity vector (i.e., <code class="docutils literal notranslate"><span class="pre">PS_U_g</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PS_V_g</span></code>, etc.), however, directional preference is not required.</p>
+<p>Examples showing how to setup point sources can be found in: <code class="docutils literal notranslate"><span class="pre">legacy_tutorials/point_source_spiral</span></code>
+Legacy tutorials can be found by downloading the source tarball. They are meant to provide representative setups for older versions of MFiX (before the launch of the GUI), and are not guaranteed to run with the latest version of MFiX.</p>
+<section id="ps-i-e-ps">
+<span id="ps-i-e"></span><h2><span class="section-number">12.1.15.1. </span><span class="kwname">PS_I_E(PS)</span><a class="headerlink" href="#ps-i-e-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>I index of the east-most cell.</p>
+</section>
+<section id="ps-i-w-ps">
+<span id="ps-i-w"></span><h2><span class="section-number">12.1.15.2. </span><span class="kwname">PS_I_W(PS)</span><a class="headerlink" href="#ps-i-w-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>I index of the west-most cell.</p>
+</section>
+<section id="ps-j-n-ps">
+<span id="ps-j-n"></span><h2><span class="section-number">12.1.15.3. </span><span class="kwname">PS_J_N(PS)</span><a class="headerlink" href="#ps-j-n-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>J index of the north-most cell.</p>
+</section>
+<section id="ps-j-s-ps">
+<span id="ps-j-s"></span><h2><span class="section-number">12.1.15.4. </span><span class="kwname">PS_J_S(PS)</span><a class="headerlink" href="#ps-j-s-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>J index of the south-most cell.</p>
+</section>
+<section id="ps-k-b-ps">
+<span id="ps-k-b"></span><h2><span class="section-number">12.1.15.5. </span><span class="kwname">PS_K_B(PS)</span><a class="headerlink" href="#ps-k-b-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>K index of the bottom-most cell.</p>
+</section>
+<section id="ps-k-t-ps">
+<span id="ps-k-t"></span><h2><span class="section-number">12.1.15.6. </span><span class="kwname">PS_K_T(PS)</span><a class="headerlink" href="#ps-k-t-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>K index of the top-most cell.</p>
+</section>
+<section id="ps-massflow-g-ps">
+<span id="ps-massflow-g"></span><h2><span class="section-number">12.1.15.7. </span><span class="kwname">PS_MASSFLOW_G(PS)</span><a class="headerlink" href="#ps-massflow-g-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Gas mass flow rate through the point source.</p>
+</section>
+<section id="ps-massflow-s-ps-phase">
+<span id="ps-massflow-s"></span><h2><span class="section-number">12.1.15.8. </span><span class="kwname">PS_MASSFLOW_S(PS, PHASE)</span><a class="headerlink" href="#ps-massflow-s-ps-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Solids mass flow rate through the point source.</p>
+</section>
+<section id="ps-t-g-ps">
+<span id="ps-t-g"></span><h2><span class="section-number">12.1.15.9. </span><span class="kwname">PS_T_G(PS)</span><a class="headerlink" href="#ps-t-g-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Temperature of incoming gas.</p>
+</section>
+<section id="ps-t-s-ps-phase">
+<span id="ps-t-s"></span><h2><span class="section-number">12.1.15.10. </span><span class="kwname">PS_T_S(PS, PHASE)</span><a class="headerlink" href="#ps-t-s-ps-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Temperature of incoming solids.</p>
+</section>
+<section id="ps-u-g-ps">
+<span id="ps-u-g"></span><h2><span class="section-number">12.1.15.11. </span><span class="kwname">PS_U_G(PS)</span><a class="headerlink" href="#ps-u-g-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>X-axial component of incoming gas velocity.</p>
+</section>
+<section id="ps-u-s-ps-phase">
+<span id="ps-u-s"></span><h2><span class="section-number">12.1.15.12. </span><span class="kwname">PS_U_S(PS, PHASE)</span><a class="headerlink" href="#ps-u-s-ps-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>X-axial component of incoming solids velocity.</p>
+</section>
+<section id="ps-v-g-ps">
+<span id="ps-v-g"></span><h2><span class="section-number">12.1.15.13. </span><span class="kwname">PS_V_G(PS)</span><a class="headerlink" href="#ps-v-g-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Y-axial component of incoming gas velocity.</p>
+</section>
+<section id="ps-v-s-ps-phase">
+<span id="ps-v-s"></span><h2><span class="section-number">12.1.15.14. </span><span class="kwname">PS_V_S(PS, PHASE)</span><a class="headerlink" href="#ps-v-s-ps-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Y-axial component of incoming solids velocity.</p>
+</section>
+<section id="ps-w-g-ps">
+<span id="ps-w-g"></span><h2><span class="section-number">12.1.15.15. </span><span class="kwname">PS_W_G(PS)</span><a class="headerlink" href="#ps-w-g-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Z-axial component of incoming gas velocity.</p>
+</section>
+<section id="ps-w-s-ps-phase">
+<span id="ps-w-s"></span><h2><span class="section-number">12.1.15.16. </span><span class="kwname">PS_W_S(PS, PHASE)</span><a class="headerlink" href="#ps-w-s-ps-phase" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Z-axial component of incoming solids velocity.</p>
+</section>
+<section id="ps-x-e-ps">
+<span id="ps-x-e"></span><h2><span class="section-number">12.1.15.17. </span><span class="kwname">PS_X_E(PS)</span><a class="headerlink" href="#ps-x-e-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>X coordinate of the east face or edge.</p>
+</section>
+<section id="ps-x-g-ps-species">
+<span id="ps-x-g"></span><h2><span class="section-number">12.1.15.18. </span><span class="kwname">PS_X_G(PS, SPECIES)</span><a class="headerlink" href="#ps-x-g-ps-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le 100\)</span></p></li>
+</ul>
+<p>Gas phase incoming species n mass fraction.</p>
+</section>
+<section id="ps-x-s-ps-phase-species">
+<span id="ps-x-s"></span><h2><span class="section-number">12.1.15.19. </span><span class="kwname">PS_X_S(PS, PHASE, SPECIES)</span><a class="headerlink" href="#ps-x-s-ps-phase-species" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(1 \le Species \le 100\)</span></p></li>
+</ul>
+<p>Solids phase incoming species n mass fraction.</p>
+</section>
+<section id="ps-x-w-ps">
+<span id="ps-x-w"></span><h2><span class="section-number">12.1.15.20. </span><span class="kwname">PS_X_W(PS)</span><a class="headerlink" href="#ps-x-w-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>X coordinate of the west face or edge.</p>
+</section>
+<section id="ps-y-n-ps">
+<span id="ps-y-n"></span><h2><span class="section-number">12.1.15.21. </span><span class="kwname">PS_Y_N(PS)</span><a class="headerlink" href="#ps-y-n-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Y coordinate of the north face or edge.</p>
+</section>
+<section id="ps-y-s-ps">
+<span id="ps-y-s"></span><h2><span class="section-number">12.1.15.22. </span><span class="kwname">PS_Y_S(PS)</span><a class="headerlink" href="#ps-y-s-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Y coordinate of the south face or edge.</p>
+</section>
+<section id="ps-z-b-ps">
+<span id="ps-z-b"></span><h2><span class="section-number">12.1.15.23. </span><span class="kwname">PS_Z_B(PS)</span><a class="headerlink" href="#ps-z-b-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Z coordinate of the bottom face or edge.</p>
+</section>
+<section id="ps-z-t-ps">
+<span id="ps-z-t"></span><h2><span class="section-number">12.1.15.24. </span><span class="kwname">PS_Z_T(PS)</span><a class="headerlink" href="#ps-z-t-ps" title="Link to this heading">¶</a></h2>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le PS \le 5000\)</span></p></li>
+</ul>
+<p>Z coordinate of the top face or edge.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="physical_parameters.html" class="btn btn-neutral float-left" title="12.1.14. Physical parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="run_control.html" class="btn btn-neutral float-right" title="12.1.16. Run control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

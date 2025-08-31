@@ -1,0 +1,116 @@
+Example: Compound DEM reaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CO combustion:
+
+.. math::
+
+  \text{CO}(g) + 0.5\text{O}_2 (g) → \text{CO}_2 (g)
+
+CO2 gasification:
+
+.. math::
+
+  \text{C}(s) + \text{CO}_2 (g) → 2\text{CO}(g)
+
+Char combustion:
+
+.. math::
+
+  \text{C}(s) + 0.5\text{O}_2 (g) → \text{CO}(g)
+
+Notes:
+
+ * Gas phase species names and aliases are defined on the same line.
+ * Heats of reaction for all reactions are calculated automatically.
+ * A TFM reaction block is used for the gas phase homogeneous reaction.
+ * A DEM reaction block is used for gas/solids reactions.
+ * Reaction constructs are given in one line.
+
+.. code-block:: none
+
+    ! Gas phase species data
+    NMAX_g = 3
+    Species_g(1) = "O2"
+    Species_Alias_g(1) = "O2"
+    Species_g(2) = "CO"
+    Species_Alias_g(2) = "CO"
+    Species_g(3) = "CO2"
+    Species_Alias_g(3) = "CO2"
+    ! DES solids phase species data
+    NMAX_s(1) = 2
+    Species_s(1,1) = "C(GR) REF ELEMENT"
+    Species_s(1,2) = "Coal Ash"
+    Species_Alias_s(1,1) = "C"
+    Species_Alias_s(1,2) = "Ash"
+    ! Homogeneous gas phase reactions
+    @(RXNS)
+    CO_Combustion { chem_eq = "CO + 0.5O2 --> CO2" }
+    @(END)
+    ! DES Reaction block
+    @(DES_RXNS)
+    CO2_Gasification { chem_eq = "2.0C + O2 --> 2CO" }
+    Char_Combustion { chem_eq = "C + CO2 --> 2CO" }
+    @(DES_END)
+
+Additional comments:
+
+* Coal Ash is not a species included in the thermochemical database and
+  would require that its properties be given in the data file (see Section 8.14
+  Thermochemical properties).
+* One-line reaction constructs are only possible when the heat of reaction is
+  automatically calculated (i.e., the chemical equation is the only input
+  parameter).
+
+Reaction Rates
+--------------
+
+Define chemical reaction rates in user defined function (UDF) files.
+
+ * A reaction rate should be given in either ``usr_rates.f`` or ``usr_rates_des.f``
+   for each reaction listed in the data file.
+ * All TFM gas and solids phase reactions as well as homogeneous gas phase
+   reactions for DEM simulations are to be included in ``usr_rates.f``. Reaction
+   rates defined in ``usr_rates.f`` must have units of reacted moles per time per
+   volume (i.e., mol/sec/cm3 for CGS units and kmol/sec/m3 for SI units).
+ * All discrete phase heterogeneous (particle/gas) reactions are to be included in
+   ``usr_rates_des.f`` located in the des subfolder. Reaction rates defined in
+   ``usr_rates_des.f`` must have units of reacted moles per time (i.e., mol/sec
+   for CGS units and kmol/sec for SI units).
+
+.. note::
+
+   Formation and consumption rates are automatically calculated for each
+   species from the reaction rate and chemical equation.
+
+The rate in terms of reacted moles is related to the rates of formation and
+consumption through the stoichiometric coefficients. For example, consider
+the homogeneous gas phase reaction of methane combustion:
+
+.. math::
+
+  \text{CH}_4 + 2\text{O}_2 → \text{CO}_2 + 2\text{H}_2 O
+
+The rate in terms of reacted moles is related to the rates of formation and
+consumption as
+
+.. math::
+
+  rate &= \frac{-r_{CH_4}}{1} (\frac{kmol_{CH_4} / (s \cdot m^3)}{mol_{CH_4}})
+       = \frac{-r_{O_2}}{2} (\frac{kmol_{O_2} / (s \cdot m^3)}{mol_{O_2}}) \\
+       &= \frac{r_{CO_2}}{1} (\frac{kmol_{CO_2} / (s \cdot m^3)}{mol_{CO_2}})
+       = \frac{r_{H_{2}O}}{2} (\frac{kmol_{H_{2}O} / (s \cdot m^3)}{mol_{H_{2}O}})
+
+where :math:`-r_{CH_4}` and :math:`-r_{O_2}` are the rates of consumption of methane and oxygen, and
+:math:`r_{CO_2}` and :math:`r_{H_{2}O}` are the rates of formation of carbon dioxide and water vapor,
+respectively.
+
+Each reaction rate is assigned to the variable ``RATES(rxn_name)``, where
+``rxn_name`` is the reaction identifier used in the reaction construct. To minimize input
+errors when specifying reaction rates, species aliases (``SPECIES_ALIAS``) defined in
+the data file should be used in lieu of the associated species index.
+
+For example, if oxygen is defined as gas phase species 2 with an alias of ``O2``, (e.g.,
+``SPECIES_ALIAS_g(2)="O2"``), when accessing gas phase species data for
+oxygen (e.g., molecular weight; MW_g), "O2" should be used and not the integer
+index 2, (e.g, ``MW_g(O2)``).

@@ -1,0 +1,4 @@
+Cartesian grid
+==============
+
+.. include:: /reference/cartesian_grid_gen.rst

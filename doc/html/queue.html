@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. Running interactive solver job in queue &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="_static/mfix.css?v=31071079" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="10. User-Defined Functions" href="reference/user_defined_functions.html" />
+    <link rel="prev" title="8. GUI reference" href="user_interface_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Running interactive solver job in queue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#queue-templates">9.1. Queue templates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9. </span>Running interactive solver job in queue</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/queue.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-interactive-solver-job-in-queue">
+<h1><span class="section-number">9. </span>Running interactive solver job in queue<a class="headerlink" href="#running-interactive-solver-job-in-queue" title="Link to this heading">¶</a></h1>
+<p>MFiX solver jobs can also be submitted to a queue through the <a class="reference internal" href="user_interface_reference.html#run-dialog"><span class="std std-ref">Run dialog</span></a>.
+This functionality must be added to the GUI by the user by creating a
+<cite>Queue Template</cite>. This template allows users to customize the functionality of
+the GUI for their specific system.</p>
+<p>Currently only a queue template that supports queue submissions on
+<a class="reference external" href="https://hpc.netl.doe.gov/about/supercomputer/index.html">Joule</a> (NETL’s supercomputer)
+is included. Joule uses Slurm as the queueing system.</p>
+<p>If you do not want to use the GUI or interactive features with your batch job,
+you can build a <a class="reference internal" href="solver/build-batch.html#build-batch"><span class="std std-ref">Batch Solver</span></a> and run as in MFiX 2016 and earlier.</p>
+<section id="queue-templates">
+<h2><span class="section-number">9.1. </span>Queue templates<a class="headerlink" href="#queue-templates" title="Link to this heading">¶</a></h2>
+<p>Queue templates are included with the MFiX source code and
+can be found in the <code class="docutils literal notranslate"><span class="pre">queue_templates</span></code> directory. Queue
+templates are files that contain two sections. The first section is the
+configuration section that tells the GUI what widgets to display as well
+as various options for those widgets. The second section is the actual
+script that is executed.</p>
+<p>Variables can be used throughout the template, including with the
+widgets, and are reference by <code class="docutils literal notranslate"><span class="pre">${my_variable}</span></code>. Each template include
+some built in variables including:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SCRIPT</p></td>
+<td><p>the path of this script, in the run directory</p></td>
+</tr>
+<tr class="row-odd"><td><p>PROJECT_NAME</p></td>
+<td><p>the name of the project</p></td>
+</tr>
+<tr class="row-even"><td><p>JOB_ID</p></td>
+<td><p>the job id extracted from the submit command</p></td>
+</tr>
+<tr class="row-odd"><td><p>COMMAND</p></td>
+<td><p>the command that executes mfix</p></td>
+</tr>
+</tbody>
+</table>
+<p>The configuration section starts with <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">CONFIG</span></code> and ends with
+<code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">END</span> <span class="pre">CONFIG</span></code>. This section uses the <a class="reference external" href="https://en.wikipedia.org/wiki/INI_file">INI file</a>
+format. Sections are defined with a <code class="docutils literal notranslate"><span class="pre">[section]</span></code> header, followed by a
+collection of <code class="docutils literal notranslate"><span class="pre">key=value</span></code> or <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> entries for defining
+parameters. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## CONFIG</span>
+<span class="p">[</span><span class="n">My</span> <span class="n">Section</span><span class="p">]</span>
+<span class="n">foodir</span><span class="p">:</span> <span class="o">%</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span><span class="n">s</span><span class="o">/</span><span class="n">whatever</span>
+<span class="nb">dir</span><span class="o">=</span><span class="n">frob</span>
+<span class="n">long</span><span class="p">:</span> <span class="n">this</span> <span class="n">value</span> <span class="n">continues</span>
+   <span class="ow">in</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">line</span>
+<span class="c1">## END CONFIG</span>
+</pre></div>
+</div>
+<p>The configuration section has a special section called <code class="docutils literal notranslate"><span class="pre">[options]</span></code>
+where the following options can be specified:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>name of the template, this is displayed in the template drop-down box in the GUI</p></td>
+</tr>
+<tr class="row-odd"><td><p>job_id_regex</p></td>
+<td><p>regular expression to extract the job id from the output of the submit command</p></td>
+</tr>
+<tr class="row-even"><td><p>status_regex</p></td>
+<td><p>regular expression to extract the job status from the status command</p></td>
+</tr>
+<tr class="row-odd"><td><p>submit</p></td>
+<td><p>the submission command</p></td>
+</tr>
+<tr class="row-even"><td><p>delete</p></td>
+<td><p>the job cancel or delete command</p></td>
+</tr>
+<tr class="row-odd"><td><p>status</p></td>
+<td><p>the job status command</p></td>
+</tr>
+</tbody>
+</table>
+<p>An example of values that work with Grid Engine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[options]
+name: Joule
+job_id_regex: (\d+)
+status_regex: ([rqw])
+submit: qsub ${SCRIPT}
+delete: qdel ${JOB_ID}
+status: qstat -j ${JOB_ID}
+</pre></div>
+</div>
+<p>To define a new variable and widget to edit that variable in the GUI,
+create a new section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">my_value</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The widget and options for that widget can then be selected by
+specifying various parameters including:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>widget</p></td>
+<td><p>the widget to be used</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lineedit</span></code>, <code class="docutils literal notranslate"><span class="pre">combobox</span></code>,
+<code class="docutils literal notranslate"><span class="pre">checkbox</span></code>, <code class="docutils literal notranslate"><span class="pre">spinbox</span></code>,
+<code class="docutils literal notranslate"><span class="pre">doublespinbox</span></code>, <code class="docutils literal notranslate"><span class="pre">listwidget</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>label</p></td>
+<td><p>text to be placed beside the
+widget</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">any</span> <span class="pre">string</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>default value</p></td>
+<td><p>a value such as <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">10.3</span></code>,
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">text</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>items</p></td>
+<td><p>list of items for the combobox
+or listwidget</p></td>
+<td><p>items delimited by | character</p></td>
+</tr>
+<tr class="row-even"><td><p>help</p></td>
+<td><p>text to be displayed in the
+tooltip for that widget</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">this</span> <span class="pre">widget</span> <span class="pre">does</span> <span class="pre">this</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>true</p></td>
+<td><p>value to be returned if a
+checkbox is checked</p></td>
+<td><p>a value such as <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">10.3</span></code>,
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">text</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>false</p></td>
+<td><p>value to be returned if a
+checkbox is un-checked</p></td>
+<td><p>a value such as <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">10.3</span></code>,
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">text</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>An example defining a combo box:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">my_email</span><span class="p">]</span>
+<span class="n">widget</span><span class="p">:</span> <span class="n">combobox</span>
+<span class="n">label</span><span class="p">:</span> <span class="n">email</span>
+<span class="n">value</span><span class="p">:</span> <span class="n">you</span><span class="nd">@mail</span><span class="o">.</span><span class="n">com</span>
+<span class="n">items</span><span class="p">:</span> <span class="n">you</span><span class="nd">@mail</span><span class="o">.</span><span class="n">com</span><span class="o">|</span>
+       <span class="n">me</span><span class="nd">@mail</span><span class="o">.</span><span class="n">net</span><span class="o">|</span>
+       <span class="n">hi</span><span class="nd">@mail</span><span class="o">.</span><span class="n">org</span>
+<span class="n">help</span><span class="p">:</span> <span class="n">email</span> <span class="n">to</span> <span class="n">send</span> <span class="n">notifications</span> <span class="n">to</span>
+</pre></div>
+</div>
+<p>The value of this widget can now be referenced throughout the template
+with <code class="docutils literal notranslate"><span class="pre">${my_email}</span></code></p>
+<p>The rest of the configuration file, outside of the <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">CONFIG</span></code> to
+<code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">END</span> <span class="pre">CONFIG</span></code> section is the script that needs to be executed to
+submit a job to your specific queue system. For example, with Grid
+Engine on Joule, the following script specifies the job name, job type,
+cores, and queue. In addition, it loads the required modules needed for
+the MFiX run, and finally runs mfix with <code class="docutils literal notranslate"><span class="pre">${COMMAND}</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>## Change into the current working directory
+#$ -cwd
+##
+## The name for the job. It will be displayed this way on qstat
+#$ -N ${JOB_NAME}
+##
+## Number of cores to request
+#$ -pe ${JOB_TYPE} ${CORES}
+##
+## Queue Name
+#$ -q ${QUEUE}
+##
+
+##Load Modules
+module load ${MODULES}
+##Run the job
+${COMMAND}
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user_interface_reference.html" class="btn btn-neutral float-left" title="8. GUI reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference/user_defined_functions.html" class="btn btn-neutral float-right" title="10. User-Defined Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

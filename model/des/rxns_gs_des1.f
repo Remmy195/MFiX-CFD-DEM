@@ -1,0 +1,298 @@
+#include "error.inc"
+
+MODULE RXNS_GS_DES1_MOD
+
+   use calc_rrates_des_mod, only: zero_rrate_des, calc_rrates_des
+   use vtk
+
+CONTAINS
+
+!vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv!
+!                                                                      !
+!  Module name: CONV_GS_DES1                                           !
+!  Author: J.Musser: 16-Jun-10                                         !
+!                                                                      !
+!  Purpose: This routine is called from the DISCRETE side to calculate !
+!  the gas-particle convective heat transfer.                          !
+!                                                                      !
+!  Comments: Explicitly coupled simulations use a stored convective    !
+!  heat transfer coefficient. Otherwise, the convective heat transfer  !
+!  coeff is calculated every time step and the total interphase energy !
+!  transferred is 'stored' and used explicitly in the gas phase. The     !
+!  latter conserves all energy
+!                                                                      !
+!  REF: Zhou, Yu, and Zulli, "Particle scale study of heat transfer in !
+!       packed and bubbling fluidized beds," AIChE Journal, Vol. 55,   !
+!       no 4, pp 868-884, 2009.                                        !
+!                                                                      !
+!^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^!
+   SUBROUTINE RXNS_GS_DES1
+
+      use constant, only: Pi
+! Flag: The fluid and discrete solids are explicitly coupled.
+      use discretelement, only: DES_EXPLICITLY_COUPLED
+      use discretelement, only: DTSOLID
+      use discretelement, only: PIJK
+      use discretelement, only: MAX_PIP
+
+      use des_rxns, only: DES_R_gp, DES_R_gc
+      use des_rxns, only: DES_R_PHASE, DES_SUM_R_g
+      use des_rxns, only: DES_HOR_G
+
+      use stiff_chem, only: stiff_chemistry
+
+      use geometry, only: DO_K, VOL
+
+      use particle_filter, only: FILTER_CELL, FILTER_WEIGHT, DES_INTERP_ON
+
+      use physprop, only: NMAX
+
+      use functions, only: FLUID_AT
+      use functions, only: IS_NORMAL
+
+      use param1, only: ZERO
+      use des_rxns, only: DES_R_s
+      use des_thermo, only: RXNS_Qs
+
+      use param1, only: DIMENSION_LM
+      use param, only: DIMENSION_M
+
+      IMPLICIT NONE
+
+      INTEGER :: IJK, NP,LC
+
+! Local gas phase values.
+      DOUBLE PRECISION :: lRgp(NMAX(0)) ! Rate of species production
+      DOUBLE PRECISION :: lRgc(NMAX(0)) ! Rate of species consumption
+      DOUBLE PRECISION :: lHoRg         ! Heat of reaction
+      DOUBLE PRECISION :: lSUMRg        ! lSUMRg
+
+! Interphase mass transfer
+      DOUBLE PRECISION :: lRPhase(DIMENSION_LM+DIMENSION_M-1)
+
+      DOUBLE PRECISION :: WEIGHT
+
+! Loop bound for filter
+      INTEGER :: LP_BND
+
+      IF(DES_EXPLICITLY_COUPLED .OR. STIFF_CHEMISTRY) RETURN
+
+      IF(SAVE_DES_RRATES) Des_rrates_out(:,:) = ZERO
+      IF(SAVE_PART_RRATES) Part_rrates_out(:,:) = ZERO
+
+! Loop bounds for interpolation.
+      LP_BND = merge(27,9,DO_K)
+
+      DO NP=1,MAX_PIP
+         IF(.NOT.IS_NORMAL(NP)) CYCLE
+
+! Avoid convection calculations in cells without fluid (cut-cell)
+         IF(.NOT.FLUID_AT(PIJK(NP,4))) THEN
+            DES_R_s(NP,:) = ZERO
+            RXNS_Qs(NP) = ZERO
+
+! No additional calculations are needed for explicitly coupled
+         ELSE
+
+! Calculate the heat transfer coefficient.
+            CALL CALC_RRATES_DES(NP, lRgp, lRgc, lRPhase, lHoRg, lSUMRg)
+
+! Integrate over solids time step and store in global array.
+!---------------------------------------------------------------------//
+! Store the gas phase source terms.
+            IF(DES_INTERP_ON) THEN
+               DO LC=1,LP_BND
+                  IJK = FILTER_CELL(LC,NP)
+                  WEIGHT = FILTER_WEIGHT(LC,NP)*DTSOLID
+
+!   !$omp atomic
+                  DES_R_gp(IJK,:) = DES_R_gp(IJK,:) + lRgp*WEIGHT
+!   !$omp atomic
+                  DES_R_gc(IJK,:) = DES_R_gc(IJK,:) + lRgc*WEIGHT
+!   !$omp atomic
+                  DES_R_PHASE(IJK,:) = DES_R_PHASE(IJK,:) + lRPhase*WEIGHT
+!   !$omp atomic
+                  DES_HOR_G(IJK) = DES_HOR_G(IJK) + lHoRg*WEIGHT
+!   !$omp atomic
+                  DES_SUM_R_g(IJK) = DES_SUM_R_g(IJK) + lSUMRg*WEIGHT
+
+               ENDDO
+            ELSE
+               IJK = PIJK(NP,4)
+               WEIGHT = DTSOLID
+
+               DES_R_gp(IJK,:) = DES_R_gp(IJK,:) + lRgp*WEIGHT
+               DES_R_gc(IJK,:) = DES_R_gc(IJK,:) + lRgc*WEIGHT
+               DES_R_PHASE(IJK,:) = DES_R_PHASE(IJK,:) + lRPhase*WEIGHT
+               DES_HOR_G(IJK) = DES_HOR_G(IJK) + lHoRg*WEIGHT
+               DES_SUM_R_g(IJK) = DES_SUM_R_g(IJK) + lSUMRg*WEIGHT
+            ENDIF
+         ENDIF
+      ENDDO
+
+! Note that MPI sync is managed at the end of des_time_march for
+! non-explicitly coupled cases that use interpolation.
+
+      RETURN
+   END SUBROUTINE RXNS_GS_DES1
+
+
+!vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv!
+!                                                                      !
+!  Subroutine: RXNS_GS_GAS1                                            !
+!  Author: J.Musser                                   Date: 21-NOV-14  !
+!                                                                      !
+!  Purpose: This routine is called from the CONTINUUM. It calculates   !
+!  the scalar cell center drag force acting on the fluid using         !
+!  interpolated values for the gas velocity and volume fraction. The   !
+!  The resulting sources are interpolated back to the fluid grid.      !
+!                                                                      !
+!  NOTE: The loop over particles includes ghost particles so that MPI  !
+!  communications are needed to distribute overlapping force between   !
+!  neighboring grid cells. This is possible because only cells "owned" !
+!  by the current process will have non-zero weights.                  !
+!                                                                      !
+!^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^!
+   SUBROUTINE RXNS_GS_GAS1
+
+! Size of particle array on this process.
+      use discretelement, only: MAX_PIP
+! Flag to use interpolation
+      use particle_filter, only: DES_INTERP_ON
+! IJK of fluid cell containing particles center
+      use discretelement, only: PIJK
+! Gas phase mass, species, and energy equation sources
+      use des_rxns, only: DES_R_gp, DES_R_gc, DES_SUM_R_g
+      use des_rxns, only: DES_R_PHASE, DES_HOR_g
+! Number of species for each phase
+      use physprop, only: NMAX
+! Function for identifying fluid cells and normal particles.
+      use functions, only: FLUID_AT
+      use functions, only: IS_NORMAL
+
+      use geometry, only: DO_K, VOL
+      use particle_filter, only: FILTER_CELL, FILTER_WEIGHT, DES_INTERP_ON
+
+! MPI function for collecting interpolated data from ghost cells.
+      use sendrecvnode, only: DES_COLLECT_gDATA
+! MPI wrapper for halo exchange.
+      use sendrecv, only: SEND_RECV
+! Fluid time step size.
+      use run, only: DT
+! Flag to use stiff chemistry solver
+      use stiff_chem, only: stiff_chemistry
+! Routine to sync stiff solver results
+      use stiff_chem, only: FINALIZE_STIFF_SOLVER
+
+! Global Parameters:
+!---------------------------------------------------------------------//
+! Double precision values.
+      use param1, only: ZERO, ONE
+      use param1, only: DIMENSION_LM
+      use param, only: DIMENSION_M
+
+      IMPLICIT NONE
+
+! Loop counters: Particle, fluid cell, neighbor cells
+      INTEGER :: NP, IJK, LC
+! Local gas phase values.
+      DOUBLE PRECISION :: lRgp(NMAX(0)) ! Rate of species production
+      DOUBLE PRECISION :: lRgc(NMAX(0)) ! Rate of species consumption
+      DOUBLE PRECISION :: lHoRg         ! Heat of reaction
+      DOUBLE PRECISION :: lSUMRg        ! lSUMRg
+
+! Interphase mass transfer
+      DOUBLE PRECISION :: lRPhase(DIMENSION_LM+DIMENSION_M-1)
+
+      DOUBLE PRECISION :: WEIGHT
+! Loop bound for filter
+      INTEGER :: LP_BND
+
+! Loop bounds for interpolation.
+      LP_BND = merge(27,9,DO_K)
+
+      DES_R_gp    = ZERO
+      DES_R_gc    = ZERO
+      DES_R_PHASE = ZERO
+      DES_HOR_G   = ZERO
+      DES_SUM_R_g = ZERO
+
+      IF(SAVE_DES_RRATES) Des_rrates_out(:,:) = ZERO
+      IF(SAVE_PART_RRATES) Part_rrates_out(:,:) = ZERO
+
+! Directly integrate fluid cell reaction sources
+
+! Store the gas phase source terms.
+
+! Initialize fluid cell values.
+         DES_R_gp    = ZERO
+         DES_R_gc    = ZERO
+         DES_R_PHASE = ZERO
+         DES_HOR_G   = ZERO
+         DES_SUM_R_g = ZERO
+
+! Calculate the gas phase forces acting on each particle.
+         DO NP=1,MAX_PIP
+
+   ! Only calculate chemical reactions for normal particles that are inside
+   ! fluid cells. Ex: Skip ghost particles or particles that are in a cut-
+   ! cell dead space.
+            IF(.NOT.IS_NORMAL(NP)) CYCLE
+            IF(.NOT.FLUID_AT(PIJK(NP,4))) CYCLE
+
+
+! Calculate the rates of species formation/consumption.
+            CALL CALC_RRATES_DES(NP, lRgp, lRgc, lRPhase, lHoRg, lSUMRg)
+
+
+! Store the gas phase source terms.
+            IF(DES_INTERP_ON) THEN
+               DO LC=1,LP_BND
+                  IJK = FILTER_CELL(LC,NP)
+                  WEIGHT = FILTER_WEIGHT(LC,NP)
+
+!   !$omp atomic
+                  DES_R_gp(IJK,:) = DES_R_gp(IJK,:) + lRgp*WEIGHT
+!   !$omp atomic
+                  DES_R_gc(IJK,:) = DES_R_gc(IJK,:) + lRgc*WEIGHT
+!   !$omp atomic
+                  DES_R_PHASE(IJK,:) = DES_R_PHASE(IJK,:) + lRPhase*WEIGHT
+!   !$omp atomic
+                  DES_HOR_G(IJK) = DES_HOR_G(IJK) + lHoRg*WEIGHT
+!   !$omp atomic
+                  DES_SUM_R_g(IJK) = DES_SUM_R_g(IJK) + lSUMRg*WEIGHT
+
+               ENDDO
+            ELSE
+
+               IJK = PIJK(NP,4)
+
+               DES_R_gp(IJK,:)    = DES_R_gp(IJK,:) + lRgp
+               DES_R_gc(IJK,:)    = DES_R_gc(IJK,:) + lRgc
+               DES_R_PHASE(IJK,:) = DES_R_PHASE(IJK,:) + lRPhase
+               DES_HOR_G(IJK)     = DES_HOR_G(IJK) + lHoRg
+               DES_SUM_R_g(IJK)   = DES_SUM_R_g(IJK) + lSUMRg
+            ENDIF
+         ENDDO
+
+! Add in data stored in ghost cells from interpolation. This call must
+! precede the SEND_RECV to avoid overwriting ghost cell data.
+         IF(DES_INTERP_ON) THEN
+            CALL DES_COLLECT_gDATA(DES_R_gp)
+            CALL DES_COLLECT_gDATA(DES_R_gc)
+            CALL DES_COLLECT_gDATA(DES_R_PHASE)
+            CALL DES_COLLECT_gDATA(DES_HOR_g)
+            CALL DES_COLLECT_gDATA(DES_SUM_R_g)
+         ENDIF
+
+! Update the species mass sources in ghost layers.
+         CALL SEND_RECV(DES_R_gp, 2)
+         CALL SEND_RECV(DES_R_gc, 2)
+         CALL SEND_RECV(DES_R_PHASE, 2)
+         CALL SEND_RECV(DES_HOR_g, 2)
+         CALL SEND_RECV(DES_SUM_R_g, 2)
+
+      RETURN
+   END SUBROUTINE RXNS_GS_GAS1
+
+END MODULE RXNS_GS_DES1_MOD

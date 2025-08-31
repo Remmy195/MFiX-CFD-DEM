@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.13. Advanced Tutorials" href="advanced_tutorials.html" />
+    <link rel="prev" title="3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism" href="tutorial_chemkin.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="first_tutorial.html">3.1. Running first tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_sphere.html">3.4. Three-dimensional single-phase flow over a sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_cyclone_sms.html">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_seeding.html">3.9. DEM initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_procedural_geometry.html">3.10. Procedural geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load-the-project-into-mfix">3.12.1. Load the project into MFiX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-mesh">3.12.2. Generate mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-viscosity-model-for-fluid-phase">3.12.3. Setting viscosity model for fluid phase</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-lennard-jones-model-for-gas-viscosity">3.12.3.1. Using Lennard-Jones model for gas viscosity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-cantera-polynomial-model-for-gas-viscosity">3.12.3.2. Using Cantera polynomial model for gas viscosity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-thermal-conductivity-model-for-fluid-phase">3.12.4. Setting thermal conductivity model for fluid phase</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-lennard-jones-model-for-gas-thermal-conductivity">3.12.4.1. Using Lennard-Jones model for gas thermal conductivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-cantera-polynomial-model-for-gas-thermal-conductivity">3.12.4.2. Using Cantera polynomial model for gas thermal conductivity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-the-viscosity-and-thermal-conductivity-of-gas-species">3.12.5. Plotting the viscosity and thermal conductivity of gas species</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#viscosity-and-thermal-conductivity-with-lennard-jones-model">3.12.5.1. Viscosity and thermal conductivity with Lennard-Jones model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#viscosity-and-thermal-conductivity-with-cantera-polynomial-model">3.12.5.2. Viscosity and thermal conductivity with Cantera polynomial model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-transport-data-for-the-diffusivity-model">3.12.6. Using the transport data for the diffusivity model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">3.12.7. References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.12. </span>Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/tutorial_transport.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hydrogen-oxidation-in-a-batch-reactor-using-transport-data-in-chemkin-format">
+<span id="transport-hydrogen-oxidation-tutorial"></span><h1><span class="section-number">3.12. </span>Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format<a class="headerlink" href="#hydrogen-oxidation-in-a-batch-reactor-using-transport-data-in-chemkin-format" title="Link to this heading">¶</a></h1>
+<p>This tutorial shows how to use the transport data in CHEMKIN format for the
+calculation of gas viscosity, thermal conductivity and diffusivity. The mechanism and
+transport data for the oxidiation of hydrogen from Conaire et al. <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> are applied.</p>
+<p>The project is based on the tutorial for hydrogen oxidation in a batch reaction
+using CHEMKIN mechanism. The thermodynamic information of species and kinetic
+mechanism in CHEMKIN format have been imported. For more detailed about how to
+import these information, please check the above tutorial.</p>
+<section id="load-the-project-into-mfix">
+<h2><span class="section-number">3.12.1. </span>Load the project into MFiX<a class="headerlink" href="#load-the-project-into-mfix" title="Link to this heading">¶</a></h2>
+<p>The basic model has been set up in the input file, “hydrogen_oxidation_transport.mfx”.</p>
+<ul class="simple">
+<li><p>On the main menu select <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">project</span></code>.</p></li>
+<li><p>Open the project <code class="docutils literal notranslate"><span class="pre">hydrogen</span> <span class="pre">oxidation</span> <span class="pre">with</span> <span class="pre">CHEMKIN</span> <span class="pre">transport</span> <span class="pre">data</span></code>.</p></li>
+</ul>
+<figure class="align-default" id="fig-open-project">
+<a class="reference internal image-reference" href="../_images/fig_open_project1.png"><img alt="open project" src="../_images/fig_open_project1.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Choose the location for your working directory and click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.</p></li>
+</ul>
+<figure class="align-default" id="fig-create-project">
+<a class="reference internal image-reference" href="../_images/fig_create_project1.png"><img alt="create project" src="../_images/fig_create_project1.png" style="width: 8cm;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The main purpose of this tutorial is to show how to use CHEMKIN transport data in MFiX.
+For more details about the model setup, please refer to other tutorials.</p>
+</div>
+</section>
+<section id="generate-mesh">
+<h2><span class="section-number">3.12.2. </span>Generate mesh<a class="headerlink" href="#generate-mesh" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Mesher</span></code> pane:</p>
+<ul class="simple">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Generate</span></code> to generate the mesh</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Accept</span></code> to accept the mesh, and switch to the Modeler tab (bottom left of GUI).</p></li>
+</ul>
+<figure class="align-default" id="fig-create-mesh">
+<a class="reference internal image-reference" href="../_images/fig_create_mesh1.png"><img alt="generate mesh" src="../_images/fig_create_mesh1.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+<section id="setting-viscosity-model-for-fluid-phase">
+<h2><span class="section-number">3.12.3. </span>Setting viscosity model for fluid phase<a class="headerlink" href="#setting-viscosity-model-for-fluid-phase" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Fluid</span></code> pane:</p>
+<ul class="simple">
+<li><p>Click the models for Viscosity. There are six different models. <code class="docutils literal notranslate"><span class="pre">Lennard-Jones</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Cantera</span> <span class="pre">polynomial</span></code> will be discussed in this tutorial, which use the transport data.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_LJ_viscosity.png"><img alt="Lennard-Jones model for viscosity" src="../_images/fig_LJ_viscosity.png" style="width: 8cm;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These two models can only be selected when the species are defined in gas phase.</p>
+</div>
+<section id="using-lennard-jones-model-for-gas-viscosity">
+<h3><span class="section-number">3.12.3.1. </span>Using Lennard-Jones model for gas viscosity<a class="headerlink" href="#using-lennard-jones-model-for-gas-viscosity" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Lennard-Jones</span></code> for Viscosity. The following warning will popup to remind users adding the
+required parameters. Click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_warning_LJparameters.png"><img alt="warning LJ parameters" src="../_images/fig_warning_LJparameters.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select one of the species in the <code class="docutils literal notranslate"><span class="pre">Species</span></code> pane. Double click to edit, or click the edit button <a class="reference internal" href="../_images/edit.svg"><img alt="Edit" src="../_images/edit.svg" style="width: 16px;" /></a>.
+The boxes to add the Lennard-Jones parameters are shown in the popup window.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_LJ_box.png"><img alt="Lennard-Jones model parameters box" src="../_images/fig_LJ_box.png" style="width: 8cm;" />
+</a>
+</figure>
+<p>Users have two options to add the Lennard-Jones parameters:</p>
+<ul>
+<li><p>Add them in the box manually</p></li>
+<li><p>Import them from an external file, which has the transport data in CHEMKIN format.
+In the transport file from CHEMKIN, species name following with its molecular shape, Lennard-Jones potential well depth,
+Lennard-Jones collision diameter, dipole moment, polarizability and rotational relaxation collision number at 298K are provided.</p>
+<p>The following steps show how to import the file for transport data</p>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Load</span> <span class="pre">CHEMKIN</span> <span class="pre">transport</span> <span class="pre">data</span></code> in <code class="docutils literal notranslate"><span class="pre">Source</span></code> of the popup window</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_import_transport_file.png"><img alt="import transport file" src="../_images/fig_import_transport_file.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Choose</span> <span class="pre">file</span></code>, choose “transport_data.dat” in the popup window, and click <code class="docutils literal notranslate"><span class="pre">Open</span></code>.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_select_transport_file.png"><img alt="select transport file" src="../_images/fig_select_transport_file.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>After importing the file, the Lennard-Jones parameters will be added automatically in the corresponding box</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Done</span></code> to close the popup window and add other settings</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multiple transport files can be imported. The data will be overwritten based on the last imported file if species is defined
+in multiple files.</p>
+</div>
+</section>
+<section id="using-cantera-polynomial-model-for-gas-viscosity">
+<h3><span class="section-number">3.12.3.2. </span>Using Cantera polynomial model for gas viscosity<a class="headerlink" href="#using-cantera-polynomial-model-for-gas-viscosity" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Cantera</span> <span class="pre">polynomial</span></code> for Viscosity.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_cantera_viscosity.png"><img alt="select cantera polynomial viscosity model" src="../_images/fig_cantera_viscosity.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>The following warning may popup to remind users adding the required parameters.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_warning_cantera_parameter.png"><img alt="warning cantera parameters" src="../_images/fig_warning_cantera_parameter.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select one of the species in the <code class="docutils literal notranslate"><span class="pre">Species</span></code> pane. Double click to edit, or click the edit button <a class="reference internal" href="../_images/edit.svg"><img alt="Edit" src="../_images/edit.svg" style="width: 16px;" /></a>.
+The boxes to add the transport data for this model are shown in the popup window.
+The default values of dipole moment, polarizability and rotational relaxation of 0 will be shown.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_cantera_box.png"><img alt="cantera polynomial model parameters box" src="../_images/fig_cantera_box.png" style="width: 8cm;" />
+</a>
+</figure>
+<p>Similar to Lennard-Jones model, users have two options to add the parameters.</p>
+<ul class="simple">
+<li><p>Add them in the box manually</p></li>
+<li><p>Import them from an external file, which has the transport data in CHEMKIN format.
+Follow the same steps as Lennard-Jones model to import the file.</p></li>
+</ul>
+<p>Only the molecular shape, dipole moment, polarizability and rotational relaxation need to be defined.
+The GUI will automatilcally compute the polynomial coefficients poly_mu_g using Cantera
+and save them into .mfx file.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_input_viscosity.png"><img alt="cantera polynomial for viscosity in input file" src="../_images/fig_input_viscosity.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="setting-thermal-conductivity-model-for-fluid-phase">
+<h2><span class="section-number">3.12.4. </span>Setting thermal conductivity model for fluid phase<a class="headerlink" href="#setting-thermal-conductivity-model-for-fluid-phase" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Fluid</span></code> pane:</p>
+<ul class="simple">
+<li><p>Click the models for thermal conductivity. There are six different models. <code class="docutils literal notranslate"><span class="pre">Lennard-Jones</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Cantera</span> <span class="pre">polynomial</span></code> will be discussed in this tutorial, which use the transport data.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Same as viscosity model, these two models can only be selected when the species are defined in gas phase.</p>
+</div>
+<section id="using-lennard-jones-model-for-gas-thermal-conductivity">
+<h3><span class="section-number">3.12.4.1. </span>Using Lennard-Jones model for gas thermal conductivity<a class="headerlink" href="#using-lennard-jones-model-for-gas-thermal-conductivity" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Lennard-Jones</span></code> for Thermal conductivity with the popup warning to remind users adding the
+required parameters.</p></li>
+<li><p>Select the species in the <code class="docutils literal notranslate"><span class="pre">Species</span></code> pane. Double click to edit, or click the edit button <a class="reference internal" href="../_images/edit.svg"><img alt="Edit" src="../_images/edit.svg" style="width: 16px;" /></a>.</p></li>
+<li><p>Add the Lennard-Jones parameters in the popup window by adding them manually or importing an external file.</p></li>
+</ul>
+</section>
+<section id="using-cantera-polynomial-model-for-gas-thermal-conductivity">
+<h3><span class="section-number">3.12.4.2. </span>Using Cantera polynomial model for gas thermal conductivity<a class="headerlink" href="#using-cantera-polynomial-model-for-gas-thermal-conductivity" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Cantera</span> <span class="pre">polynomial</span></code> for Thermal conductivity with the popup warning for adding the
+required parameters.</p></li>
+<li><p>Select the species in the <code class="docutils literal notranslate"><span class="pre">Species</span></code> pane. Double click to edit, or click the edit button <a class="reference internal" href="../_images/edit.svg"><img alt="Edit" src="../_images/edit.svg" style="width: 16px;" /></a>.</p></li>
+<li><p>Add the required parameters in the popup window by adding them manually or importing an external file.</p></li>
+</ul>
+<p>Only the molecular shape, dipole moment, polarizability and rotational relaxation need to be defined.
+The GUI will automatilcally compute the polynomial coefficients poly_kg using Cantera
+and save them into .mfx file.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_input_thermalconductivity.png"><img alt="cantera polynomial for thermal conductivity in input file" src="../_images/fig_input_thermalconductivity.png" style="width: 8cm;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="plotting-the-viscosity-and-thermal-conductivity-of-gas-species">
+<h2><span class="section-number">3.12.5. </span>Plotting the viscosity and thermal conductivity of gas species<a class="headerlink" href="#plotting-the-viscosity-and-thermal-conductivity-of-gas-species" title="Link to this heading">¶</a></h2>
+<p>Users can plot the viscosity or thermal conductivity of each gas species as a function of temperature.</p>
+<ul class="simple">
+<li><p>Select one of the species in the <code class="docutils literal notranslate"><span class="pre">Species</span></code> pane. Double click to edit, or click the edit button <a class="reference internal" href="../_images/edit.svg"><img alt="Edit" src="../_images/edit.svg" style="width: 16px;" /></a>.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">thermal</span> <span class="pre">conductivty</span></code> or <code class="docutils literal notranslate"><span class="pre">viscosity</span></code> for <code class="docutils literal notranslate"><span class="pre">plot</span></code> at the bottom of the popup window.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Plot</span></code> to show the figures. Users can changes the number of plots in each page by changing the number of
+rows and columns at the top-right corner of the plot.</p></li>
+</ul>
+<section id="viscosity-and-thermal-conductivity-with-lennard-jones-model">
+<h3><span class="section-number">3.12.5.1. </span>Viscosity and thermal conductivity with Lennard-Jones model<a class="headerlink" href="#viscosity-and-thermal-conductivity-with-lennard-jones-model" title="Link to this heading">¶</a></h3>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_viscosity_LJ.png"><img alt="viscosity plot with Lennard-Jones model" src="../_images/fig_viscosity_LJ.png" style="width: 12cm;" />
+</a>
+</figure>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_thermalconduc_LJ.png"><img alt="thermal conductivity plot with Lennard-Jones model" src="../_images/fig_thermalconduc_LJ.png" style="width: 12cm;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two ranges for the thermal conductivity based on the common temperature of species from the
+thermodynammic data. It is because the thermal conductivity using Lennard-Jones model depends on the
+heat capacity of species, which has different coefficients at different temperature ranges.</p>
+</div>
+</section>
+<section id="viscosity-and-thermal-conductivity-with-cantera-polynomial-model">
+<h3><span class="section-number">3.12.5.2. </span>Viscosity and thermal conductivity with Cantera polynomial model<a class="headerlink" href="#viscosity-and-thermal-conductivity-with-cantera-polynomial-model" title="Link to this heading">¶</a></h3>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_viscosity_cantera.png"><img alt="viscosity plot with Cantera polynomial model" src="../_images/fig_viscosity_cantera.png" style="width: 12cm;" />
+</a>
+</figure>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_thermalconduc_cantera.png"><img alt="thermal conductivity plot with Cantera polynomial model" src="../_images/fig_thermalconduc_cantera.png" style="width: 12cm;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="using-the-transport-data-for-the-diffusivity-model">
+<h2><span class="section-number">3.12.6. </span>Using the transport data for the diffusivity model<a class="headerlink" href="#using-the-transport-data-for-the-diffusivity-model" title="Link to this heading">¶</a></h2>
+<p>The Lennard-Jones parameters can be used for the calculation of diffusivity as well.</p>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Multi-component</span> <span class="pre">diffusion</span></code> for Diffusivity</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_diffusivity.png"><img alt="diffusivity model" src="../_images/fig_diffusivity.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Lennard-Jones</span> <span class="pre">intermolecular</span> <span class="pre">potential</span> <span class="pre">model</span></code> for Coefficient type</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/fig_coefficient_type.png"><img alt="coefficient type for diffusivity model" src="../_images/fig_coefficient_type.png" style="width: 8cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select one of the species in the <code class="docutils literal notranslate"><span class="pre">Species</span></code> pane. Double click to edit, or click the edit button <a class="reference internal" href="../_images/edit.svg"><img alt="Edit" src="../_images/edit.svg" style="width: 16px;" /></a>.</p></li>
+<li><p>Add the required parameters in the popup window by adding them manually or importing an external file.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This tutorial focus on showing how to use Lennard-Jones or Cantera polynomial model for viscosty and
+thermal conductivity and multi-component diffusion model for diffusivity. Users need to choose the models
+based on their case and set other parameters accordingly.</p></li>
+<li><p>Cantera does not support species with multiple temperature ranges, like <code class="docutils literal notranslate"><span class="pre">TestSpecies</span></code> in tutorial hydrogen
+oxidation in a batch reactor using CHEMKIN mechanism. Therefore, Cantera polynomial model cannot be used if
+there are species having multiple temperature ranges. An error message of “Error: More than two temperature
+ranges are given for species TestSpecies, which are not supported in Cantera.” will be given.</p></li>
+</ul>
+</div>
+</section>
+<section id="references">
+<h2><span class="section-number">3.12.7. </span>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<ol class="upperalpha simple" start="13">
+<li><p>O Conaire, H. J. Curran, J. M. Simmie, W. J. Pitz, C. K. Westbrook. A Comprehensive Modelling Study of Hydrogen Oxidation, Intl. J. Chem. Kinet., 36 (11):603u2013622 (2004).</p></li>
+</ol>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_chemkin.html" class="btn btn-neutral float-left" title="3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="advanced_tutorials.html" class="btn btn-neutral float-right" title="3.13. Advanced Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,291 @@
+.. _about:
+
+=====
+About
+=====
+
+
+MFiX
+----
+
+MFiX is an open-source multiphase flow solver and is free to download
+and use. A one-time, no-cost registration is required prior to
+downloading the source code. To register, go to
+https://mfix.netl.doe.gov/ and click on the "Register" button in the
+upper right corner. Once you have read the notice, you can submit your
+application by clicking on "REGISTER." After your application has been
+reviewed and accepted, you will receive an email notification and
+instructions on how to download the code. Please allow for 2-3 business
+days for your registration to be processed.
+
+
+Development state of MFiX models
+--------------------------------
+
+MFiX provides a suite of models that treat the carrier phase (typically
+the gas phase) and disperse phase (typically the solids phase)
+differently. Their current state of development is summarized in the
+tables below.
+
+Symbol description for the following tables:
+
+.. |c| replace:: :math:`\circ`
+.. |b| replace:: :math:`\bullet`
+.. |s| replace:: :math:`\square`
+
++----------+----------------------------------------------------+
+|  Symbol  |Description                                         |
+|          |                                                    |
++==========+====================================================+
+| |b|      |Implemented and fully tested                        |
++----------+----------------------------------------------------+
+| |c|      |Implemented with limited testing                    |
++----------+----------------------------------------------------+
+| |s|      |Not tested or status unknown                        |
++----------+----------------------------------------------------+
+| †        |Models not extended to DMP-parallel are only        |
+|          |available for serial runs                           |
++----------+----------------------------------------------------+
+| ‡        |Models not extended to SMP-parallel are available   |
+|          |for SMP runs but do not scale with thread count     |
++----------+----------------------------------------------------+
+
+.. _dvlpt-TFM:
+
+MFiX-TFM (Two-fluid model)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MFiX-TFM (Two-fluid model)** is an Eulerian-Eulerian model, which
+supports a broad range of capabilities for dense, reacting, multiphase
+flows by representing the fluid and solids as interpenetrating continua.
+This is the most mature MFiX model and is capable of modeling multiphase
+reactors ranging in size from benchtop to industry-scale. Approximation
+of the solid phase as a continuum typically allows for faster simulation
+time than Lagrangian techniques; however, it also introduces the need
+for accurate mathematical models to capture realistic solids phase
+behavior. This includes transport properties, heterogeneous reaction
+kinetics, and constitutive relations for interaction between fluid and
+solid phases, e.g., solids phase drag and interphase heat transfer.
+
++----------------------+----------+--------+---------+
+| Feature              | Serial   | †DMP   | ‡SMP    |
++======================+==========+========+=========+
+| Momentum Equations   | |b|      | |b|    | |b|     |
++----------------------+----------+--------+---------+
+| Energy Equations     | |b|      | |b|    | |b|     |
++----------------------+----------+--------+---------+
+| Species Equations    | |b|      | |b|    | |b|     |
++----------------------+----------+--------+---------+
+| Chemical Reactions   | |b|      | |b|    |         |
++----------------------+----------+--------+---------+
+| Cartesian cut-cell   | |b|      | |b|    | **□**   |
++----------------------+----------+--------+---------+
+
+.. _dvlpt-DEM:
+
+MFiX-DEM (Discrete element model)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MFiX-DEM (Discrete element model)** is an Eulerian-Lagrangian model
+that treats the fluid phase as a continuum and models the individual
+particles of the solid phase. This is a relatively new variation on
+MFiX. While the treatment of individual particles can provide higher
+fidelity over a broad range of flow regimes (from dilute to packed), it
+becomes very challenging (in terms of computational resources)
+when dealing with very large numbers of particles
+for large-scale simulations. These large-scale applications will require
+high performance computing (HPC) resources and large amounts of computer
+time. Code optimization and speed up are critical research fronts to
+support industrial scale applications.
+
++----------------------+----------+--------+--------+
+| Feature              | Serial   | †DMP   | ‡SMP   |
++======================+==========+========+========+
+| Momentum Equations   | |b|      | |b|    | |b|    |
++----------------------+----------+--------+--------+
+| Energy Equations     | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Species Equations    | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Chemical Reactions   | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Cartesian cut-cell   | |c|      | |c|    |        |
++----------------------+----------+--------+--------+
+
+.. _dvlpt-CGP:
+
+MFiX-CGP (Coarse-grained particle)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MFiX-CGP (Coarse-grained particle)** is an Eulerian-Lagrangian model
+similar to DEM, where particles are grouped into larger coarse-grained
+particles (CGP). The collisions between CGPs are resolved the same way
+as in DEM. This modeling approach is more affordable than DEM since fewer
+CGPs need to be tracked. This modeling approach falls between DEM and PIC
+in terms of computational resources.
+
++----------------------+----------+--------+--------+
+| Feature              | Serial   | †DMP   | ‡SMP   |
++======================+==========+========+========+
+| Momentum Equations   | |b|      | |b|    | |b|    |
++----------------------+----------+--------+--------+
+| Energy Equations     | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Species Equations    | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Chemical Reactions   | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Cartesian cut-cell   | |c|      | |c|    |        |
++----------------------+----------+--------+--------+
+
+.. _dvlpt-SQP:
+
+MFiX-SQP (Superquadric particle)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MFiX-SQP (Superquadric particle)** is an Eulerian-Lagrangian model
+similar to DEM, where particles have non-spherical shapes. The particle
+shape is defined with a superquadric surface. This allows representing a
+wide variety of shapes with 5 parameters. This modeling approach is
+much more computationlly intensive than MFiX-DEM due to the complexity
+of contact detection for non-spherical shapes.
+
++----------------------+----------+--------+--------+
+| Feature              | Serial   | †DMP   | ‡SMP   |
++======================+==========+========+========+
+| Momentum Equations   | |b|      | |b|    | |b|    |
++----------------------+----------+--------+--------+
+| Energy Equations     | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Species Equations    | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Chemical Reactions   | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Cartesian cut-cell   | |c|      | |c|    |        |
++----------------------+----------+--------+--------+
+
+.. _dvlpt-GSP:
+
+MFiX-GSP (Glued-sphere particle)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MFiX-GSP (Glued-sphere particle)** is an Eulerian-Lagrangian model
+similar to DEM, where particles have non-spherical shapes. The particle
+is an assembly of smaller spheres that are glued together.
+This modeling approach is more computationlly intensive than MFiX-DEM due
+to the larger particle count, but faster that MFiX-SQP model because the
+contact detection is still based on sphere-sphere contact.
+
++----------------------+----------+--------+--------+
+| Feature              | Serial   | †DMP   | ‡SMP   |
++======================+==========+========+========+
+| Momentum Equations   | |b|      | |b|    | |b|    |
++----------------------+----------+--------+--------+
+| Energy Equations     | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Species Equations    | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Chemical Reactions   | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Cartesian cut-cell   | |c|      | |c|    |        |
++----------------------+----------+--------+--------+
+
+.. _dvlpt-PIC:
+
+MFiX-PIC (Multiphase particle-in-cell)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MFiX-PIC (Multiphase particle-in-cell)** is another
+Eulerian-Lagrangian model that represents the fluid as a continuum while
+using "parcels" to represent groups of real particles with similar
+physical characteristics. The MFiX-PIC approach offers reduced
+computational cost over MFiX-DEM as there are typically fewer parcels to
+track and parcel collisions are not resolved. However, the added
+modeling approximations influence the overall accuracy of the method.
+Development, validation, and optimization of modeling approximations are
+critical research fronts.
+
++----------------------+----------+--------+--------+
+| Feature              | Serial   | †DMP   | ‡SMP   |
++======================+==========+========+========+
+| Momentum Equations   | |b|      | |b|    | |c|    |
++----------------------+----------+--------+--------+
+| Energy Equations     | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Species Equations    | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Chemical Reactions   | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+| Cartesian cut-cell   | |b|      | |b|    |        |
++----------------------+----------+--------+--------+
+
+
+GUI
+---
+
+The MFiX GUI is a front-end tool that allows users to quickly set-up MFiX
+models, run the developed models, and provide post-processing tools
+with the goal of making MFiX easy to use.
+
+The GUI is written in Python using the cross-platform Qt framework. The Anaconda/
+Miniforge platform is used for MFiX dependencies, which allows us to support MFiX on
+Linux, Windows, and Mac. The `Visualization Toolkit (VTK)
+<https://vtk.org/>`__ is used to visualize and manipulate the input geometry.
+
+.. _support-forum:
+
+Support forum
+-------------
+
+When your subscription to MFiX is accepted, you are automatically added to the
+MFiX forum, where important announcements about MFiX are shared with
+the MFiX community. If you are already an MFiX member, use you current credentials
+to participate in the forum.
+
+The Forum is a discussion platform for MFiX, Nodeworks and Tracker software.
+Developers and users can post topics (discussion threads) to various categories
+for each software.
+
+Users are encouraged to participate in the discussion and share their work
+(input files, udf's, images or small animations showing simulation results)
+to benefit the entire MFiX community.
+
+The support forum is located at https://mfix.netl.doe.gov/forum/c/mfix
+
+Support forum etiquette:
+
+  1) Do not post offensive or inappropriate material. Stay courteous and respectful at all times.
+  2) Please allow sufficient time (say 2 to 3 business days) for MFiX developers and
+     users to reply before posting unanswered questions again.
+  3) Post questions in the appropriate forum category. Do not send requests or emails directly
+     to MFiX developers or other users unless a prior arrangement has been made.
+     This ensures questions and answers are archived, and it allows the entire MFiX community
+     to engage. Additionally, follow-up questions should occur in the same thread.
+  4) Do not ask for a copy of a reference, e.g., a journal article. Do not post copyrighted material.
+  5) Prior to posting questions regarding MFiX installation or compilation issues,
+     please search the forum to see if your question has already been answered.
+  6) When posting a question to the forum, provide a complete description of the issue you encountered.
+     Attach all files required to run your job, including .f, .stl, as well as log files.
+     The "Submit bug report" menu item on the main MFiX menu will create a ZIP file including all of
+     the required files as well as some additional diagnostic information.  This is the preferred method
+     of attaching project files.
+
+.. note::
+
+  Common reasons you may not receive an answer to your request
+
+  1. Your question has already been answered and is available in the archive.
+  2. You did not provide sufficient description of your problem
+     (saying "It doesn’t work" is not useful).
+  3. Your question is outside the scope of the MFiX forum.
+
+User contribution
+-----------------
+
+If you wish to contribute to the development of MFiX, please contact the MFiX
+team at admin@mfix.netl.doe.gov. We are looking for simulation results (figures,
+animations, input files, user-defined subroutines), and new models that could
+benefit the entire MFiX community. If you have written or know any publication
+that uses MFiX, please let us know and we will post the citation on the website
+(https://mfix.netl.doe.gov/publications). Proper credit
+will be given to all contributors.

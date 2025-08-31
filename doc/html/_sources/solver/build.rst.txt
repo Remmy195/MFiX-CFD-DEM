@@ -1,0 +1,10 @@
+*******************
+Building the solver
+*******************
+
+.. toctree::
+    :maxdepth: 2
+
+    Custom interactive solver <build-custom>
+    Batch solver <build-batch>
+    Build from git or source tarball <build-source>

@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.2. Building a Batch Solver &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.3. Build from source (for developers)" href="build-source.html" />
+    <link rel="prev" title="5.1. Building custom interactive solver" href="build-custom.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="build.html">5. Building the solver</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="build-custom.html">5.1. Custom interactive solver</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.2. Batch solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-options">5.2.1. Configuration options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-options">5.2.2. Make options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building">5.2.3. Building</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="build-source.html">5.3. Build from git or source tarball</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="build.html"><span class="section-number">5. </span>Building the solver</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.2. </span>Building a Batch Solver</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/solver/build-batch.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-a-batch-solver">
+<span id="build-batch"></span><h1><span class="section-number">5.2. </span>Building a Batch Solver<a class="headerlink" href="#building-a-batch-solver" title="Link to this heading">¶</a></h1>
+<p>The “MFiX Batch Solver” refers to the command line version of MFiX as in
+MFiX 2016-1 and earlier versions, to contrast it with the “MFiX Interactive
+Solver”. The batch solver binary is not installed in the MFiX conda package; it
+needs to be compiled before being used (as in previous versions of MFiX).</p>
+<p>Using the Batch Solver is appropriate when you do not want to use the
+interactive features with the GUI. You cannot pause, unpause, stop, or monitor
+status from the batch solver.</p>
+<p>To build the solver without interactive support, run:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>build_mfixsolver<span class="w"> </span>--batch
+<span class="gp">$ </span>ls
+<span class="go">build mfixsolver</span>
+</pre></div>
+</div>
+<p>This command will build an executable <code class="docutils literal notranslate"><span class="pre">mfixsolver</span></code> in the current directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">build</span></code> directory can be deleted, and the custom <code class="docutils literal notranslate"><span class="pre">mfixsolver</span></code> will still
+run. However, leaving the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory will greatly speed up rebuilds if
+you want to edit the UDFs and run <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> again.</p>
+<section id="configuration-options">
+<span id="solver-configuration"></span><h2><span class="section-number">5.2.1. </span>Configuration options<a class="headerlink" href="#configuration-options" title="Link to this heading">¶</a></h2>
+<p>Arguments may be passed to <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> to specify various options: compiler,
+compiler flags, SMP/DMP support, and other options. All configuration options can
+be displayed with:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>build_mfixsolver<span class="w"> </span>--help
+
+<span class="go">usage: build_mfixsolver [--batch] [--dmp] [--smp] [-k] [-j]</span>
+<span class="go">                        [FC=&lt;Fortran compiler&gt;]</span>
+<span class="go">                        [FCFLAGS=&lt;Fortran flags&gt;]</span>
+</pre></div>
+</div>
+<p>The most common arguments are given in the following table.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FC=&lt;compiler&gt;</span></code></p></td>
+<td><p>Specify the Fortran compiler command</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FCFLAGS=&lt;flags&gt;</span></code></p></td>
+<td><p>Specify Fortran compiler flags</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--dmp</span></code></p></td>
+<td><p>Enable distributed memory support (MPI)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--smp</span></code></p></td>
+<td><p>Enable shared memory parallel support (OpenMP)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The Fortran compiler is specified by passing the <code class="docutils literal notranslate"><span class="pre">FC</span></code> argument to
+<code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code>. If the <code class="docutils literal notranslate"><span class="pre">FC</span></code> argument is not specified, the script will
+search the environment for a Fortran compiler (usually <code class="docutils literal notranslate"><span class="pre">gfortran</span></code>).</p>
+<span id="compiler-list"></span><table class="docutils align-default" id="id1">
+<caption><span class="caption-number">Table 5.1 </span><span class="caption-text">compiler value for FC</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Compiler</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>gfortran</p></td>
+<td><p>GNU Fortran compiler (serial/smp)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ifort</p></td>
+<td><p>Intel Fortran compiler (serial/smp)</p></td>
+</tr>
+<tr class="row-even"><td><p>mpif90</p></td>
+<td><p>Generic MPI Fortran wrapper (dmp/combined smp-dmp)</p></td>
+</tr>
+<tr class="row-odd"><td><p>mpifort</p></td>
+<td><p>Generic MPI Fortran wrapper (dmp/combined smp-dmp)</p></td>
+</tr>
+<tr class="row-even"><td><p>mpiifort</p></td>
+<td><p>Intel MPI Fortran wrapper (dmp/combined smp-dmp).
+Older versions commonly use the mpif90 command.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Compiler flags can be specified by passing the <code class="docutils literal notranslate"><span class="pre">FCFLAGS</span></code> argument to
+<code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code>. If the <code class="docutils literal notranslate"><span class="pre">FCFLAGS</span></code> argument is not specified, the compiler
+defaults are used.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-number">Table 5.2 </span><span class="caption-text">Compiler Flags for gfortran and Intel Fortran</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p>GNU Fortran</p></td>
+<td><p>Intel Fortran</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-g</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-g</span></code></p></td>
+<td><p>Produce debugging information</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-O0</span></code>, <code class="docutils literal notranslate"><span class="pre">-O1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-O2</span></code>, <code class="docutils literal notranslate"><span class="pre">-O3</span></code>,</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-O0</span></code>, <code class="docutils literal notranslate"><span class="pre">-O1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-O2</span></code>, <code class="docutils literal notranslate"><span class="pre">-O3</span></code>,</p></td>
+<td><p>Optimization level (refer to the compiler documentation for details on level)
+The following options are commonly used:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-O0</span></code> for debugging</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-O2</span></code> for production</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-fcheck=all</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-check</span> <span class="pre">all</span></code></p></td>
+<td><p>Generates runtime checks useful for debugging</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-fbacktrace</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-backtrace</span></code></p></td>
+<td><p>Print a full stack trace when a runtime error occurs</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-g</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-g</span></code></p></td>
+<td><p>Generates complete debugging information</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-march=native</span> <span class="pre">-O3</span></code></p></td>
+<td></td>
+<td><p>Generates optimized code for the local machine’s CPU.
+May not run on different machines.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Running <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> will display the flags specified with <code class="docutils literal notranslate"><span class="pre">FCFLAGS</span></code>,
+and other compiler flags that are always defined by the build scripts:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>build_mfixsolver<span class="w"> </span>--batch<span class="w"> </span><span class="nv">FCFLAGS</span><span class="o">=</span><span class="s2">&quot;-Wall&quot;</span>
+...
+--<span class="w"> </span>MFIX<span class="w"> </span>build<span class="w"> </span>settings<span class="w"> </span>summary:
+--<span class="w">    </span>Build<span class="w"> </span><span class="nb">type</span><span class="w">        </span><span class="o">=</span><span class="w"> </span>RelWithDebInfo
+--<span class="w">    </span>Fortran<span class="w"> </span><span class="nv">compiler</span><span class="w">  </span><span class="o">=</span><span class="w"> </span>/usr/bin/gfortran
+--<span class="w">    </span>Fortran<span class="w"> </span><span class="nv">flags</span><span class="w">     </span><span class="o">=</span><span class="w"> </span>-Wall<span class="w"> </span>-cpp<span class="w"> </span>-ffree-line-length-0<span class="w"> </span>-fconvert<span class="o">=</span>big-endian<span class="w"> </span>-fPIC
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> script will test specified Fortran compiler with any
+specified flags (covered next). If the compiler is not found or if the compiler
+doesn’t work with the specified flags, no Makefile will be generated and an
+error message will be printed. When posting a question on the forum about build
+issues, include any error messages.</p>
+</section>
+<section id="make-options">
+<h2><span class="section-number">5.2.2. </span>Make options<a class="headerlink" href="#make-options" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> will pass the options <code class="docutils literal notranslate"><span class="pre">-j</span></code> and <code class="docutils literal notranslate"><span class="pre">-k</span></code> on to <code class="docutils literal notranslate"><span class="pre">make</span></code>.
+Building with <code class="docutils literal notranslate"><span class="pre">-j</span></code> on multicore systems will speed up the build process.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>build_mfixsolver<span class="w"> </span>--batch<span class="w"> </span>-j
+</pre></div>
+</div>
+</section>
+<section id="building">
+<h2><span class="section-number">5.2.3. </span>Building<a class="headerlink" href="#building" title="Link to this heading">¶</a></h2>
+<p>To build the MFiX batch solver, run <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> with the <code class="docutils literal notranslate"><span class="pre">--batch</span></code> option.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>tutorials/tfm/silane_pyrolysis_2d/
+<span class="gp">$ </span>ls
+<span class="go">SP2D.mfx  usr0.f  usr1.f  usr_mod.f  usr_rates.f</span>
+<span class="gp">$ </span>build_mfixsolver<span class="w"> </span>--batch
+<span class="go">...build output...</span>
+<span class="gp">$ </span>ls<span class="w">  </span>*
+<span class="go">build mfixsolver SP2D.mfx  usr0.f  usr0.o usr1.f  usr1.o  usr_mod.f  usr_mod.o usr_rates.f usr_rates.o</span>
+</pre></div>
+</div>
+<p>Note the absence of a <code class="docutils literal notranslate"><span class="pre">lib</span></code> directory. The <code class="docutils literal notranslate"><span class="pre">lib</span></code> directory has the Python
+module for the interactive solver, and therefore is not present for a batch
+solver. Also, <code class="docutils literal notranslate"><span class="pre">mfixsolver</span></code> is a binary executable (not a wrapper script).</p>
+<p>To build the MFiX batch solver, with optimized code generated for the current CPU:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>build_mfixsolver<span class="w"> </span>--batch<span class="w"> </span><span class="nv">FCFLAGS</span><span class="o">=</span><span class="s2">&quot;-march=native -O3&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="build-custom.html" class="btn btn-neutral float-left" title="5.1. Building custom interactive solver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="build-source.html" class="btn btn-neutral float-right" title="5.3. Build from source (for developers)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+.. _running-batch:
+
+======================
+Running a Batch Solver
+======================
+
+The "MFiX Batch Solver" refers to the command line version of MFiX including
+MFiX 2016-1 and earlier versions. The "MFiX Interactive Solver" refers to all later
+releases of MFiX. The batch solver binary is not installed in the MFiX conda package; it
+needs to be compiled before being used (as in previous versions of MFiX).
+
+Using the Batch Solver is appropriate when you do not want to use the
+interactive features with the GUI. You cannot pause, unpause, stop, or monitor
+status from the batch solver.
+
+To build the batch solver see :ref:`build-batch`.
+
+
+Running (Serial)
+----------------
+
+To run a serial instance of the MFiX solver, type:
+.. code-block:: shell
+
+    > ./mfixsolver -f DES_FB1.mfx
+
+
+Running with DMP
+----------------
+
+If you built the solver :ref:`configured with DMP support <solver_configuration>`, then
+you can run MPI jobs with the standard MPI wrapper command ``mpirun``. For
+instance, to run using 4 cores with the domain divided along the X and Y
+axes:
+
+.. code-block:: shell
+
+    > mpirun -np 4 ./mfixsolver -f DES_FB1.mfx NODESI=2 NODESJ=2
+
+The number of MPI processes specified with ``-np`` must be equal to the product of the
+keywords ``NODESI*NODESJ*NODESK``.
+
+For further details on using ``mpirun``, see the documentation for the MPI implementation for your system.
+
+
+Running with SMP
+----------------
+
+If you built the solver :ref:`configured with SMP support
+<solver_configuration>`, then you can set the number of OpenMP threads using
+the ``OMP_NUM_THREADS`` environment variable. For instance, to run with
+four threads:
+
+.. code-block:: shell
+
+    > env OMP_NUM_THREADS=4 ./mfixsolver -f DES_FB1.mfx
+
+.. include:: /icons.rst

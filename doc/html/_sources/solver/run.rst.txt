@@ -1,0 +1,10 @@
+******************
+Running the solver
+******************
+
+.. toctree::
+    :maxdepth: 2
+
+    Default interactive solver <run-default>
+    Custom interactive solver <run-custom>
+    Batch solver <run-batch>

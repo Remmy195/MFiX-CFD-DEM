@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.1. First tutorial &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)" href="tutorial_tfm.html" />
+    <link rel="prev" title="3. Tutorials" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. Running first tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-the-mfix-gui">3.1.1. Starting the MFiX GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-project">3.1.2. Creating a project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-solver">3.1.3. Running the solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-results">3.1.4. View results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pausing-unpausing">3.1.5. Pausing/unpausing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stopping-resuming">3.1.6. Stopping/resuming</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_sphere.html">3.4. Three-dimensional single-phase flow over a sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_cyclone_sms.html">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_seeding.html">3.9. DEM initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_procedural_geometry.html">3.10. Procedural geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_transport.html">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.1. </span>First tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/first_tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="first-tutorial">
+<span id="user-guide"></span><h1><span class="section-number">3.1. </span>First tutorial<a class="headerlink" href="#first-tutorial" title="Link to this heading">¶</a></h1>
+<p>This section illustrates how to launch the GUI, open a project, run it, and
+visualize the results.</p>
+<p>This section assumes MFiX is already installed. To install MFiX, see the
+<a class="reference internal" href="../getting_started/index.html#setup-guide"><span class="std std-ref">Setup Guide</span></a>.</p>
+<p>Everything in this section applies to all platforms (Linux, macOS, Windows)
+unless otherwise noted.</p>
+<section id="starting-the-mfix-gui">
+<h2><span class="section-number">3.1.1. </span>Starting the MFiX GUI<a class="headerlink" href="#starting-the-mfix-gui" title="Link to this heading">¶</a></h2>
+<p>Starting the GUI requires first to activate the environment (to select a given installed version of MFiX):</p>
+<p>On Windows, open the Miniforge Prompt and activate the <a class="reference internal" href="../getting_started/install-windows.html#activate-env-windows"><span class="std std-ref">mfix environment</span></a></p>
+<p>On Linux open a terminal and activate the <a class="reference internal" href="../getting_started/install-linux.html#activate-env-linux"><span class="std std-ref">mfix environment</span></a></p>
+<p>On macOS open a terminal and activate the <a class="reference internal" href="../getting_started/install-macos.html#activate-env-macos"><span class="std std-ref">mfix environment</span></a></p>
+<p>Next, type <code class="docutils literal notranslate"><span class="pre">mfix</span></code> at the prompt. The two steps are shown below for each Operating System:</p>
+<p><strong>Windows</strong></p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="go">conda activate mfix-25.2.1</span>
+<span class="gp gp-VirtualEnv">(mfix-25.2.1)</span> <span class="gp">C:\&gt;</span> mfix
+</pre></div>
+</div>
+<p><strong>Linux or Mac</strong></p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="go">conda activate mfix-25.2.1</span>
+<span class="gp gp-VirtualEnv">(mfix-25.2.1)</span> <span class="gp">&gt;</span> mfix
+</pre></div>
+</div>
+<p>If this is the first time opening the GUI, the main menu will automatically
+open. Otherwise, the previous project will automatically open.</p>
+</section>
+<section id="creating-a-project">
+<h2><span class="section-number">3.1.2. </span>Creating a project<a class="headerlink" href="#creating-a-project" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Click <a class="reference internal" href="../_images/newfolder.svg"><img alt="New folder" src="../_images/newfolder.svg" style="width: 16px;" /></a> (<a class="reference internal" href="../user_interface_reference.html#new-project"><span class="std std-ref">New</span></a>)</p></li>
+</ul>
+<p>A list of project templates is displayed.</p>
+<p>The templates are tagged with the following icons. (Some templates have more
+than one icon).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/single.svg"><img alt="Single" src="../_images/single.svg" style="width: 16px;" /></a></p></td>
+<td><p>Single-phase Model</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/tfm.svg"><img alt="TFM" src="../_images/tfm.svg" style="width: 16px;" /></a></p></td>
+<td><p>Two-fluid Model (TFM)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/pic.svg"><img alt="PIC" src="../_images/pic.svg" style="width: 16px;" /></a></p></td>
+<td><p>Particle in Cell Model (PIC)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/dem.svg"><img alt="DEM" src="../_images/dem.svg" style="width: 16px;" /></a></p></td>
+<td><p>Discrete Element Model (DEM)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/hybrid.svg"><img alt="Hybrid" src="../_images/hybrid.svg" style="width: 16px;" /></a></p></td>
+<td><p>Hybrid Model (TFM + DEM)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_images/geometry.svg"><img alt="Geometry" src="../_images/geometry.svg" style="width: 16px;" /></a></p></td>
+<td><p>Cartesian cut-cell (complex) geometry</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_images/chemistry.svg"><img alt="Chemistry" src="../_images/chemistry.svg" style="width: 16px;" /></a></p></td>
+<td><p>Chemistry</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The blank template is the default, but it won’t run without customization. It
+requires a pressure outflow, among other things.</p>
+</div>
+<ul class="simple">
+<li><p>Filter the templates by de-selecting the <a class="reference internal" href="../_images/single.svg"><img alt="Single" src="../_images/single.svg" style="width: 16px;" /></a> (single-phase), and
+<a class="reference internal" href="../_images/chemistry.svg"><img alt="Chemistry" src="../_images/chemistry.svg" style="width: 16px;" /></a> (chemistry) icons</p></li>
+<li><p>Double-click on <code class="docutils literal notranslate"><span class="pre">hopper_3d</span> <span class="pre">(3D</span> <span class="pre">DEM</span> <span class="pre">granular</span> <span class="pre">flow</span> <span class="pre">hopper)</span></code> to create a new project</p></li>
+<li><p>Enter a project name (or keep the existing name) and browse to a location for
+the new project.</p></li>
+<li><p>Click Ok</p></li>
+</ul>
+<p>A new project directory will be created in the selected directory, with the name
+being the project name. Here, a DEM Hopper simulation setup has been loaded and
+is ready to run. You should see the model geometry in the “model” window
+(top-right).</p>
+</section>
+<section id="running-the-solver">
+<h2><span class="section-number">3.1.3. </span>Running the solver<a class="headerlink" href="#running-the-solver" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> (Start) button to open the <a class="reference internal" href="../user_interface_reference.html#run-dialog"><span class="std std-ref">Run dialog</span></a>.</p></li>
+<li><p>Click Ok to use the default mfixsolver: <code class="docutils literal notranslate"><span class="pre">[default]/mfixsolver</span></code></p></li>
+</ul>
+<p>The solver will begin to run, with output displayed in the
+<a class="reference internal" href="../user_interface_reference.html#terminal-window"><span class="std std-ref">Terminal window</span></a>. There is a progress bar along the bottom of the screen
+where it says <cite>MFiX running: elapsed time</cite>.</p>
+</section>
+<section id="view-results">
+<h2><span class="section-number">3.1.4. </span>View results<a class="headerlink" href="#view-results" title="Link to this heading">¶</a></h2>
+<p>Results can be viewed, and plotted, while the simulation is running.</p>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> results tab. The visibility and representation of the
+<code class="docutils literal notranslate"><span class="pre">*.vtk</span></code> files can be controlled with the menu on the side.</p></li>
+<li><p>Change frames with the <a class="reference internal" href="../_images/first.svg"><img alt="First" src="../_images/first.svg" style="width: 16px;" /></a>, <a class="reference internal" href="../_images/back.svg"><img alt="Back" src="../_images/back.svg" style="width: 16px;" /></a>, <a class="reference internal" href="../_images/next.svg"><img alt="Next" src="../_images/next.svg" style="width: 16px;" /></a>, and <a class="reference internal" href="../_images/last.svg"><img alt="Last" src="../_images/last.svg" style="width: 16px;" /></a> buttons</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> button to play the available vtk files.</p></li>
+<li><p>Change the playback speed under the <a class="reference internal" href="../_images/speed.svg"><img alt="Speed" src="../_images/speed.svg" style="width: 16px;" /></a> section on the sidebar.</p></li>
+</ul>
+</section>
+<section id="pausing-unpausing">
+<h2><span class="section-number">3.1.5. </span>Pausing/unpausing<a class="headerlink" href="#pausing-unpausing" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Click the <a class="reference internal" href="../_images/pause.svg"><img alt="Pause" src="../_images/pause.svg" style="width: 16px;" /></a> (pause) button to pause the solver.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MFiX</span> <span class="pre">paused</span></code> will be displayed in the <a class="reference internal" href="../user_interface_reference.html#terminal-window"><span class="std std-ref">Terminal window</span></a>. The solver
+process still exists, but is waiting for you to unpause it.</p>
+<p>While the solver is paused, you can change the project. For instance, on the
+<a class="reference internal" href="../user_interface_reference.html#run-pane"><span class="std std-ref">Run</span></a> Pane you could change <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">time</span></code> to another value to have the
+solver run for a different amount of time.</p>
+</li>
+<li><p>Click the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> (run) button to unpause the solver and continue running.</p></li>
+</ul>
+</section>
+<section id="stopping-resuming">
+<h2><span class="section-number">3.1.6. </span>Stopping/resuming<a class="headerlink" href="#stopping-resuming" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/stop.svg"><img alt="Stop" src="../_images/stop.svg" style="width: 16px;" /></a> (stop) button to stop the solver.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">MFiX</span> <span class="pre">stopped</span></code> will be displayed in the <a class="reference internal" href="../user_interface_reference.html#terminal-window"><span class="std std-ref">Terminal window</span></a>. The solver
+process has ended, with the output files still in the project directory.</p>
+<p>You can then resume the solver by:</p>
+<ul class="simple">
+<li><p>Clicking the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> (run) button to open the <a class="reference internal" href="../user_interface_reference.html#run-dialog"><span class="std std-ref">Run dialog</span></a>.</p></li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">Restart</span></code> and select <code class="docutils literal notranslate"><span class="pre">Resume</span></code> from the drop down list.</p></li>
+<li><p>Click Ok to use the default mfixsolver.</p></li>
+</ul>
+<p>The solver process will start and continue from the point at which the output
+files were last written.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="3. Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_tfm.html" class="btn btn-neutral float-right" title="3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

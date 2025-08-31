@@ -1,0 +1,59 @@
+#!/bin/bash -l
+
+## CONFIG
+# Special values
+# SCRIPT - the path of this script, after replacement in the run directory
+# PROJECT_NAME - name of the opened project
+# JOB_ID - the job id extracted using job_id_regex
+# COMMAND - the command to run mfix
+
+[options]
+name: Joule 3
+job_id_regex: (\d+)
+status_regex: ([rqw])
+submit: sbatch ${SCRIPT}
+delete: scancel ${JOB_ID}
+status: squeue -j ${JOB_ID}
+
+[JOB_NAME]
+widget: lineedit
+label: Job Name
+value: ${PROJECT_NAME}
+help: The name of the job.
+
+[CORES]
+widget: spinbox
+label: Number of cores
+min_value: 1
+max_value: 9999
+value: 40
+help: The number of CPU cores to request.
+
+[QUEUE]
+widget: combobox
+label: Queue
+value: general
+items: general|bigmem|shared|gpu
+help: The queue to submit to.
+
+[LONG]
+widget: checkbox
+label: Long job
+value: false
+true:  #SBATCH --qos=long
+help: Specify the job as long.
+
+## END CONFIG
+## The name for the job.
+#SBATCH --job-name=${JOB_NAME}
+##
+## Number of cores to request
+#SBATCH --ntasks=${CORES}
+##
+## Queue name
+#SBATCH --partition=${QUEUE}
+${LONG}
+
+
+##Run the job
+${COMMAND}

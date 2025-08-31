@@ -1,0 +1,75 @@
+#!/bin/bash -l
+
+## CONFIG
+# Special values
+# SCRIPT - the path of this script, after replacement in the run directory
+# PROJECT_NAME - name of the opened project
+# JOB_ID - the job id extracted using job_id_regex
+# COMMAND - the command to run mfix
+
+[options]
+name: Grid Engine (example)
+job_id_regex: (\d+)
+status_regex: ([rqw])
+submit: qsub ${SCRIPT}
+delete: qdel ${JOB_ID}
+status: qstat -j ${JOB_ID}
+
+[JOB_NAME]
+widget: lineedit
+label: Job Name
+value: ${PROJECT_NAME}
+help: The name of the job.
+
+[CORES]
+widget: spinbox
+label: Number of cores
+value: 16
+help: The number of CPU cores to request.
+
+[QUEUE]
+widget: combobox
+label: Queue
+value: general
+items: dev|general|short|serial|mgn|pgh|alb|mic|long|leadership|ucfer
+help: The queue to submit to.
+
+[JOB_TYPE]
+widget: combobox
+label: Parallel Environment
+items: serial|mpi
+value: mpi
+help: The parallel environment to use.
+
+
+[LOG]
+widget: checkbox
+label: Log
+help: Log stdout and stderr to ${JOB_NAME}.output, ${JOB_NAME}.error
+true: ## Capture stdout and stderr
+      #$ -o ${JOB_NAME}.output
+      #$ -e ${JOB_NAME}.error
+value: false
+
+## END CONFIG
+
+## The script
+## Change into the current working directory
+#$ -cwd
+##
+## The name for the job. It will be displayed this way on qstat
+#$ -N ${JOB_NAME}
+##
+## Number of cores to request
+#$ -pe ${JOB_TYPE} ${CORES}
+##
+## Queue name
+#$ -q ${QUEUE}
+##
+${LOG}
+
+##Load modules
+module load ${MODULES}
+
+##Run the job
+${COMMAND}

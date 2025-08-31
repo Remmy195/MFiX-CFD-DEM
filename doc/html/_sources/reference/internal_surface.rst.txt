@@ -1,0 +1,4 @@
+Internal surfaces (IS)
+======================
+
+.. include:: /reference/internal_surface_gen.rst

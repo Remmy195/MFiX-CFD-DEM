@@ -1,0 +1,29 @@
+Example: Methane Combustion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  \text{CH}_4 (g) + 2\text{O}_2 → \text{CO}_2 (g) + 2\text{H}_2 \text{O}(g)
+
+.. note::
+
+   Heat of reaction is automatically calculated (default).
+
+.. code-block:: none
+
+    NMAX_g = 4                       ! No. of gas phase species
+    Species_g(1) = "CH4 ANHARMONIC " ! Methane
+    Species_g(2) = "O2"              ! Oxygen
+    Species_g(3) = "CO2"             ! Carbon dioxide
+    Species_g(4) = "H2O"             ! Water Vapor
+
+    Species_Alias_g(1)  = "CH4"  ! Methane
+    Species_Alias_g(2)  = "O2"   ! Oxygen
+    Species_Alias_g(3)  = "CO2"  ! Carbon dioxide
+    Species_Alias_g(4)  = "H2O"  ! Water Vapor
+
+    @(RXNS)                              ! Begin reaction block
+    CH4_Combustion {                     ! Reaction 1 construct
+    chem_eq = "CH4 + 2O2 --> CO2 + 2H2O" ! Chemical Reaction Eq
+    }                                    ! End reaction 1 construct
+    @(END)                               ! End reaction block

@@ -1,0 +1,66 @@
+.. include:: /icons.rst
+
+.. _regions:
+
+========
+Regions
+========
+
+The Regions pane defines spatial regions (points, lines, planes, boxes, or STLs)
+of the geometry that are used for:
+
+-  Initial conditions
+-  Boundary conditions
+-  Point sources
+-  Internal surfaces
+-  Monitors
+-  Outputs
+
+The following buttons are at the top of the Regions pane:
+
++-------------------+-----------------------------------------------------+
+| Icon              | Description                                         |
++===================+=====================================================+
+| |add|             | create a new region                                 |
++-------------------+-----------------------------------------------------+
+| |remove|          | delete the selected region                          |
++-------------------+-----------------------------------------------------+
+| |copy|            | duplicate the selected region                       |
++-------------------+-----------------------------------------------------+
+| |all region|      | create a region that encompasses the entire domain  |
++-------------------+-----------------------------------------------------+
+| |left region|     | create a region on the left side of the domain      |
++-------------------+-----------------------------------------------------+
+| |right region|    | create a region on the right side of the domain     |
++-------------------+-----------------------------------------------------+
+| |top region|      | create a region on the top side of the domain       |
++-------------------+-----------------------------------------------------+
+| |bottom region|   | create a region on the bottom side of the domain    |
++-------------------+-----------------------------------------------------+
+| |front region|    | create a region on the front side of the domain     |
++-------------------+-----------------------------------------------------+
+| |back region|     | create a region on the back side of the domain      |
++-------------------+-----------------------------------------------------+
+
+The |add| (Add) button creates a new region. The region will be created with a
+generic name such as ``R_1``; it is strongly recommended to rename the region to
+something more descriptive, so that it is easier to refer to it later.
+The Color button will change the color of the region in the model setup view.
+
+The table created with the "From" and "To" fields for the X, Y, and Z axes define the extents of the
+region. These widgets take special parameters, ``min`` and ``max``, that
+reference the minimum and maximum values of the domain, as specified in the
+geometry section. These values will get automatically updated when the
+extents in the geometry section are updated. The region type will be
+inferred from the specified extents.
+
+If the region needs to be a collection of triangles from the STL file,
+select the 'Select facets' (STL) checkbox. The selection shape can be
+changed between a box and an ellipsoid. Triangles that fall on the edge of
+the shape can be sliced by selecting the 'Slice facets' checkbox. The
+triangles can be further filtered by the normal direction by specifying
+a vector and a deviation angle around that vector.
+
+.. hint::
+    If a region is referenced by an item in the ``Used by`` column, the region
+    can not be deleted and its type (STL vs non-STL) cannot be changed.

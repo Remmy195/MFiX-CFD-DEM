@@ -1,0 +1,27 @@
+Metadata-Version: 2.3
+Name: mfix
+Version: 25.2.1
+Summary: MFiX computational fluid dynamics software
+Author: Multiflow Science Group at NETL
+Requires-Python: >=3.11
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: ffmpeg-python
+Requires-Dist: flask
+Requires-Dist: gitpython
+Requires-Dist: matplotlib
+Requires-Dist: packaging
+Requires-Dist: pandas
+Requires-Dist: psutil
+Requires-Dist: pyqt5
+Requires-Dist: pyqtgraph
+Requires-Dist: pyyaml
+Requires-Dist: qtpy
+Requires-Dist: requests
+Requires-Dist: scipy
+Requires-Dist: setproctitle
+Requires-Dist: simplejson
+Requires-Dist: trimesh
+Requires-Dist: vtk

@@ -1,0 +1,204 @@
+.. _fluid:
+
+.. include:: /icons.rst
+
+=====
+Fluid
+=====
+
+The fluid pane is used to select the models and parameters defining the
+fluid phase. The fluid pane is only accessible if the fluid phase is
+being solved.
+
+**Name**
+The name used to refer to the continuous phase in the GUI. By default,
+the continuous phase is termed "fluid", However, it may be renamed for
+convenience.
+
+Fluid Model Options
+-------------------
+
+**Solve momentum equation**
+By default, all momentum equations are solved. Individual momentum
+equations may be disabled by toggling the check box.
+
+**Solve species equations**
+By default, species transport equations are not solved for the fluid
+phase. If species equations are enabled, species will need to be
+added to the fluid phase using the fluid species tool.
+
+**Enable scalar equations**
+By default, no additional scalar transport equations are solved with
+the fluid phase. Additional scalars may be added by toggling the
+scalar checkbox and specifying the number of additional scalars to
+track.
+
+**Energy equations** Energy equations cannot be enabled or disabled on
+a per-phase basis. As such, they are enabled or disabled for all
+phases in the Model setup pane.
+
+
+Fluid Properties
+----------------
+
+**Density** has units of :math:`({kg}/{m^3})` and may be specified
+using one of the following approaches.
+
+-  *Constant:*
+
+   -  A positive (non-zero) number must be provided.
+
+-  *Ideal gas law*
+
+   -  Requires fluid temperature be specified for the whole domain and
+      all flow boundary conditions.
+   -  Requires a fluid molecular weight.
+
+-  *User-Defined Function (UDF)*
+
+   -  A custom equation of state must be provided in usr_properties.f
+   -  A custom solver must be built.
+
+
+**Viscosity** has units of :math:`(Pa \cdot s)` and may be specified
+using one of the following approaches.
+
+-  *Constant:*
+
+   -  A positive (non-zero) number must be provided.
+
+-  *Sutherland's law*
+
+   -  Requires fluid temperature be specified for the whole domain and
+      all flow boundary conditions.
+
+-  *Herschel-Bulkley*
+
+   -  Herschel-Bulkley (non-Newtonian) model
+
+-  *Lennard-Jones*
+
+   -  Requires Lennard-Jones potential well depth in Kelvins and collision
+      diameter in Angstroms for each species.
+
+-  *Cantera Polynomial*
+
+   -  Requires Lennard-Jones potential well depth in Kelvins, collision
+      diameter in Angstroms, and geometry of the species for each species.
+
+-  *User-Defined Function (UDF)*
+
+   -  A custom equation of state must be provided in usr_properties.f
+   -  A custom solver must be built.
+
+
+**Molecular Weight** has units of :math:`({kg}/{kmol})` and may be specified
+using one of the following approaches.
+
+-  *Constant:*
+
+   -  A positive (non-zero) number must be provided.
+
+-  *Mixture*
+
+   -  Requires fluid species definition.
+   -  Requires fluid species mass fractions specification for the whole domain and
+      all flow boundary conditions
+
+
+**Specific Heat** has units of :math:`({J}/{kg \cdot K})` and may be specified
+using one of the following approaches.
+
+-  *Constant:*
+
+   -  A positive (non-zero) number must be provided.
+
+-  *Mixture*
+
+   -  Requires fluid species definition.
+   -  Requires fluid species mass fractions specification for the whole domain and
+      all flow boundary conditions
+
+-  *User-Defined Function (UDF)*
+
+   -  A custom equation of state must be provided in usr_properties.f
+   -  A custom solver must be built.
+
+
+**Thermal conductivity** has units of :math:`({W}/{m \cdot K})` may be specified
+using one of the following approaches.
+
+-  *Constant:*
+
+   -  A non-negative number must be provided.
+
+-  *Dilute mixture approximation (temperature dependent air)*
+
+   -  Requires fluid temperature be specified for the whole domain and
+      all flow boundary conditions.
+
+-  *Lennard-Jones*
+
+   -  Requires Lennard-Jones potential well depth in Kelvins and collision
+      diameter in Angstroms for each species.
+
+-  *Cantera Polynomial*
+
+   -  Requires Lennard-Jones potential well depth in Kelvins, collision
+      diameter in Angstroms, geometry of the species, the dipole moment in Debye,
+      polarizability in cubic Angstroms and rotational relaxation collision number
+      at 298K for each species.
+   -  The last three parameters are optitional with default value of 0.
+
+-  *User-Defined Function (UDF)*
+
+   -  A custom equation of state must be provided in usr_properties.f
+   -  A custom solver must be built.
+
+**Diffusivity** has units of :math:`({m^2}/{s})` may be specified
+using one of the following approaches.
+
+-  *Constant:*
+
+   -  A non-negative number must be provided.
+
+-  *Dilute mixture approximation (air)*
+
+   -  Requires fluid temperature be specified for the whole domain and
+      all flow boundary conditions.
+
+-  *Multi-component diffusion*
+
+   -  *Constant binary coefficients* requires the binary coefficients between species
+   -  *Lennard-Jones intermolecular potential model* requires Lennard-Jones potential
+      well depth in Kelvins and collision diameter in Angstroms for each species.
+   -  *Include thermal diffusion effects* includes the thermal diffusion in the
+      multi-component diffusion model.
+
+-  *User-Defined Function (UDF)*
+
+   -  A custom equation of state must be provided in usr_properties.f
+   -  A custom solver must be built.
+
+--------
+
+**Reference pressure** has units of :math:`(Pa)` and is zero by default. A
+constant value may be specified to shift the simulation pressure prior
+to scaling.
+
+
+**Pressure scale factor** is dimensionless and is one by default. A
+constant value may be specified to scale the simulation pressure.
+
+.. math::
+
+   P_{scaled} = {P_{simulation} - P_{reference}}/{P_{scale factor}}
+
+
+Fluid species
+-------------------
+
+Species that comprise the fluid phase are summarized in the species overview
+table. New species are added by clicking the add button, |add|, at the top
+of the species table, and selecting one or
+more valid regions (see :numref:`ic_region_select`).

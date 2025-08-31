@@ -1,0 +1,1379 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.1.5. Discrete element model (DEM) &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.1.6. Gas phase" href="gas_phase.html" />
+    <link rel="prev" title="12.1.4. Chemical reactions" href="chemical_reactions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">12. Keyword reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="keywords.html">12.1. Keywords</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="batch_queue_environment.html">12.1.1. Batch queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boundary_condition.html">12.1.2. Boundary conditions (BC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cartesian_grid.html">12.1.3. Cartesian grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemical_reactions.html">12.1.4. Chemical reactions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">12.1.5. Discrete element model (DEM)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#discrete-element-common">12.1.5.1. Discrete Element - Common</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#discrete-element-model">12.1.5.2. Discrete Element Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#particles-in-cell">12.1.5.3. Particles in Cell</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gas_phase.html">12.1.6. Gas phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry_and_discretization.html">12.1.7. Geometry and discretization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initial_condition.html">12.1.8. Initial conditions (IC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="internal_surface.html">12.1.9. Internal surfaces (IS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numerical_parameters.html">12.1.10. Numerical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_control.html">12.1.11. Output control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parallelization_control.html">12.1.12. Parallelization control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="particle_in_cell.html">12.1.13. Particle-in-cell model (PIC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_parameters.html">12.1.14. Physical parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_source.html">12.1.15. Point sources (PS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_control.html">12.1.16. Run control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solids_phase.html">12.1.17. Solids phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thermochemical_properties.html">12.1.18. Thermochemical properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="two_fluid_model.html">12.1.19. Two-fluid model (TFM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="udf_control.html">12.1.20. UDF control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">12. </span>Keyword reference</a></li>
+          <li class="breadcrumb-item"><a href="keywords.html"><span class="section-number">12.1. </span>Keywords</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1.5. </span>Discrete element model (DEM)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/discrete_element.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="discrete-element-model-dem">
+<h1><span class="section-number">12.1.5. </span>Discrete element model (DEM)<a class="headerlink" href="#discrete-element-model-dem" title="Link to this heading">¶</a></h1>
+<section id="discrete-element-common">
+<h2><span class="section-number">12.1.5.1. </span>Discrete Element - Common<a class="headerlink" href="#discrete-element-common" title="Link to this heading">¶</a></h2>
+<p>These are keywords common to Discrete Element Model (DEM) and Particles In Cell
+(PIC).</p>
+<section id="des-diffuse-width">
+<span id="id1"></span><h3><span class="section-number">12.1.5.1.1. </span><span class="kwname">DES_DIFFUSE_WIDTH</span><a class="headerlink" href="#des-diffuse-width" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>The length scale used to smooth dispersed phase averaged fields by
+solving a diffusion equation. This approach is typically used when
+particle sizes near or exceed the size of the Eulerian grid cell sizes.</p>
+<ul class="simple">
+<li><p>Mean field diffusion is disabled if DES_DIFFUSE_WIDTH is not specified.</p></li>
+<li><p>Mean field diffusion cannot be used with the GARG_2012
+interpolation scheme.</p></li>
+<li><p>It is recommended that mean field diffusion be used in conjunction
+with DES_EXPLICITLY_COUPLED to minimize the computational cost of
+diffusing field data.</p></li>
+<li><p>The DES diffusion equation is listed as equation type 10 in the
+Numerical parameters section.</p></li>
+</ul>
+</section>
+<section id="des-epg-clip">
+<span id="id2"></span><h3><span class="section-number">12.1.5.1.2. </span><span class="kwname">DES_EPG_CLIP</span><a class="headerlink" href="#des-epg-clip" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Limit at which void fraction calculation is clipped for all Lagrangian
+models (DEM, PIC, CGP, SQP, GSP). If the computed void fraction in a cell goes
+below DES_EPG_CLIP, it will be set to DES_EPG_CLIP. Leave DES_EPG_CLIP
+undefined to turn off the clipping.</p>
+</section>
+<section id="des-explicitly-coupled">
+<span id="id3"></span><h3><span class="section-number">12.1.5.1.3. </span><span class="kwname">DES_EXPLICITLY_COUPLED</span><a class="headerlink" href="#des-explicitly-coupled" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Enable/Disable explicit coupling of DEM solids and the fluid.</p>
+<table class="docutils align-default" id="id95">
+<caption><span class="caption-number">Table 12.20 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id95" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>The fluid and particles calculate interphase forces at their respective time scales. The fluid phase calculates the interphase coupling forces once per fluid time step. Similarly, DEM particles calculate the interface coupling forces at each solids time-step. The DEM must also bin particles to the fluid grid and recalculate the fluid volume fraction every time-step.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Interphase forces are calculated during the fluid time step and stored for each particle. The interphase forces are then distributed among the solids time-steps. This approach can substantially reduce the computational overhead for coupled simulations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-interp-mean-fields">
+<span id="id4"></span><h3><span class="section-number">12.1.5.1.4. </span><span class="kwname">DES_INTERP_MEAN_FIELDS</span><a class="headerlink" href="#des-interp-mean-fields" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Enable/disable interpolation of particle data (e.g., solids
+volume and drag force) from a particle’s position to the
+Eulerian grid.</p>
+<table class="docutils align-default" id="id96">
+<caption><span class="caption-number">Table 12.21 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id96" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Assign particle data to the fluid grid cell containing the particle’s center.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Interpolate particle data from the particle’s position to the 27-cell neighborhood surrounding the particle.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-interp-on">
+<span id="id5"></span><h3><span class="section-number">12.1.5.1.5. </span><span class="kwname">DES_INTERP_ON</span><a class="headerlink" href="#des-interp-on" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Enable/disable interpolation of field quantities to a particle’s
+position. This is used in calculating gas-particle interactions,
+such as the drag force.</p>
+<table class="docutils align-default" id="id97">
+<caption><span class="caption-number">Table 12.22 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id97" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Use fluid values from the cell containing the particle’s center.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Interpolate fluid values from the 27-cell neighborhood to a particle’s position.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-interp-scheme">
+<span id="id6"></span><h3><span class="section-number">12.1.5.1.6. </span><span class="kwname">DES_INTERP_SCHEME</span><a class="headerlink" href="#des-interp-scheme" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Specify the scheme used to map data to/from a particle’s position
+and the Eulerian grid. This keyword is required when
+DES_INTERP_MEAN_FIELDS and/or DES_INTERP_ON are specified.</p>
+<table class="docutils align-default" id="id98">
+<caption><span class="caption-number">Table 12.23 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id98" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Do not use interpolation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GARG_2012</span></code></p></td>
+<td></td>
+<td><p>Interpolate to/from a particle’s position using the corners (nodes) of the fluid cells. This was the default behavior prior to version 2015-1. See Garg et al. (2012) Documentation of the open-source MFiX-DEM software for gas-solids flows.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SQUARE_DPVM</span></code></p></td>
+<td></td>
+<td><p>Divided particle volume method: Information is interpolated to/from a particle’s position using a square filter of size DES_INTERP_WIDTH.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LINEAR_HAT</span></code></p></td>
+<td></td>
+<td><p>Linear interpolation: Hat functions are used to distribute particle information. PIC only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DPVM_SATELLITE</span></code></p></td>
+<td></td>
+<td><p>Divided particle volume method using satellites.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-interp-width">
+<span id="id7"></span><h3><span class="section-number">12.1.5.1.7. </span><span class="kwname">DES_INTERP_WIDTH</span><a class="headerlink" href="#des-interp-width" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Length used in interpolating data to/from a particle’s position
+and the Eulerian grid. The interpolation width is only applicable
+to the DPVM_SQUARE and DPVM_GAUSS interpolation schemes as the
+GARG_2012 scheme’s interpolation width is determined by the
+Eulerian grid dimensions.</p>
+<ul class="simple">
+<li><p>The interpolation half-width cannot exceed the minimum cell
+dimension because interpolation is restricted to the 27-cell
+neighborhood surrounding a particle (9-cell neighborhood in 2D).</p></li>
+<li><p>It is recommended that the DES_INTERP_WIDTH be set equal to the
+maximum particle diameter when using STL defined boundaries.
+Field data can be smoothed by specifying DES_DIFFUSE_WIDTH.</p></li>
+</ul>
+</section>
+<section id="des-intg-method">
+<span id="id8"></span><h3><span class="section-number">12.1.5.1.8. </span><span class="kwname">DES_INTG_METHOD</span><a class="headerlink" href="#des-intg-method" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Time stepping scheme. Note that DEM solids species mass fraction always use
+firt-order Euler scheme regardless of this setting.</p>
+<table class="docutils align-default" id="id99">
+<caption><span class="caption-number">Table 12.24 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id99" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EULER</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>First-order Euler scheme.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ADAMS_BASHFORTH</span></code></p></td>
+<td></td>
+<td><p>Second-order ADAMS_BASHFORTH scheme. (DEM only)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-oneway-coupled">
+<span id="id9"></span><h3><span class="section-number">12.1.5.1.9. </span><span class="kwname">DES_ONEWAY_COUPLED</span><a class="headerlink" href="#des-oneway-coupled" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Run one-way coupled simulations [default .FALSE.].
+If set, the fluid does not see the particles in terms of drag force.
+The effect of particle volume is still felt by the fluid through
+non-unity voidage values.</p>
+<table class="docutils align-default" id="id100">
+<caption><span class="caption-number">Table 12.25 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id100" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Two-way particle-fluid coupling.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>One-way particle-fluid coupling (fluid does not see particle drag).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="desgridsearch-imax">
+<span id="id10"></span><h3><span class="section-number">12.1.5.1.10. </span><span class="kwname">DESGRIDSEARCH_IMAX</span><a class="headerlink" href="#desgridsearch-imax" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Number of des grid cells in the I-direction. If left undefined,
+then it is set by MFiX such that its size equals three times the
+maximum particle diameter with a minimum of 1 cell.</p>
+</section>
+<section id="desgridsearch-jmax">
+<span id="id11"></span><h3><span class="section-number">12.1.5.1.11. </span><span class="kwname">DESGRIDSEARCH_JMAX</span><a class="headerlink" href="#desgridsearch-jmax" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Number of des grid cells in the J-direction. If left undefined,
+then it is set by MFiX such that its size equals three times
+the maximum particle diameter with a minimum of 1 cell.</p>
+</section>
+<section id="desgridsearch-kmax">
+<span id="id12"></span><h3><span class="section-number">12.1.5.1.12. </span><span class="kwname">DESGRIDSEARCH_KMAX</span><a class="headerlink" href="#desgridsearch-kmax" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Number of des grid cells in the K-direction. If left undefined,
+then it is set by MFiX such that its size equals three times
+the maximum particle diameter with a minimum of 1 cell.</p>
+</section>
+<section id="gener-part-config">
+<span id="id13"></span><h3><span class="section-number">12.1.5.1.13. </span><span class="kwname">GENER_PART_CONFIG</span><a class="headerlink" href="#gener-part-config" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Automatically generate the initial particle position and velocity
+data based on the parameters specified for each initial condition
+(IC) region.</p>
+<table class="docutils align-default" id="id101">
+<caption><span class="caption-number">Table 12.26 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id101" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.TRUE.</span></code></p></td>
+<td></td>
+<td><p>Generate particle configuration based on the initial condition parameters. Data provided in the particle input file, if present, is ignored.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.FALSE.</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Particle position and velocity data are provided in the particle input file. A runtime error occurs if this file is not provided.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-in-density-exclude">
+<span id="id14"></span><h3><span class="section-number">12.1.5.1.14. </span><span class="kwname">PART_IN_DENSITY_EXCLUDE</span><a class="headerlink" href="#part-in-density-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Density filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-density-max">
+<span id="id15"></span><h3><span class="section-number">12.1.5.1.15. </span><span class="kwname">PART_IN_DENSITY_MAX</span><a class="headerlink" href="#part-in-density-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Density maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_DENSITY_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-density-min">
+<span id="id16"></span><h3><span class="section-number">12.1.5.1.16. </span><span class="kwname">PART_IN_DENSITY_MIN</span><a class="headerlink" href="#part-in-density-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Density minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_DENSITY_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-diameter-exclude">
+<span id="id17"></span><h3><span class="section-number">12.1.5.1.17. </span><span class="kwname">PART_IN_DIAMETER_EXCLUDE</span><a class="headerlink" href="#part-in-diameter-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Diameter filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-diameter-max">
+<span id="id18"></span><h3><span class="section-number">12.1.5.1.18. </span><span class="kwname">PART_IN_DIAMETER_MAX</span><a class="headerlink" href="#part-in-diameter-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Diameter maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_DIAMETER_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-diameter-min">
+<span id="id19"></span><h3><span class="section-number">12.1.5.1.19. </span><span class="kwname">PART_IN_DIAMETER_MIN</span><a class="headerlink" href="#part-in-diameter-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Diameter minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_DIAMETER_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-phase-phase">
+<span id="part-in-phase"></span><h3><span class="section-number">12.1.5.1.20. </span><span class="kwname">PART_IN_PHASE(PHASE)</span><a class="headerlink" href="#part-in-phase-phase" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le 10\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Solids phase filter applied to particles read from particle input file.
+Change to .FALSE. to exclude particles belonging to this phase.</p>
+</section>
+<section id="part-in-temp-exclude">
+<span id="id20"></span><h3><span class="section-number">12.1.5.1.21. </span><span class="kwname">PART_IN_TEMP_EXCLUDE</span><a class="headerlink" href="#part-in-temp-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Temperature filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected and written
+out. Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-temp-max">
+<span id="id21"></span><h3><span class="section-number">12.1.5.1.22. </span><span class="kwname">PART_IN_TEMP_MAX</span><a class="headerlink" href="#part-in-temp-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Temperature maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless PART_IN_TEMP_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-temp-min">
+<span id="id22"></span><h3><span class="section-number">12.1.5.1.23. </span><span class="kwname">PART_IN_TEMP_MIN</span><a class="headerlink" href="#part-in-temp-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Temperature minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless PART_IN_TEMP_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-u-exclude">
+<span id="id23"></span><h3><span class="section-number">12.1.5.1.24. </span><span class="kwname">PART_IN_U_EXCLUDE</span><a class="headerlink" href="#part-in-u-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>X-velocity filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-u-max">
+<span id="id24"></span><h3><span class="section-number">12.1.5.1.25. </span><span class="kwname">PART_IN_U_MAX</span><a class="headerlink" href="#part-in-u-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>X-velocity maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_U_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-u-min">
+<span id="id25"></span><h3><span class="section-number">12.1.5.1.26. </span><span class="kwname">PART_IN_U_MIN</span><a class="headerlink" href="#part-in-u-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>X-velocity minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_U_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-usr-var-exclude-index">
+<span id="part-in-usr-var-exclude"></span><h3><span class="section-number">12.1.5.1.27. </span><span class="kwname">PART_IN_USR_VAR_EXCLUDE(INDEX)</span><a class="headerlink" href="#part-in-usr-var-exclude-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le 100\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>User-defined variable filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-usr-var-max-index">
+<span id="part-in-usr-var-max"></span><h3><span class="section-number">12.1.5.1.28. </span><span class="kwname">PART_IN_USR_VAR_MAX(INDEX)</span><a class="headerlink" href="#part-in-usr-var-max-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le 100\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>User-defined variable maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless corresponding PART_IN_USR_VAR_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-usr-var-min-index">
+<span id="part-in-usr-var-min"></span><h3><span class="section-number">12.1.5.1.29. </span><span class="kwname">PART_IN_USR_VAR_MIN(INDEX)</span><a class="headerlink" href="#part-in-usr-var-min-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le 100\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>User-defined variable minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless corresponding PART_IN_USR_VAR_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-v-exclude">
+<span id="id26"></span><h3><span class="section-number">12.1.5.1.30. </span><span class="kwname">PART_IN_V_EXCLUDE</span><a class="headerlink" href="#part-in-v-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Y-velocity filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-v-max">
+<span id="id27"></span><h3><span class="section-number">12.1.5.1.31. </span><span class="kwname">PART_IN_V_MAX</span><a class="headerlink" href="#part-in-v-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Y-velocity maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_V_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-v-min">
+<span id="id28"></span><h3><span class="section-number">12.1.5.1.32. </span><span class="kwname">PART_IN_V_MIN</span><a class="headerlink" href="#part-in-v-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Y-velocity minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_V_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-w-exclude">
+<span id="id29"></span><h3><span class="section-number">12.1.5.1.33. </span><span class="kwname">PART_IN_W_EXCLUDE</span><a class="headerlink" href="#part-in-w-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Z-velocity filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+out. Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-w-max">
+<span id="id30"></span><h3><span class="section-number">12.1.5.1.34. </span><span class="kwname">PART_IN_W_MAX</span><a class="headerlink" href="#part-in-w-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Z-velocity maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_W_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-w-min">
+<span id="id31"></span><h3><span class="section-number">12.1.5.1.35. </span><span class="kwname">PART_IN_W_MIN</span><a class="headerlink" href="#part-in-w-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Z-velocity minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_W_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-x-exclude">
+<span id="id32"></span><h3><span class="section-number">12.1.5.1.36. </span><span class="kwname">PART_IN_X_EXCLUDE</span><a class="headerlink" href="#part-in-x-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>X-coordinate filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-x-max">
+<span id="id33"></span><h3><span class="section-number">12.1.5.1.37. </span><span class="kwname">PART_IN_X_MAX</span><a class="headerlink" href="#part-in-x-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>X-coordinate maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_X_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-x-min">
+<span id="id34"></span><h3><span class="section-number">12.1.5.1.38. </span><span class="kwname">PART_IN_X_MIN</span><a class="headerlink" href="#part-in-x-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>X-coordinate minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_X_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-x-s-exclude-index">
+<span id="part-in-x-s-exclude"></span><h3><span class="section-number">12.1.5.1.39. </span><span class="kwname">PART_IN_X_S_EXCLUDE(INDEX)</span><a class="headerlink" href="#part-in-x-s-exclude-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le 100\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Species filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected and written
+out. Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-x-s-max-index">
+<span id="part-in-x-s-max"></span><h3><span class="section-number">12.1.5.1.40. </span><span class="kwname">PART_IN_X_S_MAX(INDEX)</span><a class="headerlink" href="#part-in-x-s-max-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le 100\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Species maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless corresponding PART_IN_X_S_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-x-s-min-index">
+<span id="part-in-x-s-min"></span><h3><span class="section-number">12.1.5.1.41. </span><span class="kwname">PART_IN_X_S_MIN(INDEX)</span><a class="headerlink" href="#part-in-x-s-min-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le 100\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Species minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless corresponding PART_IN_X_S_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-y-exclude">
+<span id="id35"></span><h3><span class="section-number">12.1.5.1.42. </span><span class="kwname">PART_IN_Y_EXCLUDE</span><a class="headerlink" href="#part-in-y-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Y-coordinate filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-y-max">
+<span id="id36"></span><h3><span class="section-number">12.1.5.1.43. </span><span class="kwname">PART_IN_Y_MAX</span><a class="headerlink" href="#part-in-y-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Y-coordinate maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_Y_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-y-min">
+<span id="id37"></span><h3><span class="section-number">12.1.5.1.44. </span><span class="kwname">PART_IN_Y_MIN</span><a class="headerlink" href="#part-in-y-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Y-coordinate minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are written
+out, unless PART_IN_Y_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-z-exclude">
+<span id="id38"></span><h3><span class="section-number">12.1.5.1.45. </span><span class="kwname">PART_IN_Z_EXCLUDE</span><a class="headerlink" href="#part-in-z-exclude" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Z-coordinate filter selection mode applied to particles read from particle input file.
+By default, particles with data between min and max value are selected.
+Change to .TRUE. to select particles with data outside the [min;max] range.</p>
+</section>
+<section id="part-in-z-max">
+<span id="id39"></span><h3><span class="section-number">12.1.5.1.46. </span><span class="kwname">PART_IN_Z_MAX</span><a class="headerlink" href="#part-in-z-max" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Z-coordinate maximum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_Z_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="part-in-z-min">
+<span id="id40"></span><h3><span class="section-number">12.1.5.1.47. </span><span class="kwname">PART_IN_Z_MIN</span><a class="headerlink" href="#part-in-z-min" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Z-coordinate minimum value of the filter applied to particles read from particle input file.
+By default, particles with data between min and max value are selected,
+unless PART_IN_Z_EXCLUDE is set to .TRUE.</p>
+</section>
+<section id="particles">
+<span id="id41"></span><h3><span class="section-number">12.1.5.1.48. </span><span class="kwname">PARTICLES</span><a class="headerlink" href="#particles" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Number of particles to be read in from the particle input file.
+This value is ignored when using automatic particle generation.
+If unset, read all particles from file.
+A simulation with a mass inflow BC can start without solids by
+setting PARTICLES = 0.</p>
+</section>
+</section>
+<section id="discrete-element-model">
+<h2><span class="section-number">12.1.5.2. </span>Discrete Element Model<a class="headerlink" href="#discrete-element-model" title="Link to this heading">¶</a></h2>
+<p>These keywords relate to the Discrete Element Model (DEM).</p>
+<section id="asperities">
+<span id="id42"></span><h3><span class="section-number">12.1.5.2.1. </span><span class="kwname">ASPERITIES</span><a class="headerlink" href="#asperities" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Mean radius of surface asperities that influence the cohesive force.
+See H. Rumpf, Particle Technology, Chapman &amp; Hall,
+London/New York, 1990.</p>
+</section>
+<section id="des-buff-resize-factor">
+<span id="id43"></span><h3><span class="section-number">12.1.5.2.2. </span><span class="kwname">DES_BUFF_RESIZE_FACTOR</span><a class="headerlink" href="#des-buff-resize-factor" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Growth factor when resizing send/recv buffers (Default is 0.5)
+Increase this value if the resizing fails. This could occur with initial
+packed bed, and small partition blocks (around 5 cells).</p>
+</section>
+<section id="des-coll-model">
+<span id="id44"></span><h3><span class="section-number">12.1.5.2.3. </span><span class="kwname">DES_COLL_MODEL</span><a class="headerlink" href="#des-coll-model" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Collision model for the soft-sphere approach used in DEM model.
+All models require specifying the following parameters: DES_EN_INPUT,
+DES_EN_WALL_INPUT, MEW, and MEW_W.</p>
+<table class="docutils align-default" id="id102">
+<caption><span class="caption-number">Table 12.27 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id102" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LSD</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>The linear spring-dashpot model. Requires: KN, KN_W, KT_FAC, KT_W_FAC, DES_ETAT_FAC, DES_ETAT_W_FAC.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HERTZIAN</span></code></p></td>
+<td></td>
+<td><p>The Hertzian model. Requires: DES_ET_INPUT, DES_ET_WALL_INPUT, E_YOUNG, EW_YOUNG, V_POISSON, VW_POISSON.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-conv-corr">
+<span id="id45"></span><h3><span class="section-number">12.1.5.2.4. </span><span class="kwname">DES_CONV_CORR</span><a class="headerlink" href="#des-conv-corr" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Specify the Nusselt number correlation used for particle-gas
+convection.</p>
+<table class="docutils align-default" id="id103">
+<caption><span class="caption-number">Table 12.28 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id103" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RANZ_1952</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Ranz, W.E. and Marshall, W.R. (1952). Chemical Engineering Progress, 48: 141-146 and 173-180</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GUNN</span></code></p></td>
+<td></td>
+<td><p>Gunn D. Transfer of heat or mass to particles in fixed and fluidised beds. International Journal of Heat and Mass Transfer. 1978;21(4):467-476.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WAKAO</span></code></p></td>
+<td></td>
+<td><p>Wakao N, Kaguei S, Funazkri T. Effect of fluid dispersion coefficients on particle-to-fluid heat transfer coefficients in packed beds: correlation of Nusselt numbers. Chemical engineering science. 1979;34(3):325-336.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TAVASSOLI</span></code></p></td>
+<td></td>
+<td><p>Tavassoli H, Peters E, Kuipers J. Direct numerical simulation of fluid–particle heat transfer in fixed random arrays of non-spherical particles. Chemical Engineering Science. 2015;129:42-48.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-em-phase">
+<span id="des-em"></span><h3><span class="section-number">12.1.5.2.5. </span><span class="kwname">DES_EM(PHASE)</span><a class="headerlink" href="#des-em-phase" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le DES{\_}MMAX\)</span></p></li>
+</ul>
+<p>Emissivity of solids phase.</p>
+</section>
+<section id="des-en-input-index">
+<span id="des-en-input"></span><h3><span class="section-number">12.1.5.2.6. </span><span class="kwname">DES_EN_INPUT(INDEX)</span><a class="headerlink" href="#des-en-input-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le MMAX*(MMAX-1)/2\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Normal restitution coefficient for inter-particle collisions
+used to determine the inter-particle normal damping factor.</p>
+<p>Values should be defined for a single dimensional array. For
+example, a simulation with three solids phases (MMAX=3) needs
+six values: en11, en12, en13; en22, en23; en33.</p>
+</section>
+<section id="des-en-wall-input-index">
+<span id="des-en-wall-input"></span><h3><span class="section-number">12.1.5.2.7. </span><span class="kwname">DES_EN_WALL_INPUT(INDEX)</span><a class="headerlink" href="#des-en-wall-input-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le MMAX\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Normal restitution coefficient for particle-wall collisions
+used to determine the particle-wall normal damping factor.</p>
+<p>Values should be defined in a single dimensional array. For
+example, a simulation with three solids phases (MMAX=3) needs
+three values: enw1, enw2, enw3.</p>
+</section>
+<section id="des-et-input-index">
+<span id="des-et-input"></span><h3><span class="section-number">12.1.5.2.8. </span><span class="kwname">DES_ET_INPUT(INDEX)</span><a class="headerlink" href="#des-et-input-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le MMAX*(MMAX-1)/2\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Tangential restitution coefficient for inter-particle collisions.
+Values are defined in a one dimensional array. This is required
+input when using the Hertzian collision model.</p>
+</section>
+<section id="des-et-wall-input-index">
+<span id="des-et-wall-input"></span><h3><span class="section-number">12.1.5.2.9. </span><span class="kwname">DES_ET_WALL_INPUT(INDEX)</span><a class="headerlink" href="#des-et-wall-input-index" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Index \le MMAX\)</span></p></li>
+</ul>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Tangential restitution coefficient for particle wall collisions.
+Values are defined in a one dimensional array. This is required
+input when using the Hertzian collision model.</p>
+</section>
+<section id="des-etat-fac">
+<span id="id46"></span><h3><span class="section-number">12.1.5.2.10. </span><span class="kwname">DES_ETAT_FAC</span><a class="headerlink" href="#des-etat-fac" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Ratio of the tangential damping factor to the normal damping factor
+for inter-particle collisions.  Required for the linear spring-dashpot
+collision model.</p>
+<table class="docutils align-default" id="id104">
+<caption><span class="caption-number">Table 12.29 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id104" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UNDEFINED</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>For LSD model, if left undefined, MFiX reverts to default value of 0.5.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-etat-w-fac">
+<span id="id47"></span><h3><span class="section-number">12.1.5.2.11. </span><span class="kwname">DES_ETAT_W_FAC</span><a class="headerlink" href="#des-etat-w-fac" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Ratio of the tangential damping factor to the normal damping
+factor for particle-wall collisions. Required for the linear
+spring-dashpot model for soft-spring collision modelling under
+DEM. For the Hertzian model, the tangential damping coefficients
+have to be explicitly specified and specification of this
+variable is not required.</p>
+<table class="docutils align-default" id="id105">
+<caption><span class="caption-number">Table 12.30 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id105" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UNDEFINED</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>For LSD model, if left undefined, MFiX will revert to default value of 0.5</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="des-min-cond-dist">
+<span id="id48"></span><h3><span class="section-number">12.1.5.2.12. </span><span class="kwname">DES_MIN_COND_DIST</span><a class="headerlink" href="#des-min-cond-dist" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Minimum separation distance between the surfaces of two contacting
+particles.</p>
+</section>
+<section id="des-neighbor-search">
+<span id="id49"></span><h3><span class="section-number">12.1.5.2.13. </span><span class="kwname">DES_NEIGHBOR_SEARCH</span><a class="headerlink" href="#des-neighbor-search" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Flag to set the neighbor search algorithm.</p>
+<table class="docutils align-default" id="id106">
+<caption><span class="caption-number">Table 12.31 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id106" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td></td>
+<td><p>N-Square search algorithm (most expensive)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>Grid-Based Neighbor Search (Recommended)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dlb-dt">
+<span id="id50"></span><h3><span class="section-number">12.1.5.2.14. </span><span class="kwname">DLB_DT</span><a class="headerlink" href="#dlb-dt" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Time interval at which Dynamic Load Balance (DLB) is performed (sec)</p>
+<table class="docutils align-default" id="id107">
+<caption><span class="caption-number">Table 12.32 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id107" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UNDEFINED</span></code></p></td>
+<td><p>◉</p></td>
+<td><p>: UNDEFINED value turns Dynamic Load Balance off</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;0</span></code></p></td>
+<td></td>
+<td><p>: Any positive value turns Dynamic Load Balance on</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dlb-egw">
+<span id="id51"></span><h3><span class="section-number">12.1.5.2.15. </span><span class="kwname">DLB_EGW</span><a class="headerlink" href="#dlb-egw" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Eulerian Grid Weight use in Dynamic Load Balance.
+A value of zero means the balancing only considers particles.
+A very large value means the partition will balance only the fluid mesh.
+Finding the optimal value will require trial and error.</p>
+<table class="docutils align-default" id="id108">
+<caption><span class="caption-number">Table 12.33 </span><span class="caption-text">Valid values</span><a class="headerlink" href="#id108" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18.2%" />
+<col style="width: 9.1%" />
+<col style="width: 72.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Default?</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;=0</span></code></p></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dtsolid">
+<span id="id52"></span><h3><span class="section-number">12.1.5.2.16. </span><span class="kwname">DTSOLID</span><a class="headerlink" href="#dtsolid" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Solids time step (s). If this value is left blank (UNDEFINED), then it
+will be automatically computed based on particle properties, and
+DTSOLID_FACTOR.</p>
+</section>
+<section id="dtsolid-factor">
+<span id="id53"></span><h3><span class="section-number">12.1.5.2.17. </span><span class="kwname">DTSOLID_FACTOR</span><a class="headerlink" href="#dtsolid-factor" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Ratio between the collision time and the solids time step (default value is
+50). Minimum value is 10.0. It is highly recommended to keep the default value.</p>
+</section>
+<section id="dtsolid-update-dt">
+<span id="id54"></span><h3><span class="section-number">12.1.5.2.18. </span><span class="kwname">DTSOLID_UPDATE_DT</span><a class="headerlink" href="#dtsolid-update-dt" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Time interval at which the DEM solids time step is updated.
+Useful when particle’s size or mass change over time.
+Only applicable to coupled gas/solids flows (this setting is ignored for
+pure granular flows).</p>
+</section>
+<section id="e-young-phase">
+<span id="e-young"></span><h3><span class="section-number">12.1.5.2.19. </span><span class="kwname">E_YOUNG(PHASE)</span><a class="headerlink" href="#e-young-phase" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le DES{\_}MMAX\)</span></p></li>
+</ul>
+<p>Young’s modulus for the particle [Pa in SI]. Required when using
+the Hertzian collision model.</p>
+</section>
+<section id="e-young-actual-phase">
+<span id="e-young-actual"></span><h3><span class="section-number">12.1.5.2.20. </span><span class="kwname">E_YOUNG_ACTUAL(PHASE)</span><a class="headerlink" href="#e-young-actual-phase" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le DES{\_}MMAX\)</span></p></li>
+</ul>
+<p>Actual Young’s modulus for the particle [Pa in SI]. Used for
+computing correction terms for DEM conduction.</p>
+</section>
+<section id="ew-young">
+<span id="id55"></span><h3><span class="section-number">12.1.5.2.21. </span><span class="kwname">EW_YOUNG</span><a class="headerlink" href="#ew-young" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Young’s modulus for the wall [Pa in SI]. Required when using the
+Hertzian collision model.</p>
+</section>
+<section id="ew-young-actual">
+<span id="id56"></span><h3><span class="section-number">12.1.5.2.22. </span><span class="kwname">EW_YOUNG_ACTUAL</span><a class="headerlink" href="#ew-young-actual" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Actual Young’s modulus for the walls [Pa in SI]. Used for
+computing correction terms for DEM conduction.</p>
+</section>
+<section id="factor-rlm">
+<span id="id57"></span><h3><span class="section-number">12.1.5.2.23. </span><span class="kwname">FACTOR_RLM</span><a class="headerlink" href="#factor-rlm" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Effectively increases the radius of a particle (multiple of the sum
+of particle radii) during the building of particle neighbor list.</p>
+</section>
+<section id="flpc">
+<span id="id58"></span><h3><span class="section-number">12.1.5.2.24. </span><span class="kwname">FLPC</span><a class="headerlink" href="#flpc" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Fluid lens proportionality constant used to calculate the radius of
+the fluid lens that surrounds a particle. This parameter is used in
+the particle-fluid-particle conduction model.</p>
+</section>
+<section id="hamaker-constant">
+<span id="id59"></span><h3><span class="section-number">12.1.5.2.25. </span><span class="kwname">HAMAKER_CONSTANT</span><a class="headerlink" href="#hamaker-constant" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Hamaker constant used in particle-particle cohesive interactions.</p>
+</section>
+<section id="kn">
+<span id="id60"></span><h3><span class="section-number">12.1.5.2.26. </span><span class="kwname">KN</span><a class="headerlink" href="#kn" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Normal spring constant [N/m in SI] for inter-particle collisions.
+Required when using the linear spring-dashpot collision model.</p>
+</section>
+<section id="kn-w">
+<span id="id61"></span><h3><span class="section-number">12.1.5.2.27. </span><span class="kwname">KN_W</span><a class="headerlink" href="#kn-w" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Normal spring constant [N/m in SI] for particle-wall collisions.
+Required when using the linear spring-dashpot collision model.</p>
+</section>
+<section id="kt-fac">
+<span id="id62"></span><h3><span class="section-number">12.1.5.2.28. </span><span class="kwname">KT_FAC</span><a class="headerlink" href="#kt-fac" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Ratio of the tangential spring constant to normal spring constant
+for inter-particle collisions. Use it to specify the tangential
+spring constant for particle-particle collisions as KT_FAC*KN.
+Required when using the linear spring-dashpot collision model.</p>
+</section>
+<section id="kt-w-fac">
+<span id="id63"></span><h3><span class="section-number">12.1.5.2.29. </span><span class="kwname">KT_W_FAC</span><a class="headerlink" href="#kt-w-fac" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Ratio of the tangential spring constant to normal spring constant
+for particle-wall collisions. Use it to specify the tangential
+spring constant for particle-wall collisions as KT_W_FAC*KN_W.
+Required when using the linear spring-dashpot collision model.</p>
+</section>
+<section id="mew">
+<span id="id64"></span><h3><span class="section-number">12.1.5.2.30. </span><span class="kwname">MEW</span><a class="headerlink" href="#mew" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Inter-particle Coulomb friction coefficient.</p>
+</section>
+<section id="mew-r">
+<span id="id65"></span><h3><span class="section-number">12.1.5.2.31. </span><span class="kwname">MEW_R</span><a class="headerlink" href="#mew-r" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Applies to solids model(s):  <strong>DEM</strong></p>
+<p>Inter-particle rolling friction coefficient. See Zhou et al. (Physica A 269 (1999) 536-553)
+model A. Please note that here the rolling friction coefficient is
+non-dimensional and is equivalent to the Zhou paper’s definition divided by
+the particle diameter.</p>
+</section>
+<section id="mew-rw">
+<span id="id66"></span><h3><span class="section-number">12.1.5.2.32. </span><span class="kwname">MEW_RW</span><a class="headerlink" href="#mew-rw" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Particle-wall rolling friction coefficient. See Zhou et al. (Physica A 269 (1999) 536-553)
+model A. Please note that here the rolling friction coefficient is
+non-dimensional and is equivalent to the Zhou paper’s definition divided by
+the particle diameter.</p>
+</section>
+<section id="mew-w">
+<span id="id67"></span><h3><span class="section-number">12.1.5.2.33. </span><span class="kwname">MEW_W</span><a class="headerlink" href="#mew-w" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Particle-wall Coulomb friction coefficient.</p>
+</section>
+<section id="minimize-des-facet-list">
+<span id="id68"></span><h3><span class="section-number">12.1.5.2.34. </span><span class="kwname">MINIMIZE_DES_FACET_LIST</span><a class="headerlink" href="#minimize-des-facet-list" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Flag to turn on/off optimizing the list of facets at each des grid cell.</p>
+</section>
+<section id="neighbor-search-n">
+<span id="id69"></span><h3><span class="section-number">12.1.5.2.35. </span><span class="kwname">NEIGHBOR_SEARCH_N</span><a class="headerlink" href="#neighbor-search-n" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>Maximum number of steps through a DEM loop before a neighbor
+search will be performed. The search may be called earlier
+based on other logic.</p>
+</section>
+<section id="neighbor-search-rad-ratio">
+<span id="id70"></span><h3><span class="section-number">12.1.5.2.36. </span><span class="kwname">NEIGHBOR_SEARCH_RAD_RATIO</span><a class="headerlink" href="#neighbor-search-rad-ratio" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Ratio of the distance (imaginary sphere radius) to particle radius
+that is allowed before a neighbor search is performed. This works
+in conjunction with the logic imposed by NEIGHBOR_SEARCH_N in
+deciding calls to the neighbor search algorithm.</p>
+</section>
+<section id="nfactor">
+<span id="id71"></span><h3><span class="section-number">12.1.5.2.37. </span><span class="kwname">NFACTOR</span><a class="headerlink" href="#nfactor" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">INTEGER</span></p>
+<p>The number of iterations of a pure granular simulation to let
+the initial particle configuration settle before a coupled
+gas-solid calculation is started.</p>
+</section>
+<section id="remove-rogue-particles">
+<span id="id72"></span><h3><span class="section-number">12.1.5.2.38. </span><span class="kwname">REMOVE_ROGUE_PARTICLES</span><a class="headerlink" href="#remove-rogue-particles" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Flag to remove rogue particles. A rogue particle is defined as a particle
+that goes out of the MFiX box outside of a defined pressure or mass outlet
+BC, or is not located in a fluid cell.</p>
+</section>
+<section id="use-cohesion">
+<span id="id73"></span><h3><span class="section-number">12.1.5.2.39. </span><span class="kwname">USE_COHESION</span><a class="headerlink" href="#use-cohesion" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Flag to enable/disable cohesion model.</p>
+</section>
+<section id="use-vdh-dem-model">
+<span id="id74"></span><h3><span class="section-number">12.1.5.2.40. </span><span class="kwname">USE_VDH_DEM_MODEL</span><a class="headerlink" href="#use-vdh-dem-model" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Flag to use van der Hoef et al. (2006) model for adjusting the
+rotation of the contact plane. See the MFiX-DEM documentation.</p>
+</section>
+<section id="v-poisson-phase">
+<span id="v-poisson"></span><h3><span class="section-number">12.1.5.2.41. </span><span class="kwname">V_POISSON(PHASE)</span><a class="headerlink" href="#v-poisson-phase" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le DES{\_}MMAX\)</span></p></li>
+</ul>
+<p>Poisson’s ratio for the particle. Required when using the Hertzian
+collision model.</p>
+</section>
+<section id="v-poisson-actual-phase">
+<span id="v-poisson-actual"></span><h3><span class="section-number">12.1.5.2.42. </span><span class="kwname">V_POISSON_ACTUAL(PHASE)</span><a class="headerlink" href="#v-poisson-actual-phase" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1 \le Phase \le DES{\_}MMAX\)</span></p></li>
+</ul>
+<p>Poisson’s ratio for the particle. Used for
+computing correction terms for DEM conduction.</p>
+</section>
+<section id="van-der-waals">
+<span id="id75"></span><h3><span class="section-number">12.1.5.2.43. </span><span class="kwname">VAN_DER_WAALS</span><a class="headerlink" href="#van-der-waals" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Flag to turn on the Hamaker van der Waals forces.</p>
+</section>
+<section id="vdw-inner-cutoff">
+<span id="id76"></span><h3><span class="section-number">12.1.5.2.44. </span><span class="kwname">VDW_INNER_CUTOFF</span><a class="headerlink" href="#vdw-inner-cutoff" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Minimum separation distance below which van der Waals forces are
+calculated using a surface adhesion model.</p>
+</section>
+<section id="vdw-outer-cutoff">
+<span id="id77"></span><h3><span class="section-number">12.1.5.2.45. </span><span class="kwname">VDW_OUTER_CUTOFF</span><a class="headerlink" href="#vdw-outer-cutoff" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Maximum separation distance above which van der Waals forces are
+not implemented.</p>
+</section>
+<section id="vw-poisson">
+<span id="id78"></span><h3><span class="section-number">12.1.5.2.46. </span><span class="kwname">VW_POISSON</span><a class="headerlink" href="#vw-poisson" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Poisson ratio for the wall. Required when using the Hertzian
+collision model.</p>
+</section>
+<section id="vw-poisson-actual">
+<span id="id79"></span><h3><span class="section-number">12.1.5.2.47. </span><span class="kwname">VW_POISSON_ACTUAL</span><a class="headerlink" href="#vw-poisson-actual" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Poisson’s ratio for the wall. Used for
+computing correction terms for DEM conduction.</p>
+</section>
+<section id="wall-hamaker-constant">
+<span id="id80"></span><h3><span class="section-number">12.1.5.2.48. </span><span class="kwname">WALL_HAMAKER_CONSTANT</span><a class="headerlink" href="#wall-hamaker-constant" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Hamaker constant used in particle-wall cohesive interactions.</p>
+</section>
+<section id="wall-vdw-inner-cutoff">
+<span id="id81"></span><h3><span class="section-number">12.1.5.2.49. </span><span class="kwname">WALL_VDW_INNER_CUTOFF</span><a class="headerlink" href="#wall-vdw-inner-cutoff" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Minimum separation distance below which van der Waals forces are
+calculated using a surface adhesion model (particle-wall
+interactions).</p>
+</section>
+<section id="wall-vdw-outer-cutoff">
+<span id="id82"></span><h3><span class="section-number">12.1.5.2.50. </span><span class="kwname">WALL_VDW_OUTER_CUTOFF</span><a class="headerlink" href="#wall-vdw-outer-cutoff" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Maximum separation distance above which van der Waals forces are
+not implemented (particle-wall interactions).</p>
+</section>
+</section>
+<section id="particles-in-cell">
+<h2><span class="section-number">12.1.5.3. </span>Particles in Cell<a class="headerlink" href="#particles-in-cell" title="Link to this heading">¶</a></h2>
+<p>These keywords relate to the Particle in Cell model. Please note that the PIC
+model is currently not supported by the GUI, because PIC support is undergoing a
+rewrite in the solver.</p>
+<section id="fric-exp-pic">
+<span id="id83"></span><h3><span class="section-number">12.1.5.3.1. </span><span class="kwname">FRIC_EXP_PIC</span><a class="headerlink" href="#fric-exp-pic" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Volume fraction exponential scale factor in frictional stress model.</p>
+</section>
+<section id="fric-non-sing-fac">
+<span id="id84"></span><h3><span class="section-number">12.1.5.3.2. </span><span class="kwname">FRIC_NON_SING_FAC</span><a class="headerlink" href="#fric-non-sing-fac" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Non-singularity term in frictional stress model.</p>
+</section>
+<section id="mppic-coeff-en1">
+<span id="id85"></span><h3><span class="section-number">12.1.5.3.3. </span><span class="kwname">MPPIC_COEFF_EN1</span><a class="headerlink" href="#mppic-coeff-en1" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>An empirical dampening factor for the frictional stress model.</p>
+</section>
+<section id="mppic-coeff-en-wall">
+<span id="id86"></span><h3><span class="section-number">12.1.5.3.4. </span><span class="kwname">MPPIC_COEFF_EN_WALL</span><a class="headerlink" href="#mppic-coeff-en-wall" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Normal coefficient of restitution for parcel-wall collisions.</p>
+</section>
+<section id="mppic-coeff-et-wall">
+<span id="id87"></span><h3><span class="section-number">12.1.5.3.5. </span><span class="kwname">MPPIC_COEFF_ET_WALL</span><a class="headerlink" href="#mppic-coeff-et-wall" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Tangential coefficient of restitution for parcel-wall collisions.</p>
+</section>
+<section id="mppic-velfac-coeff">
+<span id="id88"></span><h3><span class="section-number">12.1.5.3.6. </span><span class="kwname">MPPIC_VELFAC_COEFF</span><a class="headerlink" href="#mppic-velfac-coeff" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Solids slip velocity scale factor. This term can be used to scale the
+bulk solids velocity when calculating parcel/bulk solids slip velocity.
+Scaling is uniform in all three directions.</p>
+</section>
+<section id="pic-cd-e">
+<span id="id89"></span><h3><span class="section-number">12.1.5.3.7. </span><span class="kwname">PIC_CD_E</span><a class="headerlink" href="#pic-cd-e" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Restitution coefficient used with collision damping</p>
+</section>
+<section id="pic-cfl">
+<span id="id90"></span><h3><span class="section-number">12.1.5.3.8. </span><span class="kwname">PIC_CFL</span><a class="headerlink" href="#pic-cfl" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Solids CFL (Courant-Friedrichs-Lewy) value.
+This term can be used to arrest solids time step through a local examination of parcel velocity.  Leave undefined (blank) to disable time step control.</p>
+</section>
+<section id="pic-cfl-control">
+<span id="id91"></span><h3><span class="section-number">12.1.5.3.9. </span><span class="kwname">PIC_CFL_CONTROL</span><a class="headerlink" href="#pic-cfl-control" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">CHARACTER</span></p>
+<p>Control variable for managing solids CFL value.  Solids time step
+will be based on MAX or AVG calculated solids CFL.</p>
+</section>
+<section id="pic-cfl-parcel-fraction">
+<span id="id92"></span><h3><span class="section-number">12.1.5.3.10. </span><span class="kwname">PIC_CFL_PARCEL_FRACTION</span><a class="headerlink" href="#pic-cfl-parcel-fraction" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Parcel fraction threshold to invoke a change in solids time step
+based on solids CFL value.</p>
+</section>
+<section id="pic-collision-damping">
+<span id="id93"></span><h3><span class="section-number">12.1.5.3.11. </span><span class="kwname">PIC_COLLISION_DAMPING</span><a class="headerlink" href="#pic-collision-damping" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">LOGICAL</span></p>
+<p>Flag to turn on/off PIC collision damping model.</p>
+</section>
+<section id="psfac-fric-pic">
+<span id="id94"></span><h3><span class="section-number">12.1.5.3.12. </span><span class="kwname">PSFAC_FRIC_PIC</span><a class="headerlink" href="#psfac-fric-pic" title="Link to this heading">¶</a></h3>
+<p>Data Type: <span class="kwtype">DOUBLE PRECISION</span></p>
+<p>Pressure linear scale factor in frictional stress model.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="chemical_reactions.html" class="btn btn-neutral float-left" title="12.1.4. Chemical reactions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gas_phase.html" class="btn btn-neutral float-right" title="12.1.6. Gas phase" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.9. DEM initial conditions &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.10. Procedural geometry" href="tutorial_procedural_geometry.html" />
+    <link rel="prev" title="3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)" href="tutorial_cyclone_sms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="first_tutorial.html">3.1. Running first tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_sphere.html">3.4. Three-dimensional single-phase flow over a sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_cyclone_sms.html">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.9. DEM initial conditions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#open-the-3d-hopper-tutorial">3.9.1. Open the 3d hopper tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-the-initial-condition-configuration">3.9.2. Change the initial condition configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particle-size-distribution">3.9.3. Particle size distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-initial-particle-data-from-a-text-file">3.9.4. Reading initial particle data from a text file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_procedural_geometry.html">3.10. Procedural geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_transport.html">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.9. </span>DEM initial conditions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/tutorial_dem_seeding.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dem-initial-conditions">
+<h1><span class="section-number">3.9. </span>DEM initial conditions<a class="headerlink" href="#dem-initial-conditions" title="Link to this heading">¶</a></h1>
+<p>This tutorial will illustrate various seeding options when
+initializing particles in an initial condition region.
+It is based on the 3d hopper tutorial. We will only change
+the initial conditions.</p>
+<section id="open-the-3d-hopper-tutorial">
+<h2><span class="section-number">3.9.1. </span>Open the 3d hopper tutorial<a class="headerlink" href="#open-the-3d-hopper-tutorial" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>On the main menu, select <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">project</span></code></p></li>
+<li><p>Double click on the “3D DEM granular flow hopper” tutorial and specify the project location.</p></li>
+<li><p>Run the project as is to get familiar with it.</p></li>
+</ul>
+</section>
+<section id="change-the-initial-condition-configuration">
+<h2><span class="section-number">3.9.2. </span>Change the initial condition configuration<a class="headerlink" href="#change-the-initial-condition-configuration" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane, select the “Initial solids” region.</p></li>
+<li><p>Change the Solid 1 volume fraction to 0.4. Note that we are using an hexagonal lattice.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Run</span></code> pane, change <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">time</span></code> to 0.001. We are only interested to look at the initial conditions.</p></li>
+<li><p>Run the simulation. Visualize the particles and take a look at the output in the console and verify that seeding was successful:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Generating initial particle configuration:
+Phase  1: Number of particles to seed =        18236
+|-------------------------------------------------------------------|
+| IC Region:   2                                                    |
+|-------------------------------------------------------------------|
+| Phase |   Input   |   Input   | Number of |    EPs    |   Solid   |
+|   ID  | Specified |   Value   | Particles |           |   mass    |
+|-------|-----------|-----------|-----------|-----------|-----------|
+|    1  |   EP_S    |  4.00E-01 |     18236 |  4.00E-01 |  1.91E+02 |
+|-------|-----------|-----------|-----------|-----------|-----------|
+Phase  1: Successful seeding
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane, select the “Initial solids” region.</p></li>
+<li><p>Change the lattice configuration to “Cubic”.</p></li>
+<li><p>Run the simulation. Visualize the particles and take a look at the output in the console and notice that with the cubic lattice, we are not able to reach the specified volume fraction of 0.4.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Generating initial particle configuration:
+Phase  1: Number of particles to seed =        18236
+|-------------------------------------------------------------------|
+| IC Region:   2                                                    |
+|-------------------------------------------------------------------|
+| Phase |   Input   |   Input   | Number of |    EPs    |   Solid   |
+|   ID  | Specified |   Value   | Particles |           |   mass    |
+|-------|-----------|-----------|-----------|-----------|-----------|
+|    1  |   EP_S    |  4.00E-01 |     15693 |  3.44E-01 |  1.64E+02 |
+|-------|-----------|-----------|-----------|-----------|-----------|
+Phase  1: Unsuccessful seeding
+</pre></div>
+</div>
+<p>Instead of specifying a solids fraction, we can input a solids mass or a number of particles:</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane, select the “Initial solids” region.</p></li>
+<li><p>In the drop down menu, select “Inventory” and enter <code class="docutils literal notranslate"><span class="pre">100.0</span></code>.</p></li>
+<li><p>Run the simulation and verify seeding was successful.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane, select the “Initial solids” region.</p></li>
+<li><p>In the drop down menu, select “Particle count” and enter <code class="docutils literal notranslate"><span class="pre">10000</span></code>.</p></li>
+<li><p>Run the simulation and verify seeding was successful.</p></li>
+</ul>
+<p>The spacing between particles can also be increased:</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane, select the “Initial solids” region.</p></li>
+<li><p>Change the Solid 1 volume fraction to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>.</p></li>
+<li><p>Change the spacing to <code class="docutils literal notranslate"><span class="pre">0.5</span></code>, run the simulation and observe how particles are more spaced out.</p></li>
+<li><p>Change the random factor to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, run the simulation and observe how particles have randomly shifted from their lattice positions.</p></li>
+</ul>
+<p>Repeat the above (spacing option) with the hexagonal lattice.</p>
+</section>
+<section id="particle-size-distribution">
+<h2><span class="section-number">3.9.3. </span>Particle size distribution<a class="headerlink" href="#particle-size-distribution" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane, select the “Initial solids” region.</p></li>
+<li><p>Make sure the Solid 1 volume fraction is <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, and the lattice is <code class="docutils literal notranslate"><span class="pre">Hexa</span></code>.</p></li>
+<li><p>Change the spacing back to <code class="docutils literal notranslate"><span class="pre">0.05</span></code>, and the random factor back to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>In the Solids&gt;DEM pane, Click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button in the Particle size distribution table (the table is initially empty if no psd have been defined yet):</p></li>
+</ul>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_normal_psd_table.png"><img alt="PSD table" src="../_images/Hopper_dem_normal_psd_table.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.1 </span><span class="caption-text">PSD table.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Define a Normal psd:</p>
+<ul>
+<li><p>Name: <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">(mean</span> <span class="pre">=</span> <span class="pre">0.01</span> <span class="pre">m)</span></code>  (use a descriptive name).</p></li>
+<li><p>Distribution type: <code class="docutils literal notranslate"><span class="pre">Normal</span></code></p></li>
+<li><p>Mean: <code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></li>
+<li><p>Standard deviation: <code class="docutils literal notranslate"><span class="pre">0.001</span></code></p></li>
+<li><p>Minimum: <code class="docutils literal notranslate"><span class="pre">0.005</span></code></p></li>
+<li><p>Maximum: <code class="docutils literal notranslate"><span class="pre">0.015</span></code></p></li>
+<li><p>Plot from 0 to <code class="docutils literal notranslate"><span class="pre">0.020</span></code></p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_normal_psd_definition.png"><img alt="Normal PSD definition" src="../_images/Hopper_dem_normal_psd_definition.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.2 </span><span class="caption-text">Normal PSD definition.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Plot the psd by clicking on <code class="docutils literal notranslate"><span class="pre">Plot</span> <span class="pre">distribution</span></code>. Verify the plot corresponds to the parameters.</p></li>
+</ul>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_normal_psd_plot.png"><img alt="Plotting the Normal PSD definition" src="../_images/Hopper_dem_normal_psd_plot.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.3 </span><span class="caption-text">Normal PSD plot.</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.</p></li>
+</ul>
+<p>We now have a PSD that we can use in initial or mass inflow boundary conditions.</p>
+<ul class="simple">
+<li><p>Go to the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">condition</span></code> pane, go to the drop down menu under ‘Particle size distribution’ and select the psd we just defined, <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">(mean</span> <span class="pre">=</span> <span class="pre">0.01</span> <span class="pre">m)</span></code>.</p></li>
+<li><p>Run the simulation and visualize the particles.</p></li>
+</ul>
+<p>Besides the Normal and Log-normal psd’s, we can also use custom distribution from a text file.
+It can be edited through any text editor including the GUI built-in editor.
+The PSD custom file is organized as follows:</p>
+<div class="line-block">
+<div class="line">1st line: Number of points, number of distribution (this must be set to one currently).</div>
+<div class="line">2nd line: PDF (probability density function) of CDF (Cumulative distribution function).</div>
+<div class="line">3rd line: Header.</div>
+<div class="line">4th line and below: The data itself. First column is the diameter, second column is either the PDF or CDF value.</div>
+</div>
+<p>The figure below shows an example of a custom PSD file. Only the first few lines are shown.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_custom_psd_file.png"><img alt="PSD custom file" src="../_images/Hopper_dem_custom_psd_file.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.4 </span><span class="caption-text">Example of a Custom file used to define a Particle Size Distribution.</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>In the Solids&gt;DEM pane, Click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button in the Particle size distribution table, and define a custom psd:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Name: <code class="docutils literal notranslate"><span class="pre">Bimodal</span> <span class="pre">psd</span></code>  (use a descriptive name).</p></li>
+<li><p>Distribution type: <code class="docutils literal notranslate"><span class="pre">Custom</span></code></p></li>
+<li><p>Select file: Choose <code class="docutils literal notranslate"><span class="pre">bimodal_psd.txt</span></code> in the project directory.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Plot</span> <span class="pre">distribution</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_custom_psd.png"><img alt="Custom PSD" src="../_images/Hopper_dem_custom_psd.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.5 </span><span class="caption-text">Custom PSD.</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Run the simulation and visualize particles.</p></li>
+<li><p>Notice that we are not able to seed particles with the requested solids volume fraction of 0.1.
+This is because the lattice spacing is based on the largest diameter in the psd.</p></li>
+<li><p>Change the spacing to <code class="docutils literal notranslate"><span class="pre">0.02</span></code>, run the simulation and verify that we get a volume fraction of 0.1 (or near 0.1).</p></li>
+<li><p>While the simulation is running, we can visualize a histogram showing the particle size distribution. Open a
+new visualization viewport by clicking on the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> sign on the right-most tab and select the histogram view.
+This will setup a histogram plot. Users can change the file to view, the variable, number of bins and style
+(lines or bars). To adjust the scale, right-click on the view and enter the axis limits or have them
+be automatically updated based on data.</p></li>
+</ul>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/Open_histogram_view.png"><img alt="Opening histogram." src="../_images/Open_histogram_view.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.6 </span><span class="caption-text">Opening a histogram view.</span><a class="headerlink" href="#id6" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/hopper_custom_histogram.png"><img alt="Visualizing particle diameter histogram." src="../_images/hopper_custom_histogram.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.7 </span><span class="caption-text">Visualizing particle diameter histogram.</span><a class="headerlink" href="#id7" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="reading-initial-particle-data-from-a-text-file">
+<h2><span class="section-number">3.9.4. </span>Reading initial particle data from a text file<a class="headerlink" href="#reading-initial-particle-data-from-a-text-file" title="Link to this heading">¶</a></h2>
+<p>We can read the initial particle data from a text file, called <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code>.
+The format of this file has changed in the 20.3 release. The old file version can still
+be used but it is recommended to use the latest format.</p>
+<p>The new format allows to either read variables or set a constant value for all particles.
+The file contains a long header where information about the data is specified. This controls
+how many columns and which variables are read from the file. Next, the data section contains
+the data for each particle. Each column corresponds to a variable.
+In 3D, the first 3 columns are always the x,y and z coordinates of the particle’s center.
+In 2D, the first 2 columns are always the x and y coordinates of the particle’s center.
+There are two options for the other variables:  either read the data for each particle in the next column,
+or assign a constant value to all particles.</p>
+<p>Below is an example of a <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code> file (the line number is shown on the left and it
+not part of the data itself):</p>
+<ul class="simple">
+<li><p>Line 1     : File version. Do not change this line.</p></li>
+<li><p>Lines 2-18 : Instructions to use the file.</p></li>
+<li><p>Line 19    : This is a 3D geometry. The first 3 columns in the data section will be x,y,z.</p></li>
+<li><p>Line 20    : We will read data for 35361 particles.</p></li>
+<li><p>Line 24    : We always read coordinates in the first 2 or 3 columns (do not change)</p></li>
+<li><p>Line 25    : We do not read particle’s phase ID for each particle. It is assigned a constant value: 1</p></li>
+<li><p>Line 26    : We will read the particle’s diameter in the next column (column#4).</p></li>
+<li><p>Line 27    : We do not read particle’s density. It is assigned a constant value: 2500.0 kg/m^3</p></li>
+<li><p>Line 25    : We do not read particle’s velocity. It is assigned a constant value: (u,v,w) = (0.0,0.0,0.0) m/s</p></li>
+<li><p>Lines 29-30: This is a cold, non reacting case, we do not read Temperature or species.</p></li>
+<li><p>Line 31    : We do not have user scalars, so we do not read them.</p></li>
+<li><p>Lines 32-34: Data header</p></li>
+</ul>
+<p>The data starts on Line 35. Based on the above settings, we need to read, x,y,z, and the diameter of each particles, i.e., 4 columns, for 35361 particles. Only the first few lines of the data is shown.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1 Version 2.0
+2 ========================================================================
+3 Instructions:
+4 Dimension: Enter &quot;2&quot; for 2D, &quot;3&quot; for 3D (Integer)
+5 Particles: Number of particles to read from this file (Integer)
+6 For each variable, enter whether it will be read from the file
+7 (&quot;T&quot; to be read (True), &quot;F&quot; to not be read (False)). When not read, enter the
+8 default values assign to all particles.
+9 Coordinates are always read (X,Y in 2D, X,Y,Z in 3D)
+10 Phase_ID, Diameter, Density, Temperature are scalars
+11 Velocity requires U,V in 2D, U,V,W in 3D
+12 Temperature is only read/set if the energy equation is solved
+13 Species are only read/set if the species equations are solved, and requires
+14 all species to be set (if phase 1 has 2 species and phase 2 has 4 species,
+15 all particles must have 4 entries, even phase 1 particles (pad list with zeros)
+16 User scalars need DES_USR_VAR_SIZE values
+17 Data starts at line 35. Each column correspond to a variable.
+18 ========================================================================
+19 Dimension:    3
+20 Particles:    35361
+21 ========================================================================
+22 Variable      Read(T/F)     Default value (when Read=F)
+23 ========================================================================
+24 Coordinates:     T          Must always be T
+25 Phase_ID:        F          1
+26 Diameter:        T
+27 Density:         F          2500.0
+28 Velocity:        F          0.0 0.0 0.0
+29 Temperature:     F          (Ignored if energy eq. is not solved)
+30 Species:         F          (Ignored if species eq. are not solved)
+31 User_Scalar:     F          (Ignored if no user scalars are defined)
+32 ========================================================================
+33     X (m)           Y (m)           Z (m)       Diameter (m)
+34 ========================================================================
+35 -5.07749E-02    -7.98147E-01    -2.00612E-01    9.71052E-03
+36 -4.86164E-02    -8.16202E-01    -2.25035E-01    8.34185E-03
+37 -3.16460E-02    -8.13702E-01    -2.19164E-01    1.09747E-02
+38 -3.32833E-02    -8.25178E-01    -2.19393E-01    9.67983E-03
+39 -2.48844E-02    -8.30159E-01    -2.16423E-01    9.84182E-03
+40 -8.57591E-03    -8.38121E-01    -2.08773E-01    9.92759E-03
+41 -2.75312E-03    -8.32665E-01    -2.00770E-01    1.07560E-02
+42 1.57276E-02     -8.37839E-01    -2.08196E-01    1.04387E-02
+43 1.96605E-02     -8.31447E-01    -2.15105E-01    9.97808E-03
+44 2.71083E-02     -8.26450E-01    -2.19492E-01    9.99619E-03
+45 3.55440E-02     -8.28885E-01    -2.15687E-01    9.15771E-03
+46 4.45244E-02     -8.28239E-01    -2.11771E-01    1.05089E-02
+47 4.70488E-02     -8.22092E-01    -2.19129E-01    9.33350E-03
+</pre></div>
+</div>
+<p>This data files contains particles that have settled in the top half of the hopper. To use it as initial conditions:</p>
+<ul class="simple">
+<li><p>In the Solids&gt;DEM pane, uncheck <code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">automatic</span> <span class="pre">particle</span> <span class="pre">generation</span></code>, and enter a data file particle count of <code class="docutils literal notranslate"><span class="pre">35361</span></code>. An entry is required to maintain compatibility with the old format, but the value on line 20 of the version 2.0 file will actually be used.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">condition</span></code> pane, delete the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">solids</span></code> initial condition.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Run</span></code> pane, set <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">time</span></code> to 1.0 seconds.</p></li>
+<li><p>Run the simulation. You should see the initial configuration shown below:</p></li>
+</ul>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_particle_input_dat.png"><img alt="Example of a DEM initial condition using particle_input.dat version 2.0." src="../_images/Hopper_dem_particle_input_dat.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 3.8 </span><span class="caption-text">Example of a DEM initial condition using particle_input.dat version 2.0.</span><a class="headerlink" href="#id8" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_cyclone_sms.html" class="btn btn-neutral float-left" title="3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_procedural_geometry.html" class="btn btn-neutral float-right" title="3.10. Procedural geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

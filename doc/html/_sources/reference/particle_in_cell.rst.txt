@@ -1,0 +1,6 @@
+Particle-in-cell model (PIC)
+============================
+
+This section contains keywords relating to the Particle-in-cell model (PIC).
+
+.. include:: /reference/particle_in_cell_gen.rst

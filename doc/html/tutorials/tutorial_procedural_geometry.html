@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.10. Procedural geometry &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism" href="tutorial_chemkin.html" />
+    <link rel="prev" title="3.9. DEM initial conditions" href="tutorial_dem_seeding.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="first_tutorial.html">3.1. Running first tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_sphere.html">3.4. Three-dimensional single-phase flow over a sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_cyclone_sms.html">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_dem_seeding.html">3.9. DEM initial conditions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.10. Procedural geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-project">3.10.1. Create a new project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-the-geometry">3.10.2. Create the geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-the-geometry-orientation">3.10.3. Check the geometry orientation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-boundary-conditions-regions">3.10.4. Create boundary conditions regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-the-mesh">3.10.5. Setup the mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-settings">3.10.6. Model settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regions-settings">3.10.7. Regions settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fluid-settings">3.10.8. Fluid settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solids-settings">3.10.9. Solids settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-conditions-settings">3.10.10. Initial conditions settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boundary-conditions-settings">3.10.11. Boundary conditions settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#numerics-settings">3.10.12. Numerics settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-settings">3.10.13. Output settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-settings">3.10.14. Run settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-simulation">3.10.15. Run the simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-results">3.10.16. View results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_transport.html">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.10. </span>Procedural geometry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/tutorial_procedural_geometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="procedural-geometry">
+<h1><span class="section-number">3.10. </span>Procedural geometry<a class="headerlink" href="#procedural-geometry" title="Link to this heading">¶</a></h1>
+<p>This tutorial shows how to use procedural shapes to define geometry.
+This capability was introduced in the 21.1 release.</p>
+<p>Simple shapes (cylinder and bends) will be defined and combined to
+create the geometry. Each shape is controlled by parameters. Filters are
+applied to the shapes to transform (scale, translate, rotate) the geometry,
+or flip the normal vector orientation (internal vs external flow).
+Boolean operations are used to combine the shapes.</p>
+<p>The primary focus of this tutorial is to build the geometry. This is done in
+SMS mode (see <a class="reference internal" href="tutorial_cyclone_sms.html#tutorial-cyclone-sms"><span class="std std-ref">SMS meshing workflow tutorial</span></a> for more details).</p>
+<section id="create-a-new-project">
+<h2><span class="section-number">3.10.1. </span>Create a new project<a class="headerlink" href="#create-a-new-project" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>On the main menu click on the <a class="reference internal" href="../_images/newfolder.svg"><img alt="New folder" src="../_images/newfolder.svg" style="width: 16px;" /></a> New button.</p></li>
+<li><p>Create a new project by double-clicking on “Blank” template.</p></li>
+<li><p>Enter a project name  and browse to a location for the new project.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_new_project.png"><img alt="create project" src="../_images/Proc_stl_demo_new_project.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>If you have not switched to SMS workflow, you will be prompted
+to switch. Accept SMS mode.</p></li>
+</ul>
+</section>
+<section id="create-the-geometry">
+<h2><span class="section-number">3.10.2. </span>Create the geometry<a class="headerlink" href="#create-the-geometry" title="Link to this heading">¶</a></h2>
+<p>First, create a cylinder:</p>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> pane and click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button to add geometry:</p>
+<ul class="simple">
+<li><p>Choose <a class="reference internal" href="../_images/geometry.svg"><img alt="Geometry" src="../_images/geometry.svg" style="width: 16px;" /></a> -&gt; <code class="docutils literal notranslate"><span class="pre">Procedural</span> <span class="pre">&gt;</span> <span class="pre">Cylinder</span></code> as the geometry input (named <code class="docutils literal notranslate"><span class="pre">cylinder</span></code>).</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_new_cylinder.png"><img alt="Procedural Cylinder" src="../_images/Proc_stl_demo_new_cylinder.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Enter the cylinder’s parameters:</p>
+<ul>
+<li><p>Radius = <code class="docutils literal notranslate"><span class="pre">0.05</span></code> m, Height = <code class="docutils literal notranslate"><span class="pre">0.225</span></code> m, Resolution = <code class="docutils literal notranslate"><span class="pre">20</span></code></p></li>
+<li><p>Start angle= <code class="docutils literal notranslate"><span class="pre">0</span></code> deg, end angle = <code class="docutils literal notranslate"><span class="pre">360</span></code> deg, resolution = <code class="docutils literal notranslate"><span class="pre">32</span></code></p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Bottom</span> <span class="pre">cap</span></code> and <code class="docutils literal notranslate"><span class="pre">Top</span> <span class="pre">cap</span></code> check boxes and set the resolution to <code class="docutils literal notranslate"><span class="pre">5</span></code> for both caps.</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_cylinder.png"><img alt="Procedural Cylinder" src="../_images/Proc_stl_demo_cylinder.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+<p>Next, create a bend:</p>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> pane:</p>
+<ul class="simple">
+<li><p>Choose <a class="reference internal" href="../_images/geometry.svg"><img alt="Geometry" src="../_images/geometry.svg" style="width: 16px;" /></a> -&gt; <code class="docutils literal notranslate"><span class="pre">Procedural</span> <span class="pre">&gt;</span> <span class="pre">Bend</span></code> as the geometry input (named “bend”).</p></li>
+<li><p>Enter the bend’s parameters:</p>
+<ul>
+<li><p><strong>Front section:</strong> Radius = <code class="docutils literal notranslate"><span class="pre">0.02</span></code> m, Length = <code class="docutils literal notranslate"><span class="pre">0.05</span></code> m, Resolution = <code class="docutils literal notranslate"><span class="pre">10</span></code></p></li>
+<li><p><strong>Back section:</strong> Radius = <code class="docutils literal notranslate"><span class="pre">0.05</span></code> m, Length = <code class="docutils literal notranslate"><span class="pre">0.25</span></code> m, Resolution = <code class="docutils literal notranslate"><span class="pre">20</span></code></p></li>
+<li><p><strong>Bend section:</strong> Major radius = <code class="docutils literal notranslate"><span class="pre">0.075</span></code> m, Minor radius = <code class="docutils literal notranslate"><span class="pre">0.02</span></code> m, Start angle= <code class="docutils literal notranslate"><span class="pre">0</span></code> deg, end angle = <code class="docutils literal notranslate"><span class="pre">90</span></code> deg, resolution = <code class="docutils literal notranslate"><span class="pre">16</span></code></p></li>
+<li><p><strong>Circumference:</strong> Start angle= <code class="docutils literal notranslate"><span class="pre">0</span></code> deg, end angle = <code class="docutils literal notranslate"><span class="pre">360</span></code> deg, resolution = <code class="docutils literal notranslate"><span class="pre">16</span></code></p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Bottom</span> <span class="pre">cap</span></code> and <code class="docutils literal notranslate"><span class="pre">Top</span> <span class="pre">cap</span></code> check boxes and set the resolution to <code class="docutils literal notranslate"><span class="pre">3</span></code> for both caps. Leave Offset = <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_bend_settings.png"><img alt="Bend settings" src="../_images/Proc_stl_demo_bend_settings.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Rotate and translate the bend:</p>
+<ul>
+<li><p>Select the bend (named <code class="docutils literal notranslate"><span class="pre">bend</span></code>)</p></li>
+<li><p>Add a filter: <a class="reference internal" href="../_images/filter.svg"><img alt="Filter" src="../_images/filter.svg" style="width: 16px;" /></a> -&gt; <code class="docutils literal notranslate"><span class="pre">transform</span></code></p></li>
+<li><p>Set a Translation of <code class="docutils literal notranslate"><span class="pre">0.025</span></code> m in the X-direction, <code class="docutils literal notranslate"><span class="pre">0.15</span></code> m in the Y-direction, and <code class="docutils literal notranslate"><span class="pre">0.05</span></code> m in the Z-direction.</p></li>
+<li><p>Rotate <code class="docutils literal notranslate"><span class="pre">-90</span></code> deg in the Z-direction.</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_bend.png"><img alt="Bend after transform filter" src="../_images/Proc_stl_demo_bend.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Combine the cylinder and the bend (union):</p>
+<ul>
+<li><p>Select the cylinder (named <code class="docutils literal notranslate"><span class="pre">cylinder</span></code>)</p></li>
+<li><p>While holding the <code class="docutils literal notranslate"><span class="pre">ctrl</span></code> key, select the transformed bend (named <code class="docutils literal notranslate"><span class="pre">transform</span></code>)</p></li>
+<li><p>Press the <a class="reference internal" href="../_images/union.svg"><img alt="Union" src="../_images/union.svg" style="width: 16px;" /></a> button</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_cyl_bend_union.png"><img alt="Combine cylinder and bend" src="../_images/Proc_stl_demo_cyl_bend_union.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+<p>Next, create another bend:</p>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Geometry</span></code> pane:</p>
+<ul class="simple">
+<li><p>Choose <a class="reference internal" href="../_images/geometry.svg"><img alt="Geometry" src="../_images/geometry.svg" style="width: 16px;" /></a> -&gt; <code class="docutils literal notranslate"><span class="pre">Procedural</span> <span class="pre">&gt;</span> <span class="pre">Bend</span></code> as the geometry input (named <code class="docutils literal notranslate"><span class="pre">bend1</span></code>).</p></li>
+<li><p>Enter the bend’s parameters:</p>
+<ul>
+<li><p><strong>Front section:</strong> Radius = <code class="docutils literal notranslate"><span class="pre">0.02</span></code> m, Length = <code class="docutils literal notranslate"><span class="pre">0.1</span></code> m, Resolution = <code class="docutils literal notranslate"><span class="pre">10</span></code></p></li>
+<li><p><strong>Back section:</strong> Radius = <code class="docutils literal notranslate"><span class="pre">0.02</span></code> m, Length = <code class="docutils literal notranslate"><span class="pre">0.1</span></code> m, Resolution = <code class="docutils literal notranslate"><span class="pre">10</span></code></p></li>
+<li><p><strong>Bend section:</strong> Major radius = <code class="docutils literal notranslate"><span class="pre">0.05</span></code> m, Minor radius = <code class="docutils literal notranslate"><span class="pre">0.02</span></code> m, Start angle= <code class="docutils literal notranslate"><span class="pre">0</span></code> deg, end angle = <code class="docutils literal notranslate"><span class="pre">90</span></code> deg, resolution = <code class="docutils literal notranslate"><span class="pre">10</span></code></p></li>
+<li><p><strong>Circumference:</strong> Start angle= <code class="docutils literal notranslate"><span class="pre">0</span></code> deg, end angle = <code class="docutils literal notranslate"><span class="pre">360</span></code> deg, resolution = <code class="docutils literal notranslate"><span class="pre">16</span></code></p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Bottom</span> <span class="pre">cap</span></code> and <code class="docutils literal notranslate"><span class="pre">Top</span> <span class="pre">cap</span></code> check boxes and set the resolution to <code class="docutils literal notranslate"><span class="pre">3</span></code> for both caps. Leave Offset = <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_bend1_settings.png"><img alt="Bend1 settings" src="../_images/Proc_stl_demo_bend1_settings.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Rotate and translate the bend:</p>
+<ul>
+<li><p>Select the bend (named <code class="docutils literal notranslate"><span class="pre">bend1</span></code>)</p></li>
+<li><p>Add a filter: <a class="reference internal" href="../_images/filter.svg"><img alt="Filter" src="../_images/filter.svg" style="width: 16px;" /></a> -&gt; <code class="docutils literal notranslate"><span class="pre">transform</span></code></p></li>
+<li><p>Set a Translation of <code class="docutils literal notranslate"><span class="pre">-0.005</span></code> m in the X-direction, <code class="docutils literal notranslate"><span class="pre">0.25</span></code> m in the Y-direction, and <code class="docutils literal notranslate"><span class="pre">-0.05</span></code> m in the Z-direction.</p></li>
+<li><p>Rotate <code class="docutils literal notranslate"><span class="pre">90</span></code> deg in the Z-direction.</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_bend1_transform.png"><img alt="Bend after transform filter" src="../_images/Proc_stl_demo_bend1_transform.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Combine the bend and the previous geometry (union):</p>
+<ul>
+<li><p>Select the transformed bend (named <code class="docutils literal notranslate"><span class="pre">transform1</span></code>)</p></li>
+<li><p>While holding the <code class="docutils literal notranslate"><span class="pre">ctrl</span></code> key, select the previous geometry (named <code class="docutils literal notranslate"><span class="pre">union</span></code>)</p></li>
+<li><p>Press the <a class="reference internal" href="../_images/union.svg"><img alt="Union" src="../_images/union.svg" style="width: 16px;" /></a> button. This will create a new <code class="docutils literal notranslate"><span class="pre">union1</span></code> geometry.</p></li>
+</ul>
+</li>
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+</section>
+<section id="check-the-geometry-orientation">
+<h2><span class="section-number">3.10.3. </span>Check the geometry orientation<a class="headerlink" href="#check-the-geometry-orientation" title="Link to this heading">¶</a></h2>
+<p>Visualize and flip the orientation (normal vectors) of the geometry:</p>
+<ul class="simple">
+<li><p>In the model window, show the Geometry, hide the Background mesh, Hide the Regions (visibility is toggled by clicking on each icon). Set the Geometry style to <code class="docutils literal notranslate"><span class="pre">edges</span></code>,
+opacity to 1.0, check the <code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">normals</span></code> box, set the <code class="docutils literal notranslate"><span class="pre">Scale</span></code> to 0.01, set <code class="docutils literal notranslate"><span class="pre">count</span></code> to 10,000 (to show all normals).</p></li>
+</ul>
+<p>The normal vectors must point towards the fluid region (here towards the inside of the geometry). However we see that the normals point in the opposite direction (outwards the fluid region). This means we need to flip the normals to correct the orientation.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_show_normals.png"><img alt="Show normals" src="../_images/Proc_stl_demo_show_normals.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">union1</span></code> geometry,</p></li>
+<li><p>Add a filter: <a class="reference internal" href="../_images/filter.svg"><img alt="Filter" src="../_images/filter.svg" style="width: 16px;" /></a> -&gt; <code class="docutils literal notranslate"><span class="pre">flip</span> <span class="pre">normals</span></code>. Now the vectors point towards the fluid region. The tips of the arrows are not visible, but we can see the origin (shown as a dot at the center of each face).</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_flip_normals.png"><img alt="Show normals" src="../_images/Proc_stl_demo_flip_normals.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+<li><p>Toggle the Region visibility back on.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">Domain</span> <span class="pre">extent</span></code>, enter the following:</p>
+<ul>
+<li><p>X-direction: Min = <code class="docutils literal notranslate"><span class="pre">-0.055</span></code> m, Max = <code class="docutils literal notranslate"><span class="pre">0.055</span></code> m.</p></li>
+<li><p>Y-direction: Min = <code class="docutils literal notranslate"><span class="pre">0.01</span></code> m, Max = <code class="docutils literal notranslate"><span class="pre">0.35</span></code> m.</p></li>
+<li><p>Z-direction: Min = <code class="docutils literal notranslate"><span class="pre">-0.1</span></code> m, Max = <code class="docutils literal notranslate"><span class="pre">0.18</span></code> m.</p></li>
+</ul>
+</li>
+</ul>
+<p>Note that the inlets and outlet extend beyond the domain extents. This is intentional,
+as it usually provides a cleaner intersection and easier way to define boundary conditions regions when
+they are aligned with the domain box (planes along x=xmin, x=xmax etc.).</p>
+<ul class="simple">
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+</section>
+<section id="create-boundary-conditions-regions">
+<h2><span class="section-number">3.10.4. </span>Create boundary conditions regions<a class="headerlink" href="#create-boundary-conditions-regions" title="Link to this heading">¶</a></h2>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Regions</span></code> pane:</p>
+<ul class="simple">
+<li><p>There is already a <code class="docutils literal notranslate"><span class="pre">Background</span></code> that is predefined in the Blank template. We can ignore it for now.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/top_region.svg"><img alt="Top" src="../_images/top_region.svg" style="width: 16px;" /></a> (top) button to create a new region to be used by a mass inflow boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Mass</span> <span class="pre">inflow</span></code> in the Boundary type drop down menu.</p></li>
+<li><p>Enter a name for the region in the Name field (“top inlet”).</p></li>
+<li><p>Change the region color to red.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/bottom_region.svg"><img alt="Bottom" src="../_images/bottom_region.svg" style="width: 16px;" /></a> (bottom) button to create a new region to be used by another mass inflow boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Mass</span> <span class="pre">inflow</span></code> in the Boundary type drop down menu.</p></li>
+<li><p>Enter a name for the region in the Name field (“bottom inlet”).</p></li>
+<li><p>Change the region color to pink.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/back_region.svg"><img alt="Back" src="../_images/back_region.svg" style="width: 16px;" /></a> (back) button to create a new region to be used by pressure outlet boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Pressure</span> <span class="pre">outflow</span></code> in the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> drop down menu.</p></li>
+<li><p>Enter a name for the region in the Name field (“outlet”).</p></li>
+<li><p>Change the region color to yellow.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/all_region.svg"><img alt="All" src="../_images/all_region.svg" style="width: 16px;" /></a> (all) button to create a new region that covers the entire
+domain to be used for the wall boundary condition.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">No-slip</span> <span class="pre">wall</span></code> in the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> drop down menu.</p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“wall”).</p></li>
+<li><p>Change the region color to green.</p></li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">facets</span> <span class="pre">(STL)</span></code> and <code class="docutils literal notranslate"><span class="pre">flip_normals</span></code>, use <code class="docutils literal notranslate"><span class="pre">all</span></code> for the selection method.
+You should see that there are 4003 facets selected.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The pressure outlet and mass inflow boundaries are located along the domain box.
+They are defined as rectangular 2D regions and must overlap the actual boundary areas
+(intersection of the STL file with the box planes). The exact boundary area will
+be computed automatically when preprocessing is performed.</p>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_bc_regions.png"><img alt="Regions" src="../_images/Proc_stl_demo_bc_regions.png" style="width: 12cm;" />
+</a>
+</figure>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/all_region.svg"><img alt="All" src="../_images/all_region.svg" style="width: 16px;" /></a> (all) button to create a new region that will be used as initial condition
+region. This is not needed to generate the mesh, but will be used later when setting up the simulation.</p></li>
+<li><p>Leave the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">type</span></code> as <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p>Enter a name for the region in the <code class="docutils literal notranslate"><span class="pre">Name</span></code> field (“init bed”).</p></li>
+<li><p>Change the region color to black.</p></li>
+<li><p>Set the Y-extent form <code class="docutils literal notranslate"><span class="pre">ymin</span></code> to <code class="docutils literal notranslate"><span class="pre">0.15</span></code> m.</p></li>
+<li><p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+</section>
+<section id="setup-the-mesh">
+<h2><span class="section-number">3.10.5. </span>Setup the mesh<a class="headerlink" href="#setup-the-mesh" title="Link to this heading">¶</a></h2>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Background</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">15</span></code> for the x cell value.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">35</span></code> for the y cell value.</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">30</span></code> for the z cell value.</p></li>
+</ul>
+<p>Go to the <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Mesher</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Set the Facet angle tolerance to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> deg. (The geometry unions have created elongated triangles we need to keep).</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Generate</span></code>.</p></li>
+<li><p>Look at the console output to verify the mesh generation completed successfully.</p></li>
+<li><p>In the Model view,
+- hide the Geometry, Background mesh and Regions
+- show the Boundary_Mesh
+- set <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">by</span></code> to <code class="docutils literal notranslate"><span class="pre">bc_id</span></code>,
+- set <code class="docutils literal notranslate"><span class="pre">Style</span></code> to <code class="docutils literal notranslate"><span class="pre">edges</span></code> and opacity to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>The Boundary_Mesh should look like a closed surface with colors matching the boundary conditions regions.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_mesh.png"><img alt="Mesh colored by bc_id" src="../_images/Proc_stl_demo_mesh.png" style="width: 12cm;" />
+</a>
+</figure>
+<p>After inspection, the mesh is deemed acceptable and we can move to setting up the simulation (Solver mode). Click <code class="docutils literal notranslate"><span class="pre">Accept</span></code>. This will unlock the Modeler tab.</p>
+</section>
+<section id="model-settings">
+<h2><span class="section-number">3.10.6. </span>Model settings<a class="headerlink" href="#model-settings" title="Link to this heading">¶</a></h2>
+<p>Switch to the Modeler tab (second tab at the bottom left corner of the GUI).</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Model</span></code> pane, enter a descriptive text in the
+<code class="docutils literal notranslate"><span class="pre">Description</span></code> field.</p></li>
+<li><p>Select “Discrete Element Model (MFiX-DEM)” in the <code class="docutils literal notranslate"><span class="pre">Solver</span></code>
+drop-down menu.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+</section>
+<section id="regions-settings">
+<h2><span class="section-number">3.10.7. </span>Regions settings<a class="headerlink" href="#regions-settings" title="Link to this heading">¶</a></h2>
+<p>We already have set all the regions, there is no change required in this pane.</p>
+</section>
+<section id="fluid-settings">
+<h2><span class="section-number">3.10.8. </span>Fluid settings<a class="headerlink" href="#fluid-settings" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Change Density to <code class="docutils literal notranslate"><span class="pre">Ideal</span> <span class="pre">gas</span> <span class="pre">law</span></code>.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+</section>
+<section id="solids-settings">
+<h2><span class="section-number">3.10.9. </span>Solids settings<a class="headerlink" href="#solids-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Solids</span></code> pane, <code class="docutils literal notranslate"><span class="pre">Materials</span></code> sub-pane:</p>
+<ul class="simple">
+<li><p>Click the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button to create a new solid.</p></li>
+<li><p>Verify the solids model is already set to “Discrete Element Model (MFiX-DEM)”.</p></li>
+<li><p>Enter the particle diameter of <code class="docutils literal notranslate"><span class="pre">0.005</span></code> m in the <code class="docutils literal notranslate"><span class="pre">Diameter</span></code> field.</p></li>
+<li><p>Enter the particle density of <code class="docutils literal notranslate"><span class="pre">2700</span></code> kg/m<sup>3</sup> in the <code class="docutils literal notranslate"><span class="pre">Density</span></code> field.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Solids</span></code> pane, <code class="docutils literal notranslate"><span class="pre">DEM</span></code> sub-pane.</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">automatic</span> <span class="pre">particle</span> <span class="pre">generation</span></code> checkbox.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+</section>
+<section id="initial-conditions-settings">
+<h2><span class="section-number">3.10.10. </span>Initial conditions settings<a class="headerlink" href="#initial-conditions-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">conditions</span></code> pane:</p>
+<ul class="simple">
+<li><p>There is already a <code class="docutils literal notranslate"><span class="pre">Background</span></code> region that initializes the entire domain as stagnant air.
+We only need to add solids at the bottom.</p></li>
+<li><p>Create a new initial condition region by clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">init</span> <span class="pre">bed</span></code> region, go to the <code class="docutils literal notranslate"><span class="pre">Solid</span> <span class="pre">1</span></code> tab and enter <code class="docutils literal notranslate"><span class="pre">0.5</span></code> for the volume fraction.</p></li>
+</ul>
+</section>
+<section id="boundary-conditions-settings">
+<h2><span class="section-number">3.10.11. </span>Boundary conditions settings<a class="headerlink" href="#boundary-conditions-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Boundary</span> <span class="pre">conditions</span></code> pane:</p>
+<ul class="simple">
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">top</span> <span class="pre">inlet</span></code> region. In the <code class="docutils literal notranslate"><span class="pre">Solids</span> <span class="pre">1</span></code> tab, enter <code class="docutils literal notranslate"><span class="pre">0.2</span></code> for the volume fraction and <code class="docutils literal notranslate"><span class="pre">-0.2</span></code> for the Y-axial velocity.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">bottom</span> <span class="pre">inlet</span></code> region. Stay on the <code class="docutils literal notranslate"><span class="pre">Fluid</span></code> tab, enter <code class="docutils literal notranslate"><span class="pre">4.0</span></code> for the Y-axial velocity.</p></li>
+<li><p>The outlet Boundary conditions is already
+set to atmospheric pressure. No changes are needed.</p></li>
+<li><p>The Wall Boundary conditions is already set to No-slip wall.
+No changes are needed.</p></li>
+</ul>
+</section>
+<section id="numerics-settings">
+<h2><span class="section-number">3.10.12. </span>Numerics settings<a class="headerlink" href="#numerics-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Numerics</span></code> pane:</p>
+<ul class="simple">
+<li><p>On the Residual pane: set the Fluid normalization to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and the fluid pressure correction scale factor to <code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></li>
+<li><p>On the Preconditioner tab, set the preconditioner to <code class="docutils literal notranslate"><span class="pre">None</span></code> for all equations.</p></li>
+</ul>
+</section>
+<section id="output-settings">
+<h2><span class="section-number">3.10.13. </span>Output settings<a class="headerlink" href="#output-settings" title="Link to this heading">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Output</span></code> pane:</p>
+<ul class="simple">
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Basic</span></code> sub-pane, check the
+<code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">VTK</span> <span class="pre">output</span> <span class="pre">files</span> <span class="pre">(VTU/VTP)</span></code> checkbox.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> sub-pane.</p></li>
+<li><p>Create a new output by clicking the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button.</p></li>
+<li><p>Select “Particle Data” from the ‘Output type’ drop-down menu.</p></li>
+<li><p>Select the “Background” region from the list to save all the
+particle data.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">OK</span></code> to create the output.</p></li>
+<li><p>Enter a base name for the <code class="docutils literal notranslate"><span class="pre">*.vtu</span></code> files in the <code class="docutils literal notranslate"><span class="pre">Filename</span> <span class="pre">base</span></code>
+field (“Particles”).</p></li>
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">interval</span></code> to <code class="docutils literal notranslate"><span class="pre">0.01</span></code> seconds.</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">Diameter</span></code> and <code class="docutils literal notranslate"><span class="pre">Translational</span> <span class="pre">Velocity</span></code> checkboxes.</p></li>
+</ul>
+</section>
+<section id="run-settings">
+<h2><span class="section-number">3.10.14. </span>Run settings<a class="headerlink" href="#run-settings" title="Link to this heading">¶</a></h2>
+<p>Save the project by clicking the <a class="reference internal" href="../_images/save.svg"><img alt="Save" src="../_images/save.svg" style="width: 16px;" /></a> button.</p>
+<p>On the <code class="docutils literal notranslate"><span class="pre">Run</span></code> pane:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">time</span></code> to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">0.001</span></code>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Maximum</span> <span class="pre">time</span> <span class="pre">step</span></code> to <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
+<li><p>Keep all other settings at their default values.</p></li>
+</ul>
+</section>
+<section id="run-the-simulation">
+<h2><span class="section-number">3.10.15. </span>Run the simulation<a class="headerlink" href="#run-the-simulation" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Run the project by clicking the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> button.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">Run</span></code> dialog, select the executable from the combo-box.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button to actually start the simulation.</p></li>
+</ul>
+</section>
+<section id="view-results">
+<h2><span class="section-number">3.10.16. </span>View results<a class="headerlink" href="#view-results" title="Link to this heading">¶</a></h2>
+<p>Results can be viewed, and plotted, while the simulation is running.</p>
+<ul class="simple">
+<li><p>Create a new visualization tab by pressing the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> next to the <cite>Model</cite> tab.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">3D</span> <span class="pre">view</span></code> button to view the vtk output files.</p></li>
+<li><p>On the <code class="docutils literal notranslate"><span class="pre">VTK</span></code> results tab, the visibility and representation of the
+<code class="docutils literal notranslate"><span class="pre">*.vtk</span></code> files can be controlled with the menu on the side.</p></li>
+<li><p>Change frames with the <a class="reference internal" href="../_images/first.svg"><img alt="First" src="../_images/first.svg" style="width: 16px;" /></a>, <a class="reference internal" href="../_images/back.svg"><img alt="Back" src="../_images/back.svg" style="width: 16px;" /></a>, <a class="reference internal" href="../_images/next.svg"><img alt="Next" src="../_images/next.svg" style="width: 16px;" /></a>, and <a class="reference internal" href="../_images/last.svg"><img alt="Last" src="../_images/last.svg" style="width: 16px;" /></a> buttons.</p></li>
+<li><p>Click the <a class="reference internal" href="../_images/play.svg"><img alt="Play" src="../_images/play.svg" style="width: 16px;" /></a> button to play the available vtk files.</p></li>
+<li><p>Change the playback speed under the <a class="reference internal" href="../_images/speed.svg"><img alt="Speed" src="../_images/speed.svg" style="width: 16px;" /></a> section on the sidebar.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/Proc_stl_demo_results.png"><img alt="Visualization of the results" src="../_images/Proc_stl_demo_results.png" style="width: 12cm;" />
+</a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_dem_seeding.html" class="btn btn-neutral float-left" title="3.9. DEM initial conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_chemkin.html" class="btn btn-neutral float-right" title="3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

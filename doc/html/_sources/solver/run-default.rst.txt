@@ -1,0 +1,90 @@
+.. _running-default:
+
+============================
+Interactive vs. batch solver
+============================
+
+
+Interactive solver
+------------------
+
+The MFiX Interactive Solver can interact with the GUI through http communication while the solver is running. Information about the flow solution can be passed directly from the solver to the GUI. For example, the simulation status, current simulation time, time step and residual information is communicated directly to the GUI, which can display or plot this information. The Dashboard view summarizes the progress of the simulation.
+
+
+.. figure:: ../media/dashboard.png
+            :align: center
+            :width: 16cm
+            :alt: Dashboard view
+
+            Dashboard view. The data displayed in the dashboard comes from the interactive solver.
+
+The GUI can also control the status of the simulation. A simulation can be paused, resumed and stopped. Pausing/resuming a simulation is useful when some settings need to be adjusted without terminating the simulation. This feature is particularly useful when the solver runs in a queue system. Here some parameters can be changed and take effect upon resuming the simulation without exiting the queue.
+
+It should be noted that only a few settings can be adjusted with the pause/resume feature. Typical settings that can be changed include the final time, inlet boundary condition velocity/flow rate and numerics parameters. Settings that cannot be changed (say the mesh resolution of fluid/solids material properties) are greyed out while the simulation is paused.
+
+The run status is controlled by the play, pause, and stop icons ( |Start button| |Pause button| |Stop button| ) located along the top bar. A simulation is started by pressing |Start button|. At any time during a simulation, it can be paused by pressing |Pause button|. If the simulations was launched through a queue system, it will stay in the queue while paused (the elapsed time is still continuing). Editable settings will unlock while non-editable settings will stay greyed out. Once a setting has been modified, the project needs to be saved and the simulation can resume by pressing |Start button| again (if the project was not saved, the user will be prompted to save it).
+
+A simulation can be stopped by pressing the |Stop button|. This will write a restart file corresponding to a snapshot of the simulation at the time the simulation was stopped and terminate the run. If the simulations was launched through a queue system, it will exit the queue.
+
+An example of pause/resume can be found at the end of :ref:`Running First Tutorial <user-guide>`
+
+
+Batch solver
+------------
+
+The MFiX Batch Solver is independent from the GUI, and it is the equivalent of the command line version of MFiX in 2016-1 and earlier versions. The batch solver binary is not installed in the MFiX conda package; it needs to be compiled before being used. Using the Batch Solver is appropriate when you do not want to use the interactive features with the GUI. You cannot pause, unpause, stop, or monitor status from the batch solver.
+
+
+It is recommended to use the interactive solver when running the solver from the GUI and use the batch solver when running from command line.
+
+
+==========================
+Default interactive solver
+==========================
+
+The default solver does not need to be compiled, because the binary executable
+is installed with MFiX. The default ``mfixsolver`` is automatically installed
+when following the steps in :ref:`setup-guide`.
+
+Running in GUI
+--------------
+
+Start the MFiX GUI from the Anaconda prompt (Windows) or a shell environment with the ``mfix`` environment (Mac or Linux):
+
+.. substitution-code-block:: shell-session
+
+    # Windows
+    (mfix-|version|) C:\> mfix
+
+    # Linux
+    (mfix-|version|)$ > mfix
+
+    # Mac
+    (mfix-|version|)$ mfix
+
+From the main menu browse to create a new project, or open an existing one.
+
+When running a simulation, press |play| (run) and select the default mfixsolver.
+
+You can pause, unpause, and stop the solver from the toolbar.
+
+
+Running from command line
+-------------------------
+
+Create a new directory for each MFiX project, and place the `.mfx` (or `mfix.dat` file there. Navigate to that project directory to launch the default solver locally.
+One can accomplish this with the following commands:
+
+.. code-block:: shell
+
+    > cd /path/to/project_dir
+    > mfixsolver -f my_project.mfx
+
+To show additional command line options for the solver, type:
+
+.. code-block:: shell
+
+    > mfixsolver --help
+
+
+.. include:: /icons.rst

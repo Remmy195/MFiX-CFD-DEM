@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.14.2. Setting up chemical reaction cases &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.14.3. Chemical Reaction Examples" href="examples/index.html" />
+    <link rel="prev" title="4.14.1. Chemical reactions setup" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">4.14.  Chemistry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="setup.html">4.14.1. Reaction Setup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.14.2. Reaction Rates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#species-names">4.14.2.1. Species names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#species-identifiers">4.14.2.2. Species identifiers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reaction-parameters">4.14.2.3. Reaction parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-custom-solver">4.14.2.4. Build custom solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#extra-notes">4.14.2.5. Extra notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stiff-chemistry-solver">4.14.2.6. Stiff chemistry solver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/index.html">4.14.3. Reaction Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chemkin.html">4.14.4. Chemkin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><span class="section-number">4. </span>Model guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4.14. </span>Chemical Reactions</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.14.2. </span>Setting up chemical reaction cases</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/model_setup/reactions/rates.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="setting-up-chemical-reaction-cases">
+<span id="chemical-reactions"></span><h1><span class="section-number">4.14.2. </span>Setting up chemical reaction cases<a class="headerlink" href="#setting-up-chemical-reaction-cases" title="Link to this heading">¶</a></h1>
+<p>Chemical reactions are specified in the project file by providing species
+aliases and chemical equations. Rate expressions are specified in one or two user
+defined subroutines, <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> and <code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code>, respectively. Heats of
+reaction are automatically calculated. Optionally, users may specify constant heats of
+reaction in the data file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>An overview of using legacy <code class="docutils literal notranslate"><span class="pre">rrates.f</span></code> files is given at the end of this section.
+However, this method is no longer supported.</p>
+</div>
+<p>Chemical reactions specification</p>
+<p>There are five general steps to incorporating chemical reactions into a simulation:</p>
+<ol class="arabic simple">
+<li><p>Provide species names in the data file (SPECIES_G, SPECIES_S).</p></li>
+<li><p>Assign a unique identifier (alias) to each species in the data file.
+(SPECIES_ALIAS_G and SPECIES_ALIAS_S)</p></li>
+<li><p>Define chemical reaction parameters in the data file.</p></li>
+<li><p>Define chemical reaction rates in <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> and/or <code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code>.</p></li>
+<li><p>Use build_mfixsolver to rebuild the MFiX executable.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Species names must appear exactly as given in the materials database (see
+the Thermochemical Properties section).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Reactions are limited to homogeneous or two-phase heterogeneous reactions
+(e.g., species from three separate phases cannot be referenced by any
+single chemical reaction).</p>
+</div>
+<p>The following explains each step in more detail.</p>
+<section id="species-names">
+<h2><span class="section-number">4.14.2.1. </span>Species names<a class="headerlink" href="#species-names" title="Link to this heading">¶</a></h2>
+<p>Provide species names in the data file (SPECIES_G, SPECIES_S).</p>
+</section>
+<section id="species-identifiers">
+<h2><span class="section-number">4.14.2.2. </span>Species identifiers<a class="headerlink" href="#species-identifiers" title="Link to this heading">¶</a></h2>
+<p>Each species must be assigned a unique identifier (alias).</p>
+<p>Alias formatting restrictions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Aliases must be unique.</p></li>
+<li><p>Aliases are limited to 32 characters and must be a valid Fortran variable
+name (i.e., alphanumeric characters or underscore, and starting with a letter).</p></li>
+<li><p>Aliases are not case sensitive.</p></li>
+<li><p>Aliases cannot conflict with existing MFiX variable names (e.g., a species
+alias of MU_g will cause an error when compiling MFiX).</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="reaction-parameters">
+<h2><span class="section-number">4.14.2.3. </span>Reaction parameters<a class="headerlink" href="#reaction-parameters" title="Link to this heading">¶</a></h2>
+<p>Define chemical reactions in the data file using species aliases.</p>
+<p>Each reaction is identified by a reaction construct, and a reaction block is used to
+group reaction constructs in the data file. A reaction construct has the format,
+rxn_name{…}, where rxn_name is a unique identifier for the reaction. Reaction
+identifiers are limited to 32 characters and must follow Fortran variable naming
+convention.</p>
+<p>Reaction input format:</p>
+<p>MFiX processes chemical reaction data differently than other input in
+the data file. A reaction block indicates the start and end of the reaction
+input. A reaction construct groups a single reaction’s input parameters.
+There are two reaction block types:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&#64;(RXNS)…&#64;(END) – indicates continuum phase chemical reactions (all TFM gas
+and solids phase reactions and DEM homogeneous gas phase reactions).</p></li>
+<li><p>&#64;(DES_RXNS)…&#64;(DES_END) – indicates heterogeneous DEM chemical reactions
+(particle/gas).</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A data file can only contain one reaction block of each type, whereas a
+reaction block must contain one or more reaction constructs.</p>
+</div>
+<p>The following keywords are available within a reaction construct.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>CHEM_EQ</strong>
+The chemical equation, contained in quotes</p></li>
+<li><p><strong>DH</strong>
+Heat of reaction</p></li>
+<li><p><strong>fracDH(Phase)</strong>
+Fractional heat of reaction to assign to the indicated phase</p></li>
+</ul>
+</div></blockquote>
+<p>Reaction construct formatting notes:</p>
+<blockquote>
+<div><ul>
+<li><p>Chemical reactions are always specified as irreversible with reactants on the
+left and products on the right. (CHEM_EQ = “Reactants –&gt; Products”)</p></li>
+<li><p>An arrow or equals sign can be used to distinguish reactants from products.
+(Reactants –&gt; Products or Reactants = Products)</p></li>
+<li><p>Reversible reactions are specified as two irreversible reactions.
+(see below example, Athermal, gas phase, reversible reaction)</p></li>
+<li><p>Chemical equations may span several lines by including an ampersand (&amp;) at
+the end of the line. As the example below illustrates, each line of the
+chemical equation is contained in quotation marks and the ampersand is
+located to the right of the second quotation mark.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@(RXNS)                       !  Begin reaction block
+CH4_Combustion {              !  Reaction 1 construct
+chem_eq = &quot;CH4 + 2O2 --&gt; &quot; &amp;  !  Chemical Reaction Line 1
+&quot;CO2 + 2H2O&quot;                  !  Chemical Reaction Line 2
+}                             !  End reaction 1 construct
+@(END)
+</pre></div>
+</div>
+</li>
+<li><p>Chemical equations must be enclosed within single or double quotes.
+CHEM_EQ = ‘Reactants –&gt; Products’ or “Reactants –&gt; Products”)</p></li>
+<li><p>Equations can be split across multiple lines using the &amp; character.</p></li>
+<li><p>Each chemical equation is limited to 512 characters, including spaces.</p></li>
+<li><p>Catalytic reactions should contain a species from the catalyst phase in the
+chemical equation with a coefficient of zero. This insures the proper
+assignment of the heat of reaction.
+(CHEM_EQ = ‘A + 0.Cat –&gt;3.0*R’ where Cat is a catalyst phase
+species)</p></li>
+<li><p>Catalyst phase species can be listed as a product, reactant, or both.</p></li>
+<li><p>The maximum number of reactions is 100.</p></li>
+</ul>
+</div></blockquote>
+<p>Several examples illustrating the data file input (steps 2 and 3) are provided below.
+Within the data input file, comments are preceded with an exclamation mark (!).</p>
+</section>
+<section id="build-custom-solver">
+<h2><span class="section-number">4.14.2.4. </span>Build custom solver<a class="headerlink" href="#build-custom-solver" title="Link to this heading">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> to rebuild the MFiX executable.</p>
+<p>See <a class="reference internal" href="../../solver/build-custom.html#build-custom"><span class="std std-ref">Building custom interactive solver</span></a> for detailed instructions on building the custom MFiX solver.</p>
+<p>Rebuilding mfixsolver is required after making any of the following modifications:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Changing the number, order, or alias of any species in the data file.</p></li>
+<li><p>Changing the number, order, or name of any chemical reaction in the data
+file.</p></li>
+<li><p>Changing the chemical reaction rates in either <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> or
+<code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> preprocesses the data file to generate the <code class="docutils literal notranslate"><span class="pre">species.inc</span></code> file
+which is included within the <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> and <code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code> files
+as code. Therefore changes in the data file may result in the executable
+being out of date.</p>
+</div>
+</section>
+<section id="extra-notes">
+<h2><span class="section-number">4.14.2.5. </span>Extra notes<a class="headerlink" href="#extra-notes" title="Link to this heading">¶</a></h2>
+<p>Below is additional reaction information.</p>
+<p>To write out reaction rates to SPx file:</p>
+<p>1. In the project file, set NRR to the desired number of reaction rates
+to be written out to the file <code class="docutils literal notranslate"><span class="pre">*.SPA</span></code>. This number is typically less than or equal
+to the total number of reactions.
+2. In a reaction UDF (<code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> or <code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code>) assign the
+desired reaction information to the variable ReactionRates.
+ReactionRates is a two-dimensional array. The first index references the
+fluid cell, IJK, while the second index ranges from 1 to NRR.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the second index exceeds NRR, a run time error can result from over
+indexing the array. Using logical checks can eliminate potential errors!</p>
+</div>
+<p>Two of the above examples illustrate using the ReactionRates variable:</p>
+<ol class="arabic simple">
+<li><p>Methane Combustion: The calculated reaction rate is directly stored and a
+logical check is used to prevent over indexing of the ReactionRates array.</p></li>
+<li><p>DES droplet evaporation: The calculated reaction rate is added to the storage
+array. Adding the calculated data to the storage variable is needed in DES
+since several discrete particles may exist in a single fluid cell. Again, a logical
+check is performed to prevent over indexing the array.</p></li>
+</ol>
+<p>Use an existing (legacy) <code class="docutils literal notranslate"><span class="pre">rrates.f</span></code> file:</p>
+<p>The legacy rrates.f file should be copied to the run directory. Additionally, the
+following keywords should be specified in the data file:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../../reference/chemical_reactions.html#use-rrates"><span class="std std-ref">USE_RRATES</span></a></p></li>
+<li><p><a class="reference internal" href="../../reference/chemical_reactions.html#species-name"><span class="std std-ref">SPECIES_NAME(PHASE)</span></a></p></li>
+<li><p><a class="reference internal" href="../../reference/chemical_reactions.html#nmax"><span class="std std-ref">NMAX(PHASE)</span></a></p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Legacy species keywords, NMAX(m) and SPECIES_NAME(n), are required
+when using a legacy rrates.f file. Current species keywords NMAX_g,
+NMAX_s, SPECIES_g, and SPECIES_s cannot be used.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The only modification needed for a legacy mfix.dat and rrates.f file
+combination is the inclusion of USE_RRATES=.TRUE. in the data file.
+An example of legacy file usage can be found in: legacy_tutorials/reactor1b
+Legacy tutorials can be found by downloading the source tarball.
+They are meant to provide representative setups for older versions of MFiX
+(before the launch of the GUI), and are not guaranteed to run with the
+latest version of MFiX.</p>
+</div>
+<p>Additional remarks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Building with chemical reaction support requires that the mfix input file be
+present in the run directory as the species aliases and reaction identifiers are
+needed to construct a species.inc file.</p></li>
+<li><p>Species aliases and reaction identifiers must be unique. The build performs a
+cursory check on the supplied data and exits if non-unique entries are identified.</p></li>
+<li><p>If any species alias or reaction identifier conflicts with an existing global variable
+in MFiX, an error will be reported and the code will fail to compile.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="stiff-chemistry-solver">
+<h2><span class="section-number">4.14.2.6. </span>Stiff chemistry solver<a class="headerlink" href="#stiff-chemistry-solver" title="Link to this heading">¶</a></h2>
+<p>A stiff chemistry solver has been fully integrated into MFiX. This approach
+first solves the convection/diffusion equations without chemical reaction source
+terms. A coupled set of ODEs is then directly integrated to impose chemical
+reactions effects. This approach may decrease simulation time by permitting
+larger time steps within the convection/diffusion model. However, the stiff
+chemistry solver may increase simulation time, especially if reactions are not
+stiff. Reactions are specified using the same approach outlined in the
+chemical reactions section.</p>
+<p>The stiff chemistry solver is invoked by specifying the keywords <a class="reference internal" href="../../reference/chemical_reactions.html#stiff-chemistry"><span class="std std-ref">STIFF_CHEMISTRY</span></a> and <a class="reference internal" href="../../reference/chemical_reactions.html#stiff-chem-max-steps"><span class="std std-ref">STIFF_CHEM_MAX_STEPS</span></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The stiff chemistry solver does not support legacy rrates.f files</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The stiff chemistry solver is not available with DES simulations.</p>
+</div>
+<p>Additional remarks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Variables governing ODE convergence criteria are specified as parameters in
+<code class="docutils literal notranslate"><span class="pre">stiff_chem_mod.f</span></code> found in the <code class="docutils literal notranslate"><span class="pre">model/chem</span></code> directory. Additional information
+on these parameters and their usage is available in <code class="docutils literal notranslate"><span class="pre">model/ODEPACK.F</span></code>.</p></li>
+<li><p>Running your simulation in debug mode is recommended for the first time. This will catch some
+common programmatic errors in the <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> file. Additionally, the stiff
+chemistry solver checks for NaNs calculated in the <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> file.</p></li>
+<li><p>The tutorial located in <code class="docutils literal notranslate"><span class="pre">tutorials/tfm/silane_pyrolysis_2d</span></code> shows how to use
+the stiff chemistry solver.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="4.14.1. Chemical reactions setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples/index.html" class="btn btn-neutral float-right" title="4.14.3. Chemical Reaction Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

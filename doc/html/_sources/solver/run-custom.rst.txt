@@ -1,0 +1,44 @@
+.. _run-custom:
+
+=================================
+Running Custom Interactive Solver
+=================================
+
+First :ref:`build a custom solver <build-custom>`.
+
+
+.. _run-custom-gui:
+
+Running custom solver from GUI
+------------------------------
+
+After building the custom solver, run a simulation by pressing |play| (Run) to
+display the :ref:`run-dialog`. Select the mfixsolver file you have just built.
+
+You can pause, unpause, stop, or get info from the solver.
+
+
+.. _run-custom-cmdline:
+
+Running custom solver from command line
+---------------------------------------
+
+As an example, the ``tfm/silane_pyrolysis_2d`` tutorial has UDFs and will not run with the
+default solver.
+
+After :ref:`building the solver <build-custom>`, on a Linux or Mac system, run the custom solver with the command:
+
+.. code-block:: shell
+
+    ~/projectdir> ./mfixsolver -f SP2D.mfx
+
+Use ``./`` in front of mfixsolver to use the solver in the project directory, not the default solver in your ``PATH``.
+
+
+On Windows, run the custom solver in the project directory with:
+
+.. code-block:: shell
+
+    C:\projectdir > mfixsolver -f SP2D.mfx
+
+.. include:: /icons.rst

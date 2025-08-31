@@ -1,0 +1,36 @@
+Example: Athermal, gas phase, reversible reaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  \text{A}(g) ↔ \text{R}(g)
+
+Notes:
+
+ * Species database names and aliases are defined on single lines.
+ * The forward and backward reactions are defined separately.
+ * The heats of reaction are defined as zero (athermal) and explicitly assigned to
+   the gas phase.
+
+.. code-block:: none
+
+    NMAX_g = 2
+    Species_g(1) = "A" "R"
+    Species_Alias_g(1) = "A" "R"
+
+    ! No. of gas phase species
+    ! Database names
+    ! Species aliases
+
+    @(RXNS)             !  Begin reaction block
+    fwd_AtoR {          !  Reaction 1 construct
+    chem_eq = "A --> R" !  Chemical Reaction Eq
+    DH = 0.0            !  (cal/moles-reacted)
+    fracDH(0) = 1.0     !  Gas phase HoR
+    }                   !  End reaction 1 construct
+    rvs_AtoR {          !  Reaction 2 construct
+    chem_eq = "R --> A" !  Chemical Reaction Eq
+    DH = 0.0            !  (cal/moles-reacted)
+    fracDH(0) = 1.0     !  Gas phase HoR
+    }                   !  End reaction 2 construct
+    @(END)              !  End reaction block

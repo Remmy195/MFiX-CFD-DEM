@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.14.4. Implementation of CHEMKIN mechanism in MFiX &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. Building the solver" href="../../solver/build.html" />
+    <link rel="prev" title="4.14.3.8. Example: DES droplet evaporation with UDF" href="examples/des-droplet-udf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">4.14.  Chemistry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="setup.html">4.14.1. Reaction Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rates.html">4.14.2. Reaction Rates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/index.html">4.14.3. Reaction Examples</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.14.4. Chemkin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">4.14.4.1. Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chemkin-mechanism">4.14.4.2. CHEMKIN Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4.14.4.3. Implementation of CHEMKIN Mechanism in MFiX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#references">4.14.4.4. References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><span class="section-number">4. </span>Model guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4.14. </span>Chemical Reactions</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.14.4. </span>Implementation of CHEMKIN mechanism in MFiX</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/model_setup/reactions/chemkin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="implementation-of-chemkin-mechanism-in-mfix">
+<span id="chemkin"></span><h1><span class="section-number">4.14.4. </span>Implementation of CHEMKIN mechanism in MFiX<a class="headerlink" href="#implementation-of-chemkin-mechanism-in-mfix" title="Link to this heading">¶</a></h1>
+<section id="introduction">
+<h2><span class="section-number">4.14.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>CHEMKIN provides a flexible and powerful tool for incorporating complex chemical kinetics into simulations
+of fluid dynamics. CHEMKIN-based simulations are widely used in the development and optimization of
+combustion and other chemical processing systems. It can help a user work efficiently with large systems
+of chemical reactions. Also, the mechanisms in the CHEMKIN format allow users to use the CHEMKIN utilities
+in their own Application programs and various types of simulations.
+An important advantage is that it allows the users to work with the same chemical input regardless of
+the particular problem. Thus there is no need to remember or modify the input protocol for different problems.
+Consequently, the time required to switch between problems or to develop a new application is minimized.
+Additionally, the CHEMKIN input standard for describing chemistry reaction mechanisms helps
+facilitate the exchange of data between different organizations.</p>
+<p>Chemical mechanisms are sometimes very complex, with hundreds of species and thousands of reactions.
+It makes it impossible to input the species, reactions, and reaction rates manually in any CFD simulation.
+By adding the ability of MFiX to use the CHEMKIN mechanisms, users do not need to individually
+add each species and reaction equations manually. Instead, that information can be read from files
+that follow the CHEMKIN format. Also, the reaction rates based on the Arrhenius expressions can be
+calculated directly by the code, without any User-Defined-Functions (UDFs). Another improvement
+in MFiX is that the mechanisms in CHEMKIN format can be applied to discrete phases as well
+as long as their reaction rates follow Arrhenius expressions.</p>
+</section>
+<section id="chemkin-mechanism">
+<h2><span class="section-number">4.14.4.2. </span>CHEMKIN Mechanism<a class="headerlink" href="#chemkin-mechanism" title="Link to this heading">¶</a></h2>
+<section id="species-information">
+<h3><span class="section-number">4.14.4.2.1. </span>Species Information<a class="headerlink" href="#species-information" title="Link to this heading">¶</a></h3>
+<p>Based on the user manual of CHEMKIN-III <a class="footnote-reference brackets" href="#id13" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, the form for the thermodynamic information of species is a minor modification of that used by Gordon and McBride <a class="footnote-reference brackets" href="#id12" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> for the Thermodynamic Database in the NASA Chemical Equilibrium code.
+The standard format for thermodynamic data in CHEMKIN format is shown in <a class="reference internal" href="#chemkinspecies"><span class="std std-numref">Figure 4.12</span></a>. The numbers in the figure represent the index of columns for each item. The index of each line is specified in column 80.</p>
+<figure class="align-center" id="chemkinspecies">
+<img alt="Example and explanation of thermodynamic database in CHEMKIN format" src="../../_images/CHEMKIN_species.png" />
+<figcaption>
+<p><span class="caption-number">Figure 4.12 </span><span class="caption-text">Example and explanation of thermodynamic database in CHEMKIN format.</span><a class="headerlink" href="#chemkinspecies" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">1:</span></code> The main information includes the species name, the elemental compositions of the species, and the temperature ranges over which the polynomial fits the thermodynamic data are valid.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The species name is specified in the first 18 columns. If the species name is shorter than 18 characters, the rest of the characters should be filled with spaces.</p></li>
+<li><p>Columns 19-24 are usually used to write a date, but they are not used further.</p></li>
+<li><p>Columns 25-44 specify the elemental compositions of the species. Five characters are used for each element. The first two specify the element symbol, while the remaining three specify the number of atoms of that element in the species.</p></li>
+<li><p>Column 45 specifies the species phase. S, L, or G can be used for solid, liquid, or gas phase.</p></li>
+<li><p>Columns 46-55 and 56-65 specify the low and high temperatures over which the polynomial fits the thermodynamic data are valid.</p></li>
+<li><p>Columns 66-73 specify the common temperature where the low-temperature polynomial fit switches to the high-temperature fit for thermodynamic properties. If it is blank, the default value, 1000K, will be used.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>If the number of atoms of an element is more than 3 digits or the number of elements in the species is more than 4, an extended composition format needs to be used. In extended composition format, columns 74-78 and 81-100 are used for the elemental compositions of the species as well. Otherwise, columns 74-78 and 81-100 will be blank. Also, users can add an ampersand (&amp;) after the index of the first line to indicate continuation to the next line, and the elements’ symbols and their amounts should be written on the next line. Any number of continuation lines may subsequently be included by adding an ampersand <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> at the end of a preceding line. The composition information used on these continuation lines is in free format, which consists of an element symbol, followed by the number of those atoms in the molecule, followed by another element symbol, and so forth. <a class="reference internal" href="#moreelementspecies"><span class="std std-numref">Figure 4.13</span></a> shows an example of the extended composition format.</p>
+<figure class="align-center" id="moreelementspecies">
+<img alt="../../_images/moreElement_species.png" src="../../_images/moreElement_species.png" />
+<figcaption>
+<p><span class="caption-number">Figure 4.13 </span><span class="caption-text">Example of the thermodynamic database with extended composition format.</span><a class="headerlink" href="#moreelementspecies" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">2:</span></code> Specifies Coefficients <span class="math notranslate nohighlight">\(a_1\)</span> ~ <span class="math notranslate nohighlight">\(a_5\)</span> for upper temperature interval. 15 columns are allocated for each coefficient for a total of 75 columns, with no space between them. In most cases, spaces may be added between positive coefficients for formatting consistency with other lines that contain negative numbers. After the coefficients, four spaces in columns 76-79 are followed by the integer 2 in column 80.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">3:</span></code> Columns 1-30 Specify the coefficients <span class="math notranslate nohighlight">\(a_6\)</span> and <span class="math notranslate nohighlight">\(a_7\)</span> for upper temperature interval. Columns 31-75 Specify the coefficients <span class="math notranslate nohighlight">\(a_1\)</span> and <span class="math notranslate nohighlight">\(a_3\)</span> for the lower temperature interval. Then the line is followed by four spaces in columns 76-79 and the integer 3 in column 80.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">4:</span></code> Columns 1-60 specify the coefficients <span class="math notranslate nohighlight">\(a_4\)</span> and <span class="math notranslate nohighlight">\(a_7\)</span> for lower temperature interval. Then the line is followed by 19 spaces in columns 61-79 and the integer 4 in column 80.</p></li>
+</ul>
+<p>ANSYS CHEMKIN-Pro made some improvements to the temperature ranges in the thermodynamic information <a class="footnote-reference brackets" href="#id11" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. More than two temperature ranges can be defined by replacing lines 2-4 with a different format <a class="reference internal" href="#moretemperature-species"><span class="std std-numref">Figure 4.14</span></a> shows an example of a species (MyOH) with more than two temperature ranges.
+In this format, line 2 starts from <code class="docutils literal notranslate"><span class="pre">TEMP</span></code> in the first four columns followed by all the temperature values that define the temperature intervals. For each specified temperature interval, two lines are used to specify the required coefficients with 5 coefficients (<span class="math notranslate nohighlight">\(a_1\)</span> ~ <span class="math notranslate nohighlight">\(a_5\)</span>) in one line and 2 coefficients (<span class="math notranslate nohighlight">\(a_6\)</span> and <span class="math notranslate nohighlight">\(a_7\)</span>) in the other line. NOTE: The coefficients are given in descending order of temperature ranges.</p>
+<figure class="align-center" id="moretemperature-species">
+<img alt="../../_images/moreTemperature_species.png" src="../../_images/moreTemperature_species.png" />
+<figcaption>
+<p><span class="caption-number">Figure 4.14 </span><span class="caption-text">Example of the thermodynamic database with more than two temperature ranges.</span><a class="headerlink" href="#moretemperature-species" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="thermodynamic-properties-of-species">
+<h4><span class="section-number">4.14.4.2.1.1. </span>Thermodynamic Properties of Species<a class="headerlink" href="#thermodynamic-properties-of-species" title="Link to this heading">¶</a></h4>
+<p>The CHEMKIN package is designed to work with thermodynamic data in the form used in the NASA chemical equilibrium code. In this way, seven coefficients are required for each temperature range. The following forms are used for the thermodynamic properties of species with temperature in unit of Kelvin.</p>
+<div class="math notranslate nohighlight" id="equation-cp-chemkin">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-cp-chemkin" title="Link to this equation">¶</a></span>\[\frac{C_{p}^0}{R} = a_{1}+ a_{2}T+a_{3}T^2+a_{4}T^3+a_{5}T^4\]</div>
+<div class="math notranslate nohighlight" id="equation-h-chemkin">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-h-chemkin" title="Link to this equation">¶</a></span>\[\frac{H^0}{RT} = a_{1}+\frac{a_{2}}{2}T+\frac{a_{3}}{3}T^2+\frac{a_{4}}{4}T^3+\frac{a_{5}}{5}T^4+\frac{a_{6}}{T}\]</div>
+<div class="math notranslate nohighlight" id="equation-s-chemkin">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-s-chemkin" title="Link to this equation">¶</a></span>\[\frac{S^0}{R} = a_{1}\ln{T}+a_{2}T+\frac{a_{3}}{2}T^2+\frac{a_{4}}{3}T^3+\frac{a_{5}}{4}T^4+a_{7}\]</div>
+</section>
+</section>
+<section id="reaction-mechanism-expression">
+<h3><span class="section-number">4.14.4.2.2. </span>Reaction Mechanism Expression<a class="headerlink" href="#reaction-mechanism-expression" title="Link to this heading">¶</a></h3>
+<p>This section summarizes the reaction rate expressions and related information used in CHEMKIN. For more detailed information, please refer to Chemkim III <a class="footnote-reference brackets" href="#id13" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> and Ansys manual <a class="footnote-reference brackets" href="#id11" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Examples for reactions with various types of auxiliary information can be found in <a class="reference internal" href="#table4"><span class="std std-numref">Figure 4.15</span></a>.</p>
+<p>Consider a reaction involving <span class="math notranslate nohighlight">\(K\)</span> chemical species can be represented in the general form</p>
+<div class="math notranslate nohighlight">
+\[\sum_{k=1}^K v^{'}_{ki}\chi_k &lt;=&gt; \sum_{k=1}^K v^{&quot;}_{ki} \chi_k.\]</div>
+<p>where <span class="math notranslate nohighlight">\(i\)</span> is the index of the reaction. <span class="math notranslate nohighlight">\(v_{ki}\)</span> is the stoichiometric coefficients of species, with superscript <code class="docutils literal notranslate"><span class="pre">'</span></code> indicating forward stoichiometric coefficients and <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> indicating reverse stoichiometric coefficients. They are real numbers and not limited to integers. <span class="math notranslate nohighlight">\(\chi_k\)</span> is the chemical symbol for the <span class="math notranslate nohighlight">\(k^{th}\)</span> species.</p>
+<p>The reaction rate of <span class="math notranslate nohighlight">\(i^{th}\)</span> reaction (<span class="math notranslate nohighlight">\(q_i\)</span>) is calculated by the difference of the forward (<span class="math notranslate nohighlight">\(q_{f_i}\)</span>) and reverse (<span class="math notranslate nohighlight">\(q_{r_i}\)</span>) rates</p>
+<div class="math notranslate nohighlight" id="equation-forward-rate">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-forward-rate" title="Link to this equation">¶</a></span>\[q_{f_i} = k_{f_i}\prod_{k=1}^K [X_k]^{v^{'}_{ki}}\]</div>
+<div class="math notranslate nohighlight" id="equation-reverse-rate">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-reverse-rate" title="Link to this equation">¶</a></span>\[q_{r_i} = k_{r_i}\prod_{k=1}^K [X_k]^{v^{&quot;}_{ki}}\]</div>
+<div class="math notranslate nohighlight" id="equation-reaction-rate">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-reaction-rate" title="Link to this equation">¶</a></span>\[q_i = q_{f_i}-q_{r_i}\]</div>
+<p>where <span class="math notranslate nohighlight">\([X_k]\)</span> is the molar concentration the <span class="math notranslate nohighlight">\(k^{th}\)</span> species. <span class="math notranslate nohighlight">\(k_{f_i}\)</span> and <span class="math notranslate nohighlight">\(k_{r_i}\)</span> are the forward and reverse rate constants of the <span class="math notranslate nohighlight">\(i^{th}\)</span> reaction.</p>
+<p>The total reaction rates of <span class="math notranslate nohighlight">\(k^{th}\)</span> species can be written as the summation of the rate-of-progress variables for all reactions involving the <span class="math notranslate nohighlight">\(k^{th}\)</span> species.</p>
+<div class="math notranslate nohighlight" id="equation-species-rate">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-species-rate" title="Link to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\begin{split}\dot{\omega}_k = \sum_{i=1}^Iv_{ki} q_i \\\end{split}\\v_{ki} = v&quot;_{ki}-v'_{ki}\end{aligned}\end{align} \]</div>
+<p>The forward rate constants for <span class="math notranslate nohighlight">\(i^{th}\)</span> reaction can be expressed by</p>
+<div class="math notranslate nohighlight" id="equation-kf">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-kf" title="Link to this equation">¶</a></span>\[k_{f_i} = A_i T^{\beta_i} \exp\left(\frac{-Ea_i}{R_cT}\right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(A_i\)</span>, <span class="math notranslate nohighlight">\(\beta_i\)</span>, and <span class="math notranslate nohighlight">\(Ea_i\)</span> are the pre-exponential factor, temperature exponent, and activation energy for <span class="math notranslate nohighlight">\(i^{th}\)</span> reaction. <span class="math notranslate nohighlight">\(T\)</span> is the gas temperature unless auxiliary reaction information with the keyword of TDEP is provided (See Section <a class="reference internal" href="#otherkeyword"><span class="std std-ref">Others</span></a>). <span class="math notranslate nohighlight">\(R_c\)</span> is the gas constant with compatible units with activation energy. The default units are cal/mole for <span class="math notranslate nohighlight">\(Ea\)</span> and cal/(mole <span class="math notranslate nohighlight">\(\cdot\)</span> K) for <span class="math notranslate nohighlight">\(R_c\)</span>.</p>
+<p>There are two ways to calculate the reverse rate constants.</p>
+<p><strong>Method 1:</strong> For most of the reactions, the reverse rate constants <span class="math notranslate nohighlight">\(k_{r_i}\)</span> are related to the forward rate constants (<span class="math notranslate nohighlight">\(k_{f_i}\)</span>) through the equilibrium constants (<span class="math notranslate nohighlight">\(K_{c_i}\)</span>) by</p>
+<div class="math notranslate nohighlight" id="equation-kr">
+<span class="eqno">(4.9)<a class="headerlink" href="#equation-kr" title="Link to this equation">¶</a></span>\[k_{r_i} = \frac{k_{f_i}}{K_{c_i}}\]</div>
+<p><span class="math notranslate nohighlight">\(K_{c_i}\)</span> is in concentration units and can be related to the equilibrium constants in pressure units (<span class="math notranslate nohighlight">\(K_{P_i}\)</span>) by</p>
+<div class="math notranslate nohighlight" id="equation-kc">
+<span class="eqno">(4.10)<a class="headerlink" href="#equation-kc" title="Link to this equation">¶</a></span>\[K_{c_i} = K_{P_i} \left(\frac{P_\text{atm}}{RT}\right)^{\sum_{k=1}^K v_{ki}}\]</div>
+<div class="math notranslate nohighlight" id="equation-kp">
+<span class="eqno">(4.11)<a class="headerlink" href="#equation-kp" title="Link to this equation">¶</a></span>\[K_{p_i} = \exp\left(\frac{\Delta S_i^0}{R}-\frac{\Delta H_i^0}{RT}\right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Delta S^0\)</span> and <span class="math notranslate nohighlight">\(\Delta H^0\)</span> refer to the change of the entropy and enthalpy that occurs in passing completely from reactants to products in the <span class="math notranslate nohighlight">\(i^{th}\)</span> reaction, respectively.</p>
+<div class="math notranslate nohighlight" id="equation-ds">
+<span class="eqno">(4.12)<a class="headerlink" href="#equation-ds" title="Link to this equation">¶</a></span>\[\frac{\Delta S_i^0}{R} = \sum_{k=1}^K v_k\frac{S_k^0}{R}\]</div>
+<div class="math notranslate nohighlight" id="equation-dh">
+<span class="eqno">(4.13)<a class="headerlink" href="#equation-dh" title="Link to this equation">¶</a></span>\[\frac{\Delta H_i^0}{RT} = \sum_{k=1}^K v_k\frac{H_k^0}{RT}\]</div>
+<p><span class="math notranslate nohighlight">\(S_k^0\)</span> and <span class="math notranslate nohighlight">\(H_k^0\)</span> are the standard state molar entropy and enthalpy of the <span class="math notranslate nohighlight">\(k^{th}\)</span> species, calculated by Eqn. <a class="reference internal" href="#equation-s-chemkin">(4.3)</a> and Eqn. <a class="reference internal" href="#equation-h-chemkin">(4.2)</a>.</p>
+<p><strong>Method 2:</strong> For some reactions involving electrons, the use of equilibrium constants to determine reverse rates is not appropriate. For this kind of reaction, CHEMKIN requires that all reactions involving electron species must be specified as forward reactions only, or must include the reverse rate parameters ( <span class="math notranslate nohighlight">\(A_i\)</span>, <span class="math notranslate nohighlight">\(\beta_i\)</span> and <span class="math notranslate nohighlight">\(Ea\)</span> ) explicitly stated using the keyword REV. In this way, it will calculate the reverse rate constants using the specified Arrhenius parameters, instead of the one computed through the equilibrium constant in Eqn. <a class="reference internal" href="#equation-kr">(4.9)</a>.</p>
+<section id="user-defined-reaction-orders">
+<h4><span class="section-number">4.14.4.2.2.1. </span>User-Defined Reaction Orders<a class="headerlink" href="#user-defined-reaction-orders" title="Link to this heading">¶</a></h4>
+<p>In some cases, the reaction rates may be proportional to the concentration of a species raised to some arbitrary power. in CHEMKIN, users can specify the reaction orders of species in the forward and reverse directions using the keywords FORD and RORD, respectively. In this way, the powers <span class="math notranslate nohighlight">\(v'_{ki}\)</span> in Eqn. <a class="reference internal" href="#equation-forward-rate">(4.4)</a> and <span class="math notranslate nohighlight">\(v^&quot;_{ki}\)</span> in Eqn. <a class="reference internal" href="#equation-reverse-rate">(4.5)</a> need to be replaced by the parameters following FORD and RORD. If the order of the species is not defined in FORD or RORD, the default value (its stoichiometric coefficients) will be used.</p>
+</section>
+<section id="third-body-reactions">
+<h4><span class="section-number">4.14.4.2.2.2. </span>Third-Body Reactions<a class="headerlink" href="#third-body-reactions" title="Link to this heading">¶</a></h4>
+<p>In some reactions, <code class="docutils literal notranslate"><span class="pre">+M</span></code> or <code class="docutils literal notranslate"><span class="pre">(+M)</span></code> is shown as a species in the reaction equation, which is called a <code class="docutils literal notranslate"><span class="pre">third</span> <span class="pre">body</span></code>. This is often the case in dissociation or recombination reactions.
+For the third-body reaction, the concentration of the effective third body must appear in the expression for the reaction rates as shown in the following equation.</p>
+<div class="math notranslate nohighlight" id="equation-forward-rate-m">
+<span class="eqno">(4.14)<a class="headerlink" href="#equation-forward-rate-m" title="Link to this equation">¶</a></span>\[q_{f_i} = \left(\sum_{n=1}^N (\alpha_{ni})[X_n]\right)  k_{f_i}\prod_{k=1}^K [X_k]^{v^{'}_{ki}}\]</div>
+<div class="math notranslate nohighlight" id="equation-reverse-rate-m">
+<span class="eqno">(4.15)<a class="headerlink" href="#equation-reverse-rate-m" title="Link to this equation">¶</a></span>\[q_{r_i} = \left(\sum_{n=1}^N (\alpha_{ni})[X_n]  \right) k_{r_i}\prod_{k=1}^K [X_k]^{v^{&quot;}_{ki}}\]</div>
+<div class="math notranslate nohighlight" id="equation-reaction-rate-m">
+<span class="eqno">(4.16)<a class="headerlink" href="#equation-reaction-rate-m" title="Link to this equation">¶</a></span>\[q_i = q_{f_i}-q_{r_i}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the total number of species in the mixture. If all species in the mixture contribute equally as third bodies, <span class="math notranslate nohighlight">\(\alpha_{ni}=1\)</span> for all species and the first factor in Eqn. <a class="reference internal" href="#equation-forward-rate-m">(4.14)</a> and Eqn. <a class="reference internal" href="#equation-reverse-rate-m">(4.15)</a> becomes the total concentration of the mixture.</p>
+<div class="math notranslate nohighlight" id="equation-m-coeff">
+<span class="eqno">(4.17)<a class="headerlink" href="#equation-m-coeff" title="Link to this equation">¶</a></span>\[[M] = \sum_{n=1}^N [X_n]\]</div>
+<p>In most cases, some species act more efficiently as third bodies than others, with <span class="math notranslate nohighlight">\(\alpha_{ni}\)</span> differing from 1. Its coefficients must be specified in the auxiliary data following its name.</p>
+</section>
+<section id="pressure-dependent-reactions">
+<h4><span class="section-number">4.14.4.2.2.3. </span>Pressure-Dependent Reactions<a class="headerlink" href="#pressure-dependent-reactions" title="Link to this heading">¶</a></h4>
+<p>CHEMKIN also provides the reactions with reaction rates depending on both pressure and temperature. There are three main kinds of such reactions: unimolecular/recombination fall-off reactions, chemically activated bimolecular reactions, and reactions with general pressure dependence using logarithmic interpolation (PLOG reactions). With the increase of pressure, the rate of unimolecular/recombination fall-off reactions increases, while the rate of chemically activated bimolecular reactions decreases. For PLOG reactions, various pressures and their corresponding Arrhenius coefficients (<span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, and <span class="math notranslate nohighlight">\(Ea\)</span>) need to be specified. The rate constants for PLOG reactions are linearly interpolated with respect to the logarithm of the pressure in between two pressures.</p>
+<p><strong>Unimolecular/recombination fall-off reactions</strong> The rate constant at any pressure for unimolecular/recombination fall-off reactions can be expressed as</p>
+<div class="math notranslate nohighlight" id="equation-k-falloff">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-k-falloff" title="Link to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\begin{split}k = k_\infty \left(\frac{Pr}{1+Pr}\right)F \\\end{split}\\Pr = \frac{k_0[M]}{k_\infty}\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(Pr\)</span> is the reduced pressure. [M] is the third-body coefficient shown in Eqn. <a class="reference internal" href="#equation-m-coeff">(4.17)</a>. In some cases, the third body can be a specific species instead of the mixture. In this way, the name of the species rather than (+M) will be added to the equation, for example, CH_3+CH_3(+N_2)&lt;=&gt;C_2H_6(+N_2), and the concentration of the species (<span class="math notranslate nohighlight">\(N_2\)</span> in this case) will replace [M] in the equation.</p>
+<p><span class="math notranslate nohighlight">\(k_0\)</span> and <span class="math notranslate nohighlight">\(k_\infty\)</span> are the rate constants for low-pressure and high-pressure limits, respectively.</p>
+<div class="math notranslate nohighlight" id="equation-rate-constant-0">
+<span class="eqno">(4.19)<a class="headerlink" href="#equation-rate-constant-0" title="Link to this equation">¶</a></span>\[k_0 = A_0 T^{\beta_0} \exp(-Ea_0/R_cT)\]</div>
+<div class="math notranslate nohighlight" id="equation-rate-constant-inf">
+<span class="eqno">(4.20)<a class="headerlink" href="#equation-rate-constant-inf" title="Link to this equation">¶</a></span>\[k_\infty = A_\infty T^{\beta_\infty} \exp(-Ea_\infty/R_cT)\]</div>
+<p>There are three different methods to calculate <span class="math notranslate nohighlight">\(F\)</span> in Eqn. <a class="reference internal" href="#equation-k-falloff">(4.18)</a>.</p>
+<p><strong>Lindemann form</strong> <span class="math notranslate nohighlight">\(F=1\)</span></p>
+<p><strong>Troe form</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\log{F} = \left[1+\left[\frac{\log{Pr}+c}{n-d(\log{Pr}+c)}\right]^2\right]^{-1}\log{F_\text{cent}}, \\\end{split}\\\begin{split}c = -0.4-0.67\log F_\text{cent}, \\\end{split}\\\begin{split}n = 0.75-1.27\log F_\text{cent}, \\\end{split}\\\begin{split}d = 0.14, \\\end{split}\\F_\text{cent} = (1-\alpha)\exp(-T/T^{***})+\alpha\exp(-T/T^{*})+\exp(-T^{**}/T).\end{aligned}\end{align} \]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(T^{***}\)</span>, <span class="math notranslate nohighlight">\(T^*\)</span>, and <span class="math notranslate nohighlight">\(T^{**}\)</span> need to be specified in the auxiliary information by keyword TROE. It must be noted that <span class="math notranslate nohighlight">\(T^{**}\)</span> may not be used in most cases. Therefore, 3 or 4 parameters are allowed to be defined in TROE.</p>
+<p><strong>SRI approach</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}F = d\left[a\exp(-b/T)+\exp(-T/c)\right]^X T^e, \\\end{split}\\X = \frac{1}{1+\log^2 Pr}\end{aligned}\end{align} \]</div>
+<p>Here a, b and c must be specified in the auxiliary information by keyword SRI. CHEMKIN adds parameters d and e to increase flexibility with default values of 1 and 0. Therefore,  3 or 5 parameters are allowed to be defined in SRI.</p>
+<p><strong>Chemically activated bimolecular reactions</strong> The rate constant at any pressure for chemically activated bimolecular reactions can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[k = k_\infty \left(\frac{1}{1+Pr}\right)F\]</div>
+<p>The three methods to calculate F for unimolecular/recombination fall-off reactions, including Lindemann, Troe, and SRI, can be used here as well.</p>
+<p><strong>Reactions with general pressure dependence using logarithmic interpolation (PLOG reactions)</strong> For PLOG reactions, various Arrhenius parameters (<span class="math notranslate nohighlight">\(A_m\)</span>, <span class="math notranslate nohighlight">\(\beta_m\)</span>, and <span class="math notranslate nohighlight">\(Ea_m\)</span>) are required for discrete pressure within the pressure range of interest. For the specified pressure, <span class="math notranslate nohighlight">\(P_m\)</span>, the rate constant can be expressed based on Arrhenius expression as follows.</p>
+<div class="math notranslate nohighlight">
+\[k_m = A_m T^{\beta_m} \exp(-Ea_m/R_cT)\]</div>
+<p>Users need to specify at least two different sets of parameters for two different pressures (<span class="math notranslate nohighlight">\(m \geq 2\)</span>). In some cases, more than one set may be provided for a given pressure, and then the sum of the sets of rate constants will be used for the given pressure.</p>
+<p>If the pressure is lower than any of the pressures provided, the rate parameters provided for the lowest pressure are used. Likewise, if the pressure is higher than any of those provided, the rate parameters provided for the highest pressure are used. When the pressure <code class="docutils literal notranslate"><span class="pre">P</span></code> falls between the the two pressures (<span class="math notranslate nohighlight">\(P_m\)</span> and <span class="math notranslate nohighlight">\(P_{m+1}\)</span>), the rate constant (k) will be determined through logarithmic interpolation of the specified rate constants (<span class="math notranslate nohighlight">\(k_m\)</span> and <span class="math notranslate nohighlight">\(k_{m+1}\)</span>).</p>
+<div class="math notranslate nohighlight">
+\[\ln(k) = \ln(k_m) + \frac{\ln(P)-\ln(P_m)}{\ln(P_{m+1})-\ln(P_m)}\left(\ln(k_{m+1})-\ln(k_m)\right)\]</div>
+</section>
+<section id="landau-teller-formulation-of-the-rate-expressions">
+<h4><span class="section-number">4.14.4.2.2.4. </span>Landau-Teller Formulation of the Rate Expressions<a class="headerlink" href="#landau-teller-formulation-of-the-rate-expressions" title="Link to this heading">¶</a></h4>
+<p>CHEMKIN also provides the Landau-Teller formulation of the rate expressions for some reactions, such as vibrational energy transfer processes, and blends it with the Arrhenius expression.</p>
+<div class="math notranslate nohighlight">
+\[k_{f_i} = A_i T^{\beta_i}\exp\left(\frac{-Ea_i}{R_cT}+\frac{B_i}{T^{1/3}}+\frac{C_i}{T^{2/3}}\right)\]</div>
+<p><span class="math notranslate nohighlight">\(B_i\)</span> and <span class="math notranslate nohighlight">\(C_i\)</span> need to be provided following the keyword LT. By setting <span class="math notranslate nohighlight">\(\beta_i\)</span> and <span class="math notranslate nohighlight">\(Ea_i\)</span> to zero, the standard Lendau-Teller expression is used. By setting <span class="math notranslate nohighlight">\(B_i\)</span> and <span class="math notranslate nohighlight">\(C_i\)</span> to zero, the standard Arrhenius expression is used.</p>
+</section>
+<section id="other-constant-fitting-options">
+<h4><span class="section-number">4.14.4.2.2.5. </span>Other Constant Fitting Options<a class="headerlink" href="#other-constant-fitting-options" title="Link to this heading">¶</a></h4>
+<p>CHEMKIN provides two new rate-expression forms for plasma reactions.</p>
+<p><strong>Polynomial fit to the logarithm of the temperature</strong></p>
+<div class="math notranslate nohighlight">
+\[k_{f_i} = A_i T^{\beta_i}\exp\left(\frac{E_i}{T}+\sum_{n=1}^9 b_{ni}(\ln T)^{n-1}\right)\]</div>
+<p>This form needs the definition of 9 additional parameters in the auxiliary data following the keyword JAN.</p>
+<p><strong>Power series within the exponential of a modified Arrhenius expression</strong></p>
+<div class="math notranslate nohighlight">
+\[k_{f_i} = A_i T^{\beta_i}\exp\sum_{n=1}^4\frac{b_{ni}}{T^n}\]</div>
+<p>This form needs the definition of 4 additional parameters in the auxiliary data following the keyword FIT1.</p>
+</section>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">4.14.4.3. </span>Implementation of CHEMKIN Mechanism in MFiX<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<section id="information-of-species">
+<h3><span class="section-number">4.14.4.3.1. </span>Information of Species<a class="headerlink" href="#information-of-species" title="Link to this heading">¶</a></h3>
+<p>In MFiX, species information can be defined in the <code class="docutils literal notranslate"><span class="pre">Fluid</span></code> or <code class="docutils literal notranslate"><span class="pre">Solid</span></code> pane for different phases.
+The thermodynamic data associated with species can be extracted from the internal database in MFiX (in BURCAT format) and/or imported from a BURCAT or CHEMKIN file through the MFiX graphical user interface (GUI). After importing, users can select the species required for their case.
+Users can use two methods simultaneously, like importing some species from a file and extracting others from the internal database.
+If the duplicate species names are used, MFiX will rename the second one by adding <code class="docutils literal notranslate"><span class="pre">_1</span></code> into the name. <code class="docutils literal notranslate"><span class="pre">,</span></code> or <code class="docutils literal notranslate"><span class="pre">-</span></code> in species name is not accepted by MFiX. It will be replaced by <code class="docutils literal notranslate"><span class="pre">_</span></code> after importing as species in MFiX GUI.</p>
+<p>For the CHEMKIN file imported into MFiX, the format for the thermodynamic database shown in <a class="reference internal" href="#chemkinspecies"><span class="std std-numref">Figure 4.12</span></a> should be used. However, the current MFiX only allows atomic symbols and formulas to be specified in columns 25-44 in the first line as shown in <a class="reference internal" href="#moreelementspecies"><span class="std std-numref">Figure 4.13</span></a>. More than two temperature ranges as shown in <a class="reference internal" href="#moretemperature-species"><span class="std std-numref">Figure 4.14</span></a> are not supported in the current version.</p>
+<p>There are two main differences between the Burcat format and the general format of CHEMKIN for species.</p>
+<ul class="simple">
+<li><p>The species molecular weights are not defined in the CHEMKIN file. MFiX will calculate them based on the molecular weights of elements defined in the MFiX database and the automatic formula of each species shown in <a class="reference internal" href="#chemkinspecies"><span class="std std-numref">Figure 4.12</span></a>.</p></li>
+<li><p>The heat of formations of species at 298K is not defined in the CHEMKIN format. Instead, MFiX will calculate the heat of the formation of species based on the coefficients shown in <a class="reference internal" href="#chemkinspecies"><span class="std std-numref">Figure 4.12</span></a> (see Eqn. <a class="reference internal" href="#equation-h-chemkin">(4.2)</a>).</p></li>
+</ul>
+<p>Similar to CHEMKIN, the thermodynamic properties of species will be calculated based on Eqn. <a class="reference internal" href="#equation-cp-chemkin">(4.1)</a> - Eqn. <a class="reference internal" href="#equation-s-chemkin">(4.3)</a> in MFiX. However, all gas species in MFiX have the same temperature as the gas mixture, therefore the temperature used in Eqn. <a class="reference internal" href="#equation-cp-chemkin">(4.1)</a> - Eqn. <a class="reference internal" href="#equation-s-chemkin">(4.3)</a> is the mixture temperature and will not change among species.
+The specific heat capacity of the mixture can be set as a constant, using the mixture-average method shown in Eqn. <a class="reference internal" href="#equation-cp-mixture">(4.21)</a> or through a user-defined-function.</p>
+<div class="math notranslate nohighlight" id="equation-cp-mixture">
+<span class="eqno">(4.21)<a class="headerlink" href="#equation-cp-mixture" title="Link to this equation">¶</a></span>\[\bar{C_p} = \sum_{n=1}^N C_{pn} X_n\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(C_{pn}\)</span> and <span class="math notranslate nohighlight">\(X_n\)</span> are the specific heat capacity and mass of species of <span class="math notranslate nohighlight">\(n^{th}\)</span> species, respectively.</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">4.14.4.3.2. </span>Reaction Mechanism Expression<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>Two ways can be used to provide the mechanism for the Arrhenius mechanism calculation:</p>
+<ul class="simple">
+<li><p>Import a file, which contains the reaction information from CHEMKIN directly into MFiX. MFiX will write the chemical equations and all the related information into the MFiX input file. In the CHEMKIN mechanism, the reaction information starts with the word REACTIONS (or REAC) followed by the units for the mechanism in the same line. (See Section <a class="reference internal" href="#unit-mfix"><span class="std std-ref">Units in the Mechanism</span></a> for more details about the setting of units). The lines following the REACTION line contain reaction descriptions with their Arrhenius coefficients. The reaction descriptions contain reaction data and auxiliary information based on the reaction types. In MFiX, the reaction descriptions and related auxiliary information are converted to the keywords and formats used in MFiX. More details are introduced in the following sections.</p></li>
+<li><p>Provide the mechanism manually. Users can add the chemical equations and all the related information manually in GUI or the input file directly by following the rules described in the following sections.</p></li>
+</ul>
+<p><a class="reference internal" href="#table4"><span class="std std-numref">Figure 4.15</span></a> summarizes the required keywords and format used in MFiX for various types of reactions used in the CHEMKIN mechanism.
+Each keyword is required to be written in separate lines.
+For keywords, <code class="docutils literal notranslate"><span class="pre">rxn_order</span></code>, <code class="docutils literal notranslate"><span class="pre">third_body_param</span></code> and <code class="docutils literal notranslate"><span class="pre">press_rxn_param</span></code>, the line can be broken into multiple lines if it is too long by adding <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> at the end of the lines. All other keywords must be written in a single line.</p>
+<section id="mfix-keywords-for-arrhenius-rates-calculation">
+<h4><span class="section-number">4.14.4.3.2.1. </span>MFiX Keywords for Arrhenius Rates Calculation<a class="headerlink" href="#mfix-keywords-for-arrhenius-rates-calculation" title="Link to this heading">¶</a></h4>
+<p>To turn on the Arrhenius mechanism calculation for fluid or discrete particle phases, keywords ARRHENIUS_RRATES_FLUID or ARRHENIUS_RRATES_DES need to be set to ‘.True.’ in the input file.
+There are two other keywords, CHEM_MIN_SPECIES_FLUID and CHEM_MIN_SPECIES_SOLID to turn off reaction rates when the mass fractions of reactants are small. (NOTE: These two keywords are not limited to Arrhenius mechanism calculation. They can be used for other cases with chemical reactions, when using user-defined reaction rates).
+<a class="reference internal" href="#keywords-turnon"><span class="std std-numref">Table 4.6</span></a> provides more detailed information for those keywords.</p>
+<table class="longtable docutils align-default" id="keywords-turnon">
+<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Keywords used for the Arrhenius mechanism calculation in MFiX input file</span><a class="headerlink" href="#keywords-turnon" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keywords</p></th>
+<th class="head"><p>Default Values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ARRHENIUS_RRATES_FLUID</p></td>
+<td><p>.False.</p></td>
+<td><p>Turn on/off the Arrhenius mechanism calculation for
+fluid phase or fluid and solid phases if TFM is used.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARRHENIUS_RRATES_DES</p></td>
+<td><p>.False.</p></td>
+<td><p>Turn on/off the Arrhenius mechanism calculation for
+the discrete phases if discrete particle models, including DEM, CGDEM, PIC, SQP, and GSP, are used.</p></td>
+</tr>
+<tr class="row-even"><td><p>CHEM_MIN_SPECIES_FLUID</p></td>
+<td><p>1e-7</p></td>
+<td><p>Minimum mass fractions of fluid reactants in the reaction. The reaction will be turned off if any fluid
+reactants have a mass fraction below this threshold.</p></td>
+</tr>
+<tr class="row-odd"><td><p>CHEM_MIN_SPECIES_SOLID</p></td>
+<td><p>1e-7</p></td>
+<td><p>Minimum mass fractions of solid reactants in the reaction. The reaction will be turned off if any solid
+reactants have a mass fraction below this threshold.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reaction-equations">
+<h4><span class="section-number">4.14.4.3.2.2. </span>Reaction Equations<a class="headerlink" href="#reaction-equations" title="Link to this heading">¶</a></h4>
+<p>The CHEMKIN mechanism defines a reversible reaction with <code class="docutils literal notranslate"><span class="pre">=</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> between reactants and products, and defines an irreversible reaction with <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> between reactants and products.
+MFiX always uses <code class="docutils literal notranslate"><span class="pre">--&gt;</span></code> between reactants and products. Therefore, reversible reactions are written as two separate reactions, whose reaction rates are calculated independently (See Section <a class="reference internal" href="#reversible-mfix"><span class="std std-ref">Reversible Reactions</span></a> for more details).
+The reactions are written based on the sequence they appear in the mechanism using <code class="docutils literal notranslate"><span class="pre">Reaction_index</span></code>.</p>
+</section>
+<section id="arrhenius-coefficients">
+<h4><span class="section-number">4.14.4.3.2.3. </span>Arrhenius Coefficients<a class="headerlink" href="#arrhenius-coefficients" title="Link to this heading">¶</a></h4>
+<p>Following the reaction equations in the CHEMKIN mechanism, the Arrhenius rate coefficients <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, and <span class="math notranslate nohighlight">\(Ea\)</span> used in Eqn. <a class="reference internal" href="#equation-rate-constant-0">(4.19)</a>, in that order, are specified. They will be added to the keyword <code class="docutils literal notranslate"><span class="pre">arrhenius_coeff</span></code> in MFiX with</p>
+<blockquote>
+<div><p>arrhenius_coeff = <span class="math notranslate nohighlight">\(A\)</span> <span class="math notranslate nohighlight">\(\beta\)</span> <span class="math notranslate nohighlight">\(Ea\)</span></p>
+</div></blockquote>
+<p>The three numbers must be separated by at least one blank space.</p>
+</section>
+<section id="reversible-reactions">
+<span id="reversible-mfix"></span><h4><span class="section-number">4.14.4.3.2.4. </span>Reversible Reactions<a class="headerlink" href="#reversible-reactions" title="Link to this heading">¶</a></h4>
+<p>In MFiX, the forward and reverse reactions in a reversible reaction are written as two different reactions. The parameters required to calculate the reaction rates, including the Arrhenius coefficients and the auxiliary information, are written twice under forward and reverse reactions.
+For example, a reversible reaction from CHEMKIN <code class="docutils literal notranslate"><span class="pre">A+B=C</span></code> or <code class="docutils literal notranslate"><span class="pre">A+B&lt;=&gt;C</span></code> will be written as</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Reaction_1{chem_eq = A + B –&gt; C}</div>
+<div class="line">Reaction_1_rev{chem_eq = C –&gt; A + B}</div>
+</div>
+</div></blockquote>
+<p>There are two different ways to calculate the reaction rate of the reverse reactions. This is set by keyword <code class="docutils literal notranslate"><span class="pre">reverse_calc</span></code> for the reverse reactions in MFiX.</p>
+<ul class="simple">
+<li><p><strong>reverse_calc=fromForwardRateConstant</strong>: When keyword <code class="docutils literal notranslate"><span class="pre">REV</span></code> is not specified in the CHEMKIN mechanism, the rate constant of the reverse reaction will be calculated based on the forward reaction coefficients specified by <code class="docutils literal notranslate"><span class="pre">arrhenius_coeff</span></code> and the equilibrium constant using Eqn. <a class="reference internal" href="#equation-kr">(4.9)</a>.</p></li>
+<li><p><strong>reverse_calc=fromArrheniusCoeff</strong>: When keyword <code class="docutils literal notranslate"><span class="pre">REV</span></code> is specified in the CHEMKIN mechanism, the rate constant of the reverse reaction will be calculated directly from Arrhenius coefficients specified for the reverse reaction. In this case, the coefficients specified by <code class="docutils literal notranslate"><span class="pre">arrhenius_coeff</span></code> are for the reverse reaction.</p></li>
+</ul>
+</section>
+<section id="id8">
+<h4><span class="section-number">4.14.4.3.2.5. </span>User-Defined Reaction Orders<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
+<p>The user-defined reaction orders specified by FORD and RORD in the CHEMKIN mechanism are written to the keyword <code class="docutils literal notranslate"><span class="pre">rxn_order</span></code> for forward and reverse reactions, respectively. For example,</p>
+<blockquote>
+<div><p>rxn_order = A:0.5 B:2.0</p>
+</div></blockquote>
+<p>Both the species name and its reaction orders need to be specified in the keyword, separated by a colon. At least a blank space needs to be added between different species. The order of the species in the keyword does not need to be consistent with the reactants’ order in the reaction equation.
+If the reaction order for a species is not specified by the keyword, the stoichiometric coefficient will be used.</p>
+</section>
+<section id="id9">
+<h4><span class="section-number">4.14.4.3.2.6. </span>Third Body Reactions<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
+<p>In MFiX, the third-body species, <code class="docutils literal notranslate"><span class="pre">+M</span></code> and <code class="docutils literal notranslate"><span class="pre">(+M)</span></code>, are not included in the chemical equations. Instead, they are indicated by keyword <code class="docutils literal notranslate"><span class="pre">third_body_param</span></code>. It includes two parts: the model defining which species are used as third body and the coefficients of third-body species.</p>
+<ul class="simple">
+<li><p>If all species contribute as third bodies, <code class="docutils literal notranslate"><span class="pre">M_all</span></code> is used for the model.</p></li>
+<li><p>If a specific species, like <span class="math notranslate nohighlight">\(N_2\)</span>, is used as the third body, <code class="docutils literal notranslate"><span class="pre">M_speciesName</span></code>, like <code class="docutils literal notranslate"><span class="pre">M_N2</span></code>, is used for the model. Like <code class="docutils literal notranslate"><span class="pre">+M</span></code> and <code class="docutils literal notranslate"><span class="pre">(+M)</span></code>, this species is not explicitly written in the chemical equation.</p></li>
+</ul>
+<p>Following the model, the coefficients of the third-body species, differing from 1, are specified as a list of names and coefficients, separated by a colon. At least a blank space needs to be added between species. These coefficients need to be enclosed in quotation marks. For example,</p>
+<blockquote>
+<div><p>third_body_param = M_all “A:1.0 B:2.0 C:0.5”</p>
+</div></blockquote>
+<p>If the coefficients of the third-body species are not specified, a value of one will be used for the species.
+If all the coefficients of the third-body species are one, the second part enclosed in quotation marks can be omitted.</p>
+</section>
+<section id="id10">
+<h4><span class="section-number">4.14.4.3.2.7. </span>Pressure-Dependent Reactions<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
+<p>Additional sets of Arrhenius coefficients are required for pressure-dependent reactions. They are specified by different keywords in CHEMKIN based on the reaction type.</p>
+<p><strong>Unimolecular/recombination fall-off reactions</strong> The keyword LOW is required to set the Arrhenius coefficients for the low-pressure limit and the Arrhenius coefficients on the reaction line are for the high-pressure limit, which is written to keyword <code class="docutils literal notranslate"><span class="pre">arrhenius_coeff</span></code> in MFiX.</p>
+<p><strong>Chemically activated bimolecular reactions</strong> The keyword HIGH is required to set the Arrhenius coefficients for high-pressure limit and the Arrhenius coefficients on the reaction line are for low-pressure limit, which is written to keyword <code class="docutils literal notranslate"><span class="pre">arrhenius_coeff</span></code> in MFiX.</p>
+<p><strong>Reactions with general pressure dependence using logarithmic interpolation (PLOG reactions)</strong> Pressures and their corresponding Arrhenius coefficients need to be specified with the keyword PLOG.</p>
+<p>For the first two types of reactions, there are three formulations for the reaction rate calculation, including Lindemann, Troe, and SRI. If Lindemann formulation is used, no additional keywords are required. For Troe reactions, the keyword TROE followed by 3 or 4 coefficients is required. For SRI reactions, the keyword SRI followed by 3 or 5 coefficients is required.</p>
+<p>To set the pressure-related parameters in MFiX, keyword <code class="docutils literal notranslate"><span class="pre">press_rxn_param</span></code> is used. There are two parts for this keyword.</p>
+<ul class="simple">
+<li><p>The first part is the model used to calculate the rate constant. It is named by <code class="docutils literal notranslate"><span class="pre">PLOG</span></code> or <code class="docutils literal notranslate"><span class="pre">expressionModel_reactionType</span></code>, like <code class="docutils literal notranslate"><span class="pre">Troe_fallOff</span></code>. <code class="docutils literal notranslate"><span class="pre">expressionModel</span></code> can be Lindemann, Troe, or SRI depending on the formulation used for the reaction rate. <code class="docutils literal notranslate"><span class="pre">reactionType</span></code> can be fallOff or bimo for unimolecular/recombination fall-off reactions or chemically activated bimolecular reactions.</p></li>
+<li><p>The second part is the additional Arrhenius coefficients <code class="docutils literal notranslate"><span class="pre">arrhenius_press</span></code> under high or low pressures depending on the model specified in the first part and the coefficients <code class="docutils literal notranslate"><span class="pre">press_coeff</span></code> used in the model. This part must be enclosed in quotation marks. <code class="docutils literal notranslate"><span class="pre">press_coeff</span></code> is not required if the Lindemann formulation is used. For PLOG reactions, <code class="docutils literal notranslate"><span class="pre">press_coeff</span></code> specifies the discrete pressures and <code class="docutils literal notranslate"><span class="pre">arrhenius_press</span></code> specifies their corresponding Arrhenius coefficients. Various sets of Arrhenius coefficients for each discrete pressure are separated by a comma in <code class="docutils literal notranslate"><span class="pre">arrhenius_press</span></code>. At least one blank space needs to be added between different numbers.</p></li>
+</ul>
+</section>
+<section id="units-in-the-mechanism">
+<span id="unit-mfix"></span><h4><span class="section-number">4.14.4.3.2.8. </span>Units in the Mechanism<a class="headerlink" href="#units-in-the-mechanism" title="Link to this heading">¶</a></h4>
+<p>In the same line as the REACTION of the CHEMKIN mechanism, users can specify the units used in the mechanism, especially the Arrhenius rate coefficients. <code class="docutils literal notranslate"><span class="pre">CAL/MOLE</span></code>, <code class="docutils literal notranslate"><span class="pre">KCAL/MOLE</span></code>, <code class="docutils literal notranslate"><span class="pre">JOULES/MOLE</span></code>, <code class="docutils literal notranslate"><span class="pre">KELVINS</span></code>, or <code class="docutils literal notranslate"><span class="pre">EVOLTS</span></code> can be used for activated energy <code class="docutils literal notranslate"><span class="pre">Ea</span></code>, and <code class="docutils literal notranslate"><span class="pre">MOLES</span></code> or <code class="docutils literal notranslate"><span class="pre">MOLECULES</span></code> can be used for pre-exponential factor <code class="docutils literal notranslate"><span class="pre">A</span></code>. Also, the units used for a specific reaction can be specified by the auxiliary keyword <code class="docutils literal notranslate"><span class="pre">UNITS</span></code>. <code class="docutils literal notranslate"><span class="pre">MOLE(CULE)</span></code> for <code class="docutils literal notranslate"><span class="pre">A</span></code>, and <code class="docutils literal notranslate"><span class="pre">CAL</span></code>, <code class="docutils literal notranslate"><span class="pre">KCAL</span></code>, <code class="docutils literal notranslate"><span class="pre">JOUL</span></code>, <code class="docutils literal notranslate"><span class="pre">KJOU</span></code>, <code class="docutils literal notranslate"><span class="pre">KELV(IN)</span></code>, or <code class="docutils literal notranslate"><span class="pre">EVOL(TS)</span></code> for <code class="docutils literal notranslate"><span class="pre">Ea</span></code> can be used in the keyword, where the letters in parentheses are optional. The default units are <code class="docutils literal notranslate"><span class="pre">cm-mole-sec-K</span></code> for <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">cal/mole</span></code> for <code class="docutils literal notranslate"><span class="pre">Ea</span></code>, with the temperature always in Kelvin.</p>
+<p>Units are not written in the MFiX input file. <strong>A</strong> is expressed in m-kmole-sec-K and <strong>Ea</strong> is always expressed in J/kmole when using  keywords <strong>arrhenius_coeff</strong> and <strong>press_rxn_param</strong> in MFiX. If the CHEMKIN mechanism is imported from a mechanism file through MFiX GUI, the parameters will be converted to the units used in MFiX directly by GUI and written into the input file.</p>
+</section>
+<section id="duplicated-reactions">
+<h4><span class="section-number">4.14.4.3.2.9. </span>Duplicated Reactions<a class="headerlink" href="#duplicated-reactions" title="Link to this heading">¶</a></h4>
+<p>Duplicated reactions, <code class="docutils literal notranslate"><span class="pre">DUP</span></code> or <code class="docutils literal notranslate"><span class="pre">DUPLICATE</span></code> in CHEMKIN (used to indicate the duplicate reactions with different parameters), are written as two different reactions.</p>
+</section>
+<section id="landau-teller-formulation-and-other-constant-fitting-rate-expressions">
+<h4><span class="section-number">4.14.4.3.2.10. </span>Landau-Teller Formulation and Other Constant Fitting Rate Expressions<a class="headerlink" href="#landau-teller-formulation-and-other-constant-fitting-rate-expressions" title="Link to this heading">¶</a></h4>
+<p>The two parameters in the keyword <code class="docutils literal notranslate"><span class="pre">LT</span></code> or <code class="docutils literal notranslate"><span class="pre">RLT</span></code> for the Landua-Teller formation in the CHEMKIN mechanism is written to the keyword <code class="docutils literal notranslate"><span class="pre">lt_coeff</span></code> in the MFiX input file. At least one blank space needs to be added between numbers, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<blockquote>
+<div><p>lt_coeff = a b</p>
+</div></blockquote>
+<p>The JAN or FIT1 constant fitting options are written to keyword <code class="docutils literal notranslate"><span class="pre">fit_coeff</span></code> in the MFiX input file. The model, either <code class="docutils literal notranslate"><span class="pre">JAN</span></code> or <code class="docutils literal notranslate"><span class="pre">FIT1</span></code>, needs to be specified as the first part of the keyword. The second part, enclosed in quotation marks, defines the required coefficients with <code class="docutils literal notranslate"><span class="pre">coeff:</span></code> following with the numbers. At least one blank space needs to be added between numbers. 9 and 4 coefficients are required for model JAN or FIT1, respectively.</p>
+<blockquote>
+<div><p>fit_coeff = JAN “coeff: 1 2 3 4 5 6 7 8 9”</p>
+</div></blockquote>
+</section>
+<section id="others">
+<span id="otherkeyword"></span><h4><span class="section-number">4.14.4.3.2.11. </span>Others<a class="headerlink" href="#others" title="Link to this heading">¶</a></h4>
+<p>There are some keywords in the CHEMKIN mechanism that are not supported in the current MFiX version.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EXCI</span></code>: It is the energy loss parameter, in units of electron volts. This is usually used for electron-impact excitation reactions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TDEP</span></code>: It indicates that the reaction rate depends on a temperature associated with a particular species. However, all species in the fluid phase have the same temperature in MFiX. Therefore, this keyword will not be used in MFiX.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">HV</span></code> is used in the reaction, <code class="docutils literal notranslate"><span class="pre">HV</span></code>, as a keyword, will be given. But it won’t be used in CHEMKIN and is not supported in MFiX.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MOME</span></code> and <code class="docutils literal notranslate"><span class="pre">XSMI</span></code>: They are plasma momentum-transfer collision frequency options.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/table2_1_1.png"><img alt="Example and explanation of thermodynamic database in CHEMKIN format" src="../../_images/table2_1_1.png" style="width: 1181.1px; height: 1487.7px;" />
+</a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/table2_2_1.png"><img alt="Example and explanation of thermodynamic database in CHEMKIN format" src="../../_images/table2_2_1.png" style="width: 1180.2px; height: 1642.5px;" />
+</a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/table2_3_1.png"><img alt="Example and explanation of thermodynamic database in CHEMKIN format" src="../../_images/table2_3_1.png" style="width: 1226.7px; height: 1687.2px;" />
+</a>
+</figure>
+<figure class="align-center" id="table4">
+<a class="reference internal image-reference" href="../../_images/table2_4_1.png"><img alt="Example and explanation of thermodynamic database in CHEMKIN format" src="../../_images/table2_4_1.png" style="width: 1262.3999999999999px; height: 1434.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.15 </span><span class="caption-text">Keywords used to specify the parameters from the Arrhenius mechanism in the MFiX reaction block. (Continued)</span><a class="headerlink" href="#table4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In MFiX, the temperature used in the Arrhenius expression is determined as follows: For heterogeneous reactions, it is set to the average temperature of the fluid and solid phases. For single-phase reactions, it corresponds to the temperature of the reactant phase.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="references">
+<h2><span class="section-number">4.14.4.4. </span>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id11" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Ansys chemkin-pro input manual, 2021 R1.</p>
+</aside>
+<aside class="footnote brackets" id="id12" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<ol class="upperalpha simple" start="19">
+<li><p>Gordon and B.J. Mcbride. Computer program for calculation of complex chemical equilibrium compositions, rocket performance, incident and reflected shocks and chapman-jouguet detonations, 1976.</p></li>
+</ol>
+</aside>
+<aside class="footnote brackets" id="id13" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>Robert J Kee, Fran M Rupley, Ellen Meeks, and James A Miller. Chemkin-iii: A fortran chemical kinetics package for the analysis of gas-phase chemical and plasma kinetics, 1996.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples/des-droplet-udf.html" class="btn btn-neutral float-left" title="4.14.3.8. Example: DES droplet evaporation with UDF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../solver/build.html" class="btn btn-neutral float-right" title="5. Building the solver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

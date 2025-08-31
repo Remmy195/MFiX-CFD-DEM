@@ -1,0 +1,224 @@
+.. _chemkin_hydrogen_oxidation_tutorial:
+
+Hydrogen oxidation in a batch reactor using CHEMKIN mechanism
+-------------------------------------------------------------
+
+This tutorial shows how to import thermodynamic information of species
+and kinetic mechanism from CHEMKIN into MFiX. A batch reactor in a single
+cell is simulated in this tutorial. The mechanism for the oxidiation of hydrogen from
+Conaire et al. [1]_ is applied.
+
+
+Load the project into MFiX
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The basic model has been set up in the input file, "hydrogen_oxidation.mfx".
+
+-  On the main menu select ``New project``.
+-  Open the project ``hydrogen oxidation with CHEMKIN mechanism, step by step``.
+
+.. _fig_open_project:
+
+.. figure:: /media/chemkin/fig_open_project.png
+           :width: 8cm
+           :alt: open project
+
+-  Choose the location for your working directory and click ``OK``.
+
+.. _fig_create_project:
+
+.. figure:: /media/chemkin/fig_create_project.png
+           :width: 8cm
+           :alt: create project
+
+.. note::
+    The main purpose of this tutorial is to show how to use CHEMKIN mechanism in MFiX.
+    For more details about the model setup, please refer to other tutorials.
+
+Generate mesh
+^^^^^^^^^^^^^
+
+On the ``Mesher`` pane:
+
+-  Click ``Generate`` to generate the mesh
+-  Click ``Accept`` to accept the mesh, and switch to the Modeler tab (bottom left of GUI).
+
+.. _fig_create_mesh:
+
+.. figure:: /media/chemkin/fig_create_mesh.png
+           :width: 8cm
+           :alt: generate mesh
+
+Import species for fluid phase
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+On the ``Fluid`` pane:
+
+-  Click |add| under ``Species``. This will open the Fluid species popup window.
+
+.. figure:: /media/chemkin/fig_add_species.png
+            :width: 8cm
+            :alt: add species
+
+- Select ``Load from file (CHEMKIN format)`` in ``Source`` of the popup window
+
+.. figure:: /media/chemkin/fig_import_thermo_file.png
+            :width: 8cm
+            :alt: import thermo file
+
+- Click ``Choose file``, choose "thermodynamicInfo.txt" in the popup window, and click ``Open``.
+
+.. figure:: /media/chemkin/fig_select_thermo_file.png
+            :width: 8cm
+            :alt: select thermo file
+
+- After importing the file, the species defined in the file will show in the window.
+- Select all the species (click on first species "AR" and drag down) and click ``import from database`` to import all species. Click ``Done``.
+
+.. note::
+    Users have the flexibility to select the required species for their case from the provided list.
+    If a species is not defined in the CHEMKIN file, users can import it from the built-in
+    Burcat database or an external Burcat file as well.
+
+.. figure:: /media/chemkin/fig_select_species.png
+            :width: 8cm
+            :alt: select species
+
+- For reacting cases, constant specific heat capacity is not allowed. Change it to
+  "Mixture" in "Properties".
+
+.. figure:: /media/chemkin/fig_setup_cp.png
+            :width: 8cm
+            :alt: setup cp
+
+Create Initial and Boundary conditions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On the ``Initial conditions`` pane, set the following conditions as the initial conditions.
+
++------------------+--------------------------------------------------------+
+| Property         | Initial Value                                          |
++==================+========================================================+
+| Volume Fraction  | 1.0                                                    |
++------------------+--------------------------------------------------------+
+| Temperature      | 800 K                                                  |
++------------------+--------------------------------------------------------+
+| Pressure         | 101325 Ps                                              |
++------------------+--------------------------------------------------------+
+| U-Velocity       | 0.0 m/s                                                |
++------------------+--------------------------------------------------------+
+| V-Velocity       | 0.0 m/s                                                |
++------------------+--------------------------------------------------------+
+| W-Velocity       | 0.0 m/s                                                |
++------------------+--------------------------------------------------------+
+| Composition      | H2: 0.1, O2: 0.8, N2: 0.1, OH: 0.0, TestSpecies: 0.0   |
++------------------+--------------------------------------------------------+
+
+On the ``Boundary conditions`` pane, No-Slip and adiabatic walls have been setup.
+
+Import kinetic mechanism
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+On the ``Chemistry`` pane, ``Options`` sub-pane:
+
+-  Check the ``Enable Arrhenius model for fluid phase reactions`` checkbox
+-  Change the ``Minimum mass fraction for reactions`` for ``Fluid reactions`` to 0
+   to consider all species with mass fraction larger than 0 in the reactions
+-  Check the ``Enable stiff chemistry solver`` checkbox
+-  Change the ``Absolute tolerance``, ``Relative tolerance`` and ``Minimum reaction rate``
+   in stiff solver to be 1e-09, 1e-08 and 1e-20.
+
+.. note::
+    Users can change the minimum mass fraction for reactions and the parameters for stiff solver
+    based on the accuracy requirement of their cases.
+
+.. figure:: /media/chemkin/fig_arrhenius_setup.png
+            :width: 8cm
+            :alt: setup arrhenius rate
+
+
+On the ``Chemistry`` pane, ``Reactions`` sub-pane:
+
+-  Click |load| ``Load reaction definitions from text file`` and select ``Chemkin format``
+-  Select the mechanism file "chemkin_mechanism.CKI" in the popup window. Click ``Open``.
+
+.. figure:: /media/chemkin/fig_import_mechanism.png
+            :width: 8cm
+            :alt: import mechanism
+
+.. figure:: /media/chemkin/fig_select_mechanism.png
+            :width: 8cm
+            :alt: select mechanism
+
+-  Then all the reactions with all the information will be imported
+
+.. figure:: /media/chemkin/fig_reactions.png
+            :width: 8cm
+            :alt: reactions
+
+
+
+Setup output, monitor and run parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The output, monitor and run parameters have been setup.
+Users can modify them  based on their own requirement.
+
+To check the change of species, we need to save the species into the output/monitor files.
+
+On the ``Output`` pane:
+
+-  Select the ``VTK`` sub-pane. An output has been setup.
+-  In the ``Fluid`` of ``Select cell data to write`` at the bottom of GUI,
+   select the checkboxes for species in ``Mass fraction``.
+
+On the ``Monitors`` pane:
+
+-  An monitor has been setup with the gas temperature saved every 0.001s.
+-  In the ``Fluid`` of ``Select cell data to write`` at the bottom of GUI,
+   select the checkboxes for species H2 and O2 in ``Mass fraction``.
+
+Run the project
+^^^^^^^^^^^^^^^
+
+-  Save the project by clicking the |save| button
+-  Run the project by clicking the |play| button
+-  On the ``Run Solver`` dialog, select the default solver from the combo-box
+-  Click the ``Run`` button to start the simulation
+
+View results
+^^^^^^^^^^^^
+This tutorial simulates the oxidation of H2 in a batch reactor.
+Users should expect to see consumption of H2 and O2 and a temperature increase
+from the exothermic reaction.
+
+Results can be viewed, and plotted, while the simulation is running.
+
+-  Create a new visualization tab by pressing the |add| next to the `Model` tab
+-  Select ``Monitors`` to view the results.
+-  On the ``Monitors`` results tab, the visibility of the variables can be controlled
+   with the menu under the plot.
+
+.. figure:: /media/chemkin/fig_monitor_control.png
+            :width: 8cm
+            :alt: monitor control
+
+-  Hide the gas temperature by unclick the |visibility| for variable t_g.
+   The following plot with the transient changes of the mass fraction of H2 and O2 will be shown.
+
+.. figure:: /media/chemkin/fig_monitor_species.png
+            :width: 8cm
+            :alt: monitor species
+
+-  Hide the gas species by unclick the |visibility| for variables x_g_H2 and x_g_O2.
+   The following plot with the transient change of the gas temperature will be shown.
+
+.. figure:: /media/chemkin/fig_monitor_temperature.png
+            :width: 8cm
+            :alt: monitor temperature
+
+
+References
+^^^^^^^^^^
+
+.. [1] M. O Conaire, H. J. Curran, J. M. Simmie, W. J. Pitz, C. K. Westbrook. A Comprehensive Modelling Study of Hydrogen Oxidation, Intl. J. Chem. Kinet., 36 (11):603\u2013622 (2004).
+
+.. include:: /icons.rst

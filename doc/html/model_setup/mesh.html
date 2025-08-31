@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.3. Mesh &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4. Regions" href="regions.html" />
+    <link rel="prev" title="4.2. Geometry" href="geometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3.  Mesh</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background-mesh">4.3.1. Background Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mesher">4.3.2. Mesher</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.3. </span>Mesh</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/mesh.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="mesh"></span><section id="id1">
+<h1><span class="section-number">4.3. </span>Mesh<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p>The Mesh pane has two tabs:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#background-mesh"><span class="std std-ref">Background Mesh</span></a> for the specification of the background mesh</p></li>
+<li><p><a class="reference internal" href="#mesher"><span class="std std-ref">Mesher</span></a> for changing cut-cell tolerances</p></li>
+</ul>
+</div></blockquote>
+<section id="background-mesh">
+<span id="id2"></span><h2><span class="section-number">4.3.1. </span>Background Mesh<a class="headerlink" href="#background-mesh" title="Link to this heading">¶</a></h2>
+<p>The Background tab is for specifying the mesh used by the Eulerian solver. A
+uniform mesh can be specified by entering the number of cells in the x, y, and z
+directions. The resulting Cell Size is computed from the geometry and the number
+of cells (Cell Size is not editable directly). The resulting mesh will be
+visible in the model setup view. The visibility of the mesh can be toggled with
+the <a class="reference internal" href="../_images/visibility.svg"><img alt="Visibility" src="../_images/visibility.svg" style="width: 16px;" /></a> (Visibility) button at the top of the model setup view.</p>
+<p>Control points can be added by pressing the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button. Once a control point
+has been added, the position, number of cells, stretch, first and last
+parameters can be changed. To split a control point, <code class="docutils literal notranslate"><span class="pre">right-click</span></code> on
+the control point and select <code class="docutils literal notranslate"><span class="pre">split</span></code> from the resulting menu. This
+operation will create a new control point at the midpoint between the previous
+control point and the selected control point, dividing the cells evenly between
+the two. Control points can be removed by pressing the <a class="reference internal" href="../_images/remove.svg"><img alt="Remove" src="../_images/remove.svg" style="width: 16px;" /></a> button.</p>
+<p>The stretch parameter is a value that will apply a non-uniform grid
+spacing to the cells. The value is defined as
+<span class="math notranslate nohighlight">\({Last Width} \over {First Width}\)</span>. A value larger than 1
+stretches the grid as x increases, while a value smaller than one
+compresses the grid as x increases. A value of exactly 1 will keep the spacing
+uniform.</p>
+<p>The first and last values allow the specification of the first and last widths.
+The other cell widths adjust accordingly. If a negative value is specified in
+the column “First”, the last width from the previous grid segment is copied. If
+a negative value is specified in the column “Last”, the first width from the
+next segment is copied.</p>
+</section>
+<section id="mesher">
+<span id="id3"></span><h2><span class="section-number">4.3.2. </span>Mesher<a class="headerlink" href="#mesher" title="Link to this heading">¶</a></h2>
+<p>Meshing of complex geometry is performed dynamically by the solver at runtime.
+The Mesher tab exposes options to adjust the cut-cell mesher. These options
+include:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>External flow</p></td>
+<td><p>select internal or external flow. Note: this depends on which way the
+normals are pointing on the STL file. If they are pointing out of the
+geometry, then the text will be correct.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Small cell tolerance</p></td>
+<td><p>tolerance to detect, and remove small cells</p></td>
+</tr>
+<tr class="row-even"><td><p>Small area tolerance</p></td>
+<td><p>tolerance to detect, and remove cells with small faces</p></td>
+</tr>
+<tr class="row-odd"><td><p>Merge tolerance</p></td>
+<td><p>tolerance used to merge duplicate nodes</p></td>
+</tr>
+<tr class="row-even"><td><p>Snap tolerance</p></td>
+<td><p>tolerance to move an intersection point to an existing cell corner</p></td>
+</tr>
+<tr class="row-odd"><td><p>Allocation Factor</p></td>
+<td><p>factor used in allocation of cut-cell arrays</p></td>
+</tr>
+<tr class="row-even"><td><p>Maximum iterations</p></td>
+<td><p>maximum number of iterations used to find intersection points</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intersection tolerance</p></td>
+<td><p>tolerance used to find intersection of background mesh and STL triangles</p></td>
+</tr>
+<tr class="row-even"><td><p>Facet angle tolerance</p></td>
+<td><p>ignore STL facets that have an angle less than this tolerance</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dot product tolerance</p></td>
+<td><p>tolerance used to determine if a point lies in a facet</p></td>
+</tr>
+<tr class="row-even"><td><p>Max facets per cell</p></td>
+<td><p>maximum number of facets allowed in a cell</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="geometry.html" class="btn btn-neutral float-left" title="4.2. Geometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="regions.html" class="btn btn-neutral float-right" title="4.4. Regions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

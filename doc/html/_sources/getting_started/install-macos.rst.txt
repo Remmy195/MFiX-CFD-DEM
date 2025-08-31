@@ -1,0 +1,149 @@
+.. _install-mfix-macos:
+
+Installing MFiX on MacOS
+------------------------
+
+MFiX is supported on the MacOS platform as of MFiX release 22.2.  We provide installable packages for both Intel and M1-based Macs.  In the following, ``arm64`` refers to M1 (Apple Silicon) and ``x86_64`` refers to Intel CPUs.  It has been tested on MacOS 14.5 "Sonoma".
+
+If you have an issue running or installing MFiX on your system, ask for help at :ref:`support-forum`.
+
+Install Miniforge3
+""""""""""""""""""
+
+`Miniforge3` is a minimal version of the Anaconda Python distribution, which is used
+for many scientific computing projects.  MFiX uses many supporting libraries, and the
+easiest way to install MFiX and its dependencies is via the `conda` packages hosted at
+`conda-forge` and NETL.  As of the 23.4 release we recommend the `Miniforge3`
+installation over Anaconda for easier installation and a less restrictive license.
+
+First, **download** the MacOS version of the Miniforge3 installer for your CPU:  `arm64 <https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh>`__ (~58MB) or `x86_64 <https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh>`__ (~60MB).
+
+Next, go to your Downloads folder and **run** the downloaded file.
+
+    #.  Open a Terminal (Type "⌘-Spacebar", type "terminal")
+    #.  ``cd`` to the directory of the downloaded installer (for example ``~/Downloads``)
+    #.  Run the downloaded installer: ``bash Miniforge3-MacOSX-*.sh⏎``
+    #.  When prompted for an installation location, hit enter to use the default, or enter the directory of your choice.
+    #.  When prompted to run ``conda init``, say ``yes``.
+
+Miniforge is now installed. In order for the changes to take effect, close the
+terminal and open a new one. Verify that your ``PATH`` was updated by running
+``conda`` in the new terminal.
+
+If you are upgrading from a previous version of MFiX and you already have Miniforge or Anaconda installed, you may skip this step (but see note below).
+
+.. note::
+
+
+    If you have previously installed MFiX with Anaconda, you can continue to
+    use your existing Anaconda installation.   We are recommending `Miniforge`
+    for new installations.  If you are using Anaconda we recommend setting
+    channel priority to ``conda-forge``:
+
+          .. substitution-code-block:: shell-session
+
+             $ conda activate base
+             (base)$ conda config --add channels conda-forge
+             (base)$ conda config --set channel_priority strict
+
+
+
+Install MFiX
+""""""""""""
+
+After installing Miniforge, install MFiX:
+
+    #.  Open a terminal.
+    #.  Browse to `MFiX Download <https://mfix.netl.doe.gov/mfix/download-mfix>`__ (requires registration and login)
+    #.  Copy the installation command.
+    #.  Paste it in the terminal.
+    #.  Press enter to run the command.
+
+  .. note:: If you have previously installed this version of MFiX, you will see the following message. Select ``y`` to confirm.  This will delete the previous MFiX installation and replace it.
+
+          .. code-block:: shell-session
+
+              WARNING: A conda environment already exists at ...
+              Remove existing environment (y/[n])? y
+
+MFiX will be installed in a new conda environment. The process may take a few
+minutes to complete.
+
+.. _activate-env-macos:
+
+Run MFiX
+""""""""
+
+To run MFiX:
+
+    #.  Open a terminal
+    #.  Run |conda_act_inline|
+    #.  Run ``mfix⏎`` to start MFiX
+
+Your prompt should look something like this:
+
+.. substitution-code-block:: shell-session
+
+      $ conda create -n mfix-|release| mfix==|release| ...
+
+      $ conda env list
+      # conda environments:
+      #
+      base               *  /Users/user/miniforge3
+      mfix-|release|        /Users/user/miniforge3/envs/mfix-|release|
+
+      $ conda activate mfix-|release|
+
+      (mfix-|release|)$ mfix
+
+You are now ready to proceed to the :ref:`user-guide` and :ref:`tutorials`.
+
+.. note::
+
+    Activating a conda environment sets certain environment variables such as
+    PATH in the current shell. It does not create a new shell session.
+
+    You will need to activate the environment every time before running MFiX.
+
+
+Deactivate conda environment
+""""""""""""""""""""""""""""
+
+After using MFiX you can just ``exit`` to leave the terminal session. However, if
+you need to deactivate the |conda_env_inline| conda environment, you can do so with:
+
+.. substitution-code-block:: shell-session
+
+    (mfix-|release|)$ conda deactivate
+    $
+
+This returns to the base conda environment.
+
+Uninstall MFiX
+""""""""""""""
+
+To remove an MFiX version, installed from conda packages, simply remove the conda
+environment (if you have the environment activated, deactivate it first):
+
+.. substitution-code-block:: shell-session
+
+    (mfix-|release|)$ conda deactivate
+    $ conda env remove -n mfix-|release|
+
+To uninstall Miniforge entirely, remove the directory you installed it to. By default, this is ``~/miniforge3`` in your home directory. From the terminal:
+
+.. code-block:: shell-session
+
+    $ cd ~
+    $ rm -rf miniforge3/
+
+For Anaconda, the default directory is `anaconda3`.
+
+Also be sure to edit your shell startup files to remove the `conda init` section at the end.
+
+
+.. note::
+
+    To learn more about managing conda environments, visit the `conda documentation
+    <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__ .
+    To learn more about miniforge, see the `Miniforge3 README <https://github.com/conda-forge/miniforge>`__.

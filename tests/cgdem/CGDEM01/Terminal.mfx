@@ -1,0 +1,271 @@
+#! File written Wed Jan  5 15:39:12 2022
+#! MFiX version 21.2 by vaidheea on login04.super
+
+### Run Controls
+  description      = 'CGDEM: Single particle, terminal velocity'
+  run_name         = 'TERM'
+  units            = 'SI'
+  run_type         = 'NEW'
+  time             = 0.0
+  tstop            = 0.35
+  dt               = 1.0000e-05
+  dt_max           = 1.0000e-05
+  res_dt           = 0.1
+  chk_batchq_end   = .False.
+  drag_type        = 'USER_DRAG'
+  enable_dmp_log   = .False.
+  energy_eq        = .False.
+  nodesi           = 1
+  nodesj           = 1
+  nodesk           = 1
+  full_log         = .True.
+  momentum_x_eq(0) = .False.
+  momentum_y_eq(0) = .False.
+  momentum_z_eq(0) = .False.
+  species_eq(0)    = .False.
+  species_eq(1)    = .False.
+
+### Physical parameters
+  gravity_x = 0.0
+  gravity_y = -9.80665
+  gravity_z = 0.0
+
+### Cartesian grid
+  cartesian_grid = .False.
+  use_stl        = .False.
+
+### Numeric
+  max_nit   = 250
+  norm_g    = 0
+  tol_resid = 1.0000e-04
+
+### Geometry
+  coordinates = 'CARTESIAN'
+  imax        = 5
+  jmax        = 60
+  kmax        = 5
+  x_max       = 0.01
+  x_min       = 0
+  y_max       = 0.3
+  y_min       = 0
+  z_max       = 0.01
+  z_min       = 0
+
+#### Fluid
+  mu_g0 = 1.8000e-05
+  ro_g0 = 1.2
+
+#### Solids
+  mmax = 1
+  # Solid 1
+    solids_model(1) = 'CGP'
+    d_p0(1)         = 1.0000e-04
+    ro_s0(1)        = 2.0000e+03
+    nmax_s(1)       = 0
+    cgp_stat_wt(1)  = 100.0
+    k_s0(1)         = 1.0
+    ks_model(1)     = 'MUSSER'
+
+
+### Initial conditions
+  # Initial condition 1: IC_1
+    ic_x_e(1)                = 0.01
+    ic_x_w(1)                = 0.0
+    ic_y_s(1)                = 0.0
+    ic_y_n(1)                = 0.3
+    ic_z_b(1)                = 0.0
+    ic_z_t(1)                = 0.01
+    ic_ep_g(1)               = 1.0
+    ic_t_g(1)                = 293.15
+    ic_u_g(1)                = 0.0
+    ic_v_g(1)                = 0.4
+    ic_w_g(1)                = 0.0
+    ic_ep_s(1,1)             = 0.0
+    ic_pic_const_statwt(1,1) = 1.0
+    ic_t_s(1,1)              = 293.15
+    ic_theta_m(1,1)          = 0.0
+    ic_u_s(1,1)              = 0.0
+    ic_v_s(1,1)              = 0.0
+    ic_w_s(1,1)              = 0.0
+
+  # Initial condition 2: IC_2
+    ic_x_e(2)                = 0.01
+    ic_x_w(2)                = 0.0
+    ic_y_s(2)                = 0.285
+    ic_y_n(2)                = 0.295
+    ic_z_b(2)                = 0.0
+    ic_z_t(2)                = 0.01
+    ic_ep_g(2)               = 0.9999
+    ic_t_g(2)                = 293.15
+    ic_u_g(2)                = 0.0
+    ic_v_g(2)                = 0.4
+    ic_w_g(2)                = 0.0
+    ic_ep_s(2,1)             = 1.0000e-04
+    ic_pic_const_statwt(2,1) = 100
+    ic_t_s(2,1)              = 293.15
+    ic_theta_m(2,1)          = 0.0
+    ic_u_s(2,1)              = 0.0
+    ic_v_s(2,1)              = 0.0
+    ic_w_s(2,1)              = 0.0
+
+
+# Boundary conditions
+  # Boundary condition 1: BC_1
+    bc_type(1) = 'MI'
+    bc_x_e(1)  = 0.01
+    bc_x_w(1)  = 0.0
+    bc_y_s(1)  = 0.0
+    bc_y_n(1)  = 0.0
+    bc_z_b(1)  = 0.0
+    bc_z_t(1)  = 0.01
+    bc_ep_g(1) = 1.0
+    bc_p_g(1)  = 0.0
+    bc_t_g(1)  = 293.15
+    bc_u_g(1)  = 0.0
+    bc_v_g(1)  = 0.4
+    bc_w_g(1)  = 0.0
+    # Solid 1
+      bc_ep_s(1,1)                = 0.0
+      bc_pic_mi_const_statwt(1,1) = 1.0
+      bc_t_s(1,1)                 = 293.15
+      bc_u_s(1,1)                 = 0.0
+      bc_v_s(1,1)                 = 0.0
+      bc_w_s(1,1)                 = 0.0
+
+  # Boundary condition 2: BC_2
+    bc_type(2) = 'PO'
+    bc_x_e(2)  = 0.01
+    bc_x_w(2)  = 0.0
+    bc_y_s(2)  = 0.3
+    bc_y_n(2)  = 0.3
+    bc_z_b(2)  = 0.0
+    bc_z_t(2)  = 0.01
+    bc_p_g(2)  = 0.0
+
+  # Boundary condition 3: BC_3
+    bc_type(3)  = 'FSW'
+    bc_x_e(3)   = 0.01
+    bc_x_w(3)   = 0.0
+    bc_y_s(3)   = 0.0
+    bc_y_n(3)   = 0.3
+    bc_z_b(3)   = 0.0
+    bc_z_t(3)   = 0.0
+    bc_jj_ps(3) = 0
+
+  # Boundary condition 4: BC_4
+    bc_type(4)  = 'FSW'
+    bc_x_e(4)   = 0.01
+    bc_x_w(4)   = 0.0
+    bc_y_s(4)   = 0.0
+    bc_y_n(4)   = 0.3
+    bc_z_b(4)   = 0.01
+    bc_z_t(4)   = 0.01
+    bc_jj_ps(4) = 0
+
+  # Boundary condition 5: BC_5
+    bc_type(5)  = 'FSW'
+    bc_x_e(5)   = 0.0
+    bc_x_w(5)   = 0.0
+    bc_y_s(5)   = 0.0
+    bc_y_n(5)   = 0.3
+    bc_z_b(5)   = 0.0
+    bc_z_t(5)   = 0.01
+    bc_jj_ps(5) = 0
+
+  # Boundary condition 6: BC_6
+    bc_type(6)  = 'FSW'
+    bc_x_e(6)   = 0.01
+    bc_x_w(6)   = 0.01
+    bc_y_s(6)   = 0.0
+    bc_y_n(6)   = 0.3
+    bc_z_b(6)   = 0.0
+    bc_z_t(6)   = 0.01
+    bc_jj_ps(6) = 0
+
+
+# SPx outputs
+  spx_dt(1) = 0.1
+
+### Residuals
+  group_resid = .True.
+
+### Discrete element model
+  des_coll_model         = 'LSD'
+  des_en_input(1)        = 0.9
+  des_en_wall_input(1)   = 0.9
+  des_etat_fac           = 0.5
+  des_etat_w_fac         = 0.5
+  des_explicitly_coupled = .True.
+  des_interp_mean_fields = .False.
+  des_interp_on          = .True.
+  des_interp_scheme      = 'SQUARE_DPVM'
+  des_interp_width       = 1.0000e-04
+  des_oneway_coupled     = .False.
+  gener_part_config      = .True.
+  kn                     = 100.0
+  kn_w                   = 100.0
+  kt_fac                 = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  kt_w_fac               = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  mew                    = 0.1
+  mew_w                  = 0.1
+
+### Two-fluid model
+  ep_star = 0.4
+
+### UDF control
+    usr_dt(1)   = 1.0000e-02
+    usr_type(1) = 'ASCII'
+    usr_var(1)  = 'Particle position and velocity'
+
+call_usr = .True.
+
+### Output control
+nlog           = 50
+print_des_data = .True.
+
+
+# MFIX-GUI section
+#!MFIX-GUI author = vaidheea
+#!MFIX-GUI created_date = 2022-01-04 15:05
+#!MFIX-GUI modified_time = 2022-01-05 15:38
+#!MFIX-GUI gui_version = 21.2
+#!MFIX-GUI project_notes = ""
+#!MFIX-GUI modified_by = vaidheea
+#!MFIX-GUI geometry = {"geometry_dict": {}, "tree": {}}
+#!MFIX-GUI visual_props = {"mesh": {"color": "#f44328", "visible": true,
+#!MFIX-GUI   "opacity": 1.0, "rep": "solid", "color_by": "Volume", "edge":
+#!MFIX-GUI   "#7a2114"}, "background_mesh": {"color": "#64b6f7", "visible":
+#!MFIX-GUI   true, "opacity": 1.0, "rep": "wire", "edge": "#325b7b"},
+#!MFIX-GUI   "geometry": {"color": "#e0e0e0", "visible": true, "opacity": 1.0,
+#!MFIX-GUI   "rep": "wire", "edge": "#707070"}, "regions": {"color": "#e0e0e0",
+#!MFIX-GUI   "visible": true, "opacity": 0.5, "rep": "solid", "edge":
+#!MFIX-GUI   "#707070"}, "normals": {"color": "#0000e0", "visible": false,
+#!MFIX-GUI   "scale": 0.1, "count": 1000, "edge": "#000070"}, "axes": {"color":
+#!MFIX-GUI   "#0000e0", "visible": true, "edge": "#000070"}, "boundary":
+#!MFIX-GUI   {"color": "#0000e0", "opacity": 1.0, "rep": "edges", "visible":
+#!MFIX-GUI   false, "color_by": "bc_id", "edge": "#000070"}}
+#!MFIX-GUI regions_dict = {"order": ["IC_1", "IC_2", "BC_1", "BC_2", "BC_3",
+#!MFIX-GUI   "BC_4", "BC_5", "BC_6"], "regions": {"IC_1": {"to": [0.01, 0.3,
+#!MFIX-GUI   0.01], "color": "#d97dc5"}, "IC_2": {"to": [0.01, 0.295, 0.01],
+#!MFIX-GUI   "from": [0.0, 0.285, 0.0], "color": "#c9dcc5"}, "BC_1": {"to":
+#!MFIX-GUI   [0.01, 0.0, 0.01], "color": "#c5a2e3", "type": "XZ-plane"}, "BC_2":
+#!MFIX-GUI   {"to": [0.01, 0.3, 0.01], "from": [0.0, 0.3, 0.0], "color":
+#!MFIX-GUI   "#bbb1c0", "type": "XZ-plane"}, "BC_3": {"to": [0.01, 0.3, 0.0],
+#!MFIX-GUI   "color": "#688ab9", "type": "XY-plane"}, "BC_4": {"to": [0.01, 0.3,
+#!MFIX-GUI   0.01], "from": [0.0, 0.0, 0.01], "color": "#87b06d", "type":
+#!MFIX-GUI   "XY-plane"}, "BC_5": {"to": [0.0, 0.3, 0.01], "color": "#9e7d8f",
+#!MFIX-GUI   "type": "YZ-plane"}, "BC_6": {"to": [0.01, 0.3, 0.01], "from":
+#!MFIX-GUI   [0.01, 0.0, 0.0], "color": "#ce6797", "type": "YZ-plane"}}}
+#!MFIX-GUI bc_regions = [[[1], ["BC_1"]], [[2], ["BC_2"]], [[3], ["BC_3"]],
+#!MFIX-GUI   [[4], ["BC_4"]], [[5], ["BC_5"]], [[6], ["BC_6"]]]
+#!MFIX-GUI ic_regions = [[[1], ["IC_1"]], [[2], ["IC_2"]]]
+#!MFIX-GUI usr_regions = [[1, "None"]]
+#!MFIX-GUI graphics = {"order": [], "data": {}}
+#!MFIX-GUI ui_state = {"mode": "modeler", "navigation": "Initial conditions",
+#!MFIX-GUI   "graphic_tab": 0}
+#!MFIX-GUI parameters = {"order": ["min", "max", "xmin", "xmax", "ymin", "ymax",
+#!MFIX-GUI   "zmin", "zmax", "km", "m", "cm", "mm", "um", "mile", "yard", "ft",
+#!MFIX-GUI   "ins"], "parameters": {"min": 0.0, "max": 0.0, "xmin": 0, "xmax":
+#!MFIX-GUI   0.01, "ymin": 0, "ymax": 0.3, "zmin": 0, "zmax": 0.01, "km":
+#!MFIX-GUI   1000.0, "m": 1.0, "cm": 0.01, "mm": 0.001, "um": 1e-06, "mile":
+#!MFIX-GUI   1609.34, "yard": 0.9144, "ft": 0.3048, "ins": 0.0254}}

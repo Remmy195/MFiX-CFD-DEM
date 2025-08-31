@@ -1,0 +1,3157 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.6. Solids &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.7. Scalars" href="scalars.html" />
+    <link rel="prev" title="4.5. Fluid" href="fluid.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Model guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.6.  Solids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-solids-phase">4.6.1. Creating a solids phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deleting-a-solids-phase">4.6.2. Deleting a solids phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-solid-model-options">4.6.3. General solid model options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solids-phase-material-properties">4.6.4. Solids phase material properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solids-model-species">4.6.5. Solids Model Species</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-settings">4.6.6. Advanced settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tfm-settings">4.6.7. TFM Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dem-settings">4.6.8. DEM Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pic-settings">4.6.9. PIC Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particle-data-files">4.6.10. Particle data files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particle-data-file-templates">4.6.11. Particle data file templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particle-data-file-editor">4.6.12. Particle data file editor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particle-data-file-viewer">4.6.13. Particle data file viewer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particle-data-output-file">4.6.14. Particle data output file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4. </span>Model guide</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.6. </span>Solids</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/model_setup/solids.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="solids"></span><section id="id1">
+<h1><span class="section-number">4.6. </span>Solids<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p>The Solids pane allows you to configure per-phase material properties for MFiX solids.</p>
+<p>In the Materials tab, you can set general material properties that apply to most
+models including</p>
+<ul class="simple">
+<li><p>Two-Fluid Model (TFM)</p></li>
+<li><p>Discrete Element Method (DEM)</p></li>
+<li><p>Coarse Grain Particle (CGP)</p></li>
+<li><p>Super Quadric Particle (SQP)</p></li>
+<li><p>Glued-sphere Particle (GSP)</p></li>
+<li><p>Particle-In-Cell (PIC)</p></li>
+</ul>
+<p>Model-specific settings are available in their respective tabs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>to change the particle model, you need to return to the
+<a class="reference internal" href="setup.html#model-setup"><span class="std std-ref">Model setup</span></a> pane.</p>
+</div>
+<section id="creating-a-solids-phase">
+<h2><span class="section-number">4.6.1. </span>Creating a solids phase<a class="headerlink" href="#creating-a-solids-phase" title="Link to this heading">¶</a></h2>
+<p>A new solids phase is created by clicking the add button, <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a>,
+at the top of the solids table. This will create a new entry
+in the table. The table summarizes all defined solids phases
+by listing the name, model, particle diameter and density.
+A blank entry in the density means the particle density is
+variable (it depends on its chemical composition).</p>
+<dl class="simple">
+<dt>Name</dt><dd><p>The name used to refer to the solids phase in the GUI. By default,
+the solids phase is called “Solid” followed by its assigned phase number.
+The phase number is incremented every time the <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a> button is pressed.
+The solids phase name may be renamed for convenience (optional).
+This name will appear in other panes or tabs when referring to the
+solids phase (say while setting initial or boundary conditions).</p>
+</dd>
+</dl>
+<p>Model (read only)</p>
+<blockquote>
+<div><p>The modeling approach used to represent the solids phase. Available options
+include TFM (Two-Fluid Model), DEM (Discrete Element Model) and PIC
+(Particle in Cell). The setting is currently locked (the same solid model
+must be used for all solids phases), and mirrors the solver
+selection in the Model setup pane.</p>
+</div></blockquote>
+</section>
+<section id="deleting-a-solids-phase">
+<h2><span class="section-number">4.6.2. </span>Deleting a solids phase<a class="headerlink" href="#deleting-a-solids-phase" title="Link to this heading">¶</a></h2>
+<p>A solids phase can be deleted by selecting it (click on its name in the
+solids table) and clicking the remove button, <a class="reference internal" href="../_images/remove.svg"><img alt="Remove" src="../_images/remove.svg" style="width: 16px;" /></a>,
+at the top of the solids table. If the solids phase is used in the
+model with a non-zero solids fraction (say in an initial or
+boundary condition), the deletion will need to be confirmed by the user.
+If confirmed, the deleted solids volume fraction will be assigned
+back to the fluid phase.</p>
+</section>
+<section id="general-solid-model-options">
+<h2><span class="section-number">4.6.3. </span>General solid model options<a class="headerlink" href="#general-solid-model-options" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Solve momentum equation (TFM only)</dt><dd><p>By default, all momentum equations are solved. Individual momentum
+equations may be disabled by toggling the check box.</p>
+</dd>
+<dt>Solve species equations</dt><dd><p>By default, species transport equations are not solved for the solids
+phase. If species equations are enabled, species will need to be
+added to the solids phase using the solids species tool. ADD REF</p>
+</dd>
+</dl>
+</section>
+<section id="solids-phase-material-properties">
+<h2><span class="section-number">4.6.4. </span>Solids phase material properties<a class="headerlink" href="#solids-phase-material-properties" title="Link to this heading">¶</a></h2>
+<p>Some material properties are only needed for a specific solid
+model or when the energy or species equation is solved.
+Spherical particles (TFM, DEM, CGP, PIC) only need the Diameter
+to describe the particle shape. SQP particles require five
+parameters to define the shape, and a quaternion (4 components)
+to define the initial orientation.</p>
+<dl class="simple">
+<dt>Diameter <span class="math notranslate nohighlight">\((m)\)</span> (TFM, DEM, CGP, PIC)</dt><dd><p>The initial particle diameter. It will remain constant for
+non-reactive flows, and for reactive flows with a variable density.
+If the density is constant, and chemical reactions take place, the
+particle diameter will vary to reflect particle mass gain/loss.</p>
+</dd>
+</dl>
+<p><strong>SQP parameters</strong></p>
+<p>The shape of non-spherical particles is defined with five parameters,
+<span class="math notranslate nohighlight">\(a, b, c, m, n\)</span>. The surface of the particle is defined with
+the following superquadric equation:</p>
+<div class="math notranslate nohighlight">
+\[\biggl[ \left(\frac{x}{a}\right)^m + \left(\frac{y}{b}\right)^m \biggr] ^ {\frac{n}{m}} + \left(\frac{z}{c}\right)^n - 1 = 0\]</div>
+<p>Examples:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>a</p></th>
+<th class="head"><p>b</p></th>
+<th class="head"><p>c</p></th>
+<th class="head"><p>m</p></th>
+<th class="head"><p>n</p></th>
+<th class="head"><p>shape</p></th>
+<th class="head"><p>view</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.003</p></td>
+<td><p>0.003</p></td>
+<td><p>0.003</p></td>
+<td><p>2.0</p></td>
+<td><p>2.0</p></td>
+<td><p>sphere</p></td>
+<td><p><a class="reference internal" href="../_images/sqp_sphere.png"><img alt="sphere" class="align-middle" src="../_images/sqp_sphere.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>0.003</p></td>
+<td><p>0.001</p></td>
+<td><p>0.006</p></td>
+<td><p>2.0</p></td>
+<td><p>2.0</p></td>
+<td><p>ellipsoid</p></td>
+<td><p><a class="reference internal" href="../_images/sqp_ellipsoid.png"><img alt="ellipsoid" class="align-middle" src="../_images/sqp_ellipsoid.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>0.003</p></td>
+<td><p>0.001</p></td>
+<td><p>0.006</p></td>
+<td><p>8.0</p></td>
+<td><p>8.0</p></td>
+<td><p>cuboid</p></td>
+<td><p><a class="reference internal" href="../_images/sqp_cuboid.png"><img alt="cuboid" class="align-middle" src="../_images/sqp_cuboid.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>0.003</p></td>
+<td><p>0.003</p></td>
+<td><p>0.006</p></td>
+<td><p>2.0</p></td>
+<td><p>8.0</p></td>
+<td><p>cylinder</p></td>
+<td><p><a class="reference internal" href="../_images/sqp_cylinder.png"><img alt="cylinder" class="align-middle" src="../_images/sqp_cylinder.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>X-semiaxis <span class="math notranslate nohighlight">\((m)\)</span> (SQP only)</dt><dd><p>The semi axis length in the x-direction ( <span class="math notranslate nohighlight">\(a\)</span> in superquadric equation).</p>
+</dd>
+<dt>Y-semiaxis <span class="math notranslate nohighlight">\((m)\)</span> (SQP only)</dt><dd><p>The semi axis length in the x-direction ( <span class="math notranslate nohighlight">\(b\)</span> in superquadric equation).</p>
+</dd>
+<dt>Z-semiaxis <span class="math notranslate nohighlight">\((m)\)</span> (SQP only)</dt><dd><p>The semi axis length in the x-direction ( <span class="math notranslate nohighlight">\(c\)</span> in superquadric equation).</p>
+</dd>
+<dt>Shape exponent m <span class="math notranslate nohighlight">\((-)\)</span> (SQP only)</dt><dd><p>Exponent <span class="math notranslate nohighlight">\(m\)</span> in superquadric equation.</p>
+</dd>
+<dt>Shape exponent n <span class="math notranslate nohighlight">\((-)\)</span> (SQP only)</dt><dd><p>Exponent <span class="math notranslate nohighlight">\(n\)</span> in superquadric equation.</p>
+</dd>
+<dt>Orientation (SQP only)</dt><dd><p>Four components of the quaternion <span class="math notranslate nohighlight">\(q_1, q_2, q_3, q_4\)</span> used for the
+initial orientation of particles in initial and mass inlet boundary conditions.</p>
+</dd>
+<dt>Bounding diameter <span class="math notranslate nohighlight">\((m)\)</span> (SQP only)</dt><dd><p>Particle bounding sphere diameter. It is recommended to use the sqp designer which
+will automatically compute the bounding sphere diameter. If left blank, the solver
+will automatically compute the bounding sphere diameter at run time.</p>
+</dd>
+<dt>Density <span class="math notranslate nohighlight">\((kg/m^3)\)</span></dt><dd><p>The particle density can be set as:</p>
+<ul>
+<li><p><em>Constant:</em></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A positive (non-zero) number must be provided.</p></li>
+<li><p>The diameter may change due to chemical reactions.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><em>Variable:</em></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The density is computed from particle’s mass and volume.</p></li>
+<li><p>The particle mass is function of the particle’s chemical composition.</p></li>
+<li><p>A variable density can only be used if species equations are solved.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+<dt>Viscosity <span class="math notranslate nohighlight">\((Pa\cdot{s})\)</span> TFM only</dt><dd><p>It may be specified
+using one of the following approaches:</p>
+<ul class="simple">
+<li><p><em>Constant:</em></p>
+<ul>
+<li><p>A positive (non-zero) number must be provided.</p></li>
+</ul>
+</li>
+<li><p><em>Continuum Solids stress Theory</em></p></li>
+<li><p><em>User-Defined Function (UDF)</em></p>
+<ul>
+<li><p>A custom equation of state must be provided in the usrproperties.f</p></li>
+<li><p>A custom solver must be built.</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Molecular weight <span class="math notranslate nohighlight">\(({kg}/{kmol})\)</span></dt><dd><p>It may only be specified using the following approach, and is only used
+when Energy and solids species equations are solved:</p>
+<ul class="simple">
+<li><p><em>Mixture</em></p>
+<ul>
+<li><p>Requires species be used to defined the solid.</p></li>
+<li><p>Requires species mass fractions be specified for the whole domain and
+all flow boundary conditions</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Specific heat <span class="math notranslate nohighlight">\(({J}/{kg\cdot{K}})\)</span></dt><dd><p>It may be specified using one of the following approaches
+(only used when Energy and species equations are solved):</p>
+<ul class="simple">
+<li><p><em>Constant:</em></p>
+<ul>
+<li><p>A positive (non-zero) number must be provided.</p></li>
+</ul>
+</li>
+<li><p><em>Mixture</em></p>
+<ul>
+<li><p>Requires species be used to defined the fluid.</p></li>
+<li><p>Requires species mass fractions be specified for the whole domain and
+all flow boundary conditions</p></li>
+</ul>
+</li>
+<li><p><em>User-Defined Function (UDF)</em></p>
+<ul>
+<li><p>A custom equation of state must be provided in the usrproperties.f</p></li>
+<li><p>A custom solver must be built.</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Thermal conductivity <span class="math notranslate nohighlight">\(({W}/{m\cdot{K}})\)</span></dt><dd><p>It may be specified using one of the following approaches:</p>
+<ul class="simple">
+<li><p><em>Constant:</em></p>
+<ul>
+<li><p>A non-negative number must be provided.</p></li>
+</ul>
+</li>
+<li><p><em>Temperature-Dependent</em></p>
+<ul>
+<li><p>Option available for TFM only.</p></li>
+<li><p>Requires solids phase temperature be specified for the whole domain and
+all flow boundary conditions.</p></li>
+</ul>
+</li>
+<li><p><em>User-Defined Function (UDF)</em></p>
+<ul>
+<li><p>Option available for TFM only.</p></li>
+<li><p>A custom equation of state must be provided in the usrproperties.f</p></li>
+<li><p>A custom solver must be built.</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>Emissivity  DEM only</dt><dd><p>The emissivity of the DEM solids phase.
+Leaving it blank or setting a zero value turns radiation off.</p>
+</dd>
+<dt>Parcel weight  PIC only</dt><dd><p>A default parcel weight (number of particles per parcel) may be specified for
+convenience (default value of one).
+it is used to define a default statistical weight for parcels in initial conditions
+regions and mass inflows. Instead of defining the same parcel weight in every
+initial condition and mass inflow, this default value is automatically applied.
+The default value can be overwritten where needed.</p>
+</dd>
+</dl>
+</section>
+<section id="solids-model-species">
+<h2><span class="section-number">4.6.5. </span>Solids Model Species<a class="headerlink" href="#solids-model-species" title="Link to this heading">¶</a></h2>
+<p>Specie that comprise the solid phase are summarized in the species overview
+table. New species are added by clicking the add button, <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a>, at the top
+of the species table.</p>
+</section>
+<section id="advanced-settings">
+<h2><span class="section-number">4.6.6. </span>Advanced settings<a class="headerlink" href="#advanced-settings" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Disable close pack (TFM only)</dt><dd><p>Options to enable/disable a TFM phase from forming a packed bed.
+This is typically used to make the solids phase behave as a liquid phase.</p>
+</dd>
+<dt>Enable added mass force (TFM only)</dt><dd><p>Options to enable/disable the added (or virtual) mass force in a TFM phase.
+This tends to stabilize bubbly gas/liquid flows.</p>
+</dd>
+</dl>
+</section>
+<section id="tfm-settings">
+<h2><span class="section-number">4.6.7. </span>TFM Settings<a class="headerlink" href="#tfm-settings" title="Link to this heading">¶</a></h2>
+<p>Specific Two-Fluid Model settings are accessed from the TFM tab.</p>
+<dl class="simple">
+<dt>Packed bed void fraction</dt><dd><p>The void fraction at close pack.</p>
+</dd>
+<dt>Viscous stress model</dt><dd><p>The solids phase stress model. Options include the algebraic formulation or various kinetic theories
+requiring solving a partial differential equation for the granular energy:</p>
+<ul class="simple">
+<li><p><em>Algebraic Formulation [DEFAULT]</em></p></li>
+<li><p><em>Lun et al, 1984</em></p></li>
+<li><p><em>Iddir &amp; Arastoopour, 2005</em></p></li>
+<li><p><em>Simonin, 1996</em>  (requires k-ε turbulence enabled)</p></li>
+<li><p><em>Cao &amp; Ahmadi, 1995</em>  (requires k-ε turbulence enabled)</p></li>
+<li><p><em>Garzo and Dufty, 1999</em>  (monodisperse system only)</p></li>
+<li><p><em>Garzo, Tenneti, Subramaniam, Hrenya, 2012</em> (monodisperse system only)</p></li>
+<li><p><em>Garzo, Hrenya and Dufty, 2007</em>
+-  Requires at most two solids phases
+-  Requires Wen-Yu or HYS drag model
+-  Selection not available with added mass force</p></li>
+</ul>
+</dd>
+<dt>Frictional stress model</dt><dd><ul class="simple">
+<li><p><em>Schaeffer model</em> [DEFAULT]</p></li>
+<li><p><em>Srivastava and Sundaresan</em></p></li>
+<li><p><em>Only solids pressure</em></p></li>
+</ul>
+</dd>
+<dt>Solids volume fraction at onset of friction</dt><dd><p>The minimum solids fraction above which the Srivastava
+and Sundaresan model sets in.</p>
+</dd>
+<dt>Particle-particle restitution coefficient</dt><dd><p>The coefficient of restitution for particle-particle collision.</p>
+</dd>
+<dt>Interphase friction coefficient</dt><dd><p>The coefficient of friction between particles of two solids phases.</p>
+</dd>
+<dt>Angle of internal friction <span class="math notranslate nohighlight">\((\deg)\)</span> :</dt><dd><p>The angle of internal friction. The plastic regime stress can be turned off by setting this value to zero.</p>
+</dd>
+<dt>Radial distribution function</dt><dd><ul class="simple">
+<li><p><em>Carnahan-Startling</em> (only option for monodisperse systems)</p></li>
+<li><p><em>Lebowitz</em> (default for polydisperse system)</p></li>
+<li><p><em>Mansoori</em> (polydisperse system)</p></li>
+<li><p><em>Modified Lebowitz</em> (polydisperse system)</p></li>
+<li><p><em>Modified Mansoori</em> (polydisperse system)</p></li>
+</ul>
+</dd>
+<dt>Stress blending</dt><dd><p>The blending function used to smooth transition around the packed
+bed volume fraction. It requires the Schaeffer frictional stress model.</p>
+<ul class="simple">
+<li><p><em>None</em> [DEFAULT]</p></li>
+<li><p><em>Hyperbolic Tangent</em></p></li>
+<li><p><em>Sigmodial</em></p></li>
+</ul>
+</dd>
+<dt>Segregation slope coefficient</dt><dd><p>Coefficient used in calculating the initial slope
+in segregation for polydisperse systems.</p>
+</dd>
+<dt>Max packing correlation</dt><dd><p>The correlation used to compute the maximum packing
+for polydisperse systems:</p>
+<ul class="simple">
+<li><p><em>Constant</em> [DEFAULT]</p></li>
+<li><p><em>Yu &amp; Standish</em></p></li>
+<li><p><em>Fedors &amp; Landel</em> (only with two solids phases)</p></li>
+</ul>
+</dd>
+<dt>Excluded volume in Boyle-Massoudi stress</dt><dd><p>The excluded volume in Boyle-Massoudi stress. It is only used
+with the algebraic formulation of viscous stress model (optional).</p>
+</dd>
+</dl>
+</section>
+<section id="dem-settings">
+<h2><span class="section-number">4.6.8. </span>DEM Settings<a class="headerlink" href="#dem-settings" title="Link to this heading">¶</a></h2>
+<p>Specific Discrete Element Model settings are accessed from the DEM tab.</p>
+<dl class="simple">
+<dt>Enable automatic particle generation</dt><dd><p>Initialize particle location and velocity based on information from
+Initial Condition regions. If this option is disabled and any
+initial condition uses a non-zero solids volume fraction, the user
+will be prompted to turn on this option.
+Disabling this option will read initial particle location and velocity
+from a user generated text file (particle_input.csv) that must be
+saved in the project directory.</p>
+</dd>
+<dt>Data file particle count</dt><dd><p>The number of particles read from
+particle_input.csv file when the automatic particle generation is turned
+off. This number must be smaller or equal to the number of lines in the
+file.</p>
+</dd>
+<dt>Particle Size Distribution (PSD)</dt><dd><p>A series of PSDs can be defined to be used in an initial condition region or a
+mass inlet boundary condition. A PSD represents the number of particles having a given size.
+It is currently a number-based (not volume-based) distribution. A new PSD is created by
+clicking the add button, <a class="reference internal" href="../_images/add.svg"><img alt="Add" src="../_images/add.svg" style="width: 16px;" /></a>, and entering the PSD parameters. The PSD can follow
+a Normal or Log-normal distribution. There is an option to load a text file containing a custom PSD.</p>
+</dd>
+</dl>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/PSD_table.png"><img alt="PSD table" src="../_images/PSD_table.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.1 </span><span class="caption-text">Particle Size Distribution table.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Initially, the table will be empty. Double click on one row to edit a PSD, Click on <a class="reference internal" href="../_images/remove.svg"><img alt="Remove" src="../_images/remove.svg" style="width: 16px;" /></a> to remove a PSD
+from the table.</p>
+<p>First, enter a descriptive name for the PSD and choose the PSD type.</p>
+<p>Parameters for the Normal and Log-normal distribution are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>Mean particle diameter</em></p></li>
+<li><p><em>Standard deviation</em></p></li>
+<li><p><em>Minimum diameter</em> , used to clip the distribution and avoid extremely small particles</p></li>
+<li><p><em>Maximum diameter</em> , used to clip the distribution and avoid extremely large particles</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_normal_psd_definition.png"><img alt="PSD definition" src="../_images/Hopper_dem_normal_psd_definition.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.2 </span><span class="caption-text">Example of a Normal Particle Size Distribution definition.</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Custom PSDs will read the distribution from a text file. It can be edited through any text editor including
+the GUI built-in editor.
+The PSD custom file is organized as follows:</p>
+<div class="line-block">
+<div class="line">1st line: Number of points, number of distribution (this must be set to one currently).</div>
+<div class="line">2nd line: PDF (probability density function) of CDF (Cumulative distribution function).</div>
+<div class="line">3rd line: Header.</div>
+<div class="line">4th line and below: The data itself. First column is the diameter, second column is either the PDF or CDF value.</div>
+</div>
+<p>The figure below shows an example of a custom PSD file. Only the first few lines are shown.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/PSD_custom_file.png"><img alt="PSD custom file" src="../_images/PSD_custom_file.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.3 </span><span class="caption-text">Example of a Custom file used to define a Particle Size Distribution.</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Once the parameters are defined, the PSD can be plotted by clicking the ‘Plot distribution’ button.</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/Hopper_dem_normal_psd_plot.png"><img alt="PSD plot" src="../_images/Hopper_dem_normal_psd_plot.png" style="width: 16cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 4.4 </span><span class="caption-text">Plotting a Particle Size Distribution.</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<dl class="simple">
+<dt>Integration method</dt><dd><p>The DEM time stepping scheme when
+integrating the particle trajectories (acceleration to velocity
+and velocity to position):</p>
+<ul class="simple">
+<li><p><em>Euler</em> [DEFAULT]</p></li>
+<li><p><em>Adams-Bashforth</em></p></li>
+</ul>
+</dd>
+<dt>Collision model</dt><dd><p>The soft-sphere collision model:</p>
+<ul class="simple">
+<li><p><em>Linear Spring Dashpot</em> (LSD)</p></li>
+<li><p><em>Hertzian</em></p></li>
+</ul>
+</dd>
+<dt>Coupling method</dt><dd><p>The level of coupling between the gas phase
+and the solids phase:</p>
+<ul class="simple">
+<li><p><em>One-way coupled</em></p></li>
+<li><p><em>Fully coupled</em></p></li>
+</ul>
+</dd>
+<dt>Interpolation</dt><dd><p>The direction of interpolation between field and particle data:</p>
+<ul class="simple">
+<li><p><em>No interpolation</em></p></li>
+<li><p><em>field-to-particle and particle-to-field</em></p></li>
+<li><p><em>field-to-particle only</em></p></li>
+<li><p><em>particle-to-field only</em></p></li>
+</ul>
+</dd>
+<dt>Scheme</dt><dd><p>The interpolation scheme:</p>
+<ul class="simple">
+<li><p><em>None</em> (centroid method)</p></li>
+<li><p><em>Garg, 2012</em> (interpolation width is dictated by grid spacing)</p></li>
+<li><p><em>Square DPVM</em> (Divided Particle Volume Method), requires an interpolation width.</p></li>
+<li><p><em>DPVM_satellite</em> (SQP model only).</p></li>
+</ul>
+</dd>
+<dt>Width <span class="math notranslate nohighlight">\((m)\)</span></dt><dd><p>The square DPVM interpolation width.</p>
+</dd>
+</dl>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/des_interpolation_scheme.png"><img alt="des interpolation scheme" src="../_images/des_interpolation_scheme.png" style="width: 16cm;" />
+</a>
+</figure>
+<dl class="simple">
+<dt>Enable mean field diffusion</dt><dd><p>Smooths the disperse phase average
+fields by solving a diffusion equation.</p>
+</dd>
+<dt>Width <span class="math notranslate nohighlight">\((m)\)</span></dt><dd><p>The diffusion length scale.</p>
+</dd>
+<dt>Enable explicit coupling of interphase quantities</dt><dd><p>Option to explicitly couple the fluid and solids hydrodynamics.</p>
+</dd>
+<dt>Friction coefficient</dt><dd><p>The particle-particle and particle-wall Coulomb
+friction coefficient. This is required for both the LSD and Hertzian collision models.</p>
+</dd>
+<dt>Normal spring constant <span class="math notranslate nohighlight">\(({N}/{m})\)</span></dt><dd><p>The particle-particle and particle-wall normal
+spring constant (LSD collision model).</p>
+</dd>
+<dt>Spring tan/norm ratio</dt><dd><p>The ratio of normal to tangential spring constants
+for particle-particle and particle-wall (LSD collision model).</p>
+</dd>
+<dt>Damping tan/norm ratio</dt><dd><p>The ratio of normal to tangential damping factors
+for particle-particle and particle-wall (LSD collision model).</p>
+</dd>
+<dt>Young’s modulus <span class="math notranslate nohighlight">\((Pa)\)</span></dt><dd><p>The wall and particles (one entry per phase) Young’s
+modulus (Hertzian collision model).</p>
+</dd>
+<dt>Poisson’s ratio</dt><dd><p>The wall and particles (one entry per phase) Poisson’s
+ratio (Hertzian collision model).</p>
+</dd>
+<dt>Restitution coefficients (normal)</dt><dd><p>The list of normal restitution coefficients
+for particle-wall and particle-particle interaction. The particle-particle entries
+are arranged into a symmetrical matrix. The diagonal terms and the upper side of the matrix
+need to be filled. There is one entry per phase for the particle-wall coefficient. This
+settings is required for both the LSD and Hertzian collision models.</p>
+</dd>
+<dt>Restitution coefficients (tangential)</dt><dd><p>The list of tangential restitution coefficients
+for particle-wall and particle-particle interaction. The particle-particle entries
+are arranged into a symmetrical matrix. The diagonal terms and the upper side of the matrix
+need to be filled. There is one entry per phase for the particle-wall coefficient. This
+settings is only required for the Hertzian collision model.</p>
+</dd>
+<dt>Cohesion model</dt><dd><p>Toggles the van der Waals cohesion model. When turned on, additional
+parameters need to be set (see below):</p>
+</dd>
+<dt>Hamaker constant <span class="math notranslate nohighlight">\((J)\)</span></dt><dd><p>The particle-particle and particle-wall Hamaker constant
+used in the van der Waals cohesion model.</p>
+</dd>
+<dt>Outer cutoff <span class="math notranslate nohighlight">\((m)\)</span></dt><dd><p>The particle-particle and particle-wall maximum separation distances
+above which the van der Waals cohesion forces are set to zero.</p>
+</dd>
+<dt>Inner cutoff</dt><dd><p>The particle-particle and particle-wall minimum separation distances
+below which the van der Waals cohesion forces are computed using a surface adhesion model.</p>
+</dd>
+<dt>Asperities</dt><dd><p>The mean radius of surface asperities used in the cohesive force model.</p>
+</dd>
+<dt>Minimum fluid volume fraction</dt><dd><p>Threshold used to clip the fluid phase volume fraction (to avoid non-physical
+values, typically when a particle size is near a small cut cell).</p>
+</dd>
+<dt>Neighbor search method</dt><dd><p>The neighbor search algorithm:</p>
+<ul class="simple">
+<li><p><em>Grid-based</em></p></li>
+<li><p><em>N-Square</em></p></li>
+</ul>
+</dd>
+<dt>Max steps between neighbor search</dt><dd><p>The maximum number of DEM iterations between two neighbor searches.
+The neighbor search may be called earlier if the particle moves
+a distance greater than a defined quantity (see below).</p>
+</dd>
+<dt>Factor defining particle neighborhood</dt><dd><p>A multiplying factor applied to the particle’s
+radius to define the region where particle neighbors are searched from.</p>
+</dd>
+<dt>Distance/diameter triggering search</dt><dd><p>The distance a particle can travel before
+triggering an automatic neighbor search.</p>
+</dd>
+<dt>Search grid partition</dt><dd><p>The number of DEM grid cells in each direction used for the
+neighbor search. This is an optional setting.
+If left undefined, the number of cells is computed so that
+the DEM grid size is three times the maximum particle diameter.</p>
+</dd>
+<dt>Enable user scalar tracking</dt><dd><p>Turns on the tracking of user-defined scalars attached
+to each particle. When the tracking is enables, the number of scalars (positive integer)
+needs to be set.</p>
+</dd>
+<dt>Minimum conduction distance <span class="math notranslate nohighlight">\((m)\)</span></dt><dd><p>The minimum separation distance between particles
+(used in the particle-fluid-particle conduction model to remove singularity).</p>
+</dd>
+<dt>Fluid lens proportionality constant</dt><dd><p>Constant used to calculate the fluid lens radius that surrounds
+the particle (used in the particle-fluid-particle conduction model).</p>
+</dd>
+<dt>Young’s modulus used to correct DEM conduction <span class="math notranslate nohighlight">\((Pa)\)</span></dt><dd><p>The wall and particles (one entry per phase) Young’s
+modulus used to correct the DEM conduction. These optional
+input are used with both LSD and Hertzian collision models.
+Particles are typically made softer to increase the DEM time
+step. This may lead to inaccurate conduction. If defined, this
+Young’s modulus will be used to correct the DEM conduction model.</p>
+</dd>
+<dt>Poisson’s ratio used to correct DEM conduction</dt><dd><p>The wall and particles (one entry per phase) Poisson’s
+ratio used to correct the DEM conduction. These optional
+input are used with both LSD and Hertzian collision models.</p>
+</dd>
+</dl>
+</section>
+<section id="pic-settings">
+<h2><span class="section-number">4.6.9. </span>PIC Settings<a class="headerlink" href="#pic-settings" title="Link to this heading">¶</a></h2>
+<p>Specific Particle in Cell settings are accessed from the PIC tab.</p>
+<p>Several of the PIC settings refer to the PIC solids stress model, which influences parcel motion:</p>
+<p><span class="math notranslate nohighlight">\(\tau_p={P_p \epsilon_p^\gamma}/{\max[\epsilon_{cp} - \epsilon_p , \delta(1-\epsilon_p)]}\)</span></p>
+<dl class="simple">
+<dt>Void fraction at close pack</dt><dd><p>The void fraction <span class="math notranslate nohighlight">\((\epsilon_{cp})\)</span> at maximum packing.</p>
+</dd>
+<dt>Volume fraction exponential scale factor</dt><dd><p>The empirical exponent <span class="math notranslate nohighlight">\((\gamma)\)</span> on solids fraction in the solids stress model.
+Typical values are between 2.0 to 5.0.</p>
+</dd>
+<dt>Pressure linear scale factor <span class="math notranslate nohighlight">\((Pa)\)</span></dt><dd><p>The empirical pressure <span class="math notranslate nohighlight">\((P_p)\)</span> constant in the solids stress model.
+Typical values are 10 to 1000 Pa.</p>
+</dd>
+<dt>Empirical dampening factor</dt><dd><p>A factor in a restitution coefficient for comparing solids stress with slip velocity.
+Typical value is 0.85.</p>
+</dd>
+<dt>Non-singularity constant</dt><dd><p>The constant <span class="math notranslate nohighlight">\((\delta)\)</span> to prevent division by zero in solids stress model.
+Typical value is 1.0E-8.</p>
+</dd>
+<dt>Wall normal restitution coefficient</dt><dd><p>The parcel-wall restitution coefficient for
+normal velocity component after wall collision.</p>
+</dd>
+<dt>Wall tangential restitution coefficient</dt><dd><p>The parcel-wall restitution coefficient for
+tangential velocity component after wall collision.</p>
+</dd>
+<dt>Solids slip velocity scale factor</dt><dd><p>A damping coefficient on slip velocity. Typical value is 1.0.</p>
+</dd>
+</dl>
+</section>
+<section id="particle-data-files">
+<h2><span class="section-number">4.6.10. </span>Particle data files<a class="headerlink" href="#particle-data-files" title="Link to this heading">¶</a></h2>
+<p>A new and unified version of particle data files is employed in MFiX as of version 24.3.
+Instead of using plain text files, the new version utilizes the CSV (comma-separated values) format.
+It supports the discrete element model (DEM) and its variant models: Superquadric DEM (SQP),
+Glued-sphere DEM (GSP), and Coarse-grained DEM (CGP).</p>
+<p>The main reason for switching from a plain text format to a CSV format is to provide
+greater convenience for the user to edit particle data files and set up their own simulations. Moreover,
+the unified version facilitates the management of particle data files.</p>
+<p>Overview of particle_input.csv</p>
+<blockquote>
+<div><p>To use the CSV file as input, go to the Solids pane and select the solids model tab (DEM, CGP, SQP, or GSP).
+Uncheck “Enable automatic particle generation” and enter a positive integer for the “Data file particle count”.
+This number must be smaller or equal to the number of particles in the CSV file.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">particle_input.csv</span></code> file consists of a header line and values for each particle variable.
+The number of columns represents the number of particle variables, and
+the number of rows represents the number of particles (excluding the first header line).
+A template of <code class="docutils literal notranslate"><span class="pre">particle_input.csv</span></code> will be provided in this user manual.</p>
+</div></blockquote>
+<p>Major components of the csv file</p>
+<blockquote>
+<div><p>1. <cite>must have variables</cite>: the first 3 columns (2 columns in 2D) represent particle locations. The particle position information
+is required in this data file, and it must be in the first three columns, or the first two columns if it is 2D.</p>
+<p>2. <cite>extra variables</cite>: the input files can also have phase IDs, diameters, densities, and velocities.
+When energy or species are solved, or when using user scalar variables,
+the input files can include temperatures, species compositions, or user scalar variables.</p>
+<p>3. <cite>model specific variables</cite>: For DEM sub-solvers (SQP, GSP, CGP), the input file can also
+provide model-specific variables such as superquadric parameters (SQP), particle orientations (SQP and GSP),
+or statistical weights (CGP).</p>
+</div></blockquote>
+<dl>
+<dt>Format of header</dt><dd><p>The header names have specific restrictions, and the user is expected to follow the naming conventions
+provided in the template. Note that all header names are case-insensitive. A brief explanation of each header name can be found below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X,</span> <span class="pre">Y,</span> <span class="pre">Z</span></code>: particle locations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">phase_id</span></code>: phase ids, which phase the current particle belongs to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diameter</span></code>: particle diameters, for specific sub dem model, the definition is different and it will be explained in the template section.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code>: particle densities.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U,</span> <span class="pre">V,</span> <span class="pre">W</span></code>: particle velocities in X, Y, Z directions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t_s</span></code>: particle temperatures.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">species1,</span> <span class="pre">species2,</span> <span class="pre">...</span></code>: species fractions, header names for species columns are formatted as “species” followed by a number, where the number represents the species count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usr_var1,</span> <span class="pre">usr_var2,</span> <span class="pre">...</span></code>: user scalar variables, similar as species, header names for user scalar columns are formatted as “usr_var” followed by a number, where the number represents the user scalar variables count.</p></li>
+</ul>
+<p>header names for model specific variables are listed below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sqp_a,</span> <span class="pre">sqp_b,</span> <span class="pre">sqp_c,</span> <span class="pre">sqp_m,</span> <span class="pre">sqp_n,</span> <span class="pre">sqp_q1,</span> <span class="pre">sqp_q2,</span> <span class="pre">sqp_q3,</span> <span class="pre">sqp_q4</span></code>: Superquadric particles semi-axis, roundness and particle orientations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gsp_q1,</span> <span class="pre">gsp_q2,</span> <span class="pre">gsp_q3,</span> <span class="pre">gsp_q4</span></code>: Glued-sphere particles orientations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cgp_stat_wt</span></code>: Coarse-grained particles statistical weight.</p></li>
+</ul>
+</dd>
+<dt>Format of values</dt><dd><p>Generally, the user can use float format for all values. If the user prefers scientific notation,
+for example, 10000.0 can be written as 1.0e+04, and 0.001 can be written as 1.0e-03.
+Although variables such as <code class="docutils literal notranslate"><span class="pre">phase_id</span></code> and <code class="docutils literal notranslate"><span class="pre">cgp_stat_wt</span></code> are integers,
+the format does not really matter in this file. Maintaining the correct format is highly recommended for clarity.</p>
+</dd>
+<dt>Data file particle count</dt><dd><p>The user is required to provide the number of particles when automatic particle generation is turned off.
+This number must be less than or equal to the number of lines in the file (excluding the header line).
+Note: For the GSP model, this value represents the number of glued sphere particles (not the number of component spheres!).</p>
+</dd>
+<dt>Particle data output</dt><dd><p>In the MFiX as of version 24.3, all DEM models support saving particle data into a CSV file for future use.</p>
+</dd>
+</dl>
+</section>
+<section id="particle-data-file-templates">
+<h2><span class="section-number">4.6.11. </span>Particle data file templates<a class="headerlink" href="#particle-data-file-templates" title="Link to this heading">¶</a></h2>
+<p>As of MFiX version 24.3.1, apart from the <code class="docutils literal notranslate"><span class="pre">X,</span> <span class="pre">Y,</span> <span class="pre">Z</span></code> columns (<code class="docutils literal notranslate"><span class="pre">X,</span> <span class="pre">Y</span></code> columns in 2D), all other variable columns
+are optional. When these columns are not present in the CSV file, the particle variables will either be automatically populated
+with the values set in the GUI or assigned default values directly.</p>
+<dl>
+<dt>Discrete element model (DEM)</dt><dd><table class="longtable docutils align-default" id="id6">
+<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Template for DEM model <a class="reference download internal" download="" href="../_downloads/69dd51dab86ebee620dd0d8f58d098b4/particle_input_dem.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></span><a class="headerlink" href="#id6" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>Z</p></th>
+<th class="head"><p>phase_id</p></th>
+<th class="head"><p>diameter</p></th>
+<th class="head"><p>density</p></th>
+<th class="head"><p>U</p></th>
+<th class="head"><p>V</p></th>
+<th class="head"><p>W</p></th>
+<th class="head"><p>t_s</p></th>
+<th class="head"><p>species1</p></th>
+<th class="head"><p>species2</p></th>
+<th class="head"><p>usr_var1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.85</p></td>
+<td><p>0.15</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.84</p></td>
+<td><p>0.16</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.83</p></td>
+<td><p>0.17</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.82</p></td>
+<td><p>0.18</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>0.075</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.81</p></td>
+<td><p>0.19</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.092</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.79</p></td>
+<td><p>0.21</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.78</p></td>
+<td><p>0.22</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.77</p></td>
+<td><p>0.23</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.76</p></td>
+<td><p>0.24</p></td>
+<td><p>5</p></td>
+</tr>
+</tbody>
+</table>
+<p>If the energy equation is not solved, the <code class="docutils literal notranslate"><span class="pre">t_s</span></code> column is not needed in the file. Similarly,
+<code class="docutils literal notranslate"><span class="pre">species</span></code> and <code class="docutils literal notranslate"><span class="pre">usr_var</span></code> columns can be removed from the data file if not using species equations and user scalar variables.</p>
+</dd>
+<dt>Superquadric DEM (SQP)</dt><dd><p>For SQP, the diameter is actually the bounding diameter. <code class="docutils literal notranslate"><span class="pre">sqp_a</span></code>, <code class="docutils literal notranslate"><span class="pre">sqp_b</span></code>, <code class="docutils literal notranslate"><span class="pre">sqp_c</span></code> are semi-axis,
+<code class="docutils literal notranslate"><span class="pre">sqp_m</span></code>, <code class="docutils literal notranslate"><span class="pre">sqp_n</span></code> are roundness, <code class="docutils literal notranslate"><span class="pre">sqp_q1</span></code>, <code class="docutils literal notranslate"><span class="pre">sqp_q2</span></code>, <code class="docutils literal notranslate"><span class="pre">sqp_q3</span></code> and <code class="docutils literal notranslate"><span class="pre">sqp_q4</span></code> are orientations, respectively.
+If they are not present in the file, those particle variables are read from GUI directly. The user can explicitly provide
+all the particle variables for greater flexibility and control.</p>
+<table class="longtable docutils align-default" id="id7">
+<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Template for SQP model <a class="reference download internal" download="" href="../_downloads/9814ad6c6172dbcabda6dba00969635c/particle_input_sqp.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>Z</p></th>
+<th class="head"><p>phase_id</p></th>
+<th class="head"><p>diameter</p></th>
+<th class="head"><p>density</p></th>
+<th class="head"><p>U</p></th>
+<th class="head"><p>V</p></th>
+<th class="head"><p>W</p></th>
+<th class="head"><p>t_s</p></th>
+<th class="head"><p>species1</p></th>
+<th class="head"><p>species2</p></th>
+<th class="head"><p>usr_var1</p></th>
+<th class="head"><p>sqp_a</p></th>
+<th class="head"><p>sqp_b</p></th>
+<th class="head"><p>sqp_c</p></th>
+<th class="head"><p>sqp_m</p></th>
+<th class="head"><p>sqp_n</p></th>
+<th class="head"><p>sqp_q1</p></th>
+<th class="head"><p>sqp_q2</p></th>
+<th class="head"><p>sqp_q3</p></th>
+<th class="head"><p>sqp_q4</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.99</p></td>
+<td><p>0.01</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.95</p></td>
+<td><p>0.05</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.91</p></td>
+<td><p>0.09</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.87</p></td>
+<td><p>0.13</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.075</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.83</p></td>
+<td><p>0.17</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.092</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.79</p></td>
+<td><p>0.21</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.75</p></td>
+<td><p>0.25</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.71</p></td>
+<td><p>0.29</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.67</p></td>
+<td><p>0.33</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.011</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.63</p></td>
+<td><p>0.37</p></td>
+<td><p>5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.005</p></td>
+<td><p>0.0025</p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>Glued-sphere DEM (GSP)</dt><dd><p>For GSP, the diameter is actually the bounding diameter.
+Once the user generates a gsp configuration through MFIX GUI,
+the bounding diameter is automatically calculated for the user to use
+in this file. However, the user has the freedom to adjust the
+bounding diameter to adjust the particle size while maintaining the particle shape.</p>
+<table class="longtable docutils align-default" id="id8">
+<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Template for GSP model <a class="reference download internal" download="" href="../_downloads/59d3b7c78d40b00e15e1ee73ecf9eebc/particle_input_gsp.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>Z</p></th>
+<th class="head"><p>phase_id</p></th>
+<th class="head"><p>diameter</p></th>
+<th class="head"><p>density</p></th>
+<th class="head"><p>U</p></th>
+<th class="head"><p>V</p></th>
+<th class="head"><p>W</p></th>
+<th class="head"><p>t_s</p></th>
+<th class="head"><p>species1</p></th>
+<th class="head"><p>species2</p></th>
+<th class="head"><p>usr_var1</p></th>
+<th class="head"><p>usr_var2</p></th>
+<th class="head"><p>gsp_q1</p></th>
+<th class="head"><p>gsp_q2</p></th>
+<th class="head"><p>gsp_q3</p></th>
+<th class="head"><p>gsp_q4</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.075</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.092</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Since a GSP is a collection of smaller component spheres, so in <code class="docutils literal notranslate"><span class="pre">particle_input.csv</span></code>, values of temperature,
+species and user scalar variables will apply to all component spheres within the same gsp, in other words,
+a GSP has a uniform intra-particle distribution of temperature, species and user scalar variables.
+However, user can provide an extra file to achieve a non-uniform intra-particle distribution,
+the density distribution can be non-uniformly as well. Note that the ID here is for component sphere ids,
+when solver detects this file, it will override the component sphere variables using the values
+from this extra file. This extra file is named as <code class="docutils literal notranslate"><span class="pre">intra_distribution.csv</span></code> (Only 3 component spheres are shown as an illustration):</p>
+<table class="longtable docutils align-default" id="id9">
+<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Template for GSP intra-particle distribution <a class="reference download internal" download="" href="../_downloads/965c0f6e54d3283223a5418af6049459/intra_distribution.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></span><a class="headerlink" href="#id9" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Density</p></th>
+<th class="head"><p>t_s</p></th>
+<th class="head"><p>species1</p></th>
+<th class="head"><p>species2</p></th>
+<th class="head"><p>usr_var1</p></th>
+<th class="head"><p>usr_var2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>682</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>1.5</p></td>
+<td><p>2.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>682.1</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>1.6</p></td>
+<td><p>2.6</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>682.2</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>1.7</p></td>
+<td><p>2.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>682.3</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>1.8</p></td>
+<td><p>2.8</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>682.4</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>1.9</p></td>
+<td><p>2.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>682.5</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.0</p></td>
+<td><p>3.0</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>682.6</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.1</p></td>
+<td><p>3.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>682.7</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.2</p></td>
+<td><p>3.2</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>682.8</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.3</p></td>
+<td><p>3.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>682.9</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.4</p></td>
+<td><p>3.4</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>683</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.5</p></td>
+<td><p>3.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>683.1</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.6</p></td>
+<td><p>3.6</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>683.2</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.7</p></td>
+<td><p>3.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>683.3</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.8</p></td>
+<td><p>3.8</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>683.4</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>2.9</p></td>
+<td><p>3.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p>683.5</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.0</p></td>
+<td><p>4.0</p></td>
+</tr>
+<tr class="row-even"><td><p>17</p></td>
+<td><p>683.6</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.1</p></td>
+<td><p>4.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>18</p></td>
+<td><p>683.7</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.2</p></td>
+<td><p>4.2</p></td>
+</tr>
+<tr class="row-even"><td><p>19</p></td>
+<td><p>683.8</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.3</p></td>
+<td><p>4.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>20</p></td>
+<td><p>683.9</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.4</p></td>
+<td><p>4.4</p></td>
+</tr>
+<tr class="row-even"><td><p>21</p></td>
+<td><p>684</p></td>
+<td><p>295.71</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.5</p></td>
+<td><p>4.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>684.1</p></td>
+<td><p>295.71</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.6</p></td>
+<td><p>4.6</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>684.2</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.7</p></td>
+<td><p>4.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>24</p></td>
+<td><p>684.3</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.8</p></td>
+<td><p>4.8</p></td>
+</tr>
+<tr class="row-even"><td><p>25</p></td>
+<td><p>684.4</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>3.9</p></td>
+<td><p>4.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>26</p></td>
+<td><p>684.5</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.0</p></td>
+<td><p>5.0</p></td>
+</tr>
+<tr class="row-even"><td><p>27</p></td>
+<td><p>684.6</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.1</p></td>
+<td><p>5.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>28</p></td>
+<td><p>684.7</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.2</p></td>
+<td><p>5.2</p></td>
+</tr>
+<tr class="row-even"><td><p>29</p></td>
+<td><p>684.8</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.3</p></td>
+<td><p>5.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>30</p></td>
+<td><p>684.9</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.4</p></td>
+<td><p>5.4</p></td>
+</tr>
+<tr class="row-even"><td><p>31</p></td>
+<td><p>685</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.5</p></td>
+<td><p>5.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>32</p></td>
+<td><p>685.1</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.6</p></td>
+<td><p>5.6</p></td>
+</tr>
+<tr class="row-even"><td><p>33</p></td>
+<td><p>685.2</p></td>
+<td><p>295.71</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.7</p></td>
+<td><p>5.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>34</p></td>
+<td><p>685.3</p></td>
+<td><p>295.71</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.8</p></td>
+<td><p>5.8</p></td>
+</tr>
+<tr class="row-even"><td><p>35</p></td>
+<td><p>685.4</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>4.9</p></td>
+<td><p>5.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>36</p></td>
+<td><p>685.5</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.0</p></td>
+<td><p>6.0</p></td>
+</tr>
+<tr class="row-even"><td><p>37</p></td>
+<td><p>685.6</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.1</p></td>
+<td><p>6.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>38</p></td>
+<td><p>685.7</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.2</p></td>
+<td><p>6.2</p></td>
+</tr>
+<tr class="row-even"><td><p>39</p></td>
+<td><p>685.8</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.3</p></td>
+<td><p>6.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>40</p></td>
+<td><p>685.9</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.4</p></td>
+<td><p>6.4</p></td>
+</tr>
+<tr class="row-even"><td><p>41</p></td>
+<td><p>686</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.5</p></td>
+<td><p>6.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>42</p></td>
+<td><p>686.1</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.6</p></td>
+<td><p>6.6</p></td>
+</tr>
+<tr class="row-even"><td><p>43</p></td>
+<td><p>686.2</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.7</p></td>
+<td><p>6.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>44</p></td>
+<td><p>686.3</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.8</p></td>
+<td><p>6.8</p></td>
+</tr>
+<tr class="row-even"><td><p>45</p></td>
+<td><p>686.4</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>5.9</p></td>
+<td><p>6.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>46</p></td>
+<td><p>686.5</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.0</p></td>
+<td><p>7.0</p></td>
+</tr>
+<tr class="row-even"><td><p>47</p></td>
+<td><p>686.6</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.1</p></td>
+<td><p>7.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>48</p></td>
+<td><p>686.7</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.2</p></td>
+<td><p>7.2</p></td>
+</tr>
+<tr class="row-even"><td><p>49</p></td>
+<td><p>686.8</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.3</p></td>
+<td><p>7.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>50</p></td>
+<td><p>686.9</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.4</p></td>
+<td><p>7.4</p></td>
+</tr>
+<tr class="row-even"><td><p>51</p></td>
+<td><p>687</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.5</p></td>
+<td><p>7.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>52</p></td>
+<td><p>687.1</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.6</p></td>
+<td><p>7.6</p></td>
+</tr>
+<tr class="row-even"><td><p>53</p></td>
+<td><p>687.2</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.7</p></td>
+<td><p>7.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>54</p></td>
+<td><p>687.3</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.8</p></td>
+<td><p>7.8</p></td>
+</tr>
+<tr class="row-even"><td><p>55</p></td>
+<td><p>687.4</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>6.9</p></td>
+<td><p>7.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>56</p></td>
+<td><p>687.5</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.0</p></td>
+<td><p>8.0</p></td>
+</tr>
+<tr class="row-even"><td><p>57</p></td>
+<td><p>687.6</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.1</p></td>
+<td><p>8.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>58</p></td>
+<td><p>687.7</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.2</p></td>
+<td><p>8.2</p></td>
+</tr>
+<tr class="row-even"><td><p>59</p></td>
+<td><p>687.8</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.3</p></td>
+<td><p>8.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>60</p></td>
+<td><p>687.9</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.4</p></td>
+<td><p>8.4</p></td>
+</tr>
+<tr class="row-even"><td><p>61</p></td>
+<td><p>688</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.5</p></td>
+<td><p>8.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>62</p></td>
+<td><p>688.1</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.6</p></td>
+<td><p>8.6</p></td>
+</tr>
+<tr class="row-even"><td><p>63</p></td>
+<td><p>688.2</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.7</p></td>
+<td><p>8.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>64</p></td>
+<td><p>688.3</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.8</p></td>
+<td><p>8.8</p></td>
+</tr>
+<tr class="row-even"><td><p>65</p></td>
+<td><p>688.4</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>7.9</p></td>
+<td><p>8.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>66</p></td>
+<td><p>688.5</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.0</p></td>
+<td><p>9.0</p></td>
+</tr>
+<tr class="row-even"><td><p>67</p></td>
+<td><p>688.6</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.1</p></td>
+<td><p>9.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>68</p></td>
+<td><p>688.7</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.2</p></td>
+<td><p>9.2</p></td>
+</tr>
+<tr class="row-even"><td><p>69</p></td>
+<td><p>688.8</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.3</p></td>
+<td><p>9.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>70</p></td>
+<td><p>688.9</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.4</p></td>
+<td><p>9.4</p></td>
+</tr>
+<tr class="row-even"><td><p>71</p></td>
+<td><p>689</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.5</p></td>
+<td><p>9.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>72</p></td>
+<td><p>689.1</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.6</p></td>
+<td><p>9.6</p></td>
+</tr>
+<tr class="row-even"><td><p>73</p></td>
+<td><p>689.2</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.7</p></td>
+<td><p>9.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>74</p></td>
+<td><p>689.3</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.8</p></td>
+<td><p>9.8</p></td>
+</tr>
+<tr class="row-even"><td><p>75</p></td>
+<td><p>689.4</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>8.9</p></td>
+<td><p>9.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>76</p></td>
+<td><p>689.5</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.0</p></td>
+<td><p>10.0</p></td>
+</tr>
+<tr class="row-even"><td><p>77</p></td>
+<td><p>689.6</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.1</p></td>
+<td><p>10.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>78</p></td>
+<td><p>689.7</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.2</p></td>
+<td><p>10.2</p></td>
+</tr>
+<tr class="row-even"><td><p>79</p></td>
+<td><p>689.8</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.3</p></td>
+<td><p>10.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>80</p></td>
+<td><p>689.9</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.4</p></td>
+<td><p>10.4</p></td>
+</tr>
+<tr class="row-even"><td><p>81</p></td>
+<td><p>690</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.5</p></td>
+<td><p>10.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>82</p></td>
+<td><p>690.1</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.6</p></td>
+<td><p>10.6</p></td>
+</tr>
+<tr class="row-even"><td><p>83</p></td>
+<td><p>690.2</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.7</p></td>
+<td><p>10.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>84</p></td>
+<td><p>690.3</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.8</p></td>
+<td><p>10.8</p></td>
+</tr>
+<tr class="row-even"><td><p>85</p></td>
+<td><p>690.4</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>9.9</p></td>
+<td><p>10.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>86</p></td>
+<td><p>690.5</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.0</p></td>
+<td><p>11.0</p></td>
+</tr>
+<tr class="row-even"><td><p>87</p></td>
+<td><p>690.6</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.1</p></td>
+<td><p>11.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>88</p></td>
+<td><p>690.7</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.2</p></td>
+<td><p>11.2</p></td>
+</tr>
+<tr class="row-even"><td><p>89</p></td>
+<td><p>690.8</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.3</p></td>
+<td><p>11.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>90</p></td>
+<td><p>690.9</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.4</p></td>
+<td><p>11.4</p></td>
+</tr>
+<tr class="row-even"><td><p>91</p></td>
+<td><p>691</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.5</p></td>
+<td><p>11.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>92</p></td>
+<td><p>691.1</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.6</p></td>
+<td><p>11.6</p></td>
+</tr>
+<tr class="row-even"><td><p>93</p></td>
+<td><p>691.2</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.7</p></td>
+<td><p>11.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>94</p></td>
+<td><p>691.3</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.8</p></td>
+<td><p>11.8</p></td>
+</tr>
+<tr class="row-even"><td><p>95</p></td>
+<td><p>691.4</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>10.9</p></td>
+<td><p>11.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>96</p></td>
+<td><p>691.5</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.0</p></td>
+<td><p>12.0</p></td>
+</tr>
+<tr class="row-even"><td><p>97</p></td>
+<td><p>691.6</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.1</p></td>
+<td><p>12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>98</p></td>
+<td><p>691.7</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.2</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-even"><td><p>99</p></td>
+<td><p>691.8</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.3</p></td>
+<td><p>12.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>100</p></td>
+<td><p>691.9</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.4</p></td>
+<td><p>12.4</p></td>
+</tr>
+<tr class="row-even"><td><p>101</p></td>
+<td><p>692</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.5</p></td>
+<td><p>12.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>102</p></td>
+<td><p>692.1</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.6</p></td>
+<td><p>12.6</p></td>
+</tr>
+<tr class="row-even"><td><p>103</p></td>
+<td><p>692.2</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.7</p></td>
+<td><p>12.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>104</p></td>
+<td><p>692.3</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.8</p></td>
+<td><p>12.8</p></td>
+</tr>
+<tr class="row-even"><td><p>105</p></td>
+<td><p>692.4</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>11.9</p></td>
+<td><p>12.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>106</p></td>
+<td><p>692.5</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.0</p></td>
+<td><p>13.0</p></td>
+</tr>
+<tr class="row-even"><td><p>107</p></td>
+<td><p>692.6</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.1</p></td>
+<td><p>13.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>108</p></td>
+<td><p>692.7</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.2</p></td>
+<td><p>13.2</p></td>
+</tr>
+<tr class="row-even"><td><p>109</p></td>
+<td><p>692.8</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.3</p></td>
+<td><p>13.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>110</p></td>
+<td><p>692.9</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.4</p></td>
+<td><p>13.4</p></td>
+</tr>
+<tr class="row-even"><td><p>111</p></td>
+<td><p>693</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.5</p></td>
+<td><p>13.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>112</p></td>
+<td><p>693.1</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.6</p></td>
+<td><p>13.6</p></td>
+</tr>
+<tr class="row-even"><td><p>113</p></td>
+<td><p>693.2</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.7</p></td>
+<td><p>13.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>114</p></td>
+<td><p>693.3</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.8</p></td>
+<td><p>13.8</p></td>
+</tr>
+<tr class="row-even"><td><p>115</p></td>
+<td><p>693.4</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>12.9</p></td>
+<td><p>13.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>116</p></td>
+<td><p>693.5</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.0</p></td>
+<td><p>14.0</p></td>
+</tr>
+<tr class="row-even"><td><p>117</p></td>
+<td><p>693.6</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.1</p></td>
+<td><p>14.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>118</p></td>
+<td><p>693.7</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.2</p></td>
+<td><p>14.2</p></td>
+</tr>
+<tr class="row-even"><td><p>119</p></td>
+<td><p>693.8</p></td>
+<td><p>295.62</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.3</p></td>
+<td><p>14.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>120</p></td>
+<td><p>693.9</p></td>
+<td><p>295.62</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.4</p></td>
+<td><p>14.4</p></td>
+</tr>
+<tr class="row-even"><td><p>121</p></td>
+<td><p>694</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.5</p></td>
+<td><p>14.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>122</p></td>
+<td><p>694.1</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.6</p></td>
+<td><p>14.6</p></td>
+</tr>
+<tr class="row-even"><td><p>123</p></td>
+<td><p>694.2</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.7</p></td>
+<td><p>14.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>124</p></td>
+<td><p>694.3</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.8</p></td>
+<td><p>14.8</p></td>
+</tr>
+<tr class="row-even"><td><p>125</p></td>
+<td><p>694.4</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>13.9</p></td>
+<td><p>14.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>126</p></td>
+<td><p>694.5</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.0</p></td>
+<td><p>15.0</p></td>
+</tr>
+<tr class="row-even"><td><p>127</p></td>
+<td><p>694.6</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.1</p></td>
+<td><p>15.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>128</p></td>
+<td><p>694.7</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.2</p></td>
+<td><p>15.2</p></td>
+</tr>
+<tr class="row-even"><td><p>129</p></td>
+<td><p>694.8</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.3</p></td>
+<td><p>15.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>130</p></td>
+<td><p>694.9</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.4</p></td>
+<td><p>15.4</p></td>
+</tr>
+<tr class="row-even"><td><p>131</p></td>
+<td><p>695</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.5</p></td>
+<td><p>15.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>132</p></td>
+<td><p>695.1</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.6</p></td>
+<td><p>15.6</p></td>
+</tr>
+<tr class="row-even"><td><p>133</p></td>
+<td><p>695.2</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.7</p></td>
+<td><p>15.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>134</p></td>
+<td><p>695.3</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.8</p></td>
+<td><p>15.8</p></td>
+</tr>
+<tr class="row-even"><td><p>135</p></td>
+<td><p>695.4</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>14.9</p></td>
+<td><p>15.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>136</p></td>
+<td><p>695.5</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.0</p></td>
+<td><p>16.0</p></td>
+</tr>
+<tr class="row-even"><td><p>137</p></td>
+<td><p>695.6</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.1</p></td>
+<td><p>16.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>138</p></td>
+<td><p>695.7</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.2</p></td>
+<td><p>16.2</p></td>
+</tr>
+<tr class="row-even"><td><p>139</p></td>
+<td><p>695.8</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.3</p></td>
+<td><p>16.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>140</p></td>
+<td><p>695.9</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.4</p></td>
+<td><p>16.4</p></td>
+</tr>
+<tr class="row-even"><td><p>141</p></td>
+<td><p>696</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.5</p></td>
+<td><p>16.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>142</p></td>
+<td><p>696.1</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.6</p></td>
+<td><p>16.6</p></td>
+</tr>
+<tr class="row-even"><td><p>143</p></td>
+<td><p>696.2</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.7</p></td>
+<td><p>16.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>144</p></td>
+<td><p>696.3</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.8</p></td>
+<td><p>16.8</p></td>
+</tr>
+<tr class="row-even"><td><p>145</p></td>
+<td><p>696.4</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>15.9</p></td>
+<td><p>16.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>146</p></td>
+<td><p>696.5</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.0</p></td>
+<td><p>17.0</p></td>
+</tr>
+<tr class="row-even"><td><p>147</p></td>
+<td><p>696.6</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.1</p></td>
+<td><p>17.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>148</p></td>
+<td><p>696.7</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.2</p></td>
+<td><p>17.2</p></td>
+</tr>
+<tr class="row-even"><td><p>149</p></td>
+<td><p>696.8</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.3</p></td>
+<td><p>17.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>150</p></td>
+<td><p>696.9</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.4</p></td>
+<td><p>17.4</p></td>
+</tr>
+<tr class="row-even"><td><p>151</p></td>
+<td><p>697</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.5</p></td>
+<td><p>17.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>152</p></td>
+<td><p>697.1</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.6</p></td>
+<td><p>17.6</p></td>
+</tr>
+<tr class="row-even"><td><p>153</p></td>
+<td><p>697.2</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.7</p></td>
+<td><p>17.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>154</p></td>
+<td><p>697.3</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.8</p></td>
+<td><p>17.8</p></td>
+</tr>
+<tr class="row-even"><td><p>155</p></td>
+<td><p>697.4</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>16.9</p></td>
+<td><p>17.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>156</p></td>
+<td><p>697.5</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.0</p></td>
+<td><p>18.0</p></td>
+</tr>
+<tr class="row-even"><td><p>157</p></td>
+<td><p>697.6</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.1</p></td>
+<td><p>18.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>158</p></td>
+<td><p>697.7</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.2</p></td>
+<td><p>18.2</p></td>
+</tr>
+<tr class="row-even"><td><p>159</p></td>
+<td><p>697.8</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.3</p></td>
+<td><p>18.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>160</p></td>
+<td><p>697.9</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.4</p></td>
+<td><p>18.4</p></td>
+</tr>
+<tr class="row-even"><td><p>161</p></td>
+<td><p>698</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.5</p></td>
+<td><p>18.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>162</p></td>
+<td><p>698.1</p></td>
+<td><p>305.29</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.6</p></td>
+<td><p>18.6</p></td>
+</tr>
+<tr class="row-even"><td><p>163</p></td>
+<td><p>698.2</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.7</p></td>
+<td><p>18.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>164</p></td>
+<td><p>698.3</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.8</p></td>
+<td><p>18.8</p></td>
+</tr>
+<tr class="row-even"><td><p>165</p></td>
+<td><p>698.4</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>17.9</p></td>
+<td><p>18.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>166</p></td>
+<td><p>698.5</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.0</p></td>
+<td><p>19.0</p></td>
+</tr>
+<tr class="row-even"><td><p>167</p></td>
+<td><p>698.6</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.1</p></td>
+<td><p>19.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>168</p></td>
+<td><p>698.7</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.2</p></td>
+<td><p>19.2</p></td>
+</tr>
+<tr class="row-even"><td><p>169</p></td>
+<td><p>698.8</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.3</p></td>
+<td><p>19.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>170</p></td>
+<td><p>698.9</p></td>
+<td><p>295.74</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.4</p></td>
+<td><p>19.4</p></td>
+</tr>
+<tr class="row-even"><td><p>171</p></td>
+<td><p>699</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.5</p></td>
+<td><p>19.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>172</p></td>
+<td><p>699.1</p></td>
+<td><p>289.75</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.6</p></td>
+<td><p>19.6</p></td>
+</tr>
+<tr class="row-even"><td><p>173</p></td>
+<td><p>699.2</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.7</p></td>
+<td><p>19.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>174</p></td>
+<td><p>699.3</p></td>
+<td><p>295.61</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.8</p></td>
+<td><p>19.8</p></td>
+</tr>
+<tr class="row-even"><td><p>175</p></td>
+<td><p>699.4</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>18.9</p></td>
+<td><p>19.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>176</p></td>
+<td><p>699.5</p></td>
+<td><p>305.78</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>19.0</p></td>
+<td><p>20.0</p></td>
+</tr>
+<tr class="row-even"><td><p>177</p></td>
+<td><p>699.6</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>19.1</p></td>
+<td><p>20.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>178</p></td>
+<td><p>699.7</p></td>
+<td><p>295.72</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>19.2</p></td>
+<td><p>20.2</p></td>
+</tr>
+<tr class="row-even"><td><p>179</p></td>
+<td><p>699.8</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>19.3</p></td>
+<td><p>20.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>180</p></td>
+<td><p>699.9</p></td>
+<td><p>305.28</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2</p></td>
+<td><p>19.4</p></td>
+<td><p>20.4</p></td>
+</tr>
+</tbody>
+</table>
+<p>The number of particles given in GUI will be the number of glued sphere particles.
+For example, if a GSP is a collection of 8 component spheres and there are total 20 gsps,
+the total number of component spheres in the system will be 160, and this value will be automatically calculated by the solver.
+Moreover, each glued sphere particle and each component sphere will be assigned a unique id.</p>
+</dd>
+<dt>Coarse-grained discrete element model (CGDEM)</dt><dd><p>For CGP, diameter is coarse-grained particle diameter, users can provide <code class="docutils literal notranslate"><span class="pre">cgp_stat_wt</span></code>
+(coarse-grained statistical weight).</p>
+<table class="longtable docutils align-default" id="id10">
+<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Template for CGDEM model <a class="reference download internal" download="" href="../_downloads/db5d4db0a3c6ca037797b4325390beeb/particle_input_cgdem.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></span><a class="headerlink" href="#id10" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>Z</p></th>
+<th class="head"><p>phase_id</p></th>
+<th class="head"><p>diameter</p></th>
+<th class="head"><p>density</p></th>
+<th class="head"><p>U</p></th>
+<th class="head"><p>V</p></th>
+<th class="head"><p>W</p></th>
+<th class="head"><p>t_s</p></th>
+<th class="head"><p>species1</p></th>
+<th class="head"><p>species2</p></th>
+<th class="head"><p>usr_var1</p></th>
+<th class="head"><p>cgp_stat_wt</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.85</p></td>
+<td><p>0.15</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.86</p></td>
+<td><p>0.14</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.87</p></td>
+<td><p>0.13</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.88</p></td>
+<td><p>0.12</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-even"><td><p>0.075</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.89</p></td>
+<td><p>0.11</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.092</p></td>
+<td><p>0.01</p></td>
+<td><p>0.008</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.9</p></td>
+<td><p>0.1</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-even"><td><p>0.008</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.91</p></td>
+<td><p>0.09</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.025</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.92</p></td>
+<td><p>0.08</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-even"><td><p>0.042</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.93</p></td>
+<td><p>0.07</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.058</p></td>
+<td><p>0.01</p></td>
+<td><p>0.025</p></td>
+<td><p>1</p></td>
+<td><p>0.0112</p></td>
+<td><p>682</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>293.15</p></td>
+<td><p>0.94</p></td>
+<td><p>0.06</p></td>
+<td><p>9.5</p></td>
+<td><p>8</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</section>
+<section id="particle-data-file-editor">
+<h2><span class="section-number">4.6.12. </span>Particle data file editor<a class="headerlink" href="#particle-data-file-editor" title="Link to this heading">¶</a></h2>
+<p>The particle input file must be created in or copied to the project directory. It can be edited from the GUI.
+Select the Editor Tab at the bottom and select <cite>particle_input.csv</cite> from the Project files listing. The file will
+open in a new editor tab, and will be displayed as a spreadsheet. Each line corresponds to a particle. Data can be
+modified by selecting a cell and entering the new value. Operations on an entire column (say to set a constant value to
+the entire column) can be performed by right-clicking on the column header. Please note that the column name, content and order
+are specific to a given model and settings (energy equation, species, and user-defined variables). See the description above
+and examples for more details.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/particle_input_file_editor.png"><img alt="particle input file editor" src="../_images/particle_input_file_editor.png" style="width: 10cm;" />
+</a>
+</figure>
+</section>
+<section id="particle-data-file-viewer">
+<h2><span class="section-number">4.6.13. </span>Particle data file viewer<a class="headerlink" href="#particle-data-file-viewer" title="Link to this heading">¶</a></h2>
+<p>The initial particle positions can be previewed before running the simulation. Select the Model pane in the viewport on the right,
+scroll down to the bottom and select <a class="reference internal" href="../_images/dem.svg"><img alt="DEM" src="../_images/dem.svg" style="width: 16px;" /></a> to toggle the visibility of the particles. Changes made to the particle input file are
+updated in the viewport when the file is saved.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/particle_input_file_viewer.png"><img alt="particle input file viewer" src="../_images/particle_input_file_viewer.png" style="width: 16cm;" />
+</a>
+</figure>
+</section>
+<section id="particle-data-output-file">
+<h2><span class="section-number">4.6.14. </span>Particle data output file<a class="headerlink" href="#particle-data-output-file" title="Link to this heading">¶</a></h2>
+<p>The particle data can be saved into a csv file at the end of the simulation. Go to the Output pane and check “Save particle positions at end of run”.
+This will save a file named <cite>particle_output.csv</cite>. This file has the same format as the <cite>particle_input.csv</cite> file. It provides a convenient way
+to generate a csv file, with appropriate columns content. Run a first simulation by setting automatic particle generation through the Initial Condition pane,
+(make sure “Enable automatic particle generation” is checked in the Solids&gt;DEM, Solids&gt;CGP, Solids&gt;SQP, or Solids&gt;GSP tab),
+check “Save particle positions at end of run”, and run the simulation for a short duration. Rename <cite>particle_output.csv</cite> to <cite>particle_input.csv</cite> and use it
+for another project.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fluid.html" class="btn btn-neutral float-left" title="4.5. Fluid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scalars.html" class="btn btn-neutral float-right" title="4.7. Scalars" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

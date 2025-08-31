@@ -1,0 +1,66 @@
+.. _internal_surfaces:
+
+Internal surfaces
+=================
+
+Internal surfaces are surfaces defined within the overall boundaries of the
+model.
+
+To define an internal surface, there must be a region already defined in the
+:ref:`Regions Pane <regions>`.
+
+Add/Delete Internal surfaces
+____________________________
+
+To add an internal surface, navigate to the ``ISs`` pane from the Modeler View,
+and click the (+) button. A popup dialog will appear to select
+:ref:`region(s) <regions>` that will define the internal surface. Each region can only be used in a single internal surface.
+
+All regions defined in the :ref:`regions Pane <regions>` are listed in the popup, but only
+the regions of the selected Surface Type are selectable.
+
+- Plane Regions can be Impermeable internal surfaces.
+- Box Regions can be X-Axis, Y-Axis, or Z-Axis Impermeable internal surfaces.
+- Plane Regions can be Semi-permeable internal surfaces.
+- Box Regions can be X-Axis, Y-Axis, or Z-Axis Semi-permeable internal surfaces.
+
+To remove an internal surface, navigate to the ``ISs`` pane from the Modeler View, select
+the internal surface to remove, and click the (-) button.
+
+Internal Surface Type
+_____________________
+
+Planar internal surfaces can be of type:
+
+- Impermeable
+- Semi-Impermeable
+
+Volumetric internal surfaces can be of type:
+
+- X-Axis Impermeable
+- Y-Axis Impermeable
+- Z-Axis Impermeable
+- X-Axis semi-permeable
+- Y-Axis semi-permeable
+- Z-Axis semi-permeable
+
+
+Fluid permeability
+___________________________
+
+The permeability is only definable for semipermeable regions. The default value
+is 1.0d32 m².
+
+Internal resistance coefficient
+_______________________________
+
+The internal resistance is only definable for semipermeable regions. The default
+value is 0.0 m⁻¹.
+
+Internal Surface Velocities
+___________________________
+
+For each :ref:`solid phase <solids>`, specify the velocity of that solid through
+the surface (in meters/second).
+
+Disabled for Impermeable surface (since by definition the velocity would be zero).

@@ -1,0 +1,4 @@
+Output control
+==============
+
+.. include:: /reference/output_control_gen.rst

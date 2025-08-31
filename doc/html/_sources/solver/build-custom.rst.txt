@@ -1,0 +1,67 @@
+.. _build-custom:
+
+==================================
+Building custom interactive solver
+==================================
+
+If you are just starting with MFiX, you could use the :ref:`default solver
+<running-default>` installed with MFiX. It is possible to run most of the
+:ref:`tutorials` with the default solver.
+
+
+However, for some cases you may want to use a custom mfixsolver.  When
+running cases with UDFs (User Defined Functions, which are defined in Fortran
+source files in the project directory), it is necessary to build a custom
+solver. A custom solver is an ``mfixsolver`` executable built in the project
+directory, specific to that project.
+
+
+.. _build-custom-gui:
+
+Custom solver from GUI
+----------------------
+
+Press the |build| (Build) button to display the Build dialog box. Select
+appropriate compilation options, then press the "Build Solver" button. It may take a few
+minutes to compile. See :ref:`build-dialog` for further details about
+compilation options. The "Build command" of the build dialog will show the
+equivalent command for :ref:`build-custom`.
+
+After building the custom solver, run a simulation by pressing |play| (Run) to
+display the :ref:`run-dialog`. Select the mfixsolver file you have just built.
+
+You can pause, unpause, stop, or get info from the solver.
+
+
+.. _build-custom-cmdline:
+
+Custom solver from command line
+-------------------------------
+
+For example, the ``tfm/silane_pyrolysis_2d`` tutorial has UDFs and will not run with the
+default solver.
+
+.. code-block:: shell-session
+
+    $ cd tutorials/tfm/silane_pyrolysis_2d/
+    $ ls
+    SP2D.mfx  usr0.f  usr1.f  usr_mod.f  usr_rates.f
+
+To build a custom solver for ``tfm/silane_pyrolysis_2d``:
+
+.. code-block:: shell-session
+
+    $ build_mfixsolver
+    ...build output...
+    $ ls
+    build/ lib/ mfixsolver  mfixsolver.so SP2D.mfx  usr0.f  usr0.o usr1.f  usr_mod.f  usr_rates.f
+
+The ``build_mfixsolver`` command creates a wrapper script
+``mfixsolver``, that runs the case-specific MFiX solver (``mfixsolver.so``).
+
+The ``build`` directory can be deleted, and the custom ``mfixsolver``
+will still run. However, leaving the ``build`` directory will greatly
+speed up rebuilds if you want to edit the UDFs and run
+``build_mfixsolver`` again.
+
+.. include:: /icons.rst

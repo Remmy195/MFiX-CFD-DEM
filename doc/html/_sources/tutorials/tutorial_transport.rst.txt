@@ -1,0 +1,273 @@
+.. _transport_hydrogen_oxidation_tutorial:
+
+Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format
+----------------------------------------------------------------------------
+
+This tutorial shows how to use the transport data in CHEMKIN format for the
+calculation of gas viscosity, thermal conductivity and diffusivity. The mechanism and
+transport data for the oxidiation of hydrogen from Conaire et al. [1]_ are applied.
+
+The project is based on the tutorial for hydrogen oxidation in a batch reaction
+using CHEMKIN mechanism. The thermodynamic information of species and kinetic
+mechanism in CHEMKIN format have been imported. For more detailed about how to
+import these information, please check the above tutorial.
+
+
+Load the project into MFiX
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The basic model has been set up in the input file, "hydrogen_oxidation_transport.mfx".
+
+-  On the main menu select ``New project``.
+-  Open the project ``hydrogen oxidation with CHEMKIN transport data``.
+
+.. _fig_open_project:
+
+.. figure:: /media/chemkin/transport/fig_open_project.png
+           :width: 8cm
+           :alt: open project
+
+-  Choose the location for your working directory and click ``OK``.
+
+.. _fig_create_project:
+
+.. figure:: /media/chemkin/transport/fig_create_project.png
+           :width: 8cm
+           :alt: create project
+
+.. note::
+    The main purpose of this tutorial is to show how to use CHEMKIN transport data in MFiX.
+    For more details about the model setup, please refer to other tutorials.
+
+Generate mesh
+^^^^^^^^^^^^^
+
+On the ``Mesher`` pane:
+
+-  Click ``Generate`` to generate the mesh
+-  Click ``Accept`` to accept the mesh, and switch to the Modeler tab (bottom left of GUI).
+
+.. _fig_create_mesh:
+
+.. figure:: /media/chemkin/transport/fig_create_mesh.png
+           :width: 8cm
+           :alt: generate mesh
+
+Setting viscosity model for fluid phase
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+On the ``Fluid`` pane:
+
+- Click the models for Viscosity. There are six different models. ``Lennard-Jones`` and
+  ``Cantera polynomial`` will be discussed in this tutorial, which use the transport data.
+
+.. figure:: /media/chemkin/transport/fig_LJ_viscosity.png
+            :width: 8cm
+            :alt: Lennard-Jones model for viscosity
+.. note::
+    These two models can only be selected when the species are defined in gas phase.
+
+Using Lennard-Jones model for gas viscosity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Select ``Lennard-Jones`` for Viscosity. The following warning will popup to remind users adding the
+  required parameters. Click ``OK``.
+
+.. figure:: /media/chemkin/transport/fig_warning_LJparameters.png
+            :width: 8cm
+            :alt: warning LJ parameters
+
+- Select one of the species in the ``Species`` pane. Double click to edit, or click the edit button |Edit|.
+  The boxes to add the Lennard-Jones parameters are shown in the popup window.
+
+.. figure:: /media/chemkin/transport/fig_LJ_box.png
+            :width: 8cm
+            :alt: Lennard-Jones model parameters box
+
+Users have two options to add the Lennard-Jones parameters:
+
+- Add them in the box manually
+
+- Import them from an external file, which has the transport data in CHEMKIN format.
+  In the transport file from CHEMKIN, species name following with its molecular shape, Lennard-Jones potential well depth,
+  Lennard-Jones collision diameter, dipole moment, polarizability and rotational relaxation collision number at 298K are provided.
+
+  
+  The following steps show how to import the file for transport data
+
+  - Select ``Load CHEMKIN transport data`` in ``Source`` of the popup window
+
+  .. figure:: /media/chemkin/transport/fig_import_transport_file.png
+              :width: 8cm
+              :alt: import transport file
+
+  - Click ``Choose file``, choose "transport_data.dat" in the popup window, and click ``Open``.
+
+  .. figure:: /media/chemkin/transport/fig_select_transport_file.png
+              :width: 8cm
+              :alt: select transport file
+
+  - After importing the file, the Lennard-Jones parameters will be added automatically in the corresponding box
+
+  - Click ``Done`` to close the popup window and add other settings
+
+.. note::
+    Multiple transport files can be imported. The data will be overwritten based on the last imported file if species is defined
+    in multiple files.
+
+
+Using Cantera polynomial model for gas viscosity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Select ``Cantera polynomial`` for Viscosity.
+
+.. figure:: /media/chemkin/transport/fig_cantera_viscosity.png
+            :width: 8cm
+            :alt: select cantera polynomial viscosity model
+
+- The following warning may popup to remind users adding the required parameters.
+
+.. figure:: /media/chemkin/transport/fig_warning_cantera_parameter.png
+            :width: 8cm
+            :alt: warning cantera parameters
+
+- Select one of the species in the ``Species`` pane. Double click to edit, or click the edit button |Edit|.
+  The boxes to add the transport data for this model are shown in the popup window.
+  The default values of dipole moment, polarizability and rotational relaxation of 0 will be shown.
+
+.. figure:: /media/chemkin/transport/fig_cantera_box.png
+            :width: 8cm
+            :alt: cantera polynomial model parameters box
+
+
+Similar to Lennard-Jones model, users have two options to add the parameters.
+
+- Add them in the box manually
+
+- Import them from an external file, which has the transport data in CHEMKIN format.
+  Follow the same steps as Lennard-Jones model to import the file.
+
+Only the molecular shape, dipole moment, polarizability and rotational relaxation need to be defined.
+The GUI will automatilcally compute the polynomial coefficients poly_mu_g using Cantera
+and save them into .mfx file.
+
+.. figure:: /media/chemkin/transport/fig_input_viscosity.png
+            :width: 8cm
+            :alt: cantera polynomial for viscosity in input file
+
+
+Setting thermal conductivity model for fluid phase
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+On the ``Fluid`` pane:
+
+- Click the models for thermal conductivity. There are six different models. ``Lennard-Jones`` and
+  ``Cantera polynomial`` will be discussed in this tutorial, which use the transport data.
+
+.. note::
+    Same as viscosity model, these two models can only be selected when the species are defined in gas phase.
+	    
+Using Lennard-Jones model for gas thermal conductivity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Select ``Lennard-Jones`` for Thermal conductivity with the popup warning to remind users adding the
+  required parameters.
+
+- Select the species in the ``Species`` pane. Double click to edit, or click the edit button |Edit|.
+
+- Add the Lennard-Jones parameters in the popup window by adding them manually or importing an external file.
+
+
+Using Cantera polynomial model for gas thermal conductivity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Select ``Cantera polynomial`` for Thermal conductivity with the popup warning for adding the
+  required parameters.
+
+- Select the species in the ``Species`` pane. Double click to edit, or click the edit button |Edit|.
+
+- Add the required parameters in the popup window by adding them manually or importing an external file.
+
+Only the molecular shape, dipole moment, polarizability and rotational relaxation need to be defined.
+The GUI will automatilcally compute the polynomial coefficients poly_kg using Cantera
+and save them into .mfx file.
+
+.. figure:: /media/chemkin/transport/fig_input_thermalconductivity.png
+            :width: 8cm
+            :alt: cantera polynomial for thermal conductivity in input file
+
+
+Plotting the viscosity and thermal conductivity of gas species
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can plot the viscosity or thermal conductivity of each gas species as a function of temperature.
+
+- Select one of the species in the ``Species`` pane. Double click to edit, or click the edit button |Edit|.
+- Select ``thermal conductivty`` or ``viscosity`` for ``plot`` at the bottom of the popup window.
+- Click ``Plot`` to show the figures. Users can changes the number of plots in each page by changing the number of
+  rows and columns at the top-right corner of the plot.
+
+Viscosity and thermal conductivity with Lennard-Jones model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: /media/chemkin/transport/fig_viscosity_LJ.png
+            :width: 12cm
+            :alt: viscosity plot with Lennard-Jones model
+
+.. figure:: /media/chemkin/transport/fig_thermalconduc_LJ.png
+            :width: 12cm
+            :alt: thermal conductivity plot with Lennard-Jones model
+
+.. note::
+    There are two ranges for the thermal conductivity based on the common temperature of species from the
+    thermodynammic data. It is because the thermal conductivity using Lennard-Jones model depends on the
+    heat capacity of species, which has different coefficients at different temperature ranges.
+
+Viscosity and thermal conductivity with Cantera polynomial model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: /media/chemkin/transport/fig_viscosity_cantera.png
+            :width: 12cm
+            :alt: viscosity plot with Cantera polynomial model
+
+.. figure:: /media/chemkin/transport/fig_thermalconduc_cantera.png
+            :width: 12cm
+            :alt: thermal conductivity plot with Cantera polynomial model	    
+
+
+Using the transport data for the diffusivity model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Lennard-Jones parameters can be used for the calculation of diffusivity as well.
+
+- Select ``Multi-component diffusion`` for Diffusivity
+
+.. figure:: /media/chemkin/transport/fig_diffusivity.png
+            :width: 8cm
+            :alt: diffusivity model
+
+- Select ``Lennard-Jones intermolecular potential model`` for Coefficient type
+
+.. figure:: /media/chemkin/transport/fig_coefficient_type.png
+            :width: 8cm
+            :alt: coefficient type for diffusivity model
+
+
+- Select one of the species in the ``Species`` pane. Double click to edit, or click the edit button |Edit|.
+
+- Add the required parameters in the popup window by adding them manually or importing an external file.
+
+
+.. note::
+   - This tutorial focus on showing how to use Lennard-Jones or Cantera polynomial model for viscosty and
+     thermal conductivity and multi-component diffusion model for diffusivity. Users need to choose the models
+     based on their case and set other parameters accordingly.
+   - Cantera does not support species with multiple temperature ranges, like ``TestSpecies`` in tutorial hydrogen
+     oxidation in a batch reactor using CHEMKIN mechanism. Therefore, Cantera polynomial model cannot be used if
+     there are species having multiple temperature ranges. An error message of "Error: More than two temperature
+     ranges are given for species TestSpecies, which are not supported in Cantera." will be given.
+
+References
+^^^^^^^^^^
+
+.. [1] M. O Conaire, H. J. Curran, J. M. Simmie, W. J. Pitz, C. K. Westbrook. A Comprehensive Modelling Study of Hydrogen Oxidation, Intl. J. Chem. Kinet., 36 (11):603\u2013622 (2004).
+
+.. include:: /icons.rst

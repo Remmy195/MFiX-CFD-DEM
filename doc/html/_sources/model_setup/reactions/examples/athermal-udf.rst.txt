@@ -1,0 +1,65 @@
+Example: Athermal, gas phase, reversible reaction with UDF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+  A(g) ↔ R(g)
+
+Notes:
+ * Species database names and alias are defined on the same line.
+ * The fluid cell index (``IJK``) is passed as an argument.
+ * Global field variables are referenced (RO_g, X_g, T_g, and EP_g )
+
+**mfix.dat**:
+
+.. code-block:: text
+
+    NMAX_g = 2                     ! No. of gas phase species
+    Species_g(1) = "A" "R"         ! Database names
+    Species_Alias_g(1) = "A" "R"   ! Species Aliases
+
+    @(RXNS)                        !  Begin reaction block
+    fwd_AtoR {                     !  Reaction 1 construct
+        chem_eq = "A --> R"        !  Chemical Reaction Eq
+        DH = 0.0                   !  (cal/moles-reacted)
+        fracDH(0) = 1.0            !  Gas phase HoR
+    }                              !  End reaction 1 construct
+    rvs_AtoR {                     !  Reaction 2 construct
+        chem_eq = "R --> A"        !  Chemical Reaction Eq
+        DH = 0.0                   !  (cal/moles-reacted)
+        fracDH(0) = 1.0            !  Gas phase HoR
+    }                              !  End reaction 2 construct
+    @(END)                         !  End reaction block
+
+
+**usr_rates.f**:
+
+.. code-block:: fortran
+
+    SUBROUTINE USR_RATES(IJK, RATES)
+
+    INCLUDE 'species.inc'
+
+    INTEGER, INTENT(IN) :: IJK
+    DOUBLE PRECISION, DIMENSION(NO_OF_RXNS), INTENT(OUT) :: RATES
+
+
+    ! Fluid Cell Index
+    DOUBLE PRECISION c_A ! species A concentration (mol/cm^3)
+    DOUBLE PRECISION c_R ! species R concentration (mol/cm^3)
+
+    ! Calculate species concentrations:
+    c_A = (RO_g(IJK) * X_g(IJK,A))/MW_g(A)
+    c_R = (RO_g(IJK) * X_g(IJK,R))/MW_g(R)
+
+    ! Forward Reaction: A --> R (reacted moles/sec.cm^3)
+    !-------------------------------------------------------//
+    RATES(fwd_AtoR) = 1.2d17 * exp(-5.837d3/T_g(IJK)) * &
+    EP_g(IJK) * c_A
+
+    ! Reverse Reaction: R --> A (reacted moles/sec.cm^3)
+    !-------------------------------------------------------//
+    RATES(rvs_AtoR) = 2.5d41 * exp(-1.4897d4/T_g(IJK)) * &
+    EP_g(IJK) * c_R
+
+    END SUBROUTINE USR_RATES

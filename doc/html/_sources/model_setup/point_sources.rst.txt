@@ -1,0 +1,47 @@
+.. include:: /icons.rst
+
+.. _point_sources:
+
+Point sources
+=============
+
+Point sources (PS) are used in place of mass inlets where either the geometry
+and/or grid resolution prohibit proper boundary condition specification. For
+example, a point source may be used to model an injector with dimensions smaller
+than the grid. Point sources may be defined within a single computational cell,
+along a plane, or as a volume of computational cells.
+
+Point sources introduce mass directly into a computational cell unlike a
+boundary condition which specifies flow along a cell face. One consequence of
+this implementation is that point sources are subjected to convection/diffusion
+forces and may not travel parallel to the specified directional preference.
+Directional preference may be specified with a velocity vector (i.e., ``PS_U_g``,
+``PS_V_g``, etc.), however, directional preference is not required.
+
+Examples showing how to setup point sources can be found in: ``legacy_tutorials/point_source_spiral``.
+Legacy tutorials can be found by downloading the source tarball. They are meant to provide representative setups for older versions of MFiX (before the launch of the GUI), and are not guaranteed to run with the latest version of MFiX.
+
+Creating a Point Source Region
+------------------------------
+
+To define a point source, there must be a region already defined in the
+:ref:`Regions Pane <regions>`.
+
+Add/Delete Point sources
+------------------------
+
+To create a new point source, press the |add| button which will bring up
+the Region selection dialog. Select a region to associate with the new point
+source and press OK.
+
+**Mass flow rate**
+The mass flow rate is the rate of mass introduced for the point source. It
+has a default value of 0.0 kg/s
+
+**Temperature**
+The temperature only applies to cases when energy equations are turned on
+under :ref:`Model setup <model_setup>`. It has a default value of 293.15 K.
+
+**Velocity**
+The velocity of the mass introduced by the point source is always available. The
+default velocity is zero.

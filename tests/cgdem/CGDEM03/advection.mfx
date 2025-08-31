@@ -1,0 +1,184 @@
+#! File written Thu Nov 18 07:23:58 2021
+#! MFiX version 21.2 by vaidheea on login04.super
+
+### Run Controls
+  description      = 'CGDEM Test: Sphere Advection'
+  run_name         = 'CGDEM_SA'
+  units            = 'SI'
+  run_type         = 'NEW'
+  time             = 0.0
+  tstop            = 4.0
+  dt               = 1.0000e-03
+  dt_fac           = 1.0
+  res_dt           = 0.1
+  chk_batchq_end   = .False.
+  drag_type        = 'USER_DRAG'
+  enable_dmp_log   = .False.
+  energy_eq        = .False.
+  nodesi           = 1
+  nodesj           = 1
+  nodesk           = 1
+  full_log         = .True.
+  momentum_x_eq(0) = .False.
+  momentum_y_eq(0) = .False.
+  momentum_z_eq(0) = .False.
+  species_eq(0)    = .False.
+  species_eq(1)    = .False.
+
+### Physical parameters
+  gravity_x = 0.0
+  gravity_y = -0.0
+  gravity_z = 0.0
+
+### Numeric
+  max_nit   = 250
+  tol_resid = 1.0000e-03
+  ### Discretization
+  leq_sweep(1) = 'ISIS'
+  leq_sweep(2) = 'ISIS'
+  leq_sweep(3) = 'ISIS'
+  leq_sweep(4) = 'ISIS'
+  leq_sweep(5) = 'ISIS'
+  leq_sweep(6) = 'ISIS'
+  leq_sweep(7) = 'ISIS'
+  leq_sweep(8) = 'ISIS'
+  leq_sweep(9) = 'ISIS'
+
+### Geometry
+  coordinates = 'CARTESIAN'
+  imax        = 32
+  jmax        = 32
+  kmax        = 32
+  x_max       = 1.0
+  x_min       = 0
+  y_max       = 1.0
+  y_min       = 0
+  z_max       = 1.0
+  z_min       = 0
+  cyclic_x    = .True.
+  cyclic_y    = .True.
+  cyclic_z    = .True.
+
+#### Fluid
+  mu_g0 = 1.8000e-05
+  ro_g0 = 1.2
+
+#### Solids
+  mmax = 1
+  # Solid 1
+    solids_model(1) = 'CGP'
+    d_p0(1)         = 1.0000e-02
+    ro_s0(1)        = 2.7000e+03
+    nmax_s(1)       = 0
+    cgp_stat_wt(1)  = 1.0
+    k_s0(1)         = 1.0
+    ks_model(1)     = 'MUSSER'
+
+
+### Initial conditions
+  # Initial condition 1: IC_1
+    ic_x_e(1)                = 1.0
+    ic_x_w(1)                = 0.0
+    ic_y_s(1)                = 0.0
+    ic_y_n(1)                = 1.0
+    ic_z_b(1)                = 0.0
+    ic_z_t(1)                = 1.0
+    ic_ep_g(1)               = 1.0
+    ic_t_g(1)                = 293.15
+    ic_u_g(1)                = 0.0
+    ic_v_g(1)                = 0.0
+    ic_w_g(1)                = 0.0
+    ic_ep_s(1,1)             = 0.0
+    ic_pic_const_statwt(1,1) = 1.0
+    ic_t_s(1,1)              = 293.15
+    ic_theta_m(1,1)          = 0.0
+    ic_u_s(1,1)              = 0.0
+    ic_v_s(1,1)              = 0.0
+    ic_w_s(1,1)              = 0.0
+
+
+# SPx outputs
+  spx_dt(1)  = 0.01
+  spx_dt(2)  = 1.0
+  spx_dt(3)  = 1.0
+  spx_dt(4)  = 1.0
+  spx_dt(5)  = 1.0
+  spx_dt(6)  = 1.0
+  spx_dt(7)  = 1.0
+  spx_dt(8)  = 1.0
+  spx_dt(9)  = 1.0
+  spx_dt(10) = 1.0
+  spx_dt(11) = 1.0
+
+### Residuals
+  group_resid = .True.
+
+### Discrete element model
+  des_en_input(1)        = 0.9
+  des_en_wall_input(1)   = 0.9
+  des_etat_fac           = 0.5
+  des_etat_w_fac         = 0.5
+  des_interp_mean_fields = .True.
+  des_interp_on          = .True.
+  des_interp_scheme      = 'LINEAR_HAT'
+  desgridsearch_imax     = 32
+  desgridsearch_jmax     = 32
+  desgridsearch_kmax     = 32
+  kn                     = 10.0
+  kn_w                   = 10.0
+  kt_fac                 = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  kt_w_fac               = 0.28571428571429 #!MFIX-GUI eq{float(2/7)}
+  mew                    = 0.1
+  mew_w                  = 0.1
+  particles              = 480
+
+### Two-fluid model
+  ep_star = 0.4
+
+### UDF control
+    usr_dt(1) = 0.25
+
+call_usr         = .True.
+des_usr_var_size = 3
+
+### Output control
+nlog           = 25
+nrr            = 0
+print_des_data = .True.
+
+
+# MFIX-GUI section
+#!MFIX-GUI author = vaidheea
+#!MFIX-GUI created_date = 2021-10-22 17:02
+#!MFIX-GUI modified_time = 2021-11-17 18:46
+#!MFIX-GUI gui_version = 21.2
+#!MFIX-GUI project_notes = ""
+#!MFIX-GUI modified_by = vaidheea
+#!MFIX-GUI geometry = {"geometry_dict": {}, "tree": {}}
+#!MFIX-GUI visual_props = {"mesh": {"color": "#f44328", "visible": true,
+#!MFIX-GUI   "opacity": 1.0, "rep": "solid", "color_by": "Volume", "edge":
+#!MFIX-GUI   "#7a2114"}, "background_mesh": {"color": "#64b6f7", "visible":
+#!MFIX-GUI   true, "opacity": 1.0, "rep": "wire", "edge": "#325b7b"},
+#!MFIX-GUI   "geometry": {"color": "#e0e0e0", "visible": true, "opacity": 1.0,
+#!MFIX-GUI   "rep": "wire", "edge": "#707070"}, "regions": {"color": "#e0e0e0",
+#!MFIX-GUI   "visible": true, "opacity": 0.5, "rep": "solid", "edge":
+#!MFIX-GUI   "#707070"}, "normals": {"color": "#0000e0", "visible": false,
+#!MFIX-GUI   "scale": 0.1, "count": 1000, "edge": "#000070"}, "axes": {"color":
+#!MFIX-GUI   "#0000e0", "visible": true, "edge": "#000070"}, "boundary":
+#!MFIX-GUI   {"color": "#0000e0", "opacity": 1.0, "rep": "edges", "visible":
+#!MFIX-GUI   false, "color_by": "bc_id", "edge": "#000070"}}
+#!MFIX-GUI regions_dict = {"order": ["IC_1"], "regions": {"IC_1": {"to": [1.0,
+#!MFIX-GUI   1.0, 1.0], "color": "#9eb598"}}}
+#!MFIX-GUI bc_regions = [[["X-cyclic"], ["X-cyclic"]], [["Y-cyclic"],
+#!MFIX-GUI   ["Y-cyclic"]], [["Z-cyclic"], ["Z-cyclic"]]]
+#!MFIX-GUI ic_regions = [[[1], ["IC_1"]]]
+#!MFIX-GUI usr_regions = [[1, "None"]]
+#!MFIX-GUI graphics = {"order": [], "data": {}}
+#!MFIX-GUI ui_state = {"mode": "modeler", "navigation": "Model setup",
+#!MFIX-GUI   "graphic_tab": 1}
+#!MFIX-GUI parameters = {"order": ["min", "max", "xmin", "xmax", "ymin", "ymax",
+#!MFIX-GUI   "zmin", "zmax", "km", "m", "cm", "mm", "um", "mile", "yard", "ft",
+#!MFIX-GUI   "ins"], "parameters": {"min": 0.0, "max": 0.0, "xmin": 0, "xmax":
+#!MFIX-GUI   1.0, "ymin": 0, "ymax": 1.0, "zmin": 0, "zmax": 1.0, "km": 1000.0,
+#!MFIX-GUI   "m": 1.0, "cm": 0.01, "mm": 0.001, "um": 1e-06, "mile": 1609.34,
+#!MFIX-GUI   "yard": 0.9144, "ft": 0.3048, "ins": 0.0254}}

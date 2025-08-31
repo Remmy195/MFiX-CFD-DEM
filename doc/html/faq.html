@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>13. Frequently asked questions &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="_static/mfix.css?v=31071079" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="12.1.20. UDF control" href="reference/udf_control.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Frequently asked questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-ask-a-question-or-send-feedback">13.1. How do I ask a question, or send feedback?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-do-i-build-the-custom-solver-in-parallel">13.1.1. How do I build the custom solver in parallel?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pausing-and-restarting-the-solver">13.2. Pausing and restarting the solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#play-pause-reinit">13.2.1. Play/Pause/Reinit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restart-a-simulation-from-current-time">13.2.2. Restart a simulation from current time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restart-a-simulation-from-the-beginning">13.2.3. Restart a simulation from the beginning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-system-of-units-does-mfix-use">13.3. What system of units does MFiX use?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-do-i-do-if-a-run-does-not-converge">13.4. What do I do if a run does not converge?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-non-convergence">13.4.1. Initial non-convergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-convergence-due-to-bad-cut-cell-mesh">13.4.2. Non-convergence due to bad cut-cell mesh</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#discrete-element-model-dem">13.5. Discrete Element Model (DEM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-provide-initial-particle-positions-in-particle-input-dat-file">13.5.1. How to provide initial particle positions in particle_input.dat file?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-avoid-particles-going-through-solid-walls-in-dem-simulations">13.5.2. How to avoid particles going through solid walls in DEM simulations?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#superquadric-particle-model-sqp">13.6. Superquadric Particle Model (SQP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-specify-the-particle-shape">13.6.1. How to specify the particle shape?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-settings">13.6.2. Recommended settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paraview-macro">13.6.3. Paraview macro</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#glued-sphere-particle-model-gsp">13.7. Glued-Sphere Particle Model (GSP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">13.7.1. How to specify the particle shape?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#meshing">13.8. Meshing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-verify-flip-stl-file-facet-normals">13.8.1. How to verify/flip STL file facet normals?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-manually-specify-a-grid-partition-for-dmp-runs">13.8.2. How to manually specify a grid partition for DMP runs?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#particle-in-cell-pic">13.9. Particle in Cell (PIC)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-choose-a-good-statistical-weight-for-pic-runs">13.9.1. How To Choose a Good Statistical Weight for PIC Runs?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pic-statistical-weight-example">13.9.2. PIC statistical weight example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#meshing-basics-for-pic-runs">13.9.3. Meshing Basics for PIC Runs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-primary-pic-parameters">13.9.4. Choosing Primary PIC Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-secondary-pic-parameters">13.9.5. Choosing Secondary PIC parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-can-t-i-define-parcels-per-cell-instead-of-particles-per-parcel">13.9.6. Why can’t I define parcels per cell instead of particles per parcel?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-a-good-number-or-range-for-the-number-of-parcels-per-cells">13.9.7. What is a good number (or range) for the number of parcels per cells?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-solids-model-parameter-values-work-best-for-the-pic-model-when-running-2-densities-that-are-roughly-10x-different-in-magnitude">13.9.8. What solids model parameter values work best for the PIC model when running 2 densities that are roughly 10x different in magnitude?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">13. </span>Frequently asked questions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/faq.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="frequently-asked-questions">
+<span id="faq"></span><h1><span class="section-number">13. </span>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Link to this heading">¶</a></h1>
+<section id="how-do-i-ask-a-question-or-send-feedback">
+<h2><span class="section-number">13.1. </span>How do I ask a question, or send feedback?<a class="headerlink" href="#how-do-i-ask-a-question-or-send-feedback" title="Link to this heading">¶</a></h2>
+<p>Please send specific questions and feedback regarding
+MFiX to <a class="reference external" href="https://mfix.netl.doe.gov/forum/c/mfix">the support forum</a>.</p>
+<ul>
+<li><p>Please allow sufficient time (5-7 business days) for MFiX developers and users to reply before posting unanswered questions again.</p></li>
+<li><p>Before submitting help requests, please review prior postings to see if the question has already
+been answered. Use the search bar at the top of the forum page to search a specific topic.</p></li>
+<li><p>Please include a complete description of the issue, including:</p>
+<ul class="simple">
+<li><p>Type of issue: Setup in GUI, meshing, solver crash, solver non-convergence, etc.</p></li>
+<li><p>Description: Details on how to reproduce the issue.</p>
+<ul>
+<li><p>MFiX version.</p></li>
+<li><p>Operating system.</p></li>
+<li><p>Solver (default solver, parallel dmp solver etc.).</p></li>
+<li><p>If MFiX crashed or failed, how long does it take?</p></li>
+<li><p>Attempts to fix the issue: Include what you have tried, what helped and what didn’t help.</p></li>
+</ul>
+</li>
+<li><p>Attach all relevant files to reproduce the issue (<code class="docutils literal notranslate"><span class="pre">*.mfx</span></code>, <code class="docutils literal notranslate"><span class="pre">*.stl</span></code>, <code class="docutils literal notranslate"><span class="pre">*.f</span></code>, <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code> etc.):</p>
+<ul>
+<li><p>Create a zip file from main menu&gt; Submit bug report.</p></li>
+<li><p>Upload this zip file to the post.</p></li>
+<li><p>Verify anyone can reproduce the error with the information given and attached files.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Questions that have missing information will likely remain unanswered. Did you:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select the relevant category (Installation / How to / Bug report / Share)?</p></li>
+<li><p>Search the forum for similar issues, read the documentation (<a class="reference external" href="https://mfix.netl.doe.gov/doc/mfix/latest">https://mfix.netl.doe.gov/doc/mfix/latest</a>)?</p></li>
+<li><p>Inspect the console, error and warning messages?</p></li>
+<li><p>Modify the code, or write UDFs?</p></li>
+<li><p>Run the solver in debug mode?</p></li>
+<li><p>Provide sufficient information and attach relevant files?</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<section id="how-do-i-build-the-custom-solver-in-parallel">
+<h3><span class="section-number">13.1.1. </span>How do I build the custom solver in parallel?<a class="headerlink" href="#how-do-i-build-the-custom-solver-in-parallel" title="Link to this heading">¶</a></h3>
+<p>Building the solver in parallel means using several cores to build the solver.
+It will significantly decrease the time to build the solver.
+This applies to all solvers (serial, smp and dmp), and it does not affect which solver is
+built, only how fast it is built.
+The custom solver can be built in parallel from the GUI by checking the “Build solver in
+parallel” check box. This will pass the <code class="docutils literal notranslate"><span class="pre">-j</span></code> option to the <code class="docutils literal notranslate"><span class="pre">make</span></code> command.</p>
+</section>
+</section>
+<section id="pausing-and-restarting-the-solver">
+<h2><span class="section-number">13.2. </span>Pausing and restarting the solver<a class="headerlink" href="#pausing-and-restarting-the-solver" title="Link to this heading">¶</a></h2>
+<section id="play-pause-reinit">
+<h3><span class="section-number">13.2.1. </span>Play/Pause/Reinit<a class="headerlink" href="#play-pause-reinit" title="Link to this heading">¶</a></h3>
+<p>While the simulation is running, it can be paused by pressing the <a class="reference internal" href="_images/pause.svg"><img alt="Pause" src="_images/pause.svg" style="width: 16px;" /></a> (pause) button.
+Many settings can be modified, such as stop time, monitor and VTK settings, boundary conditions, etc.
+Settings that cannot be changed (such as initial conditions or grid spacing) will be disabled while the simulation is paused.
+To resume the simulation, save the new settings by pressing the <a class="reference internal" href="_images/save.svg"><img alt="Save" src="_images/save.svg" style="width: 16px;" /></a> (save) button
+and press the <a class="reference internal" href="_images/play.svg"><img alt="Start" src="_images/play.svg" style="width: 16px;" /></a> (start) button.</p>
+</section>
+<section id="restart-a-simulation-from-current-time">
+<h3><span class="section-number">13.2.2. </span>Restart a simulation from current time<a class="headerlink" href="#restart-a-simulation-from-current-time" title="Link to this heading">¶</a></h3>
+<p>Once a simulation has run to completion, it can be restarted from the current simulation time.
+Increase the stop time in the “Run” pane, press the <a class="reference internal" href="_images/save.svg"><img alt="Save" src="_images/save.svg" style="width: 16px;" /></a> (save) button,
+and press the <a class="reference internal" href="_images/play.svg"><img alt="Start" src="_images/play.svg" style="width: 16px;" /></a> (start) button. In the “Run solver” dialog box, check the “Restart”
+check box and select “Resume”. Then press the “Run” button.</p>
+</section>
+<section id="restart-a-simulation-from-the-beginning">
+<h3><span class="section-number">13.2.3. </span>Restart a simulation from the beginning<a class="headerlink" href="#restart-a-simulation-from-the-beginning" title="Link to this heading">¶</a></h3>
+<p>Once a simulation has run to completion, or if you pressed the <a class="reference internal" href="_images/stop.svg"><img alt="Stop" src="_images/stop.svg" style="width: 16px;" /></a> (stop) button,
+the simulation can be restarted from the beginning. This is typically needed if the simulation
+settings need to be changed and the current results are not needed anymore.
+First press the <a class="reference internal" href="_images/restore_delete.svg"><img alt="Reset" src="_images/restore_delete.svg" style="width: 16px;" /></a> (reset) button to delete the current results. Next change the simulation
+settings as needed (if any). Press the <a class="reference internal" href="_images/save.svg"><img alt="Save" src="_images/save.svg" style="width: 16px;" /></a> (save) button, and press the <a class="reference internal" href="_images/play.svg"><img alt="Start" src="_images/play.svg" style="width: 16px;" /></a> (start) button.</p>
+</section>
+</section>
+<section id="what-system-of-units-does-mfix-use">
+<h2><span class="section-number">13.3. </span>What system of units does MFiX use?<a class="headerlink" href="#what-system-of-units-does-mfix-use" title="Link to this heading">¶</a></h2>
+<p>Simulations can be setup using the International System of Units (SI). The
+centimeter-gram-second system (CGS) is no longer supported.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>MFiX SI unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>length, position</p></td>
+<td><p>meter <span class="math notranslate nohighlight">\((m)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>mass</p></td>
+<td><p>kilogram <span class="math notranslate nohighlight">\((kg)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>second <span class="math notranslate nohighlight">\((s)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>thermal temperature</p></td>
+<td><p>Kelvin <span class="math notranslate nohighlight">\((K)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>energy†</p></td>
+<td><p>Joule <span class="math notranslate nohighlight">\((J)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>amount of substance‡</p></td>
+<td><p>kilomole <span class="math notranslate nohighlight">\((kmol)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>force</p></td>
+<td><p>Newton (<span class="math notranslate nohighlight">\(N = kg·m/s^2\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>pressure</p></td>
+<td><p>Pascal (<span class="math notranslate nohighlight">\(Pa = N/m^2\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p>dynamic viscosity</p></td>
+<td><p><span class="math notranslate nohighlight">\(Pa·s\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>kinematic viscosity</p></td>
+<td><p><span class="math notranslate nohighlight">\(m^2/s\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>gas constant</p></td>
+<td><p><span class="math notranslate nohighlight">\(J/K·kmol\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>enthalpy</p></td>
+<td><p><span class="math notranslate nohighlight">\(J\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>specific heat</p></td>
+<td><p><span class="math notranslate nohighlight">\(J/kg·K\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>thermal conductivity</p></td>
+<td><p><span class="math notranslate nohighlight">\(J/s·m·K\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>† The SI unit for energy is the Joule. This is reflected in MFiX through the gas
+constant. However, entries in the Burcat database are always
+specified in terms of calories regardless of the simulation units. MFiX converts
+the entries to joules after reading the database when SI units are used.</p>
+<p>‡ The SI unit for the amount of a substance is the mole (mol). MFiX uses the
+kilomole (kmol). These units are needed when specifying reaction rates:</p>
+<ul class="simple">
+<li><p>amount per time per volume for Eulerian model reactions <span class="math notranslate nohighlight">\(kmol/m^3.s\)</span></p></li>
+<li><p>amount per time for Lagrangian model reactions <span class="math notranslate nohighlight">\(kmol/s\)</span></p></li>
+</ul>
+</section>
+<section id="what-do-i-do-if-a-run-does-not-converge">
+<h2><span class="section-number">13.4. </span>What do I do if a run does not converge?<a class="headerlink" href="#what-do-i-do-if-a-run-does-not-converge" title="Link to this heading">¶</a></h2>
+<section id="initial-non-convergence">
+<h3><span class="section-number">13.4.1. </span>Initial non-convergence<a class="headerlink" href="#initial-non-convergence" title="Link to this heading">¶</a></h3>
+<p>Ensure that the initial conditions are physically realistic. If in the initial
+time step, the run displays NaN (Not-a-Number) for any residual, reduce the
+initial time step. If time step reductions do not help, recheck the problem
+setup.</p>
+<p>Holding the time step constant (<code class="docutils literal notranslate"><span class="pre">DT_FAC=1</span></code>) and ignoring the stalling of
+iterations (<code class="docutils literal notranslate"><span class="pre">DETECT_STALL=.FALSE.</span></code>) may help in overcoming initial nonconvergence.
+Often a better initial condition will aid convergence. For example, using a
+hydrostatic rather than a uniform pressure distribution as the initial condition
+will aid convergence in fluidized bed simulations.</p>
+<p>When using constant gas density, better convergence may be achieved by increasing the
+number of gas pressure iterations. Go to Numerics&gt;Linear solver tab and set the number
+of gas pressure iterations (“Iter.” column) to say 50 instead of 20.</p>
+<p>Often a better convergence is achieved with ideal gas law than with constant gas density.
+If poor convergence or failure to converge is observed while using constant gas density,
+it is recommended to switch to ideal gas law. In this case the average molecular weight
+or individual gas species molecular weights must be defined, and gas pressure and
+temperature must be defined in all initial and boundary condition regions.</p>
+<p>If there are computational regions where the solids tend to compact (i.e.,
+solids volume fraction less than EP_star), convergence may be improved by
+reducing <code class="docutils literal notranslate"><span class="pre">UR_FAC(2)</span></code> below the default value of 0.5.</p>
+<p>Convergence is often difficult with higher order discretization methods. First
+order upwinding may be used to overcome initial transients and then the higher
+order method may be turned on. Also, higher-order methods such as van Leer and
+minmod give faster convergence than methods such as Superbee and ULTRA-QUICK.</p>
+</section>
+<section id="non-convergence-due-to-bad-cut-cell-mesh">
+<h3><span class="section-number">13.4.2. </span>Non-convergence due to bad cut-cell mesh<a class="headerlink" href="#non-convergence-due-to-bad-cut-cell-mesh" title="Link to this heading">¶</a></h3>
+<p>When using cut-cells, non-convergence can arise due to a few bad cut cells,
+typically small cells (in volume) or bad cut cells coming from
+poorly resolved geometry in a coarse mesh with
+geometrical details in the order of one to two cells.</p>
+<p>Convergence may be improved by lowering the number of small cut cells. This can be done
+either by removing small cut cells or by snapping intersection points to cell corners.
+The settings are available in the Mesh&gt; Mesher pane in the GUI, or through keywords in
+the .mfx file.</p>
+<p>To completely remove a small cut cell, increase the “small cell tolerance” (default value is 0.01),
+or modify the TOL_SMALL_CELL keyword when editing the .mfx file.</p>
+<p>To snap intersection points to a cell corner, increase the “snap tolerance” (default value is 0.00),
+or modify the TOL_SNAP keyword when editing the .mfx file.</p>
+<p>Increasing the “small area tolerance” (TOL_SMALL_AREA keyword) or Normal distance tolerance
+(TOL_DELH keyword) may also help.</p>
+<figure class="align-center" id="id2">
+<img alt="Small cell removal" src="_images/Small_cells.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.1 </span><span class="caption-text">Removing small cut-cells</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Errors related to singular matrix may be due to poor mesh quality as well. Warning messages such as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>WARNING leg_bicgs.f:269, Warning: Singular matrix detected when solving for: EPp
+</pre></div>
+</div>
+<p>will likely lead to failure and are often caused by non water-tight geometry, inclomplete
+boundary condition specifications, STL files with collapsed edges.
+In these cases, it is recommended to first check the STL file and mesh quality (visualise the mesh and
+check the mesh statistics). Adjusting the meshing tolerances may help solve the issue.</p>
+</section>
+</section>
+<section id="discrete-element-model-dem">
+<h2><span class="section-number">13.5. </span>Discrete Element Model (DEM)<a class="headerlink" href="#discrete-element-model-dem" title="Link to this heading">¶</a></h2>
+<section id="how-to-provide-initial-particle-positions-in-particle-input-dat-file">
+<h3><span class="section-number">13.5.1. </span>How to provide initial particle positions in particle_input.dat file?<a class="headerlink" href="#how-to-provide-initial-particle-positions-in-particle-input-dat-file" title="Link to this heading">¶</a></h3>
+<p>We can read the initial particle data from a text file, called <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code>.
+The format of this file has changed in the 20.3 release. The old file version can still
+be used but it is recommended to use the latest format.</p>
+<p>To use the file rather than the automatic particle generation (i.e. from Initial conditions regions),
+go to the Solids  &gt; DEM pane, and leave the “Enable automatic particle
+generation” checkbox unchecked. Enter a positive number of particles to be read in the
+“Data file particle count”.</p>
+<p><strong>Version 2.0 (MFiX 20.3 release)</strong></p>
+<p>The new format allows to either read variables or set a constant value for all particles.
+The file contains a long header where information about the data is specified. This controls
+how many columns and which variables are read from the file. Next, the data section contains
+the data for each particle. Each column corresponds to a variable.
+In 3D, the first 3 columns are always the x,y and z coordinates of the particle’s center.
+In 2D, the first 2 columns are always the x,y coordinates of the particle’s center.
+There are two options for the other variables:  either read the data for each particle in the next column,
+or assign a constant value to all particles.</p>
+<p>Below is an example of a <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code> file (the line number is shown on the left and it
+not part of the data itself):</p>
+<ul class="simple">
+<li><p>Line 1     : File version. Do not change this line.</p></li>
+<li><p>Lines 2-18 : Instructions to use the file.</p></li>
+<li><p>Line 19    : This is a 3D geometry. The first 3 columns in the data section will be x,y,z.</p></li>
+<li><p>Line 20    : We will read data for 35361 particles.</p></li>
+<li><p>Line 24    : We always read coordinates in the first 2 or 3 columns (do not change)</p></li>
+<li><p>Line 25    : We do not read particle’s phase ID for each particle. It is assigned a constant value: 1</p></li>
+<li><p>Line 26    : We will read the particle’s diameter in the next column (column#4).</p></li>
+<li><p>Line 27    : We do not read particle’s density. It is assigned a constant value: 2500.0 kg/m^3</p></li>
+<li><p>Line 25    : We do not read particle’s velocity. It is assigned a constant value: (u,v,w) = (0.0,0.0,0.0) m/s</p></li>
+<li><p>Lines 29-30: This is a cold, non reacting case, we do not read Temperature or species.</p></li>
+<li><p>Line 31    : We do not have user scalars, so we do not read them.</p></li>
+<li><p>Lines 32-34: Data header</p></li>
+</ul>
+<p>The data starts on Line 35. Based on the above settings, we need to read, x,y,z, and the diameter of each particles, i.e., 4 columns, for 35361 particles. Only the first few lines of the data is shown.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1 Version 2.0
+2 ========================================================================
+3 Instructions:
+4 Dimension: Enter &quot;2&quot; for 2D, &quot;3&quot; for 3D (Integer)
+5 Particles: Number of particles to read from this file (Integer)
+6 For each variable, enter whether it will be read from the file
+7 (&quot;T&quot; to be read (True), &quot;F&quot; to not be read (False)). When not read, enter the
+8 default values assign to all particles.
+9 Coordinates are always read (X,Y in 2D, X,Y,Z in 3D)
+10 Phase_ID, Diameter, Density, Temperature are scalars
+11 Velocity requires U,V in 2D, U,V,W in 3D
+12 Temperature is only read/set if the energy equation is solved
+13 Species are only read/set if the species equations are solved, and requires
+14 all species to be set (if phase 1 has 2 species and phase 2 has 4 species,
+15 all particles must have 4 entries, even phase 1 particles (pad list with zeros)
+16 User scalars need DES_USR_VAR_SIZE values
+17 Data starts at line 35. Each column correspond to a variable.
+18 ========================================================================
+19 Dimension:    3
+20 Particles:    35361
+21 ========================================================================
+22 Variable      Read(T/F)     Default value (when Read=F)
+23 ========================================================================
+24 Coordinates:     T          Must always be T
+25 Phase_ID:        F          1
+26 Diameter:        T
+27 Density:         F          2500.0
+28 Velocity:        F          0.0 0.0 0.0
+29 Temperature:     T          (Ignored if energy eq. is not solved)
+30 Species:         T          (Ignored if species eq. are not solved)
+31 User_Scalar:     T          (Ignored if no user scalars are defined)
+32 ========================================================================
+33     X (m)           Y (m)           Z (m)       Diameter (m)
+34 ========================================================================
+35 -5.07749E-02    -7.98147E-01    -2.00612E-01    9.71052E-03
+36 -4.86164E-02    -8.16202E-01    -2.25035E-01    8.34185E-03
+37 -3.16460E-02    -8.13702E-01    -2.19164E-01    1.09747E-02
+38 -3.32833E-02    -8.25178E-01    -2.19393E-01    9.67983E-03
+39 -2.48844E-02    -8.30159E-01    -2.16423E-01    9.84182E-03
+40 -8.57591E-03    -8.38121E-01    -2.08773E-01    9.92759E-03
+41 -2.75312E-03    -8.32665E-01    -2.00770E-01    1.07560E-02
+42 1.57276E-02     -8.37839E-01    -2.08196E-01    1.04387E-02
+43 1.96605E-02     -8.31447E-01    -2.15105E-01    9.97808E-03
+44 2.71083E-02     -8.26450E-01    -2.19492E-01    9.99619E-03
+45 3.55440E-02     -8.28885E-01    -2.15687E-01    9.15771E-03
+46 4.45244E-02     -8.28239E-01    -2.11771E-01    1.05089E-02
+47 4.70488E-02     -8.22092E-01    -2.19129E-01    9.33350E-03
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code> file can be edited in any text editor, including the GUI editor, and be
+saved in the project directory. Please run the <cite>2D DEM fluid bed with central jet</cite> tutorial from the GUI, or see the <a class="reference internal" href="tutorials/tutorial_dem_seeding.html"><span class="doc">DEM initial conditions</span></a> last section for an example.</p>
+<p><strong>Version 1.0 (Prior to MFiX 20.3 release)</strong></p>
+<p>The file stores each particle
+position, radius, density, and velocity. For 2D geometries, it contains 6
+columns: x , y, radius, density, u, v. In 3D, it contains 8 columns:
+x , y, z, radius, density, u, v, w. The number of lines correspond to the
+number of particles read, and should match the “Data file particle count”
+defined in the Solids  &gt; DEM tab. The check box “Enable automatic particle
+generation” must be left unchecked.</p>
+<p>Below is an example of a 2D <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code> (only 4 particles shown):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0.2000D-03  0.2000D-03  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00
+0.6000D-03  0.2000D-03  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00
+0.1000D-02  0.2000D-03  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00
+0.1400D-02  0.2000D-03  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00
+</pre></div>
+</div>
+<p>Below is an example of a 3D <code class="docutils literal notranslate"><span class="pre">particle_input.dat</span></code> (only 4 particles shown):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0.2000D-03  0.2000D-03  0.1000D-01  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00  0.0000D+00
+0.6000D-03  0.2000D-03  0.1000D-01  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00  0.0000D+00
+0.1000D-02  0.2000D-03  0.1000D-01  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00  0.0000D+00
+0.1400D-02  0.2000D-03  0.1000D-01  0.5000D-04  0.1800D+04  0.0000D+00  0.0000D+00  0.0000D+00
+</pre></div>
+</div>
+</section>
+<section id="how-to-avoid-particles-going-through-solid-walls-in-dem-simulations">
+<h3><span class="section-number">13.5.2. </span>How to avoid particles going through solid walls in DEM simulations?<a class="headerlink" href="#how-to-avoid-particles-going-through-solid-walls-in-dem-simulations" title="Link to this heading">¶</a></h3>
+<p>This is a common issue that arises when particles are too soft. Increasing the spring stiffness (kn and kn_w)
+typically helps resolve the issue.</p>
+<figure class="align-center" id="id3">
+<img alt="Particles going through wall" src="_images/particle_though_wall.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.2 </span><span class="caption-text">Left: Soft particles (kn=kn_w=100 N/m) going through the cyclone wall. Right: Harder particles (kn=kn_w=1000 N/m) bouncing off the wall.</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The spring stiffness can be adjusted in the Solids&gt;DEM pane:</p>
+<figure class="align-center" id="id4">
+<img alt="kn settings" src="_images/kn_settings.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.3 </span><span class="caption-text">Spring stiffness settings in the GUI</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Other possible reasons DEM particles may go through the wall:</p>
+<ul class="simple">
+<li><p>Missing facets from the STL files: If the STL file is not waterproof, particles can go through the holes.
+The STL file must be inspected and corrected to fix this issue. The STL file should also not have facets with
+an angle smaller than the facet angle tolerance (Mesh&gt; mesher pane).</p></li>
+<li><p>DEM solids time step is too large. If the DEM solids time step is too large, collisions may be missed and particles can go through the wall.
+Increasing the spring stiffness will automatically reduce the solids time step, but it may be necessary to increase the DEM time step factor (Solids&gt;DEM pane).
+It is recommended to not lower the DEM time step factor below the default value of 50.</p></li>
+</ul>
+</section>
+</section>
+<section id="superquadric-particle-model-sqp">
+<h2><span class="section-number">13.6. </span>Superquadric Particle Model (SQP)<a class="headerlink" href="#superquadric-particle-model-sqp" title="Link to this heading">¶</a></h2>
+<section id="how-to-specify-the-particle-shape">
+<h3><span class="section-number">13.6.1. </span>How to specify the particle shape?<a class="headerlink" href="#how-to-specify-the-particle-shape" title="Link to this heading">¶</a></h3>
+<p>The shape of non-spherical particles is defined with five parameters,
+<span class="math notranslate nohighlight">\(a, b, c, m, n\)</span>. The surface of the particle is defined with
+the following superquadric equation:</p>
+<div class="math notranslate nohighlight">
+\[\biggl[ \left(\frac{x}{a}\right)^m + \left(\frac{y}{b}\right)^m \biggr] ^ {\frac{n}{m}} + \left(\frac{z}{c}\right)^n - 1 = 0\]</div>
+<p>The exponents m and n in the superquadric equation above correspond to <span class="math notranslate nohighlight">\(\epsilon_1 = \frac{2}{n}\)</span>  and   <span class="math notranslate nohighlight">\(\epsilon_2 = \frac{2}{m}\)</span> in references [1-3]. The notation used in MFiX is consistent with [4].</p>
+<p>The use of exponents m and n allows for a more efficient evaluation of the superquadric equation. There are combinations of m and n values that make the exponent functions much faster in various computations of the superquadric surface equation and its derivatives. The speedup is considerable for favorable values compared with non-favorable values (6-fold speedup in the exponent computation itself). This can translate to an overall speedup of up to 5 for granular flow and up to 2 for gas/solids flows (actual speedup will vary). It is recommended to select these favorable combinations of m and n.  [Mathematical details: since the exponents ‘m’, ‘n’ and ‘n/m’ appear in the fundamental equation for superquadrics, these powers are evaluated frequently, so if they are integers, or quarter-integers, the powers can be evaluated efficiently using multiplication and square roots.  General floating-point exponentiation is quite slow by comparison.]</p>
+<p>To help specify the superquadric parameters, it is recommended to use the superquadric designer (Solids&gt; Material pane). A new interactive widget will pop up, where a, b, c, m and n can be specified. The particle shape can be previewed and the bounding sphere diameter will be automatically calculated.</p>
+<p>When the “Constrain exponents to favorable values” is checked, values of m and n will snap to the closest favorable combination. Please note that changing m can also change the value of n since they are linked to form a favorable combination. The list of favorable combination can be seen in the exponent map. Click on “show exponent map” to view the map. The map is interactive, clicking on or near a dot in the map will select a favorable combination.</p>
+<figure class="align-center" id="id5">
+<img alt="superquadric designer" src="_images/sqp_designer.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.4 </span><span class="caption-text">Superquadric designer</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id6">
+<img alt="superquadric exponent map (favorable values of m and n)" src="_images/sqp_exponent_map.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.5 </span><span class="caption-text">Favorable exponent map</span><a class="headerlink" href="#id6" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>[1] Gao, X. Y., J.; Portal, R. J. F.; Dietiker, J. F.; Shahnam, M.; Rogers, W. A. “Development and validation of SuperDEM for non-spherical particulate systems using a superquadric particle method,” Particuology Vol. 61, 2022, pp. 74-90. <a class="reference external" href="https://doi.org/10.1016/j.partic.2020.11.007">https://doi.org/10.1016/j.partic.2020.11.007</a></p>
+<p>[2] Gao, X. Y., Jia; Lu, Liqiang; Li, Cheng; Rogers, William A. “Development and validation of SuperDEM-CFD coupled model for simulating non-spherical particles hydrodynamics in fluidized beds,” Chemical Engineering Journal Vol. 420, 2021, p. 127654. <a class="reference external" href="https://doi.org/10.1016/j.cej.2020.127654">https://doi.org/10.1016/j.cej.2020.127654</a></p>
+<p>[3] Gao, X. Y., J.; Lu, L. Q.; Rogers, W. A. “Coupling particle scale model and SuperDEM-CFD for multiscale simulation of biomass pyrolysis in a packed bed pyrolyzer,” Aiche Journal Vol. 67, No. 4, 2021, p. 15. <a class="reference external" href="https://doi.org/10.1002/aic.17139">https://doi.org/10.1002/aic.17139</a></p>
+<p>[4] Becker, Verena &amp; Birkholz, Oleg &amp; Gan, Yixiang &amp; Kamlah, Marc. (2021). Modeling the Influence of Particle Shape on Mechanical Compression and Effective Transport Properties in Granular Lithium-Ion Battery Electrodes. Energy Technology. 9. <a class="reference external" href="https://doi.org/10.1002/ente.202000886">https://doi.org/10.1002/ente.202000886</a></p>
+<p>Examples:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>a</p></th>
+<th class="head"><p>b</p></th>
+<th class="head"><p>c</p></th>
+<th class="head"><p>m</p></th>
+<th class="head"><p>n</p></th>
+<th class="head"><p>shape</p></th>
+<th class="head"><p>view</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.003</p></td>
+<td><p>0.003</p></td>
+<td><p>0.003</p></td>
+<td><p>2.0</p></td>
+<td><p>2.0</p></td>
+<td><p>sphere</p></td>
+<td><p><a class="reference internal" href="_images/sqp_sphere.png"><img alt="sphere" class="align-middle" src="_images/sqp_sphere.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>0.003</p></td>
+<td><p>0.001</p></td>
+<td><p>0.006</p></td>
+<td><p>2.0</p></td>
+<td><p>2.0</p></td>
+<td><p>ellipsoid</p></td>
+<td><p><a class="reference internal" href="_images/sqp_ellipsoid.png"><img alt="ellipsoid" class="align-middle" src="_images/sqp_ellipsoid.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>0.003</p></td>
+<td><p>0.001</p></td>
+<td><p>0.006</p></td>
+<td><p>8.0</p></td>
+<td><p>8.0</p></td>
+<td><p>cuboid</p></td>
+<td><p><a class="reference internal" href="_images/sqp_cuboid.png"><img alt="cuboid" class="align-middle" src="_images/sqp_cuboid.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>0.003</p></td>
+<td><p>0.003</p></td>
+<td><p>0.006</p></td>
+<td><p>2.0</p></td>
+<td><p>8.0</p></td>
+<td><p>cylinder</p></td>
+<td><p><a class="reference internal" href="_images/sqp_cylinder.png"><img alt="cylinder" class="align-middle" src="_images/sqp_cylinder.png" style="width: 100px; height: 100px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recommended-settings">
+<h3><span class="section-number">13.6.2. </span>Recommended settings<a class="headerlink" href="#recommended-settings" title="Link to this heading">¶</a></h3>
+<p>When running the SQP solver, it is recommended to use the Hertzian collision model with large values of the Youngs modulus (larger than 1.0E7 Pa) to avoid excessive overlap. For gas/solids flows, the interpolation scheme should be set to ‘DPVM_SATELLITE’.</p>
+</section>
+<section id="paraview-macro">
+<h3><span class="section-number">13.6.3. </span>Paraview macro<a class="headerlink" href="#paraview-macro" title="Link to this heading">¶</a></h3>
+<p>To visualize SQP results with Paraview, users can run the macro located in <cite>mfix/tutorials/sqp/SQP_pipeline.py</cite>. Load and select the vtp or pvd file in the Paraview pipeline, then run the SQP_pipeline macro. This will generate superquadric sources and apply 3D glyph representation to the particle data. If there are more than one solids phase, make sure to save the phase ID in the vtp files.</p>
+</section>
+</section>
+<section id="glued-sphere-particle-model-gsp">
+<h2><span class="section-number">13.7. </span>Glued-Sphere Particle Model (GSP)<a class="headerlink" href="#glued-sphere-particle-model-gsp" title="Link to this heading">¶</a></h2>
+<section id="id1">
+<h3><span class="section-number">13.7.1. </span>How to specify the particle shape?<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>The glued sphere is an assembly of small spheres that approximates the shape of a non-spherical particle. It is obtained by discretizing the base shape into spheres through an algorithm controlled by a few parameters.</p>
+<p>The real particle geometry can be defined either as a
+supequadric shape, using the same parameters as the SQP model
+<span class="math notranslate nohighlight">\(a, b, c, m, n\)</span>, or by importing an STL file.</p>
+<p>To define the glued-sphere configuration for a given solids phase, click on the “Glued-sphere designer” button (Solids&gt; Material pane). A new interactive widget will pop up, where the glued sphere parameters can be specified. By default, a cuboic with round edges is defined.</p>
+<p>First, define the type of geometry input: Superquadric or STL file. For a superquadric geometry, enter the X, Y, Z semi-axes, and m, n exponents. If selecting an STL file, select “Choose STL file” to import the STL file. A preview of the base shape will be shown on the left viewport.</p>
+<p>If needed, the base shape’s orientation can be modified using quaternions. Click “Apply quaternion” to apply the rotation or “Reset” to use the original orientation.</p>
+<p>Next, the volume discretization must be specified. Enter the number of spheres in X, Y, and Z directions. Increasing the number os spheres will result in a better shape approximation, but long run-time. It is recommended to use the smallest number of spheres possible to avoid prohibitively long run time.</p>
+<p>For complex or fine STL files, the mesh can be decimated (simplified) to speed up the glued sphere generation. Check the “Mesh decimation” box and provide a non-zero decimation ratio. Using a large decimation ratio may result in a loss of geometric details.</p>
+<p>The glued sphere generation uses a bounding box to determine the extent of the geometry. The bounding box can be slightly extended to help the intersection algorithm by specifying a non-zero wall extension ratio.</p>
+<p>Sometimes the algorithm will generate some very small spheres. These can create stability issues in the contact force calculation and/or unnecessarily small solids time step. To control how small spheres can be removed from the assembly, check the “remove small spheres” box. Then specify the small sphere ratio. When a sphere’s volume is less than this ratio times the largest sphere volume, this small sphere will be considered for removal. Next, specify the Maximum removal fraction. This will remove all small spheres identified in the previous step until their combined volume reaches the maximum removal fraction times the baseline particle volume.</p>
+<p>Once all the parameters have been specified. press the “Generate GSP” button. The progress bar will update while the algorithm generates the glued sphere. Once generated, the glued sphere will be displayed in the viewport. The opacity of the base shape and the GSP can be adjusted for better visualization.</p>
+<figure class="align-center" id="id7">
+<img alt="Glued-sphere particle designer" src="_images/gsp_designer.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.6 </span><span class="caption-text">Glued-sphere designer</span><a class="headerlink" href="#id7" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="meshing">
+<h2><span class="section-number">13.8. </span>Meshing<a class="headerlink" href="#meshing" title="Link to this heading">¶</a></h2>
+<section id="how-to-verify-flip-stl-file-facet-normals">
+<h3><span class="section-number">13.8.1. </span>How to verify/flip STL file facet normals?<a class="headerlink" href="#how-to-verify-flip-stl-file-facet-normals" title="Link to this heading">¶</a></h3>
+<p>When using an STL file to define the geometry, a normal vector is associated with each facet (triangle). The direction in which the normal vector points indicates
+the fluid region. It is important to verify the normal vectors points in the desired direction before running the simulation.</p>
+<p>To show the normal vectors in the Model view, expand the geometry view settings on the right and check “Show Normals”. It may be necessary to adjust the scale to get a better view. The figure below shows an example of a cylinder with vectors pointing towards the interior region of the cylinder. This will correspond with an internal flow simulation where the fluid region is located inside the cylinder and the outside region is not part of the simulation.</p>
+<figure class="align-center" id="id8">
+<img alt="STL normals, Internal flow" src="_images/Internal_flow_annotated_LR.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.7 </span><span class="caption-text">Displaying STL normals, internal flow</span><a class="headerlink" href="#id8" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>If the normal vectors are not pointing in the correct direction, the normals can be flipped by checking the “Flip normal” box for any selected stl file. To model an external flow using the same geometry as above, flip the normals and the change will be reflected in the Model view (see figure below). Now the normals points towards the outside of the cylinder, and the region inside the cylinder will not be part of the computation.</p>
+<figure class="align-center" id="id9">
+<img alt="STL normals, External flow" src="_images/External_flow_annotated_LR.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.8 </span><span class="caption-text">Flipping STL normals to model an external flow</span><a class="headerlink" href="#id9" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="how-to-manually-specify-a-grid-partition-for-dmp-runs">
+<h3><span class="section-number">13.8.2. </span>How to manually specify a grid partition for DMP runs?<a class="headerlink" href="#how-to-manually-specify-a-grid-partition-for-dmp-runs" title="Link to this heading">¶</a></h3>
+<p>When running a simulation in parallel (DMP) mode, the parallel decomposition is by default uniform
+in each direction and the number of partitions is set by NODESI, NODESJ, and NODESK in the x,y and z
+directions, respectively. The default partition may not always be the most efficient. For example,
+a DEM simulation of a fluidized bed where most particles are at the bottom of the bed may run faster
+if smaller partitions are set at the bottom, where many particles are located and a large partition
+is used in the freeboard. This will better distribute particles among processors, and provide a better
+load balance.</p>
+<p>Let’s assume the mesh contains 20x100x20 cells (IMAX=20, JMAX=100, KMAX=20) and we use 16 cores with a
+2x4x2 partition (NODESI=2, NODESJ=4, NODESK=2). Assume particles are roughly located within the
+bottom half of the bed throughout the simulation. With the default (uniform) decomposition, each
+vertical partition will contain JMAX/NODESJ=25 cells (Figure 8.6).
+This means 8 cores will remain mostly idle with respect to particle tracking and collision.</p>
+<p>Instead, we can distribute cells in the y-direction so that the vertical partitions have roughly
+the same number of particles. This can be achieved with 10, 10, 10, and 70 cells from bottom to top.
+(Figure 8.7).</p>
+<p>Due to the symmetry of the problem in x and z directions, no adjustment is needed in these directions,
+and a uniform distribution is adequate.</p>
+<p>Note that the custom partition will provide better load balance for particles but will make the fluid
+calculation slower since fluid cells will be unbalanced. However, since a large majority of the time
+is spent in the DEM loop, it should be beneficial to customize the partition.</p>
+<p>To specify this decomposition, the following <code class="docutils literal notranslate"><span class="pre">gridmap.dat</span></code> needs to be saved in the project directory:</p>
+<p>The first line specifies the values of NODESI, NODESJ, NODESK.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2        4          2    ! NODESI, NODESJ, NODESK
+</pre></div>
+</div>
+<p>The next two lines (NODESI=2) specify the partition sizes in the x-direction.
+Here each partition contains 10 cells:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0        10
+1        10
+</pre></div>
+</div>
+<p>The next four lines (NODESJ=4) specify the partition sizes in the y-direction.
+Here three partitions at the bottom contains 10 cells each, and the last partition contains 70 cells:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0        10
+1        10
+2        10
+3        70
+</pre></div>
+</div>
+<p>The last two lines (NODESK=2) specify the partition sizes in the z-direction.
+Here each partition contains 10 cells:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0        10
+1        10
+</pre></div>
+</div>
+<p>Below is the entire <code class="docutils literal notranslate"><span class="pre">gridmap.dat</span></code> file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2        4          2    ! NODESI, NODESJ, NODESK
+0        10
+1        10
+0        10
+1        10
+2        10
+3        70
+0        10
+1        10
+</pre></div>
+</div>
+<figure class="align-center" id="id10">
+<img alt="Small cell removal" src="_images/default_gridmap.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.9 </span><span class="caption-text">Default partition (uniform distribution)</span><a class="headerlink" href="#id10" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id11">
+<img alt="Small cell removal" src="_images/custom_gridmap.png" />
+<figcaption>
+<p><span class="caption-number">Figure 13.10 </span><span class="caption-text">Adjusted partition in vertical direction (specified with gridmap.dat)</span><a class="headerlink" href="#id11" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="particle-in-cell-pic">
+<h2><span class="section-number">13.9. </span>Particle in Cell (PIC)<a class="headerlink" href="#particle-in-cell-pic" title="Link to this heading">¶</a></h2>
+<section id="how-to-choose-a-good-statistical-weight-for-pic-runs">
+<h3><span class="section-number">13.9.1. </span>How To Choose a Good Statistical Weight for PIC Runs?<a class="headerlink" href="#how-to-choose-a-good-statistical-weight-for-pic-runs" title="Link to this heading">¶</a></h3>
+<p>One key to creating efficient and accurate particle in cell (PIC) simulations
+is choosing an appropriate value for the statistical weight of particles per parcel.
+The user needs to balance desired solids weight fraction, mesh density and solids
+mass error with computational speed and physics.</p>
+<p>The PIC statistical weight in MFIX (IC_PIC_CONST_STATWT or BC_PIC_CONST_STATWT)
+represents how many particles are represented by each parcel.
+The parcels themselves must be of discrete number in a simulation, but because
+statistical weight is a math construct, partial particles may occur mathematically.</p>
+<p>To facilitate statistical weight selection, it is desirable to create a spreadsheet
+that illustrates how its selection can impact simulation conditions,
+or the following logic may be prescribed.</p>
+<ol class="arabic simple">
+<li><p>Collect the following information:</p>
+<ol class="loweralpha simple">
+<li><p>Diameter of an equivalent single spherical particle (m)</p></li>
+<li><p>Mass density of particles (kg/m <sup>3</sup> )</p></li>
+<li><p>Max-pack solids fraction of particles for simulation</p></li>
+</ol>
+</li>
+<li><p>Choose a mesh for the simulation.  Separately, calculate an average cell volume (m <sup>3</sup> ) and a minimum cell volume (m <sup>3</sup> ).</p></li>
+<li><p>Using max-pack solids fraction (which must be defined for PIC, 1-EP_STAR), calculate an average cellular volume available for solid (m  <sup>3</sup>) and a minimum cellular volume available for solid (m  <sup>3</sup>).</p></li>
+<li><p>Using particle diameter, calculate the number of spherical particles these average cellular volumes available for solid represent.  Assuming a uniform mesh, this calculated number, as a rounded-down integer, would represent the maximum statistical weight one can choose in a PIC simulation, although it is highly unlikely one would choose this value.  In a variable mesh, the value associated with the minimum cell volume is the maximum statistical weight.  (Note:  using an average cellular volume for this calculation allows a balance of parcel load in both large and small cells.)  Note that a user does not need to know the solids fraction distribution that they expect in a simulation, only the max-pack solids fraction, which is a constant.</p></li>
+<li><p>Now the balancing act between parcel count, actual solids fraction and mass error begins.  First, choose a statistical weight value.  An easy way to make a first approximation is to use the maximum statistical weight from (4) and divide by an integer which in your mind represents the number of parcels you want per cell.  Statistical weights derived like this will naturally give a solids fraction very close to whatever the original desired value from (1) was, and minimize mass error in a simulation.  The statistical weight does not need to be an integer, because partial particles make sense in PIC.  While the parcel count in an individual cell will initially begin as an integer, there is no limitation that says an integer number of particles must make up a parcel.  Choosing an integer value for statistical weight does make it simple to imagine the parcels as grouped entities of particles, but it may interfere with expectations for representative solids volume fraction per cell.  Note, however, that regardless of what the user specifies as a statistical weight, the MFIX program will collect truncated mass values in each cell until enough mass to represent a full parcel accumulates, whereupon a single extra parcel will be placed in the domain.</p></li>
+<li><p>It is advisable to inspect your fully populated PIC parcel domain to make sure you have not applied a value that does not make visual or physical sense.  This is particularly true for very dilute flow and highly packed flow.  For dilute flows, choosing a statistical weight that is too large will result in a simulation that cannot possibly capture expected flow dynamics.  In a highly packed flow, choosing a statistical weight that is too low may result in non-physical packing, and an overly large local solids fraction.  As such, be certain to note the values reported in the MFIX output for desired solids fraction and calculated solids fraction, then assure yourself that the numbers are within some reasonable error band.</p></li>
+</ol>
+</section>
+<section id="pic-statistical-weight-example">
+<h3><span class="section-number">13.9.2. </span>PIC statistical weight example<a class="headerlink" href="#pic-statistical-weight-example" title="Link to this heading">¶</a></h3>
+<p>During initialization, the user can choose any region to fill with parcels. If a distinct mass of particles is needed in a region at start-up, the user must pre-conceive an appropriate volume of cells and associated solids fraction to achieve that mass.</p>
+<p>For example, if a user wants :</p>
+<ul class="simple">
+<li><p>0.1 kg of 0.001 m particles with density 1000 kg/m <sup>3</sup></p></li>
+<li><p>in a volume that is 0.1 x 0.1 x 0.1 m <sup>3</sup> defined by a 10 x 10 x 10 mesh</p></li>
+<li><p>with max-pack of 0.4 (theoretical limit of random packing of spheres is 0.36)</p></li>
+</ul>
+<p>First, calculate the volume of 1 particle:   V_particle= <span class="math notranslate nohighlight">\(\pi\)</span>/6 (0.001)<sup>3</sup> = 5.236E-10 m <sup>3</sup></p>
+<p>Calculate the mass of 1 particle:  m_particle=(1000 kg/m <sup>3</sup> )(5.236E-10 m <sup>3</sup>) = 5.236E-7 kg</p>
+<p>Calculate single cellular volume:  V_cell=(0.1m) <sup>3</sup>/((10×10×10))=1.0E-6 m <sup>3</sup></p>
+<p>Calculate available volume for parcels:  (1-0.4)( 1.0E-6 m <sup>3</sup>) = 6.0E-7 m <sup>3</sup></p>
+<p>For simplicity, we assume that the particles are evenly distributed among the 1000 cells.  That means, each cell needs 0.100 kg/1000cells = 0.0001 kg of solid.
+In turn, that means each cell needs 0.0001 kg / 5.236E-7 kg = 190.985 particles.
+From this particle loading, you can choose a statistical weight based on the number of particles.
+For example, you could choose 190.985 as the statistical weight and get 1 big parcel (unwise), or you could choose, say, a statistical weight of 10 and get 19 parcels with a small local mass error.  The small errors are accumulated, and when large enough, an extra parcel will be placed locally in the mesh to account for the local loss.
+Note that if the user does not want to fill an initial area at maximum packing, simply choose a different value for solids fraction and recalculate.  Having a preconception of how “loose” a particle bed should be is very helpful for reducing the transient in a simulation start-up.</p>
+<p>Likewise, if a mass inflow boundary is prescribed in the PIC model, a similar logic must be followed.  The key is to make sure that the statistical weight used for the boundary flow condition is reasonable (as in, the number of particles per parcel will fit into the cell(s) that abut the boundary condition specification).  MFIX will control the mass itself by accounting individual particle mass and randomly assigning parcels through the BC window.  Note that smaller statistical weights produce less local mass error, but the user must choose their own balance between statistical weight and computational speed.</p>
+</section>
+<section id="meshing-basics-for-pic-runs">
+<h3><span class="section-number">13.9.3. </span>Meshing Basics for PIC Runs<a class="headerlink" href="#meshing-basics-for-pic-runs" title="Link to this heading">¶</a></h3>
+<p>There are three common mistakes a user may make when setting up a PIC run.  The first represents a misunderstanding of MFIX-PIC which is necessarily a 3-D model.  That means, you cannot specify a 2-D simulation with MFIX-PIC.
+Second, the interpolation algorithm which undergirds the MFIX-PIC model requires a minimum of 3-cells in each direction through a geometry to give a robust solution.  It is important to check small geometric regions of the mesh that might pass through an orifice or channel to assure that there are at least 3 cells available for calculations to work in a hydrodynamically stable way.  Smaller cell distributions will not crash the model, but you may get unexpected flow behavior.
+Finally, choosing statistical weights that in comparison to mesh give less than one parcel per mesh cell will give errant solutions.  (See section on choosing good statistical weights.)  Note that one of the benefits of PIC is that it allows for a somewhat coarse mesh with a large particle count, but a user needs to balance mesh and parcel count in a reasonable way.</p>
+</section>
+<section id="choosing-primary-pic-parameters">
+<h3><span class="section-number">13.9.4. </span>Choosing Primary PIC Parameters<a class="headerlink" href="#choosing-primary-pic-parameters" title="Link to this heading">¶</a></h3>
+<p>PIC parcels do not behave like DEM particles.  There are no Newtonian physical laws that govern collisions.  Instead, PIC utilizes a solids stress ( <span class="math notranslate nohighlight">\(\tau_p\)</span>) field that influences solids motion through a coupling with the momentum equation.  Specifically, the solids stress is calculated as:</p>
+<p><span class="math notranslate nohighlight">\(\tau_p=\frac{P_p \epsilon_p^\gamma}{\max[\epsilon_{cp} - \epsilon_p , \delta(1-\epsilon_p)]}\)</span></p>
+<p>In MFIX, the parameters that the user can control to define this solids stress are an empirical pressure constant (PSFAC_FRIC_PIC ( <span class="math notranslate nohighlight">\(P_p\)</span> ), a volume fraction exponential scale factor (FRIC_EXP_PIC ( <span class="math notranslate nohighlight">\(\gamma\)</span>), void fraction at maximal close packing(EP_STAR ( <span class="math notranslate nohighlight">\(\epsilon_{cp}\)</span>) and a non-singularity constant (FRIC_NON_SING_FAC ( <span class="math notranslate nohighlight">\(\delta\)</span>).  The only other variable at play within the solids stress model is solids void fraction ( <span class="math notranslate nohighlight">\(\epsilon_p\)</span> ) which is calculated dynamically as the simulation progresses.</p>
+<p>The parameters used in PIC are very robust.  The default values of <span class="math notranslate nohighlight">\(P_p\)</span> =100,  <span class="math notranslate nohighlight">\(\gamma\)</span> =3,  <span class="math notranslate nohighlight">\(\delta\)</span> =1.0E-7 should work well for most systems.  There should be no reason to change  <span class="math notranslate nohighlight">\(\delta\)</span>.  The value for  <span class="math notranslate nohighlight">\(\epsilon_{cp}\)</span>  will vary depending on your application, although it is worth noting that there is a theoretical limit of ~0.36 for the random packing of equal spheres.  It is important to note that  <span class="math notranslate nohighlight">\(\epsilon_{cp}\)</span> represents the void or gas fraction per cell, and not the solids fraction.
+The effects of changing the values of  <span class="math notranslate nohighlight">\(P_p\)</span>  and  <span class="math notranslate nohighlight">\(\gamma\)</span> are very problem specific.  For example, sedimentation cases (on which the solids model was originally built) will model best with <span class="math notranslate nohighlight">\(P_p\)</span> =1,  <span class="math notranslate nohighlight">\(\gamma\)</span> =2 so that gravity has the most effect on the system through the momentum equation. But, very dynamic cases (U_mf&gt;10) where we expect the solids to more greatly affect the hydrodynamics of the system may respond better with selections like  <span class="math notranslate nohighlight">\(P_p\)</span> =1000,  <span class="math notranslate nohighlight">\(\gamma\)</span> =3.  Essentially, like all CFD models, it may be necessary to tune the PIC model to your specific case.  As a rule of thumb, larger  <span class="math notranslate nohighlight">\(P_p\)</span> at constant <span class="math notranslate nohighlight">\(\gamma\)</span> will result in particles that move more dynamically (as the selection will linearly increase the solids stress).  But, larger <span class="math notranslate nohighlight">\(\gamma\)</span> at constant  <span class="math notranslate nohighlight">\(P_p\)</span> will reduce the solids stress exponentially and dampen overall solids motion.  The largest values of solid stress will occur when  <span class="math notranslate nohighlight">\(P_p\)</span> is large and  <span class="math notranslate nohighlight">\(\gamma\)</span>  is small.</p>
+</section>
+<section id="choosing-secondary-pic-parameters">
+<h3><span class="section-number">13.9.5. </span>Choosing Secondary PIC parameters<a class="headerlink" href="#choosing-secondary-pic-parameters" title="Link to this heading">¶</a></h3>
+<p>Like DEM, the user can control restitution factors that affect parcel motion.  MPPIC_COEFF_EN_WALL applies a scale factor to the normal component of velocity after a parcel interacts with a wall.  Likewise, MPPIC_COEFF_ET_WALL applies a scale factor to the tangential components of velocity after a parcel interacts with a wall.
+There are two other empirical factors available in MFIX-PIC.  The first is MPPIC_COEFF_EN1 which is an overall scale factor that can dampen the effect of the entire solids stress model, and MPPIC_VELFAC_COEFF which is a scale factor that effects the value of bulk solids velocity through an evaluation of gas-solids slip velocity.  These last two factors should remain at default values unless you are working as an advanced user and understand the open source PIC code implicitly.</p>
+<p>PIC Collision Damping
+—-====————-</p>
+<p>An empirical collision damping feature has been added to the MFIX-PIC model.  The feature includes a calculation for collision frequency based on statistical likelihood.  From this frequency, a small change in velocity is calculated and applied to parcels locally.  The effect is an overall damping of solids velocity, particularly in areas where dense particle flow is apparent.  To invoke the feature, the user must select “Collision Damping” in the GUI (Solids&gt;PIC pane) or set the keyword is PIC_COLLISION_DAMPING=.TRUE. in the .mfx file.</p>
+</section>
+<section id="why-can-t-i-define-parcels-per-cell-instead-of-particles-per-parcel">
+<h3><span class="section-number">13.9.6. </span>Why can’t I define parcels per cell instead of particles per parcel?<a class="headerlink" href="#why-can-t-i-define-parcels-per-cell-instead-of-particles-per-parcel" title="Link to this heading">¶</a></h3>
+<p>When creating the MFIX-PIC model, programmers chose to define particles per parcel for two reasons.</p>
+<ol class="arabic simple">
+<li><p>The user has full control over the statistical weights of the PIC parcels and is not reliant on the computer code to calculate those values without knowledge of the simulation being run.</p></li>
+<li><p>In most CFD simulations, mesh can be highly variable.  When a user defines parcels/cell, the smallest cell will limit the number of parcels that can be placed in any cell at initialization.  By defining particles/parcel, the check we suggest for examining the smallest cell only limits the overall size of the parcel, and a more even solids void fraction can be achieved at start-up.  An argument can be made that multiple initialization regions can be created to smooth solids void fraction using the parcel/cell method, but this only complicates set-up.</p></li>
+</ol>
+</section>
+<section id="what-is-a-good-number-or-range-for-the-number-of-parcels-per-cells">
+<h3><span class="section-number">13.9.7. </span>What is a good number (or range) for the number of parcels per cells?<a class="headerlink" href="#what-is-a-good-number-or-range-for-the-number-of-parcels-per-cells" title="Link to this heading">¶</a></h3>
+<p>It depends on the kind of simulation you are trying to run, how many processors you have available to you, and what kind of fidelity you expect.
+Avoid going below 3 parcels/cell in a serial run where there is very little dynamic (like settling).</p>
+<p>Typically, around 10 parcels/cell works smoothly. If the simulation looks chunky, reduce the number of particles/parcel, thus upping the parcels/cell count.</p>
+</section>
+<section id="what-solids-model-parameter-values-work-best-for-the-pic-model-when-running-2-densities-that-are-roughly-10x-different-in-magnitude">
+<h3><span class="section-number">13.9.8. </span>What solids model parameter values work best for the PIC model when running 2 densities that are roughly 10x different in magnitude?<a class="headerlink" href="#what-solids-model-parameter-values-work-best-for-the-pic-model-when-running-2-densities-that-are-roughly-10x-different-in-magnitude" title="Link to this heading">¶</a></h3>
+<p>A density difference like this (say 300 kg/m <sup>3</sup> and 3,000 kg/m <sup>3</sup>) will cause natural physical separation in most systems.
+To capture the best physics in a PIC model where density drives strong gravitational effects,
+choose <span class="math notranslate nohighlight">\(P_p\)</span> =1 and <span class="math notranslate nohighlight">\(\gamma\)</span> =5 to begin.  You may still need to adjust these
+parameters but these choices will give you a good place to start.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="reference/udf_control.html" class="btn btn-neutral float-left" title="12.1.20. UDF control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

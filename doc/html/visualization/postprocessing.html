@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.2. Post Processing &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. GUI reference" href="../user_interface_reference.html" />
+    <link rel="prev" title="7.1. Visualization in GUI" href="visualization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">7. Visualization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">7.1. Visualization in GUI</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.2. Post Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-paraview">7.2.1. Running ParaView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-postmfix">7.2.2. Building postmfix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-postmfix">7.2.3. Running postmfix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">7. </span>Visualization</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.2. </span>Post Processing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/visualization/postprocessing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="post-processing">
+<h1><span class="section-number">7.2. </span>Post Processing<a class="headerlink" href="#post-processing" title="Link to this heading">¶</a></h1>
+<p>MFiX can generate output data in several formats for visualization and analysis.
+The command line tool <code class="docutils literal notranslate"><span class="pre">postmfix</span></code> is distributed with MFiX. In addition, the
+MFiX output file format is supported by the open source GUI tools <a class="reference external" href="https://www.paraview.org">ParaView</a> (version 4.1 or later) and <a class="reference external" href="https://wci.llnl.gov/simulation/computer-codes/visit/">VisIt</a>.</p>
+<p>The following table lists the files typically associated with an MFiX simulation.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-number">Table 7.1 </span><span class="caption-text">Output Format Table</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Filename</p></th>
+<th class="head"><p>File Type</p></th>
+<th class="head"><p>Fluid Data</p></th>
+<th class="head"><p>Particle Data</p></th>
+<th class="head"><p>Paraview</p></th>
+<th class="head"><p>VisIt</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;.RES</span></code></p></td>
+<td><p>MFiX Binary</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_###_DES.RES</span></code></p></td>
+<td><p>MFiX Binary</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_###.vtu</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;_###.vtu</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_DES.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_DES_###.vtp</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;_###.vtp</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ol class="arabic simple">
+<li><p>pvd files only contain information linking the respective .vtu and .vtp files to time- step information.</p></li>
+<li><p>&lt;VTK_REGION &gt;_###.vtp files are binary files. The &lt;RUN_NAME &gt;_DES_###.vtp are ASCII files.</p></li>
+</ol>
+<section id="running-paraview">
+<h2><span class="section-number">7.2.1. </span>Running ParaView<a class="headerlink" href="#running-paraview" title="Link to this heading">¶</a></h2>
+<p>This walk through demonstrates how to use ParaView to visualize the results of
+the <cite>dem/fluid_bed_2d</cite> tutorial. It is assumed that the <cite>dem/fluid_bed_2d</cite> tutorial was
+successfully run with default settings and that ParaView is installed on your
+system. First, the tutorial demonstrates how to visualize the fluid field; then,
+the DEM particles are added using spherical glyphs.</p>
+<figure class="align-default" id="id2" style="width: 8cm">
+<span id="fig-paraview-fileopen"></span><a class="reference internal image-reference" href="../_images/paraview_1.png"><img alt="paraview visualization" src="../_images/paraview_1.png" style="width: 8cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 7.1 </span><span class="caption-text">Click on File icon <img alt="file" src="../_images/paraview_file_icon.png" />, or <span class="u">F</span>ile &gt; Open</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Fluid field results for a standard structured mesh are displayed in ParaView by
+loading the .RES file. To open the RES file, click on File/Open
+(<a class="reference internal" href="#fig-paraview-fileopen"><span class="std std-numref">Figure 7.1</span></a>), and navigate to your run directory.</p>
+<p>Select the <code class="docutils literal notranslate"><span class="pre">DES_FB1.RES</span></code> file (<a class="reference internal" href="#fig-paraview-loadres"><span class="std std-numref">Figure 7.2</span></a>).
+Do NOT load the DES restart file (<code class="docutils literal notranslate"><span class="pre">DES_FB1_DES.RES</span></code>). This binary file is not
+supported by any visualization software. It only contains restart data and will
+likely cause ParaView to crash if loaded.</p>
+<p>Once the file is loaded, you need to click on the green “Apply” icon <a class="reference internal" href="../_images/paraview_apply_icon.jpg"><img alt="apply" src="../_images/paraview_apply_icon.jpg" style="width: 1cm;" /></a> to load
+all of the variables.</p>
+<figure class="align-default" id="id3" style="width: 8cm">
+<span id="fig-paraview-loadres"></span><a class="reference internal image-reference" href="../_images/paraview_2.png"><img alt="paraview visualization" src="../_images/paraview_2.png" style="width: 8cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 7.2 </span><span class="caption-text">Load <code class="docutils literal notranslate"><span class="pre">DES_FB1.RES</span></code> (do NOT load <code class="docutils literal notranslate"><span class="pre">DES_FB1_DES.RES</span></code>)</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Newer versions of ParaView require that you select the appropriate reader.
+Choose to open the data with “MFiX Unstructured Grid Files”.
+(<a class="reference internal" href="#fig-paraview-unstructured"><span class="std std-numref">Figure 7.3</span></a>)</p>
+<figure class="align-default" id="id4" style="width: 8cm">
+<span id="fig-paraview-unstructured"></span><a class="reference internal image-reference" href="../_images/paraview_3.png"><img alt="paraview visualization" src="../_images/paraview_3.png" style="width: 8cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 7.3 </span><span class="caption-text">Select “MFiX Unstructured Grid Files”</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>ParaView typically displays the gas phase volume fraction once the data is
+loaded. It may be necessary to rescale the data range as the initial range may
+only be suitable for displaying the initial conditions. This can be done by
+clicking the <img alt="rescale" src="../_images/paraview_rescale_icon.jpg" /> icon.</p>
+<figure class="align-default" id="id5" style="width: 8cm">
+<span id="fig-paraview-pvd"></span><a class="reference internal image-reference" href="../_images/paraview_4.png"><img alt="paraview visualization" src="../_images/paraview_4.png" style="width: 8cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 7.4 </span><span class="caption-text">Open DES_FB1_DES.pvd</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>DEM and PIC particle simulation data is loaded into ParaView by opening the
+<code class="docutils literal notranslate"><span class="pre">.pvd</span></code> file. (<a class="reference internal" href="#fig-paraview-pvd"><span class="std std-numref">Figure 7.4</span></a>)</p>
+<p>Again, click on the green “Apply” icon <a class="reference internal" href="../_images/paraview_apply_icon.jpg"><img alt="apply" src="../_images/paraview_apply_icon.jpg" style="width: 1cm;" /></a> to load all of the variables.
+(<a class="reference internal" href="#fig-paraview-load"><span class="std std-numref">Figure 7.5</span></a>)</p>
+<figure class="align-default" id="id6" style="width: 8cm">
+<span id="fig-paraview-load"></span><a class="reference internal image-reference" href="../_images/paraview_5.jpg"><img alt="paraview visualization" src="../_images/paraview_5.jpg" style="width: 8cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 7.5 </span><span class="caption-text">Load all variables</span><a class="headerlink" href="#id6" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Particles are shown by applying a glyph to the
+dataset. To apply a glyph filter, either:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="u">F</span>ilters &gt; Alphabetical &gt; Glyph</p></li>
+<li><p>or click the <img alt="glyph" src="../_images/paraview_glyph_icon.jpg" /> icon.</p></li>
+</ul>
+</div></blockquote>
+<p>Commonly, particle data is represented using:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><cite>Sphere</cite> glyph type and</p></li>
+<li><p>Scalar scale mode with a scale factor of one.</p></li>
+</ol>
+</div></blockquote>
+<p>Note that these screenshots may appear differently depending on your version of
+ParaView.</p>
+</section>
+<section id="building-postmfix">
+<h2><span class="section-number">7.2.2. </span>Building postmfix<a class="headerlink" href="#building-postmfix" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">postmfix</span></code> command is used for reading the binary MFiX <code class="docutils literal notranslate"><span class="pre">.SPx</span></code> output
+files and outputting data to text files. The following walk-through demonstrates
+how to run <code class="docutils literal notranslate"><span class="pre">postmfix</span></code> on the results from the <cite>dem/fluid_bed_2d</cite> tutorial with the
+default settings.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">postmfix</span></code> executable is built by running <code class="docutils literal notranslate"><span class="pre">build_mfixsolver</span></code> with the
+<code class="docutils literal notranslate"><span class="pre">--postmfix</span></code> flag:</p>
+<p>From the installed package:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(mfix-25.2.1)</span><span class="gp">$ </span>build_mfixsolver<span class="w"> </span>--postmfix
+</pre></div>
+</div>
+<p>From source:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>mfix-25.2
+<span class="gp">$ </span>mkdir<span class="w"> </span>build
+<span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>build/
+<span class="gp">$ </span>cmake<span class="w"> </span>..<span class="w"> </span>-DENABLE_POSTMFIX<span class="o">=</span><span class="m">1</span>
+<span class="gp">$ </span>make<span class="w"> </span>postmfix
+</pre></div>
+</div>
+</section>
+<section id="running-postmfix">
+<h2><span class="section-number">7.2.3. </span>Running postmfix<a class="headerlink" href="#running-postmfix" title="Link to this heading">¶</a></h2>
+<p>After building, run the executable and enter the run name:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./postmfix
+<span class="go">Enter the RUN_NAME to post_process &gt; DES_FB1 ? DES_FB1&lt;Enter&gt;</span>
+</pre></div>
+</div>
+<p>A simple menu of options is presented. Type <cite>1</cite> to examine/print data and press Enter.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">*************************************************</span>
+<span class="go">0 - Exit POSTMFIX</span>
+<span class="go">1 - Examine/print data</span>
+<span class="go">2 - Write .RES from data in .SPx files</span>
+<span class="go">3 - Write .RES for a new grid, using old data</span>
+<span class="go">4 - Calculate miscellaneous quantities</span>
+<span class="go">5 - Print out variables</span>
+<span class="go">6 - Call user defined subroutine USR_POST</span>
+<span class="go">7 - Write a new SPx file with selected records</span>
+<span class="go">8 - Write new SPx files with time averaged data</span>
+<span class="go">9 - Perform ORNL calculations</span>
+<span class="go">10 - run scavenger code</span>
+<span class="go">*********************************** **************</span>
+<span class="go">Enter menu selection &gt; 1</span>
+
+<span class="go">Interactive data retrieval program. Type ? any time for help,</span>
+<span class="go">or press RETURN to select default values shown in parenthesis.</span>
+</pre></div>
+</div>
+<p>Type F to use the default data precision and press Enter.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">Write output using user - supplied precision? (T/F) F ? F&lt;Enter&gt;</span>
+</pre></div>
+</div>
+<p>Enter a time range for data extraction and analysis. The default simulation has
+a simulation length of one second, so enter a range from 0.1 seconds to 0.9
+seconds. The next prompt asks if the data should be time averaged. Press Enter
+to skip the averaging.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">Time: (0.000, 0.000) &gt; 0.1, 0.9</span>
+<span class="go">Time average ? (N) &gt; ? &lt; Enter &gt;</span>
+</pre></div>
+</div>
+<p>Enter the variable of interest. The default is the gas phase volume fraction,
+EP_G. A complete list of possible entries is given by typing <cite>?</cite> and
+Enter. Press Enter to select the gas phase volume fraction.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">Variable: (EP_g) &gt; ? &lt; Enter &gt;</span>
+</pre></div>
+</div>
+<p>Next, enter the spatial range to extract the data. This requires an understanding
+of the I/J/K values for your simulation. Basic geometric information for the
+simulation is provided in the .OUT file. For this example, we will take a
+vertical slice from the approximate center of the 2D domain.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">I range: (1, 1) &gt; 8 , 8 ? 8,8&lt; Enter &gt;</span>
+<span class="go">J range: (1, 1) &gt;2,40 ? 2,40&lt; Enter &gt;</span>
+<span class="go">Average or sum over J? (N) &gt; ? &lt; Enter &gt;</span>
+<span class="go">K range: (1, 1) &gt; ? &lt; Enter &gt;</span>
+</pre></div>
+</div>
+<p>Specify where to output the data. Press Enter to select the default <code class="docutils literal notranslate"><span class="pre">*</span></code>, which will send
+the data to the terminal. Alternatively, specify a file name to save the data in a data file.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">File: (*) &gt; ? &lt;Enter&gt; prints to screen</span>
+<span class="gp gp-VirtualEnv">(filename&lt;Enter&gt; saves to filename)</span>
+<span class="go">X = 6.5000</span>
+<span class="go">Z = - 0.20000</span>
+<span class="go">Time = 0.10075</span>
+<span class="go">Y      EP_g</span>
+<span class="go">1.0000 0.43971</span>
+<span class="go">3.0000 0.45994</span>
+<span class="go">....etc....</span>
+</pre></div>
+</div>
+<p>After the output is generated, you will be presented with a prompt to continue data extraction or analysis. Type
+<cite>q</cite> and Enter to return to the main menu. From the main menu, type <cite>0</cite> and Enter
+to exit .</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">Time: (1.000, 1.000) &gt; q ? q&lt; Enter &gt; to quit</span>
+<span class="go">&lt; main menu is displayed again &gt;</span>
+<span class="go">Enter menu selection &gt; 0 ? 0&lt; Enter &gt; to exit</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="visualization.html" class="btn btn-neutral float-left" title="7.1. Visualization in GUI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../user_interface_reference.html" class="btn btn-neutral float-right" title="8. GUI reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

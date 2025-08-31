@@ -1,0 +1,178 @@
+.. _model_setup:
+
+.. include:: /icons.rst
+
+===========
+Model setup
+===========
+
+The Model pane is used to specify global project settings. Depending on what
+is selected, other panes are enabled or disabled.
+
+-  **Description** allows for a short model description to be provided. This is
+   written in the .OUT file by the solver.
+
+-  **Solver** specifies the model solver.
+
+   -  *Single-phase* is the MFiX fluid solver. This disables all solids
+      model inputs.
+
+   -  *Two-Fluid Model (MFiX-TFM)* treats both the fluid and solids as
+      interpenetrating continua.
+
+   -  *Discrete Element Model (MFiX-DEM)* treats the fluid as a continuum
+      while modeling individual particles as spheres and collisions.
+
+   -  *Coarse-grained Particle Model (MFiX-CGP)* treats the fluid as a continuum
+      while using single spheres and collisions to represent groups of real
+      particles with similar physical characteristics.
+
+   -  *Superquadric Particle Model (MFiX-SQP)* treats the fluid as a continuum
+      while modeling individual particles using superquadrics and collisions.
+      Superquadrics allow for modeling non-spherical particles.
+
+   -  *Glued-sphere Particle Model (MFiX-GSP)* treats the fluid as a continuum
+      while "gluing" DEM particles to each other to approximate the behavior of
+      non-spherical particles.
+
+   -  *Particle in Cell Model (MFiX-PIC)* treats the fluid as a continuum
+      while using “parcels” to represent groups of real particles with
+      similar physical characteristics.
+
+-------
+
+-  **Disable the fluid phase** turns off the fluid solver for MFiX-TFM and
+   MFiX-DEM simulations for pure granular flows. The fluid solver cannot
+   be disabled for single-phase flows.
+
+-  **Enable thermal energy equations** solves thermal transport equations
+   for all phases.
+
+-  **Turbulence Model** incorporates the selected turbulence model.
+
+   -  *None* - Do not include turbulence.
+
+   -  *L-Scale Mixing* - Algebraic (zero-equation) turbulence model.
+
+      -   Requires a turbulent length scale definition for all
+          initial condition regions.
+
+   -  *K-Epsilon* - Two-equation turbulence model (turbulent kinetic energy and
+      turbulent dissipation rate).
+
+      -  Requires turbulent kinetic energy and turbulent dissipation
+         definitions for all initial condition regions and all mass and
+         pressure inflow boundary conditions.
+
+-  **Max turbulent viscosity** has units of :math:`(Pa \cdot sec)` and
+   is used to bound turbulent viscosity.
+
+-------
+
+-  **Gravity** has units of :math:`({m}/{sec^2})` and defines gravitational
+   acceleration in the x, y, and z directions.
+
+-------
+
+-  **Drag model** specifies the fluid-particle drag model. This option is only
+   available with the MFiX-TFM and MFiX-DEM solvers.
+
+   - *Syamlal-O'Brien* [SB1988]_
+
+     -  Requires the specification of the C1 tuning parameter, 0.8 by default.
+     -  Requires the specification of the D1 tuning parameter, 2.65 by default.
+
+   -  *Beestra-van der Hoef-Kuipers* [BVK2007]_
+   -  *Gidaspow* [DG1990]_
+   -  *Gidaspow Blend* [LB2000]_
+   -  *Holloway-Yin-Sundaresan* [HYS2010]_
+
+      -  Requires the specification of the lubrication cutoff distance,
+         1e-6 meters by default.
+
+   -  *Koch-Hill* [HKL2001]_
+   -  *Wen-Yu* [WY1966]_
+   -  *User-Defined Function (UDF)*
+
+      -  A custom drag model must be provided in the usr_drag.f file
+      -  A custom solver must be built.
+
+.. note:: The *polydisperse* tag following a specified drag model indicates
+   that the polydisperse correction factor is available. For additional
+   details see [HBK2005]_, [BVK2007a]_, and [BVK2007b]_.
+
+-------
+
+Other advanced options that can be selected include:
+
+-  Momentum formulation (Model A, Model B, Jackson, or Ishii)
+
+   -  *Model A*
+   -  *Model B*
+   -  *Jackson*
+   -  *Ishii*
+
+-  Select sub-grid model
+
+   -  *None*
+   -  *Igci* [IPBS2012]_
+   -  *Milioli* [MMHAS2013]_
+
+-  Sub-grid filter size
+-  Sub-grid wall correction
+
+.. note:: There are some restrictions to when using sub-grid models. They
+   are only available with MFiX-TFM simulations using the Wen-Yu drag law,
+   and without turbulence model. Additional restrictions apply.
+
+
+.. [SB1988] Syamlal, M, and O'Brien, T.J. (1988). Simulation of granular layer
+   inversion in liquid fluidized beds, *International Journal of Multiphase Flow*,
+   Volume 14, Issue 4, Pages 473-481, https://doi.org/10.1016/0301-9322(88)90023-7.
+
+.. [HKL2001] Hill, R., Koch, D., and Ladd, A. (2001). Moderate-Reynolds-number flows
+   in ordered and random arrays of spheres. *Journal of Fluid Mechanics*,
+   Volume 448, Pages 243-278. https://doi.org/10.1017/S0022112001005936
+
+.. [DG1990] Ding, J. and Gidaspow, D. (1990). A bubbling fluidization model using
+   kinetic theory of granular flow, *AIChE Journal*, Volume 36, Issue 4, Pages
+   523-538, https://doi.org/10.1002/aic.690360404
+
+.. [LB2000] Lathouwers, D. and Bellan J. (2000). Modeling of dense gas-solid
+   reactive mixtures applied to biomass pyrolysis in a fluidized bed, Proceedings
+   of the 2000 U.S. DOE Hydrogen Program Review,
+   https://www.nrel.gov/docs/fy01osti/28890.pdf
+
+.. [WY1966] Wen C.Y., and Yu Y.H. (1966). Mechanics of fluidization, *The
+   Chemical Engineering Progress Symposium Series*, Volume 62, Pages 100-111.
+
+.. [BVK2007] Beetstra, R., van der Hoef, M.A., and Kuipers, J.A.M. (2007). Numerical
+   study of segregation using a new drag force correlation for polydisperse systems
+   derived from lattice-Boltzmann simulations, *Chemical Engineering Science*,
+   Volume 62, Issues 1–2, Pages 246-255. https://doi.org/10.1016/j.ces.2006.08.054.
+
+.. [HYS2010] Holloway, W., Yin, X., and Sundaresan, S. (2010). Fluid‐particle drag
+   in inertial polydisperse gas–solid suspensions, *AIChE Journal*, Volume 56,
+   Issue 8, Pages 1995-2004. https://doi.org/10.1002/aic.12127
+
+.. [HBK2005] Hoef, M., Beetstra, R., and Kuipers, J. (2005). Lattice-Boltzmann
+   simulations of low-Reynolds-number flow past mono- and bidisperse arrays of
+   spheres: Results for the permeability and drag force. *Journal of Fluid
+   Mechanics*, Volume 528, Pages 233-254. https://doi.org/10.1017/S0022112004003295
+
+.. [BVK2007a] Beetstra, R. , van der Hoef, M. A. and Kuipers, J. A. (2007), Drag
+   force of intermediate Reynolds number flow past mono‐ and bidisperse arrays of
+   spheres. AIChE J., 53: 489-501. https://doi.org/10.1002/aic.11065
+
+.. [BVK2007b] (2007), Erratum. AIChE J., 53: 3020-3020. https://doi.org/10.1002/aic.11330
+
+
+.. [IPBS2012] Igci, Y., Pannala, S., Benyahia, S., and Sundaresan, S. (2012). Validation
+   studies on filtered model equations for gas-particle flows in risers, *Industrial
+   & Engineering Chemistry Research*, Volume 54, Issue 4, Pages 2094-2103.
+   https://doi.org/10.1021/ie2007278
+
+.. [MMHAS2013] Milioli, C.C., Milioli, F.E., Holloway, W., Agrawal, K. and Sundaresan, S.
+   (2013), Filtered two‐fluid models of fluidized gas‐particle flows: New constitutive
+   relations. *AIChE J.*, Volume 59, Issue 9, Pages 3265-3275.
+   https://doi.org/10.1002/aic.14130

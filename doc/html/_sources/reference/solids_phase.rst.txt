@@ -1,0 +1,4 @@
+Solids phase
+============
+
+.. include:: /reference/solids_phase_gen.rst

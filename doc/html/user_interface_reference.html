@@ -1,0 +1,1032 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8. GUI reference &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="_static/mfix.css?v=31071079" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Running interactive solver job in queue" href="queue.html" />
+    <link rel="prev" title="7.2. Post Processing" href="visualization/postprocessing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. GUI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-toolbar">8.1. Main toolbar</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#run-dialog">8.1.1. Run dialog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#run-locally">8.1.1.1. Run locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submit-to-queue">8.1.1.2. Submit to queue</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#build-dialog">8.1.2. Build dialog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reset-dialog">8.1.3. Reset dialog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-dialog">8.1.4. Parameter dialog</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#menu">8.2. Menu</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#project-info">8.2.1. Project Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new">8.2.2. New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open">8.2.3. Open</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save">8.2.4. Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#export-project">8.2.5. Export project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submit-bug-report">8.2.6. Submit bug report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings">8.2.7. Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#help">8.2.8. Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#about">8.2.9. About</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quit">8.2.10. Quit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-panes">8.3. Model panes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-setup">8.3.1. Model setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometry">8.3.2. Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mesh">8.3.3. Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regions">8.3.4. Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fluid">8.3.5. Fluid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solids">8.3.6. Solids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-conditions-ics">8.3.7. Initial conditions (ICs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boundary-conditions-bcs">8.3.8. Boundary conditions (BCs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-sources-pss">8.3.9. Point sources (PSs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#internal-surfaces-iss">8.3.10. Internal surfaces (ISs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chemistry">8.3.11. Chemistry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#numerics">8.3.12. Numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputs">8.3.13. Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitors">8.3.14. Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run">8.3.15. Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization-window">8.4. Visualization window</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model">8.4.1. Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-tab-s">8.4.2. Plot Tab(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtk-tab-s">8.4.3. VTK Tab(s)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#terminal-window">8.5. Terminal window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mode-bar">8.6. Mode bar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8. </span>GUI reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/user_interface_reference.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gui-reference">
+<span id="user-interface-reference"></span><h1><span class="section-number">8. </span>GUI reference<a class="headerlink" href="#gui-reference" title="Link to this heading">¶</a></h1>
+<section id="main-toolbar">
+<h2><span class="section-number">8.1. </span>Main toolbar<a class="headerlink" href="#main-toolbar" title="Link to this heading">¶</a></h2>
+<p>The Main toolbar is located at the top of the GUI window.
+The following table illustrates the icons in the toolbar.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/menu.svg"><img alt="Menu" src="_images/menu.svg" style="width: 16px;" /></a></p></td>
+<td><p><a class="reference internal" href="#menu"><span class="std std-ref">Menu</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/save.svg"><img alt="Save" src="_images/save.svg" style="width: 16px;" /></a></p></td>
+<td><p>Saves the current project file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/play.svg"><img alt="Start" src="_images/play.svg" style="width: 16px;" /></a></p></td>
+<td><p>Start/resume MFIX simulation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/pause.svg"><img alt="Pause" src="_images/pause.svg" style="width: 16px;" /></a></p></td>
+<td><p>Pause simulation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/stop.svg"><img alt="Stop" src="_images/stop.svg" style="width: 16px;" /></a></p></td>
+<td><p>Stop simulation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/restore_delete.svg"><img alt="Reset" src="_images/restore_delete.svg" style="width: 16px;" /></a></p></td>
+<td><p>Reset - clear output files</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/build.svg"><img alt="Build" src="_images/build.svg" style="width: 16px;" /></a></p></td>
+<td><p><a class="reference internal" href="#build-dialog"><span class="std std-ref">Build dialog</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/sliders.svg"><img alt="Parameters" src="_images/sliders.svg" style="width: 16px;" /></a></p></td>
+<td><p><a class="reference internal" href="#parameters"><span class="std std-ref">Parameter dialog</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/settings.svg"><img alt="Settings" src="_images/settings.svg" style="width: 16px;" /></a></p></td>
+<td><p>General MFiX settings</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/help.svg"><img alt="Help" src="_images/help.svg" style="width: 16px;" /></a></p></td>
+<td><p>MFiX help (documentation)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/search.svg"><img alt="Search" src="_images/search.svg" style="width: 16px;" /></a></p></td>
+<td><p>Search for MFIX keywords</p></td>
+</tr>
+</tbody>
+</table>
+<p>The interactive solver sends its status during the simulation, and the
+solver controls will be enabled or disabled, depending on the solver
+state.</p>
+<p>Solver controls:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" rowspan="3"></th>
+<th class="head" colspan="4"><p>Solver state is….</p></th>
+</tr>
+<tr class="row-even"><th class="head" colspan="2"><p>…Running and….</p></th>
+<th class="head" colspan="2"><p>…Stopped with…</p></th>
+</tr>
+<tr class="row-odd"><th class="head"><p>…Unpaused.</p></th>
+<th class="head"><p>…Paused.</p></th>
+<th class="head"><p>no RES.</p></th>
+<th class="head"><p>RES.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/play.svg"><img alt="Start" src="_images/play.svg" style="width: 16px;" /></a>  Start</p></td>
+<td><p>Disabled</p></td>
+<td><p>Unpause</p></td>
+<td><p>Start</p></td>
+<td><p>Resume</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/pause.svg"><img alt="Pause" src="_images/pause.svg" style="width: 16px;" /></a>  Pause</p></td>
+<td><p>Pause</p></td>
+<td colspan="3"><p>Disabled</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/stop.svg"><img alt="Stop" src="_images/stop.svg" style="width: 16px;" /></a>   Stop</p></td>
+<td colspan="2"><p>Stops the solver</p></td>
+<td colspan="2"><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/restore_delete.svg"><img alt="Reset" src="_images/restore_delete.svg" style="width: 16px;" /></a>  Reset</p></td>
+<td colspan="3"><p>Disabled</p></td>
+<td><p>Clear RES</p></td>
+</tr>
+</tbody>
+</table>
+<p>If no MFiX job is currently running, the Start button will open the run
+dialog where settings for a job can be changed. The simulation can be
+started from this dialog. If an MFiX job is running, you can pause it
+with the pause button and un-pause it with the start button. You can
+stop a running MFiX job with the stop button. A stopped job leaves
+restart (*.RES) and output files to resume the simulation. Starting a
+job by pressing the Start button with *.RES files present will resume
+the job where it stopped. The Reset button will allow the option to
+delete the *.RES files and output files from the project directory.
+This will allow the simulation to start from the beginning the next time the
+Start button is pressed.</p>
+<section id="run-dialog">
+<span id="id1"></span><h3><span class="section-number">8.1.1. </span>Run dialog<a class="headerlink" href="#run-dialog" title="Link to this heading">¶</a></h3>
+<p>The run dialog is used for entering options on starting the solver.</p>
+<p>Different solvers can be selected.</p>
+<p>If a custom solver is compiled with SMP or DMP support, the following options may be available:</p>
+<ul class="simple">
+<li><p>Threads (number of threads used for OpenMP)</p></li>
+<li><p>NODESI (number divisions in X direction)</p></li>
+<li><p>NODESJ (number divisions in Y direction)</p></li>
+<li><p>NODESK (number divisions in Z direction)</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(NODESI \times NODESJ \times NODESK = n\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the
+number of MPI processes running. If not using MPI,
+<span class="math notranslate nohighlight">\(NODESI=NODESJ=NODESK=1\)</span>.</p>
+<p>The GUI supports running both locally as well as submitting to a queue.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SMP and DMP options are disabled for the default solver.
+You will need to build a custom solver with DMP or SMP flags
+to enable these options.</p>
+</div>
+<section id="run-locally">
+<h4><span class="section-number">8.1.1.1. </span>Run locally<a class="headerlink" href="#run-locally" title="Link to this heading">¶</a></h4>
+<p>To run locally, select a solver
+from the drop-down list or click the browse button to specify a solver that
+is not in the list. Usually the default installed solver should be sufficient.
+If running a case with UDFs, you need to first build a case-specific MFiX as
+described in the <a class="reference internal" href="getting_started/index.html#setup-guide"><span class="std std-ref">Getting started</span></a>. You may want to build your own solver for
+other reasons, such as specifying various compiler flags to optimize the
+executable for your specific hardware.</p>
+<p>Make sure the “Submit to queue” checkbox is unchecked, and
+click “Run” in the Run dialog to start the solver.</p>
+</section>
+<section id="submit-to-queue">
+<h4><span class="section-number">8.1.1.2. </span>Submit to queue<a class="headerlink" href="#submit-to-queue" title="Link to this heading">¶</a></h4>
+<p>To submit a job to a queue (submit to queuing system, e.g. Grid Engine,
+PBS, SLURM), select the “Submit to Queue” tab. Select an executable from
+the drop-down list or click the browse button to specify an executable
+that is not in the list. Next, select a template from the drop-down list
+or click the browse button to choose a template that is not in the
+drop-down list. Based on the selected template, the widgets in the
+“queue options” section will update automatically. Once the options are
+specified, click “submit” in the run dialog to submit the job to the
+queue.</p>
+<p>Custom queue scripts are supported. The format for this script is
+described in the <a class="reference external" href="#queue-templates">Queue Templates</a> section.</p>
+</section>
+</section>
+<section id="build-dialog">
+<span id="id2"></span><h3><span class="section-number">8.1.2. </span>Build dialog<a class="headerlink" href="#build-dialog" title="Link to this heading">¶</a></h3>
+<p>The build dialog is used for building custom solvers in project run directories.
+This is used to build <a class="reference internal" href="solver/build-custom.html#build-custom"><span class="std std-ref">Building custom interactive solver</span></a>.</p>
+<p>There is a combo box to select the Fortran compiler command. It will be
+populated with any <a class="reference internal" href="solver/build-batch.html#compiler-list"><span class="std std-ref">known Fortran compilers</span></a> in <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.
+Alternatively, type in the command for the compiler.</p>
+<p>There is a field to type in the flags for the Fortran compiler. See your
+compiler manual for details, such as the <a class="reference external" href="https://gcc.gnu.org/onlinedocs/gfortran/Option-Summary.html">GNU Fortran Manual</a>.</p>
+<p>There are checkboxes for building with SMP or DMP support. Note that DMP support
+requires both checking the DMP box, and selecting an MPI compiler (such as
+<cite>mpifort</cite>). The “Build solver in parallel” checkbox will run <code class="docutils literal notranslate"><span class="pre">make</span></code> with
+multiple jobs. DMP and SMP are not available on Windows.</p>
+<p>If “Enable developer mode” is checked in <a class="reference internal" href="#settings"><span class="std std-ref">Settings</span></a>, then there will be a
+checkbox for building either the interactive solver or the batch solver.</p>
+<p>“Build command” displays the command line used for building the solver with
+the selected options.</p>
+</section>
+<section id="reset-dialog">
+<h3><span class="section-number">8.1.3. </span>Reset dialog<a class="headerlink" href="#reset-dialog" title="Link to this heading">¶</a></h3>
+<p>The Reset dialog allows for optional deleting of output files from the
+run directory. These files include:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File type</p></th>
+<th class="head"><p>Wild-card match</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Restart</p></td>
+<td><p>*.RES</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPx</p></td>
+<td><p>*.SP?</p></td>
+</tr>
+<tr class="row-even"><td><p>VTK</p></td>
+<td><p>*.vtp, *.vtu, *.pid</p></td>
+</tr>
+<tr class="row-odd"><td><p>Other</p></td>
+<td><p>*.OUT, *.pid, *.error, *.e[0-9]*, *.pe[0-9]*, *.po[0-9]*</p></td>
+</tr>
+</tbody>
+</table>
+<p>*.RES and *.SPx files have to be removed from the run directory before
+a simulation can be played from the beginning. It is recommended to
+remove VTK files from the run directory as well because they will be
+over-written.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are restart files present in the run directory, some widgets will
+be disabled because certain model parameters can not be edited during a
+resume, or restart state.</p>
+</div>
+</section>
+<section id="parameter-dialog">
+<span id="parameters"></span><h3><span class="section-number">8.1.4. </span>Parameter dialog<a class="headerlink" href="#parameter-dialog" title="Link to this heading">¶</a></h3>
+<p>The parameter dialog allows users to create parameters, or variables,
+that can then be referenced in widgets that support the use of these
+parameters. This functionality allows user to create relationships among
+various inputs and change the values of multiple items by changing the
+value of a single parameter. In many respects, this is similar to features
+present in most commercial CAD packages.</p>
+<p>There are six special parameters; <code class="docutils literal notranslate"><span class="pre">xmin</span></code>, <code class="docutils literal notranslate"><span class="pre">xmax</span></code>, <code class="docutils literal notranslate"><span class="pre">ymin</span></code>, <code class="docutils literal notranslate"><span class="pre">ymax</span></code>,
+<code class="docutils literal notranslate"><span class="pre">zmin</span></code>, and <code class="docutils literal notranslate"><span class="pre">zmax</span></code> that reference the simulation domain extents, entered on
+the geometry pane. These parameters make it easy to setup regions that
+automatically adjust to the simulation domain if the extents change.</p>
+</section>
+</section>
+<section id="menu">
+<span id="id3"></span><h2><span class="section-number">8.2. </span>Menu<a class="headerlink" href="#menu" title="Link to this heading">¶</a></h2>
+<p>The main menu allows for opening, creating, copying, and exporting
+projects as well as viewing project meta data, changing settings, and
+viewing available help documentation, including this document.</p>
+<section id="project-info">
+<h3><span class="section-number">8.2.1. </span>Project Info<a class="headerlink" href="#project-info" title="Link to this heading">¶</a></h3>
+<p>Selecting File &gt; Project Info displays metadata about the current project file.
+The following table details the content of the metadata.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Label</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>File name</p></td>
+<td><p>full path to MFiX project file</p></td>
+</tr>
+<tr class="row-odd"><td><p>Project version</p></td>
+<td><p>version number, incremented each time project is saved</p></td>
+</tr>
+<tr class="row-even"><td><p>Created with MFiX version</p></td>
+<td><p>version of MFiX that project was created with</p></td>
+</tr>
+<tr class="row-odd"><td><p>Author</p></td>
+<td><p>user name who created the project</p></td>
+</tr>
+<tr class="row-even"><td><p>Modified By</p></td>
+<td><p>list of user names that edited the project</p></td>
+</tr>
+<tr class="row-odd"><td><p>Last modified</p></td>
+<td><p>date and time the project was last modified</p></td>
+</tr>
+<tr class="row-even"><td><p>Created</p></td>
+<td><p>date and time the project was created</p></td>
+</tr>
+<tr class="row-odd"><td><p>Notes</p></td>
+<td><p>area where the user can record notes about the project</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="new">
+<span id="new-project"></span><h3><span class="section-number">8.2.2. </span>New<a class="headerlink" href="#new" title="Link to this heading">¶</a></h3>
+<p>Selecting File &gt; New creates a new project file from a template file. When a template is
+selected, the GUI will ask for a project name and parent directory to
+save the project to. A new directory with the project name will be
+created in the parent directory. A .mfx file will be created in that
+directory by copying the contents of the selected template file. Any
+other files, such as *.stl files, will also be copied if present. The
+list of templates can be filtered by selecting one or more of the
+following model types:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/single.svg"><img alt="Single" src="_images/single.svg" style="width: 16px;" /></a></p></td>
+<td><p>Single-phase Model</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/tfm.svg"><img alt="TFM" src="_images/tfm.svg" style="width: 16px;" /></a></p></td>
+<td><p>Two-fluid Model (TFM)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/pic.svg"><img alt="PIC" src="_images/pic.svg" style="width: 16px;" /></a></p></td>
+<td><p>Particle in Cell Model (PIC)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/dem.svg"><img alt="DEM" src="_images/dem.svg" style="width: 16px;" /></a></p></td>
+<td><p>Discrete Element Model (DEM)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/hybrid.svg"><img alt="Hybrid" src="_images/hybrid.svg" style="width: 16px;" /></a></p></td>
+<td><p>Hybrid Model (TFM + DEM)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/geometry.svg"><img alt="Geometry" src="_images/geometry.svg" style="width: 16px;" /></a></p></td>
+<td><p>Cartesian cut-cell (complex) geometry</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/chemistry.svg"><img alt="Chemistry" src="_images/chemistry.svg" style="width: 16px;" /></a></p></td>
+<td><p>Chemistry</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="open">
+<h3><span class="section-number">8.2.3. </span>Open<a class="headerlink" href="#open" title="Link to this heading">¶</a></h3>
+<p>Selecting File &gt; Open accesses a file dialog where the user can navigate
+to and select an existing project file both in .mfx format of the
+older mfix.dat format. Note that mfix.dat files used with older released
+versions of MFiX will be saved in the current .mfx format.
+The GUI also performs a number of updates, including keyword amendments
+and CGS to SI unit conversion. Any user files are not converted. It is strongly
+suggested that the project be checked after this update.</p>
+</section>
+<section id="save">
+<h3><span class="section-number">8.2.4. </span>Save<a class="headerlink" href="#save" title="Link to this heading">¶</a></h3>
+<p>Selecting File &gt; Save saves the current project files in the current project directory.</p>
+</section>
+<section id="export-project">
+<h3><span class="section-number">8.2.5. </span>Export project<a class="headerlink" href="#export-project" title="Link to this heading">¶</a></h3>
+<p>Export the current project to a new directory and/or as a new filename,
+but keeps the original project opened.</p>
+</section>
+<section id="submit-bug-report">
+<h3><span class="section-number">8.2.6. </span>Submit bug report<a class="headerlink" href="#submit-bug-report" title="Link to this heading">¶</a></h3>
+<p>When reporting issues, errors, or questions to the <a class="reference internal" href="about.html#support-forum"><span class="std std-ref">Support forum</span></a>, it is
+helpful to include your project file, UDFs, and any other files associated with
+your project, along with the current versions of MFiX and its dependencies, so
+that we may reproduce the reported issue.</p>
+<p>We offer a convenient way of sending this information in a single file.</p>
+<p>Clicking on ‘Submit bug report’ will create a .ZIP file the current directory,
+containing the relevant project files, and some version information about your
+system.</p>
+<p><strong>The bug report is not automatically transmitted to the MFiX developers.</strong> You are
+encouraged to open the zipfile and examine the files, if you have any concern
+about what information is being shared. Then post the zipfile as an attachment
+to <a class="reference external" href="https://mfix.netl.doe.gov/forum/c/mfix">https://mfix.netl.doe.gov/forum/c/mfix</a></p>
+<p>The bug report dialog will also pop up automatically if an exception occurs
+while using MFiX. This kind of report is especially helpful to MFiX
+developers, because it includes the stack trace.</p>
+</section>
+<section id="settings">
+<span id="id4"></span><h3><span class="section-number">8.2.7. </span>Settings<a class="headerlink" href="#settings" title="Link to this heading">¶</a></h3>
+<p>Choosing File &gt; Settings opens a dialog where the user can change settings
+that affect how the GUI behaves. Available options are listed in the
+following table.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Style</p></td>
+<td><p>change the application style</p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable animations</p></td>
+<td><p>enable or disable animated widgets</p></td>
+</tr>
+<tr class="row-even"><td><p>Animation Speed</p></td>
+<td><p>set the speed at which animations occur</p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable Developer
+Tools</p></td>
+<td><p>hide/show widgets that are mainly for developers of
+the GUI</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="help">
+<h3><span class="section-number">8.2.8. </span>Help<a class="headerlink" href="#help" title="Link to this heading">¶</a></h3>
+<p>Selecting File &gt; Help opens a dialog linking the user to available documentation
+(including this document) and tutorials, both text
+based and videos (if connected to the Internet) demonstrating features of the
+GUI.</p>
+</section>
+<section id="about">
+<h3><span class="section-number">8.2.9. </span>About<a class="headerlink" href="#about" title="Link to this heading">¶</a></h3>
+<p>Choosing File &gt; About displays the version of MFiX and the versions of the various
+dependencies that the GUI is using. If issues are discovered while using the
+GUI, it is recommended that any reports include this version information which
+can be easily copied by pressing the “copy version info” button.</p>
+</section>
+<section id="quit">
+<h3><span class="section-number">8.2.10. </span>Quit<a class="headerlink" href="#quit" title="Link to this heading">¶</a></h3>
+<p>Selecting File &gt; Quit exits MFiX. The GUI will ask for confirmation if project is unsaved or if a job
+is running.</p>
+</section>
+</section>
+<section id="model-panes">
+<h2><span class="section-number">8.3. </span>Model panes<a class="headerlink" href="#model-panes" title="Link to this heading">¶</a></h2>
+<p>Each pane in the main window allows editing of different options for an MFiX
+project. The Panes are ordered in a logical progression for traditional CFD problem setups:
+Model defines the overall solver type (TFM, DEM, PIC).
+Geometry and Mesh define the overall domain space of the solver.
+Regions are geometrical surfaces and volumes within the overall domain.
+Fluid and Solids specify details on the phases the solver deals with.
+Initial conditions (ICs), Boundary conditions (BCs), Point sources (PSs),
+and Internal surfaces (ISs) depend on Regions, Fluid, and Solids, so they come next.
+Chemistry provides options for reacting cases, and Numerics specifies
+details on the Eulerian solver.
+Output specifies how output data is written.
+Monitors provides options to probe the flow field at select locations and compute basic
+quantities of interest.
+Run specifies how long to run the solver for.
+(Post is not yet implemented).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Selections on panes may enable or disable widgets based on what input
+parameters are required or available.</p>
+</div>
+<section id="model-setup">
+<h3><span class="section-number">8.3.1. </span>Model setup<a class="headerlink" href="#model-setup" title="Link to this heading">¶</a></h3>
+<p>The Model pane is used to specify overall options for the project.
+Depending on what is selected, other panes may be enabled or disabled.
+Options that are specified on this pane include:</p>
+<ul class="simple">
+<li><p>Solver (Single-phase, Two-Fluid Model, DEM, PIC, Hybrid)</p></li>
+<li><p>Option to disable the fluid phase</p></li>
+<li><p>Option to enable thermal energy equations</p></li>
+<li><p>Option to enable turbulence, if the fluid phase is enabled</p></li>
+<li><p>Gravity in the x, y, and z directions</p></li>
+<li><p>Drag Model including parameters for the selected drag model</p></li>
+</ul>
+<p>Other advanced options that can be selected include:</p>
+<ul class="simple">
+<li><p>Momentum formulation (Model a, Model B, Jackson, or Ishii)</p></li>
+<li><p>Sub-grid model (only available with TFM, Wen-Yu drag model, etc…)</p></li>
+<li><p>Sub-grid filter size</p></li>
+<li><p>Sub-grid wall correction</p></li>
+</ul>
+</section>
+<section id="geometry">
+<h3><span class="section-number">8.3.2. </span>Geometry<a class="headerlink" href="#geometry" title="Link to this heading">¶</a></h3>
+</section>
+<section id="mesh">
+<h3><span class="section-number">8.3.3. </span>Mesh<a class="headerlink" href="#mesh" title="Link to this heading">¶</a></h3>
+</section>
+<section id="regions">
+<h3><span class="section-number">8.3.4. </span>Regions<a class="headerlink" href="#regions" title="Link to this heading">¶</a></h3>
+</section>
+<section id="fluid">
+<h3><span class="section-number">8.3.5. </span>Fluid<a class="headerlink" href="#fluid" title="Link to this heading">¶</a></h3>
+<p>The fluid pane is used to define the physical properties of the fluid phase.
+This includes adding fluid phase species which can either be imported from the
+<a class="reference external" href="http://garfield.chem.elte.hu/Burcat/burcat.html">BURCAT</a> thermodynamic database or created by the user. The GUI will generate the correct
+data format to use thermodynamic data in MFiX.</p>
+</section>
+<section id="solids">
+<h3><span class="section-number">8.3.6. </span>Solids<a class="headerlink" href="#solids" title="Link to this heading">¶</a></h3>
+<p>The solids pane is used to define the physical properties of each solid(s)
+phase. Names can be given to each solid. This name will be used throughout the
+GUI to reference that solid phase (i.e. when defining initial conditions,
+boundary conditions, etc.). The solid phase model (TFM, DEM, or PIC) can also be
+specified here, however the selectable solid phase model depends on the solver
+selected on the model pane.</p>
+<p>The selected solver will also enable/disable the TFM, DEM, and PIC sub-panes
+where various options for those solids models can be accessed.</p>
+</section>
+<section id="initial-conditions-ics">
+<span id="initial-conditions"></span><h3><span class="section-number">8.3.7. </span>Initial conditions (ICs)<a class="headerlink" href="#initial-conditions-ics" title="Link to this heading">¶</a></h3>
+<p>The initial conditions pane is used to define initial conditions for
+a selected Region (defined on each Region pane) for each phase (defined on
+Fluid or Solids panes). Initial conditions are required to cover the entire
+domain and provide an initial value for certain quantities that the solver will use to
+start the simulation. Experienced CFD users realize that providing reasonable
+initial values for volume fraction, temperature,
+pressure, and velocity allow simulations to reach/meet convergence criteria more quickly.</p>
+<p>To create a new initial condition, press the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button which will bring up
+the Region selection dialog. Select a region to associate with the new initial
+condition and press OK. Regions that are not volumes or are already used by
+another initial condition will not be selectable.</p>
+<p>Once the region has been created, values can be edited. Sub-panes will be
+created dynamically based on model parameters as well as the number of solid
+phases.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Initial condition regions may overlap. When an overlap occurs, the
+initial condition with the higher IC number will be used at that location.</p>
+</div>
+</section>
+<section id="boundary-conditions-bcs">
+<span id="boundary-conditions"></span><h3><span class="section-number">8.3.8. </span>Boundary conditions (BCs)<a class="headerlink" href="#boundary-conditions-bcs" title="Link to this heading">¶</a></h3>
+<p>The boundary conditions pane is used to define boundary conditions for
+a selected Region (defined on each Region pane) for each phase (defined on
+Fluid or Solids panes). This is where inflow, outflow, pressure, walls, and
+cyclic boundary conditions are created.</p>
+<p>To create a new boundary condition, press the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button which will bring up
+the Region selection dialog. Next, select a boundary type from the combo box.
+Regions will be enabled/disabled based on the selected boundary type and whether
+or not the region is already used by a boundary condition. Boundary conditions
+must be surfaces, either planes or collections of facets (STL). Pressing OK will
+create the boundary condition.</p>
+<p>The sub-panes are created dynamically for each boundary condition based on the
+boundary condition type as well as other model parameters including the number
+of solid species.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Two boundary surfaces must not intersect.</p>
+</div>
+</section>
+<section id="point-sources-pss">
+<span id="point-sources"></span><h3><span class="section-number">8.3.9. </span>Point sources (PSs)<a class="headerlink" href="#point-sources-pss" title="Link to this heading">¶</a></h3>
+<p>Point sources (PSs) are used in place of mass inlets where either the geometry
+and/or grid resolution prohibit traditional boundary condition specification. For
+example, a point source may be used to model an injector with dimensions smaller
+than the grid. Point sources may be defined within a single computational cell,
+along a plane, or as a volume of computational cells.</p>
+<p>Point sources introduce mass directly into a computational cell unlike a
+boundary condition which specifies flow along a cell face. One consequence of
+this implementation is that point sources are subjected to convection/diffusion
+forces and may not travel parallel to the specified directional preference.
+Directional preference is specified with a velocity vector (i.e., PS_U_g,
+PS_V_g, etc.), however, it is not required.</p>
+<p>To create a new point source, press the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button which will bring up
+the Region selection dialog. Select a region to associate with the new point
+source and press OK.</p>
+<p>The sub-panes are created dynamically for each point source based on the model
+parameters including the number of solid species.</p>
+</section>
+<section id="internal-surfaces-iss">
+<span id="internal-surfaces"></span><h3><span class="section-number">8.3.10. </span>Internal surfaces (ISs)<a class="headerlink" href="#internal-surfaces-iss" title="Link to this heading">¶</a></h3>
+<p>Internal surfaces allow the user to create a zero-thickness walls that are normal to one
+of the coordinate directions and coincide with one of the faces of the scalar control volume.</p>
+<p>Two types of internal surfaces are available: Impermeable, which acts as a free-slip wall for
+both gas and solids phases, and Semi-Impermeable, which allows only the gas phase to pass through
+the internal surface.</p>
+<p>To create a new internal surface, press the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button which will bring up
+the Region selection dialog. Select a region to associate with the new Internal Surface.
+Select the type of Internal surface and press OK. For Semi-Impermeable surfaces, the fluid permeability
+and Internal Resistance Coefficient must be provided as well.</p>
+<p>Typically, the region associated with an Internal Surface will be a plane. To specify a large number of
+internal surfaces in a region, a 3D region may be selected. In this case, a prefix (X_, Y_, or Z_) is added to the
+Internal Surface type to indicate the direction of the internal surfaces; e.g., X_IMPERMEABLE specifies
+impermeable internal surfaces parallel to the X coordinate.</p>
+<p>Internal surfaces act as free-slip walls in stress computations. This default condition
+cannot be changed.</p>
+</section>
+<section id="chemistry">
+<h3><span class="section-number">8.3.11. </span>Chemistry<a class="headerlink" href="#chemistry" title="Link to this heading">¶</a></h3>
+<p>Setting up a project with chemical reactions is a multi-step process that requires coding the reactions
+rates in <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> for TFM or <code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code> for DEM. The solver needs to be built to take the reaction rates
+into account. A brief overview is outlined below. The Silane pyrolysis tutorial is an good way for the user to familiarize
+him/herself with setting up chemical reactions in MFiX.</p>
+<ul class="simple">
+<li><p>Check the “Enable user-defined subroutine” checkbox in the “Model” pane.</p></li>
+<li><p>Check the “Enable Species equations” checkbox  and define species in the “Fluid” and “Solids” panes.</p></li>
+<li><p>In the “Chemistry” pane, define chemical equations by pressing the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button.
+Define the reaction equation name, and add reactants and products with the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button.
+Select the phase and species from the dropdown list, and enter the stoichiometric coefficient.
+Repeat until all products and reactants are defined, and press OK to validate. Specific heats of reactions are
+computed automatically, but this setting can be manually overwritten if needed by checking the “Specify Heat of Reaction” checkbox,
+entering the heat of reaction and assigning the gas and solids phases fractions.</p></li>
+<li><p>(Optional) turn on the stiff chemistry solver in the “Chemistry” pane by checking the “Enable stiff chemistry solver” checkbox.</p></li>
+<li><p>Edit and save the <code class="docutils literal notranslate"><span class="pre">usr_rates.f</span></code> or <code class="docutils literal notranslate"><span class="pre">usr_rates_des.f</span></code> UDF, and any other UDF needed for the reaction rates calculation.</p></li>
+<li><p>Build the custom solver by pressing the <a class="reference internal" href="_images/build.svg"><img alt="Build" src="_images/build.svg" style="width: 16px;" /></a> button.</p></li>
+</ul>
+</section>
+<section id="numerics">
+<h3><span class="section-number">8.3.12. </span>Numerics<a class="headerlink" href="#numerics" title="Link to this heading">¶</a></h3>
+<p>The Numerics panes defines various numerical parameters, which are grouped in several sub panes:</p>
+<ul class="simple">
+<li><p>Residuals: Defines convergence criteria for each type of equation, as well as the maximum number of iterations and residual normalization options.</p></li>
+<li><p>Discretization: Defines temporal, spatial discretization schemes and relaxation factors for each equation.</p></li>
+<li><p>Linear Solver: Defines the Linear Equation solver, tolerance and maximum number of iterations for each equation.</p></li>
+<li><p>Preconditioner: Defines the preconditioner options for each equation.</p></li>
+<li><p>Advanced: Defines less common parameters, such as the maximum inlet velocity factor, drag and IA theory underrelaxation factors and fourth order interpolation scheme.</p></li>
+</ul>
+</section>
+<section id="outputs">
+<h3><span class="section-number">8.3.13. </span>Outputs<a class="headerlink" href="#outputs" title="Link to this heading">¶</a></h3>
+<p>A variety of output formats can be written by the solver including
+restart files (<code class="docutils literal notranslate"><span class="pre">*.RES</span></code>), VTK files (<code class="docutils literal notranslate"><span class="pre">*.pvd</span></code>, <code class="docutils literal notranslate"><span class="pre">*.vtp</span></code>, <code class="docutils literal notranslate"><span class="pre">*.vtu</span></code>),
+and legacy Single Precision files (<code class="docutils literal notranslate"><span class="pre">*.SP?</span></code>). The VTK files
+can be read by and displayed in the GUI. Most of these files can be viewed with
+the post-processing programs <a class="reference external" href="https://www.paraview.org/">ParaView</a> and <a class="reference external" href="https://wci.llnl.gov/simulation/computer-codes/visit/">VisIt</a>.</p>
+<p>The Basic sub-pane is where the restart file write frequency as well as the
+VTK and SPx outputs can be enabled. Once these are enabled, the
+associated sub-pane will be enabled, allowing for specific control over these
+outputs.</p>
+<p>The VTK output has the most flexibility. Selected particle data or cell data
+variables can be exported at a specific region and write frequency. To create a
+new VTK output, press the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button which will bring up the Region selection
+dialog. Next, select an output type (particle or cell), select a region, and
+press OK. The file pattern name, write frequency, and variables can be selected
+for the newly created VTK output.</p>
+<p>The following table lists the files typically associated with an MFiX run. In addition, their
+associated file type, data content and readability by ParaView and VisIt is indicated.</p>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-number">Table 8.1 </span><span class="caption-text">Output Format Table</span><a class="headerlink" href="#id6" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Filename</p></th>
+<th class="head"><p>File Type</p></th>
+<th class="head"><p>Fluid Data</p></th>
+<th class="head"><p>Particle Data</p></th>
+<th class="head"><p>Paraview</p></th>
+<th class="head"><p>VisIt</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;.RES</span></code></p></td>
+<td><p>MFiX Binary</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_###_DES.RES</span></code></p></td>
+<td><p>MFiX Binary</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_###.vtu</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;_###.vtu</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_DES.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;RUN_NAME&gt;_DES_###.vtp</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;.pvd</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;VTK_REGION&gt;_###.vtp</span></code></p></td>
+<td><p>VTK</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="monitors">
+<h3><span class="section-number">8.3.14. </span>Monitors<a class="headerlink" href="#monitors" title="Link to this heading">¶</a></h3>
+</section>
+<section id="run">
+<span id="run-pane"></span><h3><span class="section-number">8.3.15. </span>Run<a class="headerlink" href="#run" title="Link to this heading">¶</a></h3>
+<p>The Run pane is used to define parameters related to how long the solver
+runs, time-step controls, as well as options to cleanly terminate a
+solver after a certain amount of time. These options are particularly useful
+when running in a queue environment because they allow the solver to cleanly
+exit before the job gets killed by the queuing system. This minimizes the
+chance of corrupting output files if the process is killed while writing a file.</p>
+</section>
+</section>
+<section id="visualization-window">
+<h2><span class="section-number">8.4. </span>Visualization window<a class="headerlink" href="#visualization-window" title="Link to this heading">¶</a></h2>
+<p>The visualization window provides a collection of 3D views and 2D plots for
+visualizing the model setup and model outputs. New windows, or tabs, can
+be created by pressing the <a class="reference internal" href="_images/add.svg"><img alt="Add" src="_images/add.svg" style="width: 16px;" /></a> button. Once the tab has been added,
+the type of view can be selected. A Tab can be closed by pressing the
+<a class="reference internal" href="_images/close.svg"><img alt="Close" src="_images/close.svg" style="width: 16px;" /></a> button located in its upper right hand corner.</p>
+<section id="model">
+<h3><span class="section-number">8.4.1. </span>Model<a class="headerlink" href="#model" title="Link to this heading">¶</a></h3>
+<p>The Model tab is always present and cannot be closed. This 3D view shows
+the setup of the project including the background mesh, geometry, and
+regions.</p>
+<p>The scene can be manipulated with the mouse and the toolbar buttons defined in the
+following table:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/overscan.svg"><img alt="Overscan" src="_images/overscan.svg" style="width: 16px;" /></a></p></td>
+<td><p>Reset view, make all items visible</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/xy.svg"><img alt="XY" src="_images/xy.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change to XY view</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/xz.svg"><img alt="XZ" src="_images/xz.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change to XZ view</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/yz.svg"><img alt="YZ" src="_images/yz.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change to YZ View</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/perspective.svg"><img alt="Perspective" src="_images/perspective.svg" style="width: 16px;" /></a></p></td>
+<td><p>Toggle between perspective and parallel projections</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/camera.svg"><img alt="Camera" src="_images/camera.svg" style="width: 16px;" /></a></p></td>
+<td><p>Save an image of the current view</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/visibility.svg"><img alt="Visibility" src="_images/visibility.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change the visibility and properties of actors</p></td>
+</tr>
+</tbody>
+</table>
+<p>The visibility menu allows the user to manipulate objects in the scene by:</p>
+<ul class="simple">
+<li><p>changing the visibility with the <a class="reference internal" href="_images/visibility.svg"><img alt="Visibility" src="_images/visibility.svg" style="width: 16px;" /></a> button</p></li>
+<li><p>changing the representation (wire, solids, edges, and points)</p></li>
+<li><p>changing the color</p></li>
+<li><p>changing the transparency of the objects</p></li>
+</ul>
+</section>
+<section id="plot-tab-s">
+<h3><span class="section-number">8.4.2. </span>Plot Tab(s)<a class="headerlink" href="#plot-tab-s" title="Link to this heading">¶</a></h3>
+<p>The plot tab(s) can be used to graph live statistics from the
+solver while it is running. Values such as the time step (dt), number
+of iterations (nit), and the simulated time (time) can be plotted. The
+plot can be manipulated with the mouse, and a <code class="docutils literal notranslate"><span class="pre">right-click</span></code> menu
+provides access to options that can be changed. In addition, export options
+for saving an image of the plot or exporting the data to a text file are
+available in this menu.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Plotting only available when solver is running</p>
+</div>
+</section>
+<section id="vtk-tab-s">
+<span id="vtk-tabs"></span><h3><span class="section-number">8.4.3. </span>VTK Tab(s)<a class="headerlink" href="#vtk-tab-s" title="Link to this heading">¶</a></h3>
+<p>The VTK tab provides a way to quickly view results from the solver. For more
+complex visualization of solver data, <a class="reference external" href="https://www.paraview.org/">ParaView</a> or <a class="reference external" href="https://wci.llnl.gov/simulation/computer-codes/visit/">VisIt</a> is recommended.</p>
+<p>The tab automatically sets-up VTK pipelines for reading and displaying the
+content of *.vtu and *.vtp files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The directory is automatically searched every second for
+*.pvd files. If a *.pvd file is found, the GUI will read and show
+the new VTK file if the <a class="reference internal" href="_images/play.svg"><img alt="Play" src="_images/play.svg" style="width: 16px;" /></a> button is pressed.</p>
+</div>
+<p>Results display can be “played” as well as manipulated using the
+following toolbar:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/overscan.svg"><img alt="Overscan" src="_images/overscan.svg" style="width: 16px;" /></a></p></td>
+<td><p>Reset view, make all items visible</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/xy.svg"><img alt="XY" src="_images/xy.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change to XY view</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/xz.svg"><img alt="XZ" src="_images/xz.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change to XZ view</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/yz.svg"><img alt="YZ" src="_images/yz.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change to YZ View</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/perspective.svg"><img alt="Perspective" src="_images/perspective.svg" style="width: 16px;" /></a></p></td>
+<td><p>Toggle between perspective and parallel projections</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/camera.svg"><img alt="Camera" src="_images/camera.svg" style="width: 16px;" /></a></p></td>
+<td><p>Save an image of the current view</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/visibility.svg"><img alt="Visibility" src="_images/visibility.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change the visibility and properties of actors</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/first.svg"><img alt="First" src="_images/first.svg" style="width: 16px;" /></a></p></td>
+<td><p>Go to the first frame</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/back.svg"><img alt="Back" src="_images/back.svg" style="width: 16px;" /></a></p></td>
+<td><p>Go back one frame</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/play.svg"><img alt="Play" src="_images/play.svg" style="width: 16px;" /></a></p></td>
+<td><p>Play available frames, starting at the current frame</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/next.svg"><img alt="Next" src="_images/next.svg" style="width: 16px;" /></a></p></td>
+<td><p>Go to the next frame</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_images/last.svg"><img alt="Last" src="_images/last.svg" style="width: 16px;" /></a></p></td>
+<td><p>Go to the last frame</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/speed.svg"><img alt="Speed" src="_images/speed.svg" style="width: 16px;" /></a></p></td>
+<td><p>Change the playback speed, or the amount of time in between frames</p></td>
+</tr>
+</tbody>
+</table>
+<p>The visibility menu allows for the manipulation of how the objects in
+the scene represented including:</p>
+<ul class="simple">
+<li><p>visibility</p></li>
+<li><p>the data array used to color</p></li>
+<li><p>color bars</p></li>
+<li><p>transparency</p></li>
+</ul>
+<p>Further options for the points can be adjusted by clicking the <a class="reference internal" href="_images/right.svg"><img alt="More" src="_images/right.svg" style="width: 16px;" /></a>
+button next to the label including:</p>
+<ul class="simple">
+<li><p>Maximum number of particles to be displayed</p></li>
+<li><p>The mapper (sprites requires VTK version 7.0+)</p></li>
+<li><p>The glyph object</p></li>
+</ul>
+</section>
+</section>
+<section id="terminal-window">
+<span id="id5"></span><h2><span class="section-number">8.5. </span>Terminal window<a class="headerlink" href="#terminal-window" title="Link to this heading">¶</a></h2>
+<p>The terminal window displays the output of the solver job that would
+be displayed when running the solver on the command line. Error messages
+and warnings, from both the GUI and a running solver, are displayed
+and colored in red.</p>
+<p>Informational messages from the GUI unrelated to the solver are colored
+in blue.</p>
+</section>
+<section id="mode-bar">
+<h2><span class="section-number">8.6. </span>Mode bar<a class="headerlink" href="#mode-bar" title="Link to this heading">¶</a></h2>
+<p>The Mode bar allows switching the GUI between various modes including:</p>
+<ul class="simple">
+<li><p>Mesher, used to set up a mesh when in SMS mode</p></li>
+<li><p>Modeler, used to set up and run simulations</p></li>
+<li><p>Nodeworks, feature to support creation, management, post
+processing, and optimization of projects.</p></li>
+</ul>
+<p>A status bar is also present, showing the current status of the GUI or a
+running solver, including a progress bar showing the current
+progress of the solver and elapsed time.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="visualization/postprocessing.html" class="btn btn-neutral float-left" title="7.2. Post Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="queue.html" class="btn btn-neutral float-right" title="9. Running interactive solver job in queue" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

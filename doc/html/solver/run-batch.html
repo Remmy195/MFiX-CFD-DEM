@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.4. Running a Batch Solver &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/mfix.css?v=31071079" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Visualization" href="../visualization/index.html" />
+    <link rel="prev" title="6.3. Running Custom Interactive Solver" href="run-custom.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">5. Building the solver</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="run.html">6. Running the solver</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="run-default.html">6.1. Interactive vs. batch solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-default.html#default-interactive-solver">6.2. Default interactive solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-custom.html">6.3. Custom interactive solver</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.4. Batch solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-serial">6.4.1. Running (Serial)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-with-dmp">6.4.2. Running with DMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-with-smp">6.4.3. Running with SMP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="run.html"><span class="section-number">6. </span>Running the solver</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6.4. </span>Running a Batch Solver</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/solver/run-batch.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-a-batch-solver">
+<span id="running-batch"></span><h1><span class="section-number">6.4. </span>Running a Batch Solver<a class="headerlink" href="#running-a-batch-solver" title="Link to this heading">¶</a></h1>
+<p>The “MFiX Batch Solver” refers to the command line version of MFiX including
+MFiX 2016-1 and earlier versions. The “MFiX Interactive Solver” refers to all later
+releases of MFiX. The batch solver binary is not installed in the MFiX conda package; it
+needs to be compiled before being used (as in previous versions of MFiX).</p>
+<p>Using the Batch Solver is appropriate when you do not want to use the
+interactive features with the GUI. You cannot pause, unpause, stop, or monitor
+status from the batch solver.</p>
+<p>To build the batch solver see <a class="reference internal" href="build-batch.html#build-batch"><span class="std std-ref">Building a Batch Solver</span></a>.</p>
+<section id="running-serial">
+<h2><span class="section-number">6.4.1. </span>Running (Serial)<a class="headerlink" href="#running-serial" title="Link to this heading">¶</a></h2>
+<p>To run a serial instance of the MFiX solver, type:
+.. code-block:: shell</p>
+<blockquote>
+<div><p>&gt; ./mfixsolver -f DES_FB1.mfx</p>
+</div></blockquote>
+</section>
+<section id="running-with-dmp">
+<h2><span class="section-number">6.4.2. </span>Running with DMP<a class="headerlink" href="#running-with-dmp" title="Link to this heading">¶</a></h2>
+<p>If you built the solver <a class="reference internal" href="build-batch.html#solver-configuration"><span class="std std-ref">configured with DMP support</span></a>, then
+you can run MPI jobs with the standard MPI wrapper command <code class="docutils literal notranslate"><span class="pre">mpirun</span></code>. For
+instance, to run using 4 cores with the domain divided along the X and Y
+axes:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">4</span><span class="w"> </span>./mfixsolver<span class="w"> </span>-f<span class="w"> </span>DES_FB1.mfx<span class="w"> </span><span class="nv">NODESI</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">NODESJ</span><span class="o">=</span><span class="m">2</span>
+</pre></div>
+</div>
+<p>The number of MPI processes specified with <code class="docutils literal notranslate"><span class="pre">-np</span></code> must be equal to the product of the
+keywords <code class="docutils literal notranslate"><span class="pre">NODESI*NODESJ*NODESK</span></code>.</p>
+<p>For further details on using <code class="docutils literal notranslate"><span class="pre">mpirun</span></code>, see the documentation for the MPI implementation for your system.</p>
+</section>
+<section id="running-with-smp">
+<h2><span class="section-number">6.4.3. </span>Running with SMP<a class="headerlink" href="#running-with-smp" title="Link to this heading">¶</a></h2>
+<p>If you built the solver <a class="reference internal" href="build-batch.html#solver-configuration"><span class="std std-ref">configured with SMP support</span></a>, then you can set the number of OpenMP threads using
+the <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> environment variable. For instance, to run with
+four threads:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>env<span class="w"> </span><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="m">4</span><span class="w"> </span>./mfixsolver<span class="w"> </span>-f<span class="w"> </span>DES_FB1.mfx
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="run-custom.html" class="btn btn-neutral float-left" title="6.3. Running Custom Interactive Solver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../visualization/index.html" class="btn btn-neutral float-right" title="7. Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

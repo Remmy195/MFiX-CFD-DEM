@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.2. Installing MFiX on MacOS &mdash; MFiX 25.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="../_static/static/mfix.css" />
+
+  
+      <script src="../_static/documentation_options.js?v=22103397"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3. Installing MFix on Windows" href="install-windows.html" />
+    <link rel="prev" title="2.1. Installing MFiX on Linux" href="install-linux.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MFiX
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">1. About MFiX</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Getting started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-linux.html">2.1. Install Linux</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.2. Install Mac</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-miniforge3">2.2.1. Install Miniforge3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-mfix">2.2.2. Install MFiX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-mfix">2.2.3. Run MFiX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deactivate-conda-environment">2.2.4. Deactivate conda environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uninstall-mfix">2.2.5. Uninstall MFiX</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="install-windows.html">2.3. Install Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">2. </span>Getting started</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.2. </span>Installing MFiX on MacOS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/getting_started/install-mac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installing-mfix-on-macos">
+<span id="install-mfix-osx"></span><h1><span class="section-number">2.2. </span>Installing MFiX on MacOS<a class="headerlink" href="#installing-mfix-on-macos" title="Link to this heading">¶</a></h1>
+<p>MFiX is supported on the MacOS platform as of MFiX release 22.2.  We provide installable packages for both Intel and M1-based Macs.  In the following, <code class="docutils literal notranslate"><span class="pre">arm64</span></code> refers to M1 (Apple Silicon) and <code class="docutils literal notranslate"><span class="pre">x86_64</span></code> refers to Intel CPUs.  It has been tested on MacOS 13.4.1 “Ventura”.</p>
+<p>If you have an issue running or installing MFiX on your system, ask for help at <a class="reference internal" href="../about.html#support-forum"><span class="std std-ref">Support forum</span></a>.</p>
+<section id="install-miniforge3">
+<h2><span class="section-number">2.2.1. </span>Install Miniforge3<a class="headerlink" href="#install-miniforge3" title="Link to this heading">¶</a></h2>
+<p><cite>Miniforge3</cite> is a minimal version of the Anaconda Python distribution, which is used
+for many scientific computing projects.  MFiX uses many supporting libraries, and the
+easiest way to install MFiX and its dependencies is via the <cite>conda</cite> packages hosted at
+<cite>conda-forge</cite> and NETL.  As of the 23.4 release we recommend the <cite>Miniforge3</cite>
+installation over Anaconda for easier installation.</p>
+<p>First, <strong>download</strong> the MacOS version of the Miniforge3 installer for your CPU:  <a class="reference external" href="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh">arm64</a> (~58MB) or <a class="reference external" href="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh">x86_64</a> (~60MB).</p>
+<p>Next, go to your Downloads folder and <strong>run</strong> the downloaded file.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Open a Terminal (Type “⌘-Spacebar”, type “terminal”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span></code> to the directory of the downloaded installer (for example <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code>)</p></li>
+<li><p>Run the downloaded installer: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">Miniforge3-MacOSX-*.sh⏎</span></code></p></li>
+<li><p>When prompted for an installation location, hit enter to use the default, or enter the directory of your choice.</p></li>
+<li><p>When prompted to run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span></code>, say <code class="docutils literal notranslate"><span class="pre">yes</span></code>.</p></li>
+</ol>
+</div></blockquote>
+<p>Miniforge is now installed. In order for the changes to take effect, close the
+terminal and open a new one. Verify that your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> was updated by running
+<code class="docutils literal notranslate"><span class="pre">conda</span></code> in the new terminal.</p>
+<p>If you are upgrading from a previous version of MFiX and you already have Miniforge or Anaconda installed, you may skip this step (but see note below).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have previously installed MFiX with Anaconda, you can continue to
+use your existing Anaconda installation.   We are recommending <cite>Miniforge</cite>
+for new installations.  If you are using Anaconda we recommend setting
+channel priority to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>:</p>
+<blockquote>
+<div><div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>base
+<span class="gp gp-VirtualEnv">(base)</span><span class="gp">$ </span>conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>conda-forge
+<span class="gp gp-VirtualEnv">(base)</span><span class="gp">$ </span>conda<span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>channel_priority<span class="w"> </span>strict
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</section>
+<section id="install-mfix">
+<h2><span class="section-number">2.2.2. </span>Install MFiX<a class="headerlink" href="#install-mfix" title="Link to this heading">¶</a></h2>
+<p>After installing Miniforge, install MFiX:</p>
+<blockquote>
+<div><blockquote>
+<div><ol class="arabic simple">
+<li><p>Open a terminal.</p></li>
+<li><p>Browse to <a class="reference external" href="https://mfix.netl.doe.gov/mfix/download-mfix">MFiX Download</a> (requires registration and login)</p></li>
+<li><p>Copy the installation command.</p></li>
+<li><p>Paste it in the terminal.</p></li>
+<li><p>Press enter to run the command.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have previously installed this version of MFiX, you will see the following message. Select <code class="docutils literal notranslate"><span class="pre">y</span></code> to confirm.  This will delete the previous MFiX installation and replace it.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">WARNING: A conda environment already exists at ...</span>
+<span class="go">Remove existing environment (y/[n])? y</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+<p>MFiX will be installed in a new conda environment. The process may take a few
+minutes to complete.</p>
+</section>
+<section id="run-mfix">
+<span id="activate-env-macos"></span><h2><span class="section-number">2.2.3. </span>Run MFiX<a class="headerlink" href="#run-mfix" title="Link to this heading">¶</a></h2>
+<p>To run MFiX:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Open a terminal</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">mfix-25.1.1</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">mfix⏎</span></code> to start MFiX</p></li>
+</ol>
+</div></blockquote>
+<p>Your prompt should look something like this:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>mfix-25.1.1<span class="w"> </span><span class="nv">mfix</span><span class="o">==</span><span class="m">25</span>.1.1<span class="w"> </span>...
+
+<span class="gp">$ </span>conda<span class="w"> </span>env<span class="w"> </span>list
+<span class="gp"># </span>conda<span class="w"> </span>environments:
+<span class="gp">#</span>
+<span class="go">base               *  /Users/user/miniforge3</span>
+<span class="go">mfix-25.1.1        /Users/user/miniforge3/envs/mfix-25.1.1</span>
+
+<span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>mfix-25.1.1
+
+<span class="gp gp-VirtualEnv">(mfix-25.1.1)</span><span class="gp">$ </span>mfix
+</pre></div>
+</div>
+<p>You are now ready to proceed to the <a class="reference internal" href="../tutorials/first_tutorial.html#user-guide"><span class="std std-ref">First tutorial</span></a> and <a class="reference internal" href="../tutorials/index.html#tutorials"><span class="std std-ref">Tutorials</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Activating a conda environment sets certain environment variables such as
+PATH in the current shell. It does not create a new shell session.</p>
+<p>You will need to activate the environment every time before running MFiX.</p>
+</div>
+</section>
+<section id="deactivate-conda-environment">
+<h2><span class="section-number">2.2.4. </span>Deactivate conda environment<a class="headerlink" href="#deactivate-conda-environment" title="Link to this heading">¶</a></h2>
+<p>After using MFiX you can just <code class="docutils literal notranslate"><span class="pre">exit</span></code> to leave the terminal session. However, if
+you need to deactivate the <code class="docutils literal notranslate"><span class="pre">mfix-25.1.1</span></code> conda environment, you can do so with:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(mfix-25.1.1)</span><span class="gp">$ </span>conda<span class="w"> </span>deactivate
+<span class="gp">$</span>
+</pre></div>
+</div>
+<p>This returns to the base conda environment.</p>
+</section>
+<section id="uninstall-mfix">
+<h2><span class="section-number">2.2.5. </span>Uninstall MFiX<a class="headerlink" href="#uninstall-mfix" title="Link to this heading">¶</a></h2>
+<p>To remove an MFiX version, installed from conda packages, simply remove the conda
+environment (if you have the environment activated, deactivate it first):</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(mfix-25.1.1)</span><span class="gp">$ </span>conda<span class="w"> </span>deactivate
+<span class="gp">$ </span>conda<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>mfix-25.1.1
+</pre></div>
+</div>
+<p>To uninstall Miniforge entirely, remove the directory you installed it to. By default, this is <code class="docutils literal notranslate"><span class="pre">~/miniforge3</span></code> in your home directory. From the terminal:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~
+<span class="gp">$ </span>rm<span class="w"> </span>-rf<span class="w"> </span>miniforge3/
+</pre></div>
+</div>
+<p>For Anaconda, the default directory is <cite>anaconda3</cite>.</p>
+<p>Also be sure to edit your shell startup files to remove the <cite>conda init</cite> section at the end.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To learn more about managing conda environments, visit the <a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">conda documentation</a> .
+To learn more about miniforge, see the <a class="reference external" href="https://github.com/conda-forge/miniforge">Miniforge3 README</a>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install-linux.html" class="btn btn-neutral float-left" title="2.1. Installing MFiX on Linux" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="install-windows.html" class="btn btn-neutral float-right" title="2.3. Installing MFix on Windows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

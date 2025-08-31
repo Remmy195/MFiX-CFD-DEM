@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MFiX User Manual &mdash; MFiX 25.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bc05c87d" />
+      <link rel="stylesheet" type="text/css" href="_static/mfix.css?v=31071079" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=b06fed7c"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. About" href="about.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="#">
+            
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+<br/>
+<div class="version-display">
+  <span class="version-text">Version: 25.2</span>
+</div>
+
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About MFiX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">3. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_setup/index.html">4. Model guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/build.html">5. Building the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver/run.html">6. Running the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization/index.html">7. Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface_reference.html">8. GUI reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html">9. Running interactive solver job in queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mfix_on_joule.html">11. Running MFiX on Joule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">12. Keyword reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">13. Frequently asked questions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">MFiX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MFiX User Manual</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mfix-user-manual">
+<h1>MFiX User Manual<a class="headerlink" href="#mfix-user-manual" title="Link to this heading">¶</a></h1>
+<p>MFiX (Multiphase Flow with Interphase eXchange) is a multiphase flow solver, providing:
+a <a class="reference internal" href="about.html#dvlpt-tfm"><span class="std std-ref">Two-fluid model (TFM)</span></a>,
+a <a class="reference internal" href="about.html#dvlpt-dem"><span class="std std-ref">Discrete element model (DEM)</span></a>,
+a <a class="reference internal" href="about.html#dvlpt-dem"><span class="std std-ref">Coarse-grained particle DEM (CGP)</span></a>,
+a <a class="reference internal" href="about.html#dvlpt-sqp"><span class="std std-ref">Superquadric particle DEM (SQP)</span></a>,
+a <a class="reference internal" href="about.html#dvlpt-gsp"><span class="std std-ref">Glued-sphere particle DEM (GSP)</span></a>, and
+a <a class="reference internal" href="about.html#dvlpt-pic"><span class="std std-ref">Particle-in-cell (PIC) model</span></a>.  A single-phase
+solver is also available for pure granular flows.</p>
+<p>These models can be used to simulate a variety of multiphase
+flow devices including gasifiers, circulating fluid bed combusters, fluidized
+beds, fluid catalytic crackers, and chemical looping combustion systems. Please
+visit the <a class="reference external" href="https://mfix.netl.doe.gov/">Multiphase Flow Science</a> website for
+more information.</p>
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/CzuyEZlNohc" frameborder="0"
+aallowfullscreen></iframe><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">1. About MFiX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#mfix">1.1. MFiX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#development-state-of-mfix-models">1.2. Development state of MFiX models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#gui">1.3. GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#support-forum">1.4. Support forum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#user-contribution">1.5. User contribution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">2. Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install-linux.html">2.1. Install Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install-macos.html">2.2. Install MacOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install-windows.html">2.3. Install Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">3. Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/first_tutorial.html">3.1. Running first tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_tfm.html">3.2. Two-dimensional fluidized bed, Two-fluid Model (TFM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_dem.html">3.3. Two-dimensional fluidized bed, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_sphere.html">3.4. Three-dimensional single-phase flow over a sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_3d_fluidbed.html">3.5. Three-dimensional fluidized bed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_hopper.html">3.6. Three-dimensional DEM hopper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_dem_chutes.html">3.7. DEM granular flow chutes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_cyclone_sms.html">3.8. SMS meshing workflow, cyclone, Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_dem_seeding.html">3.9. DEM initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_procedural_geometry.html">3.10. Procedural geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_chemkin.html">3.11. Hydrogen oxidation in a batch reactor using CHEMKIN mechanism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tutorial_transport.html">3.12. Hydrogen oxidation in a batch reactor using transport data in CHEMKIN format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/advanced_tutorials.html">3.13. Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model_setup/index.html">4. Model guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/setup.html">4.1.  Model setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/geometry.html">4.2.  Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/mesh.html">4.3.  Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/regions.html">4.4.  Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/fluid.html">4.5.  Fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/solids.html">4.6.  Solids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/scalars.html">4.7.  Scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/ic.html">4.8.  Initial conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/bc.html">4.9.  Boundary conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/point_sources.html">4.10.  Point sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/monitor.html">4.11.  Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/internal_surfaces.html">4.12.  Internal surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/keyframes.html">4.13.  Keyframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_setup/reactions/index.html">4.14.  Chemistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solver/build.html">5. Building the solver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solver/build-custom.html">5.1. Custom interactive solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solver/build-batch.html">5.2. Batch solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solver/build-source.html">5.3. Build from git or source tarball</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solver/run.html">6. Running the solver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solver/run-default.html">6.1. Interactive vs. batch solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solver/run-default.html#default-interactive-solver">6.2. Default interactive solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solver/run-custom.html">6.3. Custom interactive solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solver/run-batch.html">6.4. Batch solver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visualization/index.html">7. Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="visualization/visualization.html">7.1. Visualization in GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualization/postprocessing.html">7.2. Post Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface_reference.html">8. GUI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_interface_reference.html#main-toolbar">8.1. Main toolbar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface_reference.html#menu">8.2. Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface_reference.html#model-panes">8.3. Model panes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface_reference.html#visualization-window">8.4. Visualization window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface_reference.html#terminal-window">8.5. Terminal window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface_reference.html#mode-bar">8.6. Mode bar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html">9. Running interactive solver job in queue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="queue.html#queue-templates">9.1. Queue templates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/user_defined_functions.html">10. User-Defined Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mfix_on_joule.html">11. Running MFiX on Joule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mfix_on_joule.html#running-the-gui">11.1. Running the GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">12. Keyword reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/keywords.html">12.1. Keywords</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">13. Frequently asked questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-ask-a-question-or-send-feedback">13.1. How do I ask a question, or send feedback?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#pausing-and-restarting-the-solver">13.2. Pausing and restarting the solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-system-of-units-does-mfix-use">13.3. What system of units does MFiX use?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-do-i-do-if-a-run-does-not-converge">13.4. What do I do if a run does not converge?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#discrete-element-model-dem">13.5. Discrete Element Model (DEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#superquadric-particle-model-sqp">13.6. Superquadric Particle Model (SQP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#glued-sphere-particle-model-gsp">13.7. Glued-Sphere Particle Model (GSP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#meshing">13.8. Meshing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#particle-in-cell-pic">13.9. Particle in Cell (PIC)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about.html" class="btn btn-neutral float-right" title="1. About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NETL Multiphase Flow Science Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

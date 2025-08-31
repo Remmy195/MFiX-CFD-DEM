@@ -1,0 +1,99 @@
+.. _scalar_pane:
+
+=======
+Scalars
+=======
+
+The MFiX GUI supports adding user-defined scalars.
+
+This section defines how scalars are implemented into MFIX GUI. An example
+layout of the Scalar pane is shown below. The layout
+is similar to the :ref:`Solids model <solids>` pane: a table summarizes previously defined scalars
+and add/delete buttons allow scalars to be added and removed.
+Select a row of the table to edit the corresponding Scalar's Name and Phase.
+
+A table lists the user-defined scalar name, the convecting phase, and the scalar index.
+
+.. _scalars_pane:
+.. figure:: /../srs/images/scalars.png
+   :scale: 75 %
+   :align: center
+
+Add/Delete Scalars
+__________________
+
+To add a Scalar, navigate to the Scalars pane from the Modeler View, and click
+the (+) button.
+
+To remove a Scalar, navigate to the Scalars pane from the Modeler View, select
+the scalar to remove, and click the (-) button.
+
+Scalar Name: GUI-only description
+_________________________________
+
+By default, scalars are named "Scalar ID" where ID is the index of the scalar.
+It is recommended to edit the Name to something more descriptive. However, the
+scalar name is local to the GUI and not provided to the solver; in the solver
+and UDFs the Scalar is only referred to by Index.
+
+
+Scalar Phase: Fluid or TFM Solid
+________________________________
+
+There is a drop-down box to select the convecting phase from the phases defined
+in :ref:`Fluids <fluid>` or :ref:`Solids <solids>` panes.
+
+Selecting a phase with index ``PHASE`` sets keyword ``PHASE4SCALAR(ID) =
+PHASE`` where ``ID`` is the scalar index for the current scalar. ``PHASE``
+is ``0`` for the fluid phase, or a positive integer for TFM solids.
+
+The fluid phase is only an option when the fluid solver is enabled (Disable
+Fluid Solver is unchecked on :ref:`Model Pane <model_setup>`). Any defined TFM
+solids phases are listed as options for ``PHASE``, but DEM and PIC solids
+phases are not listed as options.
+
+
+Scalar ID (Index)
+_________________
+
+Each Scalar has an ID, indexed starting at zero.
+
+Deleting Scalars and Contiguous indices
+---------------------------------------
+
+The MFiX solver assumes scalar array inputs are contiguous. As a result, if
+one or more scalar equations is removed or the order of the scalars is
+changed, then all scalar input arrays must be updated. For example, consider
+three scalars that are convected with a different phase.
+
+.. code-block:: fortran
+
+   NScalar = 3
+   Phase4Scalar(1) = 0
+   Phase4Scalar(2) = 1
+   Phase4Scalar(3) = 2
+
+If a user deletes the second scalar, then array values assigned to the
+third scalar must be shifted down.  This is done automatically in the GUI.
+
+.. code-block:: fortran
+
+   NScalar = 2
+   Phase4Scalar(1) = 0
+   Phase4Scalar(2) = 2
+
+Array inputs for scalars include the following:
+
+.. code-block:: fortran
+
+   Phase4Scalar(1:NScalar)
+
+   IC_Scalar(:, 1:NScalar)
+
+   BC_HW_Scalar(:, 1:NScalar)
+   BC_ScalarW(:, 1:NScalar)
+   BC_C_Scalar(:, 1:NScalar)
+   BC_Scalar(:, 1:NScalar)
+
+   VTK_Scalar(:,1:NScalar)
+   MONITOR_Scalar(:,1:NScalar)

@@ -1,0 +1,270 @@
+########################################################################
+#                                                                      #
+# Author: J.Musser                                       Date: 06-2015 #
+# Modified: A.Vaidheeswaran                              Date: 09-2019 #
+#                                                                      #
+# Minimum fluidization test for HPDE-800.                              #
+#                                                                      #
+########################################################################
+
+  RUN_NAME = 'HDPE'
+  DESCRIPTION = 'Initial problem setup - PIC'
+
+#_______________________________________________________________________
+# RUN CONTROL SECTION
+
+  RUN_TYPE = 'NEW'
+  !RUN_TYPE = 'RESTART_1'
+  UNITS =    'SI'
+
+  TIME =    0.0
+  TSTOP =   120.0
+
+  DT =     5.0d-4
+  DT_MAX = 5.0d-4
+  PERSISTENT_MODE = .T.
+  DETECT_STALL = .F.
+
+  ENERGY_EQ =  .F.
+  SPECIES_EQ = .F.   .F.
+
+  MOMENTUM_X_EQ(1) = .F.
+  MOMENTUM_Y_EQ(1) = .F.
+  MOMENTUM_Z_EQ(1) = .F.
+
+  GENER_PART_CONFIG = .T.
+
+  DRAG_TYPE = 'WEN_YU'
+
+  DES_INTERP_ON = .T.
+  DES_INTERP_MEAN_FIELDS= .T.
+  DES_INTERP_SCHEME = 'LINEAR_HAT'
+
+  DES_EXPLICITLY_COUPLED= .T.
+
+  CALL_USR = .T.
+
+  usr_C_NAME(1) = 'Velocity Step'
+  USR_C(1) = 0.0025d0
+
+#_______________________________________________________________________
+# NUMERICAL SECTION
+
+  MAX_NIT = 50
+  TOL_RESID = 1.0E-3
+  norm_g  = 0
+  DISCRETIZE = 9*0
+
+#_______________________________________________________________________
+# GEOMETRY SECTION
+
+  COORDINATES = 'CARTESIAN'
+
+  XLENGTH = 0.1016   IMAX = 10  CYCLIC_X = .F.
+  ZLENGTH = 0.1016   KMAX = 10  CYCLIC_Z = .F.
+  YLENGTH = 0.4065   JMAX = 40
+
+#_______________________________________________________________________
+# MATERIAL SECTION
+
+! Gas Section
+!---------------------------------------------------------------------//
+  MU_g0 =    1.8E-5    ! (Pa.s) viscosity
+  MU_gmax =  1.8E-3    ! (Pa.s)  max viscosity
+  MW_AVG =  28.8       ! mixture molecular weight
+
+! Particle Section
+!---------------------------------------------------------------------//
+
+  MMAX = 1
+  EP_star = 0.44
+
+  FRIC_EXP_PIC = 3.0
+  PSFAC_FRIC_PIC = 5.0
+
+  MPPIC_COEFF_EN1 = 0.85  !change from 0.85
+  MPPIC_COEFF_EN_WALL = 0.99  ! change from 0.85
+  MPPIC_COEFF_ET_WALL = 1.00  ! new
+  MPPIC_VELFAC_COEFF = 1.00
+
+! Solids phase 1:
+!---------------------------------------------------------------------//
+  SOLIDS_MODEL(1) = 'PIC'
+
+  D_p0(1) =   870.0d-6    ! (m)
+  RO_s0(1) =  860.0d+0    ! (kg/m^3)
+
+#_______________________________________________________________________
+# INITIAL CONDITIONS SECTION
+
+! Freeboard
+!---------------------------------------------------------------------//
+  IC_X_w(1) =    0.0000  ! (m)
+  IC_X_e(1) =    0.1016  ! (m)
+  IC_Z_b(1) =    0.0000  ! (m)
+  IC_Z_t(1) =    0.1016  ! (m)
+  IC_Y_s(1) =    0.0000  ! (m)
+  IC_Y_n(1) =    0.4064  ! (m)
+
+  IC_EP_g(1) =   1.0     ! (-)
+
+  IC_P_g(1) =  101.325d3 ! (Pa)
+  IC_T_g(1) =  298.15    ! (K)
+
+  IC_U_g(1) =    0.000   ! (m/sec)
+  IC_V_g(1) =    0.000   ! (m/sec)
+  IC_W_g(1) =    0.000   ! (m/sec)
+
+
+! Initial Solids
+!---------------------------------------------------------------------//
+  IC_X_w(2) =    0.0000  ! (m)
+  IC_X_e(2) =    0.1016  ! (m)
+  IC_Z_b(2) =    0.0000  ! (m)
+  IC_Z_t(2) =    0.1016  ! (m)
+  IC_Y_s(2) =    0.0000  ! (m)
+  IC_Y_n(2) =    0.4064  ! (m)
+
+  IC_EP_g(2) =   0.82184191 !(-)
+
+  IC_P_g(2) =  101.325d3 ! (Pa)
+  IC_T_g(2) =  298.15    ! (K)
+
+  IC_U_g(2) =    0.000   ! (m/sec)
+  IC_V_g(2) =    0.000   ! (m/sec)
+  IC_W_g(2) =    0.000   ! (m/sec)
+
+  IC_U_s(2,1) =  0.000   ! (m/sec)
+  IC_V_s(2,1) =  0.000   ! (m/se10)
+  IC_W_s(2,1) =  0.000   ! (m/sec)
+
+  IC_THETA_M(2,1) = 0.0
+  IC_PIC_CONST_STATWT(2,1) = 10.0
+
+#_______________________________________________________________________
+# BOUNDARY CONDITIONS SECTION
+
+
+! Top Pressure Outflow:
+!---------------------------------------------------------------------//
+  BC_X_w(1) =    0.0000  ! (m)
+  BC_X_e(1) =    0.1016  ! (m)
+  BC_Z_b(1) =    0.0000  ! (m)
+  BC_Z_t(1) =    0.1016  ! (m)
+  BC_Y_s(1) =    0.4064  ! (m)
+  BC_Y_n(1) =    0.4064  ! (m)
+
+  BC_TYPE(1) =   'PO'
+
+  BC_P_g(1) =  101.325d3 ! (Pa)
+
+! Uniform Inlet:
+!---------------------------------------------------------------------//
+  BC_X_w(10) =   0.0000  ! (m)
+  BC_X_e(10) =   0.1016  ! (m)
+  BC_Z_b(10) =   0.0000  ! (m)
+  BC_Z_t(10) =   0.1016  ! (m)
+  BC_Y_s(10) =   0.0000  ! (m)
+  BC_Y_n(10) =   0.0000  ! (m)
+
+  BC_TYPE(10) =   'MI'
+
+  BC_EP_g(10) =   1.0      !  (-)
+
+  BC_T_g(10) =  298.0      ! (K)
+  BC_P_g(10) =  101.325d3  ! (Pa)
+
+  BC_U_g(10) =    0.000    ! (m/sec)
+  BC_V_g(10) =    0.010    ! (m/sec)
+  BC_W_g(10) =    0.000    ! (m/sec)
+
+! No-Slip Wall West:
+!---------------------------------------------------------------------//
+  BC_X_w(2) =   0.0000  ! (m)
+  BC_X_e(2) =   0.0000  ! (m)
+  BC_Z_b(2) =   0.0000  ! (m)
+  BC_Z_t(2) =   0.1016  ! (m)
+  BC_Y_s(2) =   0.0000  ! (m)
+  BC_Y_n(2) =   0.4064  ! (m)
+
+  BC_TYPE(2) =   'NSW'
+
+! No-Slip Wall East:
+!---------------------------------------------------------------------//
+  BC_X_w(3) =   0.1016  ! (m)
+  BC_X_e(3) =   0.1016  ! (m)
+  BC_Z_b(3) =   0.0000  ! (m)
+  BC_Z_t(3) =   0.1016  ! (m)
+  BC_Y_s(3) =   0.0000  ! (m)
+  BC_Y_n(3) =   0.4064  ! (m)
+
+  BC_TYPE(3) =   'NSW'
+
+! No-Slip Wall Back:
+!---------------------------------------------------------------------//
+  BC_X_w(4) =   0.0000  ! (m)
+  BC_X_e(4) =   0.1016  ! (m)
+  BC_Z_b(4) =   0.0000  ! (m)
+  BC_Z_t(4) =   0.0000  ! (m)
+  BC_Y_s(4) =   0.0000  ! (m)
+  BC_Y_n(4) =   0.4064  ! (m)
+
+  BC_TYPE(4) =   'NSW'
+
+! No-Slip Wall Front:
+!---------------------------------------------------------------------//
+  BC_X_w(5) =   0.0000  ! (m)
+  BC_X_e(5) =   0.1016  ! (m)
+  BC_Z_b(5) =   0.1016  ! (m)
+  BC_Z_t(5) =   0.1016  ! (m)
+  BC_Y_s(5) =   0.0000  ! (m)
+  BC_Y_n(5) =   0.4064  ! (m)
+
+  BC_TYPE(5) =   'NSW'
+
+#_______________________________________________________________________
+# USER CONTROL SECTION
+
+  USR_VAR(1) = 'Pressure drop extraction'
+!---------------------------------------------------------------------//
+  USR_TYPE(1) = 'ASCII'
+
+  USR_X_w(1) =   0.0000  ! (m)
+  USR_X_e(1) =   0.1016  ! (m)
+
+  USR_Z_b(1) =   0.0000  ! (m)
+  USR_Z_t(1) =   0.1016  ! (m)
+
+  USR_Y_s(1) =   0.0000  ! (m)
+  USR_Y_n(1) =   0.4064  ! (m)
+
+  USR_DT(1) =    0.01    ! (sec)
+
+#_______________________________________________________________________
+# OUTPUT CONTROL SECTION
+
+  RES_DT = @(1.0/5.0)
+  SPX_DT(1:9) = 9*1.00
+
+  SPX_DT(1) = @(1.0/5.0) ! EP_g
+  SPX_DT(2) = @(1.0/5.0) ! P_g
+  SPX_DT(3) = @(1.0/5.0) ! U_g, V_g, W_g
+
+  PRINT_DES_DATA = .F.
+
+  GROUP_RESID = .T.
+
+  NLOG = 50
+  FULL_LOG = .T.
+
+
+#_______________________________________________________________________
+# DMP SETUP
+
+  NODESI =  1  NODESJ =  1  NODESK =  1
+
+  ENABLE_DMP_LOG = .F.
+  CHK_BATCHQ_END = .T.
+
+  BATCH_WALLCLOCK = 1.728d5 ! 30 Days
+  TERM_BUFFER =        300  !  5 Min

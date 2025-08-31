@@ -1,0 +1,316 @@
+
+### Run controls
+  description      = 'Hydrogen oxidation with CHEMKIN mechanism, step by step'
+  run_name         = 'hydrogen_oxidation'
+  units            = 'SI'
+  run_type         = 'new'
+  tstop            = 10.0
+  dt               = 1.000000e-06
+  dt_min           = 1.000000e-08
+  dt_max           = 1.000000e-04
+  dt_fac           = 0.9
+  res_dt           = 0.1
+  chk_batchq_end   = .True.
+  energy_eq        = .True.
+  nodesi           = 1
+  nodesj           = 1
+  nodesk           = 1
+  momentum_x_eq(0) = .True.
+  momentum_y_eq(0) = .True.
+  momentum_z_eq(0) = .True.
+  ppo              = .False.
+  project_version  = '1'
+  species_eq(0)    = .True.
+
+### Physical parameters
+  gravity_x = 0.0
+  gravity_y = -9.80665
+  gravity_z = 0.0
+
+### Cartesian grid
+  cartesian_grid = .False.
+  use_stl        = .False.
+
+### Numeric
+  detect_stall = .True.
+  max_nit      = 50
+
+### Geometry
+  coordinates = 'CARTESIAN'
+  imax        = 1
+  jmax        = 1
+  kmax        = 1
+  x_max       = 1.0
+  x_min       = 0
+  y_max       = 1.0
+  y_min       = 0
+  z_max       = 1.0
+  z_min       = 0
+
+#### Fluid
+  mu_g_model            = 'SUTHERLAND'
+
+
+### Initial conditions
+  # Initial condition 1: IC_1
+    ic_x_e(1)     = 1.0 #!MFIX-GUI eq{float(xmax)}
+    ic_x_w(1)     = 0.0 #!MFIX-GUI eq{float(xmin)}
+    ic_y_s(1)     = 0.0 #!MFIX-GUI eq{float(ymin)}
+    ic_y_n(1)     = 1.0 #!MFIX-GUI eq{float(ymax)}
+    ic_z_b(1)     = 0.0 #!MFIX-GUI eq{float(zmin)}
+    ic_z_t(1)     = 1.0 #!MFIX-GUI eq{float(zmax)}
+    ic_ep_g(1)    = 1.0
+    ic_t_g(1)     = 800.0
+    ic_u_g(1)     = 0.0
+    ic_v_g(1)     = 0.0
+    ic_w_g(1)     = 0.0
+    ic_gama_rg(1) = 0.0
+    ic_p_g(1)     = 101325.0
+    ic_t_rg(1)    = 293.15
+
+# Boundary conditions
+  # Boundary condition 1: BC_1
+    bc_type(1)      = 'NSW'
+    bc_x_e(1)       = 0.0 #!MFIX-GUI eq{float(xmin)}
+    bc_x_w(1)       = 0.0 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(1)       = 0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(1)       = 1.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(1)       = 0.0 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(1)       = 1.0 #!MFIX-GUI eq{float(zmax)}
+    bc_c_t_g(1)     = 0.0
+    bc_hw_t_g(1)    = 0.0
+    bc_jj_ps(1)     = 0
+    bc_uw_g(1)      = 0.0
+    bc_vw_g(1)      = 0.0
+    bc_ww_g(1)      = 0.0
+
+  # Boundary condition 2: BC_2
+    bc_type(2)      = 'NSW'
+    bc_x_e(2)       = 1.0 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(2)       = 1.0 #!MFIX-GUI eq{float(xmax)}
+    bc_y_s(2)       = 0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(2)       = 1.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(2)       = 0.0 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(2)       = 1.0 #!MFIX-GUI eq{float(zmax)}
+    bc_c_t_g(2)     = 0.0
+    bc_hw_t_g(2)    = 0.0
+    bc_jj_ps(2)     = 0
+    bc_uw_g(2)      = 0.0
+    bc_vw_g(2)      = 0.0
+    bc_ww_g(2)      = 0.0
+
+  # Boundary condition 3: BC_3
+    bc_type(3)      = 'NSW'
+    bc_x_e(3)       = 1.0 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(3)       = 0.0 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(3)       = 1.0 #!MFIX-GUI eq{float(ymax)}
+    bc_y_n(3)       = 1.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(3)       = 0.0 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(3)       = 1.0 #!MFIX-GUI eq{float(zmax)}
+    bc_u_g(3)       = 0.0
+    bc_v_g(3)       = 0.0
+    bc_w_g(3)       = 0.0
+    bc_c_t_g(3)     = 0.0
+    bc_dt_0(3)      = 0.1
+    bc_hw_t_g(3)    = 0.0
+    bc_jj_ps(3)     = 0
+    bc_uw_g(3)      = 0.0
+    bc_vw_g(3)      = 0.0
+    bc_ww_g(3)      = 0.0
+
+  # Boundary condition 4: BC_4
+    bc_type(4)      = 'NSW'
+    bc_x_e(4)       = 1.0 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(4)       = 0.0 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(4)       = 0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(4)       = 0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_z_b(4)       = 0.0 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(4)       = 1.0 #!MFIX-GUI eq{float(zmax)}
+    bc_u_g(4)       = 0.0
+    bc_v_g(4)       = 0.5
+    bc_w_g(4)       = 0.0
+    bc_c_t_g(4)     = 0.0
+    bc_hw_t_g(4)    = 0.0
+    bc_jj_ps(4)     = 0
+    bc_uw_g(4)      = 0.0
+    bc_vw_g(4)      = 0.0
+    bc_ww_g(4)      = 0.0
+
+  # Boundary condition 5: BC_5
+    bc_type(5)      = 'NSW'
+    bc_x_e(5)       = 1.0 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(5)       = 0.0 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(5)       = 0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(5)       = 1.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(5)       = 1.0 #!MFIX-GUI eq{float(zmax)}
+    bc_z_t(5)       = 1.0 #!MFIX-GUI eq{float(zmax)}
+    bc_c_t_g(5)     = 0.0
+    bc_hw_t_g(5)    = 0.0
+    bc_jj_ps(5)     = 0
+    bc_uw_g(5)      = 0.0
+    bc_vw_g(5)      = 0.0
+    bc_ww_g(5)      = 0.0
+
+  # Boundary condition 6: BC_6
+    bc_type(6)      = 'NSW'
+    bc_x_e(6)       = 1.0 #!MFIX-GUI eq{float(xmax)}
+    bc_x_w(6)       = 0.0 #!MFIX-GUI eq{float(xmin)}
+    bc_y_s(6)       = 0.0 #!MFIX-GUI eq{float(ymin)}
+    bc_y_n(6)       = 1.0 #!MFIX-GUI eq{float(ymax)}
+    bc_z_b(6)       = 0.0 #!MFIX-GUI eq{float(zmin)}
+    bc_z_t(6)       = 0.0 #!MFIX-GUI eq{float(zmin)}
+    bc_c_t_g(6)     = 0.0
+    bc_hw_t_g(6)    = 0.0
+    bc_jj_ps(6)     = 0
+    bc_uw_g(6)      = 0.0
+    bc_vw_g(6)      = 0.0
+    bc_ww_g(6)      = 0.0
+
+
+# VTK outputs
+  write_vtk_files         = .True.
+  time_dependent_filename = .True.
+  vtu_dir                 = 'VTK'
+  # VTK output 1: IC_1
+    vtk_filebase(1) = 'Background_IC'
+    vtk_x_e(1)      = 1.0 #!MFIX-GUI eq{float(xmax)}
+    vtk_x_w(1)      = 0.0 #!MFIX-GUI eq{float(xmin)}
+    vtk_y_s(1)      = 0.0 #!MFIX-GUI eq{float(ymin)}
+    vtk_y_n(1)      = 1.0 #!MFIX-GUI eq{float(ymax)}
+    vtk_z_b(1)      = 0.0 #!MFIX-GUI eq{float(zmin)}
+    vtk_z_t(1)      = 1.0 #!MFIX-GUI eq{float(zmax)}
+    vtk_data(1)     = 'C'
+    vtk_dt(1)       = 0.01
+    vtk_nxs(1)      = 0
+    vtk_nys(1)      = 0
+    vtk_nzs(1)      = 0
+    vtk_c_pg(1)     = .True.
+    vtk_ep_g(1)     = .True.
+    vtk_mu_g(1)     = .True.
+    vtk_mw_mix_g(1) = .True.
+    vtk_p_g(1)      = .True.
+    vtk_ro_g(1)     = .True.
+    vtk_t_g(1)      = .True.
+    vtk_vel_g(1)    = .True.
+
+
+# SPx outputs
+  spx_dt(1) = 0.1
+  spx_dt(2) = 0.1
+  spx_dt(3) = 0.1
+  spx_dt(4) = 0.1
+  spx_dt(5) = 0.1
+  spx_dt(6) = 0.1
+  spx_dt(7) = 0.1
+  spx_dt(8) = 0.1
+  spx_dt(9) = 0.1
+
+# Monitors
+  # Monitor 1: IC_1
+    monitor_type(1)     = 4 !Average
+    monitor_name(1)     = 'Background_IC'
+    monitor_x_e(1)      = 1.0 #!MFIX-GUI eq{float(xmax)}
+    monitor_x_w(1)      = 0.0 #!MFIX-GUI eq{float(xmin)}
+    monitor_y_s(1)      = 0.0 #!MFIX-GUI eq{float(ymin)}
+    monitor_y_n(1)      = 1.0 #!MFIX-GUI eq{float(ymax)}
+    monitor_z_b(1)      = 0.0 #!MFIX-GUI eq{float(zmin)}
+    monitor_z_t(1)      = 1.0 #!MFIX-GUI eq{float(zmax)}
+    monitor_dt(1)       = 0.001
+    monitor_t_g(1)      = .True.
+
+### Residuals
+  resid_string(1) = 'P0'
+  resid_string(2) = 'U0'
+  resid_string(3) = 'V0'
+
+### Discrete element model
+  des_en_input(1)      = 0.9
+  des_en_wall_input(1) = 0.9
+  kn                   = 1000
+  kn_w                 = 1000
+  mew                  = 0.1
+  mew_w                = 0.1
+
+### Two-fluid model
+  c_e            = 0.95
+  c_f            = 0.1
+  ep_star        = 0.42
+  friction_model = 'SCHAEFFER'
+  kt_type        = 'ALGEBRAIC'
+  phi            = 30.0
+  phi_w          = 11.3
+
+# MFIX-GUI section
+#!MFIX-GUI mesh_accepted = False
+#!MFIX-GUI author = zhouh
+#!MFIX-GUI created_date = 2024-12-17 12:17
+#!MFIX-GUI modified_time = 2024-12-17 12:24
+#!MFIX-GUI project_version = 1
+#!MFIX-GUI gui_version = 24.4pre
+#!MFIX-GUI project_notes = "This tutorial shows the hydrogen oxidation in a
+#!MFIX-GUI   batch reactor using the CHEMKIN mechanism. The initial setup in
+#!MFIX-GUI   this file does not have thermodynamic information of species
+#!MFIX-GUI   and the information of reactions, which need to be imported from
+#!MFIX-GUI   the files from CHEMKIN. \nFor step-by-step instructions about
+#!MFIX-GUI   how to import a CHEMKIN mechanism into MFiX, please follow the
+#!MFIX-GUI   hydrogen oxidation tutorial in section 3.11 of the user manual:
+#!MFIX-GUI   https://mfix.netl.doe.gov/doc/mfix/24.4/html/tutorials/tutorial_chemkin.html"
+#!MFIX-GUI modified_by = zhouh
+#!MFIX-GUI geometry = {"geometry_dict": {}, "tree": {}}
+#!MFIX-GUI regions_dict = {"order": ["IC_1", "BC_1", "BC_2", "BC_3", "BC_4",
+#!MFIX-GUI   "BC_5", "BC_6"], "regions": {"IC_1": {"to": [{"__type__":
+#!MFIX-GUI   "equation", "eq": "float(xmax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(ymax)"}, {"__type__": "equation", "eq": "float(zmax)"}],
+#!MFIX-GUI   "from": [{"__type__": "equation", "eq": "float(xmin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(ymin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(zmin)"}], "color": "#abe2a4"}, "BC_1":
+#!MFIX-GUI   {"to": [{"__type__": "equation", "eq": "float(xmin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "color": "#afd180",
+#!MFIX-GUI   "type": "YZ-plane"}, "BC_2": {"to": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmax)"}, {"__type__": "equation", "eq": "float(ymax)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmax)"}], "from":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymin)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmin)"}], "color": "#a1869e", "type": "YZ-plane"}, "BC_3":
+#!MFIX-GUI   {"to": [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymax)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "color": "#92d7b8",
+#!MFIX-GUI   "type": "XZ-plane"}, "BC_4": {"to": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmax)"}, {"__type__": "equation", "eq": "float(ymin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmax)"}], "from":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymin)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmin)"}], "color": "#a968bd", "type": "XZ-plane"}, "BC_5":
+#!MFIX-GUI   {"to": [{"__type__": "equation", "eq": "float(xmax)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymax)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmax)"}], "from": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmin)"}, {"__type__": "equation", "eq": "float(ymin)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmax)"}], "color": "#83b765",
+#!MFIX-GUI   "type": "XY-plane"}, "BC_6": {"to": [{"__type__": "equation", "eq":
+#!MFIX-GUI   "float(xmax)"}, {"__type__": "equation", "eq": "float(ymax)"},
+#!MFIX-GUI   {"__type__": "equation", "eq": "float(zmin)"}], "from":
+#!MFIX-GUI   [{"__type__": "equation", "eq": "float(xmin)"}, {"__type__":
+#!MFIX-GUI   "equation", "eq": "float(ymin)"}, {"__type__": "equation", "eq":
+#!MFIX-GUI   "float(zmin)"}], "color": "#aa7dc9", "type": "XY-plane"}}}
+#!MFIX-GUI bc_regions = [[[1], ["BC_1"]], [[2], ["BC_2"]], [[3], ["BC_3"]],
+#!MFIX-GUI   [[4], ["BC_4"]], [[5], ["BC_5"]], [[6], ["BC_6"]]]
+#!MFIX-GUI ic_regions = [[[1], ["IC_1"]]]
+#!MFIX-GUI vtk_regions = [[[1], ["IC_1"]]]
+#!MFIX-GUI monitor_regions = [[1, "IC_1"]]
+#!MFIX-GUI parameters = {"order": ["min", "max", "xmin", "xmax", "ymin", "ymax",
+#!MFIX-GUI   "zmin", "zmax", "km", "m", "cm", "mm", "um", "mile", "yard", "ft",
+#!MFIX-GUI   "ins"], "parameters": {"min": 0.0, "max": 0.0, "xmin": 0, "xmax":
+#!MFIX-GUI   1.0, "ymin": 0, "ymax": 1.0, "zmin": 0, "zmax": 1.0, "km": 1000.0,
+#!MFIX-GUI   "m": 1.0, "cm": 0.01, "mm": 0.001, "um": 1e-06, "mile": 1609.34,
+#!MFIX-GUI   "yard": 0.9144, "ft": 0.3048, "ins": 0.0254}}
+#!MFIX-GUI retained_keys = {"c_pg0": 1005.0}
+#!MFIX-GUI queue_template = {"JOB_NAME": "hydrogen_oxidation", "CORES": 1,
+#!MFIX-GUI   "QUEUE": "general", "LONG": "", "template": "Joule 3"}
+#!MFIX-GUI OMP_NUM_THREADS = 1
+#!MFIX-GUI mpirun_flags = --use-hwthread-cpus
+#!MFIX-GUI submit_to_queue = 0

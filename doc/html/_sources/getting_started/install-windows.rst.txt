@@ -1,0 +1,129 @@
+.. _install-mfix-windows:
+
+Installing MFix on Windows
+--------------------------
+
+MFiX has been developed and tested on the following Windows versions:
+
+    - Windows 10 (64-bit)
+    - Windows 11 (64-bit)
+
+If you have an issue running or installing MFiX on your system, ask for help at
+:ref:`support-forum`.
+
+Install Miniforge3
+""""""""""""""""""
+
+`Miniforge3` is a minimal version of the Anaconda Python distribution, which is used
+for many scientific computing projects.  MFiX uses many supporting libraries, and the
+easiest way to install MFiX and its dependencies is via the `conda` packages hosted at
+`conda-forge` and NETL.  As of the 23.4 release we recommend the `Miniforge3`
+installation over Anaconda for easier installation and a less restrictive license..
+
+First, **download** the Windows version of the `Miniforge3 installer <https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe>`__ (~64MB)
+
+Next, **double-click** the downloaded file to run it.  You can install to the default location of `%UserProfile%\Miniforge3` or select a different install location.  Leave `Create start menu shortcuts` selected.  It is not necessary to add Miniforge to the system PATH or register Miniforge3 as the default Python interpreter.
+
+Miniforge is now installed. To verify, open the Start menu, and run ``Miniforge Prompt⏎`` or use the desktop icon.
+
+If you are upgrading from a previous version of MFiX and you already have Miniforge or Anaconda installed, you may skip this step (but see note below).
+
+.. note::
+
+
+    If you have previously installed MFiX with Anaconda, you can continue to
+    use your existing Anaconda installation.   We are recommending `Miniforge`
+    for new installations.  If you are using Anaconda we recommend setting
+    channel priority to ``conda-forge``:
+
+          .. code-block:: doscon
+
+             C:\> conda activate base
+             (base)C:\> conda config --add channels conda-forge
+             (base)C:\> conda config --set channel_priority strict
+
+
+Install MFiX
+""""""""""""
+After installing Miniforge, install MFiX:
+
+    #.  Open a Miniforge prompt
+    #.  Browse to `MFiX Download <https://mfix.netl.doe.gov/mfix/download-mfix>`__ (requires registration and login)
+    #.  Copy the installation command.
+    #.  Paste it in to the Miniforge prompt.
+    #.  Press enter to run the command.
+
+ .. note::  If you have previously installed this version of MFiX, you will see the following message. Select ``y`` to confirm.  This will delete the previous MFiX installation and replace it.
+
+          .. code-block:: doscon
+
+              WARNING: A conda environment already exists at ...
+              Remove existing environment (y/[n])? y
+
+MFiX will be installed in a new conda environment. The process may take a few
+minutes to complete.
+
+
+.. _activate-env-windows:
+
+Run MFiX
+""""""""
+
+Open the Miniforge prompt from the start menu or desktop icon.  Then run the following commands:
+
+    #.  Run |conda_act_inline|
+    #.  Run ``mfix⏎``
+
+Your prompt should look something like this:
+
+.. substitution-code-block:: doscon
+
+      C:\> conda create -n mfix-|release| mfix==|release| ...
+
+      C:\> conda env list
+      # conda environments:
+      #
+      base        *  C:\Users\user\miniforge3
+      mfix-|release|    C:\Users\user\miniforge3\envs\mfix-|release|
+
+      C:\> conda activate mfix-|release|
+
+      (mfix-|release|) C:\> mfix
+
+You are now ready to proceed to the :ref:`user-guide` and :ref:`tutorials`.
+
+
+Deactivate conda environment
+""""""""""""""""""""""""""""
+
+After using MFiX you can just ``exit`` to leave the Miniforge prompt, or just close
+the window. However, if you need to deactivate the |conda_env_inline| conda environment,
+you can do so with:
+
+.. substitution-code-block:: doscon
+
+    (mfix-|release|) C:\> conda deactivate
+    C: \>
+
+This returns to the base conda environment.
+
+
+Uninstall MFiX
+""""""""""""""
+
+To remove an MFiX version installed with conda, remove the conda
+environment (if you have the environment activated, deactivate it first):
+
+.. substitution-code-block:: doscon
+
+    (mfix-|release|) C:\> conda deactivate
+    C:\> conda env remove -n mfix-|release|
+
+To uninstall Miniforge or Anaconda entirely, go to "Add or remove programs" under Windows
+Control Panel, and uninstall Miniforge/Anaconda.
+
+.. note::
+
+    To learn more about managing conda environments, visit the `conda documentation
+    <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__ .
+    To learn more about miniforge, see `the Miniforge3 README <https://github.com/conda-forge/miniforge>`__.

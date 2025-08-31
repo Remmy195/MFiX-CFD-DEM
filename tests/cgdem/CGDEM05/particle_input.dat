@@ -1,0 +1,36 @@
+Version 2.0
+========================================================================
+Instructions:
+Dimension: Enter "2" for 2D, "3" for 3D (Integer)
+Particles: Number of particles to read from this file (Integer)
+For each variable, enter whether it will be read from the file
+("T" to be read (True), "F" to not be read (False)). When not read, enter the
+default values assign to all particles.
+Coordinates are always read (X,Y in 2D, X,Y,Z in 3D)
+Phase_ID, Diameter, Density, Temperature are scalars
+Velocity requires U,V in 2D, U,V,W in 3D
+Temperature is only read/set if the energy equation is solved
+Species are only read/set if the species equations are solved, and requires
+all species to be set (if phase 1 has 2 species and phase 2 has 4 species,
+all particles must have 4 entries, even phase 1 particles (pad list with zeros)
+User scalars need DES_USR_VAR_SIZE values
+Data starts at line 35. Each column correspond to a variable.
+========================================================================
+Dimension:    3                               
+Particles:    1                            
+========================================================================
+Variable      Read(T/F)     Default value (when Read=F)
+========================================================================
+Coordinates:     T          Must always be T
+Phase_ID:        F          1
+Diameter:        F          0.001
+Density:         F          958.6
+Velocity:        F          0.0  0.0  0.0
+Temperature:     F          303.15
+Species:         F          1.0
+User_Scalar:     F          (Ignored if no user scalars are defined)
+=================================================
+|       x       |       y       |       z       |
+=================================================
+0.0045		0.0045		0.0045	
+
